@@ -7,23 +7,18 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import coil3.compose.AsyncImage
 import com.example.movieapp.app.App
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.theme.MovieAppTheme
-import com.example.network.KtorClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
     @Inject lateinit var viewModelFactory: ViewModelFactory
-    @Inject lateinit var ktorClient: KtorClient
 
     @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -36,15 +31,6 @@ class MainActivity : ComponentActivity() {
             MovieAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     val scope = rememberCoroutineScope()
-
-                    scope.launch(Dispatchers.IO) {
-                        try {
-                            Log.d("RRRR", ktorClient.getGenres().toString())
-                        }
-                        catch (e: Exception) {
-                            Log.d("RRRR", "ERROR ${e.message}")
-                        }
-                    }
                 }
             }
         }

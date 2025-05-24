@@ -1,6 +1,11 @@
 package com.example.network
 
-import com.example.network.module.Genre
+import com.example.network.module.category.Country
+import com.example.network.module.category.Genre
+import com.example.network.module.category.MovieType
+import com.example.network.module.movie.Comment
+import com.example.network.module.movie.Movie
+import com.example.network.module.season.Season
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
@@ -15,6 +20,9 @@ import io.ktor.serialization.kotlinx.json.json
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
+
+private const val LIMIT_API_COUNT = "20"
+private const val LIMIT_API_MAX_COUNT = "250"
 
 class KtorClient {
     private val okHttpClient = OkHttpClient.Builder()
@@ -50,8 +58,92 @@ class KtorClient {
     }
 
     suspend fun getGenres(): List<Genre> {
-        return client
-            .get("v1/movie/possible-values-by-field?field=genres.name")
-            .body()
+        return try {
+            client.get("v1/movie/possible-values-by-field?field=genres.name")
+                .body()
+        } catch (e: Exception) {
+            listOf()
+        }
+    }
+
+    suspend fun getMovieTypes(): List<MovieType> {
+        return try {
+            client.get("v1/movie/possible-values-by-field?field=type")
+                .body()
+        } catch (e: Exception) {
+            listOf()
+        }
+    }
+
+    suspend fun getCountries(): List<Country> {
+        return try {
+            client.get("v1/movie/possible-values-by-field?field=countries.name")
+                .body()
+        } catch (e: Exception) {
+            listOf()
+        }
+    }
+
+    suspend fun getMovieById(movieId: Int): Movie? {
+        return try {
+            client.get("v1.4/movie/$movieId").body()
+        } catch (e: Exception) {
+            null
+        }
+    }
+
+    suspend fun searchMovieByName(page: Int, q: String): List<Movie> {
+        return try {
+            client.get("v1.4/movie/search") {
+                url {
+                    parameters.append("limit", LIMIT_API_COUNT)
+                    parameters.append("page", page.toString())
+                    parameters.append("query", q)
+                }
+            }.body()
+        } catch (e: Exception) {
+            listOf()
+        }
+    }
+
+    suspend fun getMoviesByFilter(queryParameters: Map<String, String>): List<Movie> {
+        return try {
+            client.get("v1.4/movie") {
+                url {
+                    parameters.append("limit", LIMIT_API_COUNT)
+                    queryParameters.forEach { parameters.append(it.key, it.value) }
+                }
+            }.body()
+        } catch (e: Exception) {
+            listOf()
+        }
+    }
+
+    suspend fun getCommentsByFilter(queryParameters: Map<String, String>): List<Comment> {
+        return try {
+            client.get("v1.4/review") {
+                url {
+                    parameters.append("limit", LIMIT_API_COUNT)
+                    queryParameters.forEach { parameters.append(it.key, it.value) }
+                }
+            }.body()
+        } catch (e: Exception) {
+            listOf()
+        }
+    }
+
+    suspend fun getSeasonsByMovie(movieId: Int): List<Season> {
+        return try {
+            client.get("v1.4/season") {
+                url {
+                    parameters.append("limit", LIMIT_API_MAX_COUNT)
+                    parameters.append("movieId", movieId.toString())
+                    parameters.append("sortField", "number")
+                    parameters.append("sortType", "1")
+                }
+            }.body()
+        } catch (e: Exception) {
+            listOf()
+        }
     }
 }
