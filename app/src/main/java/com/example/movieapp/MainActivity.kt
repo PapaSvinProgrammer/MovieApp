@@ -1,5 +1,6 @@
 package com.example.movieapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.util.Log
 import androidx.activity.ComponentActivity
@@ -8,34 +9,42 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.tooling.preview.Preview
 import coil3.compose.AsyncImage
+import com.example.movieapp.app.App
+import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.theme.MovieAppTheme
 import com.example.network.KtorClient
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-    private val ktorClient = KtorClient()
+    @Inject lateinit var viewModelFactory: ViewModelFactory
+    @Inject lateinit var ktorClient: KtorClient
 
+    @SuppressLint("CoroutineCreationDuringComposition")
     override fun onCreate(savedInstanceState: Bundle?) {
+        (applicationContext as App).appComponent.inject(this)
+
         super.onCreate(savedInstanceState)
+
         enableEdgeToEdge()
         setContent {
             MovieAppTheme {
                 Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    LaunchedEffect(Unit) {
-                        Log.d("RRRR", ktorClient.getGenres().toString())
-                    }
+                    val scope = rememberCoroutineScope()
 
-                    AsyncImage(
-                        model = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcR-2ES-FP7y1iOciI3xYJ2ke8Plgec3Q79y2A&s",
-                        contentDescription = null,
-                        modifier = Modifier.padding(innerPadding)
-                    )
+                    scope.launch(Dispatchers.IO) {
+                        try {
+                            Log.d("RRRR", ktorClient.getGenres().toString())
+                        }
+                        catch (e: Exception) {
+                            Log.d("RRRR", "ERROR ${e.message}")
+                        }
+                    }
                 }
             }
         }
