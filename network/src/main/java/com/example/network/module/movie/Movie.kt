@@ -4,8 +4,6 @@ import com.example.network.module.person.Person
 import com.example.network.module.category.Country
 import com.example.network.module.category.Genre
 import com.example.network.module.category.ProductionCompany
-import com.example.network.module.image.Backdrop
-import com.example.network.module.image.Logo
 import com.example.network.module.image.Poster
 import com.example.network.module.totalValue.Audience
 import com.example.network.module.totalValue.Budget
@@ -33,7 +31,7 @@ data class Movie(
     val persons: List<Person>,
     val productionCompanies: List<ProductionCompany>,
     val alternativeName: String?,
-    val backdrop: Backdrop?,
+    val backdrop: Poster?,
     val movieLength: Int?,
     val status: String?,
     val ageRating: Int?,
@@ -42,7 +40,7 @@ data class Movie(
     val shortDescription: String?,
     val similarMovies: List<Movie>,
     val sequelsAndPrequels: List<Movie>,
-    val logo: Logo?,
+    val logo: Poster?,
     val top10: Int?,
     val top250: Int?,
     val audience: List<Audience>,

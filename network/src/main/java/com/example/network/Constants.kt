@@ -1,4 +1,4 @@
-package com.example.core.domain.common
+package com.example.network
 
 object Constants {
     const val SORT_FIELD = "sortField"
@@ -7,6 +7,15 @@ object Constants {
     const val MOVIE_ID_FIELD = "movieId"
     const val DATE_FIELD = "date"
     const val TYPE_FIELD = "type"
+    const val LIMIT_FIELD = "limit"
+    const val QUERY_FIELD = "query"
+    const val PERSON_ID_FIELD = "personId"
+    const val NOM_AWARD_YEAR_FIELD = "nomination.award.year"
+    const val NOM_AWARD_TITLE_FIELD = "nomination.award.title"
+    const val COUNT_AWARDS_FIELD = "countAwards"
+    const val BIRTHDAY_FIELD = "birthday"
+    const val AGE_FIELD = "age"
+    const val TITLE_FIELD = "title"
 
     const val SORT_ASC = "1"
     const val SORT_DESC = "-1"

@@ -1,7 +1,6 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.MovieRepository
-import com.example.network.module.QueryParameters
 import com.example.network.module.movie.Movie
 import javax.inject.Inject
 
@@ -12,7 +11,7 @@ class GetMovie @Inject constructor(
         return movieRepository.getMovieById(movieId)
     }
 
-    suspend fun search(q: String, page: Int): List<Movie> {
+    suspend fun search(q: String, page: Int = 1): List<Movie> {
         if (q.length < 3 || page <= 0) {
             return listOf()
         }
