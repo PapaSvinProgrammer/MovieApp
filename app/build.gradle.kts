@@ -42,6 +42,7 @@ android {
 
 dependencies {
     implementation(project(":core"))
+    implementation(project(":network"))
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     implementation(libs.coil.compose)

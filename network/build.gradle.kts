@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     kotlin("plugin.serialization") version "2.1.21"
+    id("kotlin-kapt")
 }
 
 android {
@@ -39,6 +40,8 @@ android {
 }
 
 dependencies {
+    implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
     implementation(libs.ktor.client.core)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.ktor.client.logging)
