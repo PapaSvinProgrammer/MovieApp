@@ -2,19 +2,16 @@ package com.example.movieapp
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.rememberCoroutineScope
-import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.app.App
+import com.example.movieapp.app.navigation.NavigationGraph
+import com.example.movieapp.app.navigation.StartRoute
 import com.example.movieapp.di.viewModel.ViewModelFactory
-import com.example.movieapp.ui.theme.MovieAppTheme
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
+import com.example.movieapp.presentation.screen.MainScreen
+import com.example.movieapp.presentation.theme.MovieAppTheme
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
@@ -29,9 +26,10 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             MovieAppTheme {
-                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
-                    val scope = rememberCoroutineScope()
-                }
+                MainScreen(
+                    viewModelFactory = viewModelFactory,
+                    startRoute = StartRoute
+                )
             }
         }
     }

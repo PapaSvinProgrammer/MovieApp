@@ -1,0 +1,20 @@
+package com.example.movieapp.app.navigation
+
+import kotlinx.serialization.Serializable
+
+sealed interface NavRoute
+
+@Serializable
+data object StartRoute: NavRoute
+
+@Serializable
+data object HomeRoute: NavRoute
+
+@Serializable
+data object AccountRoute: NavRoute
+
+@Serializable
+data object SearchRoute: NavRoute
+
+@Serializable
+data object FavoriteRoute: NavRoute

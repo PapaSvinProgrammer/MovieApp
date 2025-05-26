@@ -1,7 +1,7 @@
 package com.example.movieapp.di.viewModel
 
 import androidx.lifecycle.ViewModel
-import com.example.movieapp.ui.viewModel.EntryViewModel
+import com.example.movieapp.presentation.viewModel.EntryViewModel
 import dagger.Binds
 import dagger.MapKey
 import dagger.Module

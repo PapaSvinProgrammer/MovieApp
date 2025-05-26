@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    kotlin("plugin.serialization") version "2.1.21"
     id("kotlin-kapt")
 }
 
@@ -43,6 +44,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":network"))
+    implementation(libs.androidx.navigation.compose)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     implementation(libs.coil.compose)
