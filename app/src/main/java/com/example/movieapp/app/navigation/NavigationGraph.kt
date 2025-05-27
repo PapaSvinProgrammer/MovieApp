@@ -13,11 +13,13 @@ import com.example.movieapp.presentation.screen.FavoriteScreen
 import com.example.movieapp.presentation.screen.HomeScreen
 import com.example.movieapp.presentation.screen.SearchScreen
 import com.example.movieapp.presentation.screen.StartScreen
+import dev.chrisbanes.haze.HazeState
 
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
     mainPadding: PaddingValues,
+    hazeState: HazeState,
     viewModelFactory: ViewModelFactory,
     startRoute: NavRoute
 ) {
@@ -61,7 +63,8 @@ fun NavigationGraph(
         composable<HomeRoute> {
             HomeScreen(
                 navController = navController,
-                mainPadding = mainPadding
+                mainPadding = mainPadding,
+                hazeState = hazeState
             )
         }
 

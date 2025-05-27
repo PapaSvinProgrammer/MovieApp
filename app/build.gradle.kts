@@ -44,6 +44,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":network"))
+    implementation(libs.haze.jetpack.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

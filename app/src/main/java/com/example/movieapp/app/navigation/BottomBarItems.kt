@@ -1,39 +1,48 @@
 package com.example.movieapp.app.navigation
 
+import androidx.compose.ui.graphics.Color
 import com.example.movieapp.R
 
-data class NavBarItem(
+sealed class BottomBarTab(
     val title: String,
-    val route: NavRoute,
     val icon: Int,
-    val iconFill: Int
-)
+    val color: Color,
+    val route: NavRoute
+) {
+    data object Account: BottomBarTab(
+        title = "Профиль",
+        icon = R.drawable.ic_person_fill,
+        color = Color(0xFFFFA574),
+        route = AccountRoute
+    )
+
+    data object Home: BottomBarTab(
+        title = "Главная",
+        icon = R.drawable.ic_home_fill,
+        color = Color(0xFFFA6FFF),
+        route = HomeRoute
+    )
+
+    data object Search: BottomBarTab(
+        title = "Поиск",
+        icon = R.drawable.ic_search,
+        color = Color(0xFFADFF64),
+        route = SearchRoute
+    )
+
+    data object Favorite: BottomBarTab(
+        title = "Избранное",
+        icon = R.drawable.ic_bookmark_fill,
+        color = Color(0xFF009688),
+        route = FavoriteRoute
+    )
+}
 
 object BottomBarItems {
     val items = listOf(
-        NavBarItem(
-            title = "Главная",
-            icon = R.drawable.ic_home,
-            iconFill = R.drawable.ic_home_fill,
-            route = HomeRoute
-        ),
-        NavBarItem(
-            title = "Избранное",
-            icon = R.drawable.ic_bookmark,
-            iconFill = R.drawable.ic_bookmark_fill,
-            route = FavoriteRoute
-        ),
-        NavBarItem(
-            title = "Поиск",
-            icon = R.drawable.ic_search,
-            iconFill = R.drawable.ic_search,
-            route = SearchRoute
-        ),
-        NavBarItem(
-            title = "Аккаунт",
-            icon = R.drawable.ic_person,
-            iconFill = R.drawable.ic_person_fill,
-            route = AccountRoute
-        )
+        BottomBarTab.Home,
+        BottomBarTab.Favorite,
+        BottomBarTab.Search,
+        BottomBarTab.Account
     )
 }

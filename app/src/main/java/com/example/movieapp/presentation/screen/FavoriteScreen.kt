@@ -20,7 +20,7 @@ fun FavoriteScreen(
         modifier = Modifier.padding(bottom = mainPadding.calculateBottomPadding()),
         topBar = {
             CenterAlignedTopAppBar(
-                title = { TitleTopBarText("Account") }
+                title = { TitleTopBarText("Favorite") }
             )
         }
     ) { innerPadding ->
