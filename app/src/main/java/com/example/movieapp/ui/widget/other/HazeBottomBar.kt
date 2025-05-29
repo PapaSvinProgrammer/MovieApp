@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget
+package com.example.movieapp.ui.widget.other
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState

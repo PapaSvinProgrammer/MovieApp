@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget
+package com.example.movieapp.ui.widget.other
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable

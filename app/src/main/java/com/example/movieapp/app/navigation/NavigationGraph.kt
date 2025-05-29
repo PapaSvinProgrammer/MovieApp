@@ -26,7 +26,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = startRoute,
+        startDestination = AccountRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -79,7 +79,7 @@ fun NavigationGraph(
 
         composable<AccountRoute> {
             AccountScreen(
-                navController = navController
+                //navController = navController
             )
         }
 

@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -19,16 +20,17 @@ import androidx.compose.ui.unit.sp
 fun TitleRow(
     modifier: Modifier = Modifier,
     title: String,
-    onShowAll: () -> Unit
+    fontSize: TextUnit = 18.sp,
+    onClick: () -> Unit
 ) {
     Box(
         modifier = modifier
             .fillMaxWidth()
-            .clickable(onClick = onShowAll)
+            .clickable(onClick = onClick)
     ) {
         Text(
             text = title,
-            fontSize = 18.sp,
+            fontSize = fontSize,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.align(Alignment.CenterStart).padding(15.dp)
         )

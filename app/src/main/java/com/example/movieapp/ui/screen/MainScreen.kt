@@ -18,7 +18,7 @@ import com.example.movieapp.app.navigation.NavRoute
 import com.example.movieapp.app.navigation.NavigationGraph
 import com.example.movieapp.app.navigation.SearchRoute
 import com.example.movieapp.di.viewModel.ViewModelFactory
-import com.example.movieapp.ui.widget.HazeBottomBar
+import com.example.movieapp.ui.widget.other.HazeBottomBar
 import dev.chrisbanes.haze.HazeState
 
 @Composable

@@ -4,4 +4,7 @@
     <string name="registration">Регитсрация</string>
     <string name="show_all">Показать все</string>
     <string name="collections">Коллекции</string>
+    <string name="about_app">О приложении</string>
+    <string name="settings">Настройки</string>
+    <string name="chat_with_support">Чат с поддержкой</string>
 </resources>

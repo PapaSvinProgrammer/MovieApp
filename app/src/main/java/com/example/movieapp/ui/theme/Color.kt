@@ -5,6 +5,11 @@ import androidx.compose.ui.graphics.Color
 val Green = Color(0xff18e469)
 val Gold = Color(0xffffd500)
 
+val ColorGradient1 = Color(0xFFFFA574)
+val ColorGradient2 = Color(0xFFFA6FFF)
+val ColorGradient3 = Color(0xFFADFF64)
+val ColorGradient4 = Color(0xFF009688)
+
 val primaryLight = Color(0xFF006874)
 val onPrimaryLight = Color(0xFFFFFFFF)
 val primaryContainerLight = Color(0xFF9EEFFD)
