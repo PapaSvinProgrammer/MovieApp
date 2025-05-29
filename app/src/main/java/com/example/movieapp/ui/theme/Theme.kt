@@ -1,10 +1,9 @@
-package com.example.movieapp.presentation.theme
+package com.example.movieapp.ui.theme
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import com.example.movieapp.presentation.theme.colorScheme.ColorSchemeType
 
 private val LightColorScheme = lightColorScheme(
     primary = primaryLight,
@@ -85,7 +84,6 @@ private val DarkColorScheme = darkColorScheme(
 @Composable
 fun MovieAppTheme(
     darkTheme: Boolean,
-    colorSchemeType: ColorSchemeType,
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {

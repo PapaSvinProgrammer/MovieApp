@@ -16,6 +16,9 @@ object Constants {
     const val BIRTHDAY_FIELD = "birthday"
     const val AGE_FIELD = "age"
     const val TITLE_FIELD = "title"
+    const val RATING_KP_FIELD = "rating.kp"
+    const val GENRES_NAME_FIELD = "genres.name"
+    const val LISTS_FIELD = "lists"
 
     const val SORT_ASC = "1"
     const val SORT_DESC = "-1"

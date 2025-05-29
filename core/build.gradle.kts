@@ -35,6 +35,7 @@ android {
 
 dependencies {
     implementation(project(":network"))
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">MovieApp</string>
+    <string name="entry">Войти</string>
+    <string name="registration">Регитсрация</string>
+    <string name="show_all">Показать все</string>
+    <string name="collections">Коллекции</string>
 </resources>

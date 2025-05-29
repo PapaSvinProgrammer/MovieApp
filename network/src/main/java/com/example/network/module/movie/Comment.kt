@@ -1,5 +1,8 @@
 package com.example.network.module.movie
 
+import kotlinx.serialization.Serializable
+
+@Serializable
 data class Comment(
     val id: Int,
     val movieId: Int,
@@ -9,7 +12,7 @@ data class Comment(
     val date: String,
     val author: String,
     val userRating: Int,
-    val authorId: Long,
+    val authorId: Int,
     val createdAt: String,
     val updatedAt: String,
     val reviewDislikes: Int,

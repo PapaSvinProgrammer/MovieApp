@@ -1,6 +1,9 @@
-package com.example.movieapp.presentation.theme
+package com.example.movieapp.ui.theme
 
 import androidx.compose.ui.graphics.Color
+
+val Green = Color(0xff18e469)
+val Gold = Color(0xffffd500)
 
 val primaryLight = Color(0xFF006874)
 val onPrimaryLight = Color(0xFFFFFFFF)

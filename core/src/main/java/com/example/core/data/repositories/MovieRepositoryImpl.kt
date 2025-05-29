@@ -1,5 +1,6 @@
 package com.example.core.data.repositories
 
+import android.util.Log
 import com.example.core.domain.repositories.MovieRepository
 import com.example.network.KtorClient
 import com.example.network.module.movie.Movie
@@ -12,6 +13,7 @@ class MovieRepositoryImpl @Inject constructor(
         return try {
             ktorClient.getMoviesByFilter(queryParameters)
         } catch (e: Exception) {
+            Log.d("RRRR", e.toString())
             listOf()
         }
     }

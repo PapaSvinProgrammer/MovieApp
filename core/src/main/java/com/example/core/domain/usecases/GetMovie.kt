@@ -1,6 +1,7 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.MovieRepository
+import com.example.network.Constants
 import com.example.network.module.movie.Movie
 import javax.inject.Inject
 
@@ -17,6 +18,39 @@ class GetMovie @Inject constructor(
         }
 
         return movieRepository.search(q, page)
+    }
+
+    suspend fun getMoviesByGenre(genre: String, page: Int = 1): List<Movie> {
+        val queryParameters = mapOf(
+            Constants.PAGE_FIELD to page.toString(),
+            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+            Constants.SORT_TYPE to Constants.SORT_DESC,
+            Constants.GENRES_NAME_FIELD to genre
+        )
+
+        return movieRepository.getMovieByFilter(queryParameters)
+    }
+
+    suspend fun getMoviesByCollection(name: String, page: Int = 1): List<Movie> {
+        val queryParameters = mapOf(
+            Constants.PAGE_FIELD to page.toString(),
+            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+            Constants.SORT_TYPE to Constants.SORT_DESC,
+            Constants.LISTS_FIELD to name
+        )
+
+        return movieRepository.getMovieByFilter(queryParameters)
+    }
+
+    suspend fun getMoviesByCompany(name: String, page: Int = 1): List<Movie> {
+        val queryParameters = mapOf(
+            Constants.PAGE_FIELD to page.toString(),
+            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+            Constants.SORT_TYPE to Constants.SORT_DESC,
+            "networks.items.name" to name
+        )
+
+        return movieRepository.getMovieByFilter(queryParameters)
     }
 
     suspend fun getByFilter(queryParameters: Map<String, String>): List<Movie> {

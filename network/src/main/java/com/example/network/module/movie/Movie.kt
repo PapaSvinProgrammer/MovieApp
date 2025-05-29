@@ -11,7 +11,9 @@ import com.example.network.module.totalValue.Premiere
 import com.example.network.module.totalValue.Rating
 import com.example.network.module.totalValue.ReleaseYears
 import com.example.network.module.totalValue.Votes
+import kotlinx.serialization.Serializable
 
+@Serializable
 data class Movie(
     val id: Int,
     val type: String?,
@@ -25,11 +27,11 @@ data class Movie(
     val year: Int?,
     val budget: Budget?,
     val poster: Poster?,
-    val facts: List<Fact>,
-    val genres: List<Genre>,
-    val countries: List<Country>,
-    val persons: List<Person>,
-    val productionCompanies: List<ProductionCompany>,
+    val facts: List<Fact> = listOf(),
+    val genres: List<Genre> = listOf(),
+    val countries: List<Country> = listOf(),
+    val persons: List<Person> = listOf(),
+    val productionCompanies: List<ProductionCompany> = listOf(),
     val alternativeName: String?,
     val backdrop: Poster?,
     val movieLength: Int?,
@@ -38,14 +40,14 @@ data class Movie(
     val ratingMpaa: String?,
     val updatedAt: String?,
     val shortDescription: String?,
-    val similarMovies: List<Movie>,
-    val sequelsAndPrequels: List<Movie>,
+    val similarMovies: List<Movie> = listOf(),
+    val sequelsAndPrequels: List<Movie> = listOf(),
     val logo: Poster?,
     val top10: Int?,
     val top250: Int?,
-    val audience: List<Audience>,
+    val audience: List<Audience> = listOf(),
     val isSeries: Boolean?,
     val seriesLength: Int?,
     val totalSeriesLength: Int?,
-    val releaseYears: ReleaseYears?
+    val releaseYears: List<ReleaseYears> = listOf()
 )

@@ -9,9 +9,10 @@ import javax.inject.Inject
 class GetCollection @Inject constructor(
     private val collectionRepository: CollectionRepository
 ) {
-    suspend fun getCollections(page: Int = 1): List<Collection> {
+    suspend fun execute(page: Int = 1): List<Collection> {
         val queryParameters = mapOf(
-            PAGE_FIELD to page.toString()
+            PAGE_FIELD to page.toString(),
+            "slug" to "!hd"
         )
 
         return collectionRepository.getCollections(queryParameters)
