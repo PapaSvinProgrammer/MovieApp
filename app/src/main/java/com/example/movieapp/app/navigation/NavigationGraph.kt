@@ -14,6 +14,7 @@ import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.StartScreen
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.viewModel.StartViewModel
 import dev.chrisbanes.haze.HazeState
 
@@ -26,7 +27,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = AccountRoute,
+        startDestination = SearchRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -72,8 +73,12 @@ fun NavigationGraph(
         }
 
         composable<SearchRoute> {
+            val viewModel: SearchViewModel = viewModel(factory = viewModelFactory)
+
             SearchScreen(
-                navController = navController
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState
             )
         }
 

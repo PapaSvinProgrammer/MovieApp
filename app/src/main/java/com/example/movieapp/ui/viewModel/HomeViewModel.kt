@@ -122,7 +122,7 @@ class HomeViewModel @Inject constructor(
         if (collectionState is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            collectionState = CollectionUIState.Success(getCollection.execute())
+            collectionState = CollectionUIState.Success(getCollection.getAll())
         }
     }
 }

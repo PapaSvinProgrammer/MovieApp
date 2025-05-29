@@ -1,16 +1,15 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.AwardRepository
-import com.example.network.Constants.DATE_FIELD
-import com.example.network.Constants.MOVIE_ID_FIELD
-import com.example.network.Constants.NOM_AWARD_TITLE_FIELD
-import com.example.network.Constants.NOM_AWARD_YEAR_FIELD
-import com.example.network.Constants.PAGE_FIELD
-import com.example.network.Constants.PERSON_ID_FIELD
-import com.example.network.Constants.SORT_ASC
-import com.example.network.Constants.SORT_DESC
-import com.example.network.Constants.SORT_FIELD
-import com.example.network.Constants.SORT_TYPE
+import com.example.network.utils.Constants.MOVIE_ID_FIELD
+import com.example.network.utils.Constants.NOM_AWARD_TITLE_FIELD
+import com.example.network.utils.Constants.NOM_AWARD_YEAR_FIELD
+import com.example.network.utils.Constants.PAGE_FIELD
+import com.example.network.utils.Constants.PERSON_ID_FIELD
+import com.example.network.utils.Constants.SORT_ASC
+import com.example.network.utils.Constants.SORT_DESC
+import com.example.network.utils.Constants.SORT_FIELD
+import com.example.network.utils.Constants.SORT_TYPE
 import com.example.network.module.person.NominationAward
 import javax.inject.Inject
 

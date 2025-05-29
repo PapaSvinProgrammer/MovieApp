@@ -26,6 +26,7 @@ import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.remember
@@ -54,10 +55,21 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
-import com.example.movieapp.app.navigation.BottomBarItems
+import androidx.navigation.compose.currentBackStackEntryAsState
+import com.example.movieapp.app.navigation.AccountRoute
 import com.example.movieapp.app.navigation.BottomBarTab
+import com.example.movieapp.app.navigation.FavoriteRoute
+import com.example.movieapp.app.navigation.HomeRoute
+import com.example.movieapp.app.navigation.SearchRoute
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeChild
+
+private val routeList = listOf(
+    HomeRoute::class.java.canonicalName,
+    FavoriteRoute::class.java.canonicalName,
+    SearchRoute::class.java.canonicalName,
+    AccountRoute::class.java.canonicalName
+)
 
 @Composable
 fun HazeBottomBar(
@@ -66,10 +78,14 @@ fun HazeBottomBar(
     hazeState: HazeState,
     visible: Boolean
 ) {
-    var selectedTab by remember {
-        mutableIntStateOf(
-            BottomBarItems.items.indexOf(BottomBarTab.Home)
-        )
+    val backStackEntry by navController.currentBackStackEntryAsState()
+    val currentRoute = backStackEntry?.destination?.route
+    var selectedTab by remember { mutableIntStateOf(0) }
+
+    LaunchedEffect(currentRoute) {
+        currentRoute?.let {
+            selectedTab = routeList.indexOf(it)
+        }
     }
 
     AnimatedVisibility(
@@ -97,10 +113,8 @@ fun HazeBottomBar(
         ) {
             NavigationBottomTabs(
                 tabs = tabs,
-                selectedTab = selectedTab,
+                currentRoute = currentRoute ?: "",
                 onTabSelected = {
-                    selectedTab = BottomBarItems.items.indexOf(it)
-
                     navController.navigate(it.route) {
                         popUpTo(navController.graph.findStartDestination().id) { saveState = true }
                         launchSingleTop = true
@@ -109,77 +123,88 @@ fun HazeBottomBar(
                 }
             )
 
-            val animatedSelectedTabIndex by animateFloatAsState(
-                targetValue = selectedTab.toFloat(),
-                animationSpec = spring(
-                    stiffness = Spring.StiffnessLow,
-                    dampingRatio = Spring.DampingRatioLowBouncy,
-                )
+            BackgroundContent(
+                tabs = tabs,
+                selectedTab = selectedTab
             )
-
-            val animatedColor by animateColorAsState(
-                targetValue = tabs[selectedTab].color,
-                animationSpec = spring(
-                    stiffness = Spring.StiffnessLow,
-                )
-            )
-
-            Canvas(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-                    .blur(50.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
-            ) {
-                val tabWidth = size.width / tabs.size
-                drawCircle(
-                    color = animatedColor.copy(alpha = .6f),
-                    radius = size.height / 2,
-                    center = Offset(
-                        (tabWidth * animatedSelectedTabIndex) + tabWidth / 2,
-                        size.height / 2
-                    )
-                )
-            }
-
-            Canvas(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .clip(CircleShape)
-            ) {
-                val path = androidx.compose.ui.graphics.Path().apply {
-                    addRoundRect(RoundRect(size.toRect(), CornerRadius(size.height)))
-                }
-                val length = PathMeasure().apply { setPath(path, false) }.length
-
-                val tabWidth = size.width / tabs.size
-                drawPath(
-                    path,
-                    brush = Brush.horizontalGradient(
-                        colors = listOf(
-                            animatedColor.copy(alpha = 0f),
-                            animatedColor.copy(alpha = 1f),
-                            animatedColor.copy(alpha = 1f),
-                            animatedColor.copy(alpha = 0f),
-                        ),
-                        startX = tabWidth * animatedSelectedTabIndex,
-                        endX = tabWidth * (animatedSelectedTabIndex + 1),
-                    ),
-                    style = Stroke(
-                        width = 6f,
-                        pathEffect = PathEffect.dashPathEffect(
-                            intervals = floatArrayOf(length / 2, length)
-                        )
-                    )
-                )
-            }
         }
+    }
+}
+
+@Composable
+private fun BackgroundContent(
+    tabs: List<BottomBarTab>,
+    selectedTab: Int
+) {
+    val animatedSelectedTabIndex by animateFloatAsState(
+        targetValue = selectedTab.toFloat(),
+        animationSpec = spring(
+            stiffness = Spring.StiffnessLow,
+            dampingRatio = Spring.DampingRatioLowBouncy,
+        )
+    )
+
+    val animatedColor by animateColorAsState(
+        targetValue = tabs[selectedTab].color,
+        animationSpec = spring(
+            stiffness = Spring.StiffnessLow,
+        )
+    )
+
+    Canvas(
+        modifier = Modifier
+            .fillMaxSize()
+            .clip(CircleShape)
+            .blur(50.dp, edgeTreatment = BlurredEdgeTreatment.Unbounded)
+    ) {
+        val tabWidth = size.width / tabs.size
+        drawCircle(
+            color = animatedColor.copy(alpha = .6f),
+            radius = size.height / 2,
+            center = Offset(
+                (tabWidth * animatedSelectedTabIndex) + tabWidth / 2,
+                size.height / 2
+            )
+        )
+    }
+
+    Canvas(
+        modifier = Modifier
+            .fillMaxSize()
+            .clip(CircleShape)
+    ) {
+        val path = androidx.compose.ui.graphics.Path().apply {
+            addRoundRect(RoundRect(size.toRect(), CornerRadius(size.height)))
+        }
+        val length = PathMeasure().apply { setPath(path, false) }.length
+
+        val tabWidth = size.width / tabs.size
+        drawPath(
+            path,
+            brush = Brush.horizontalGradient(
+                colors = listOf(
+                    animatedColor.copy(alpha = 0f),
+                    animatedColor.copy(alpha = 1f),
+                    animatedColor.copy(alpha = 1f),
+                    animatedColor.copy(alpha = 0f),
+                ),
+                startX = tabWidth * animatedSelectedTabIndex,
+                endX = tabWidth * (animatedSelectedTabIndex + 1),
+            ),
+            style = Stroke(
+                width = 6f,
+                pathEffect = PathEffect.dashPathEffect(
+                    intervals = floatArrayOf(length / 2, length)
+                )
+            )
+        )
     }
 }
 
 @Composable
 private fun NavigationBottomTabs(
     tabs: List<BottomBarTab>,
-    selectedTab: Int,
+    currentRoute: String,
     onTabSelected: (BottomBarTab) -> Unit
 ) {
     CompositionLocalProvider(
@@ -191,12 +216,14 @@ private fun NavigationBottomTabs(
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
             tabs.forEach { tab ->
+                val isSelected = currentRoute == tab.route::class.java.canonicalName
+
                 val alpha by animateFloatAsState(
-                    targetValue = if (selectedTab == tabs.indexOf(tab)) 1f else .35f
+                    targetValue = if (isSelected) 1f else .35f
                 )
 
                 val scale by animateFloatAsState(
-                    targetValue = if (selectedTab == tabs.indexOf(tab)) 1f else .98f,
+                    targetValue = if (isSelected) 1f else .98f,
                     visibilityThreshold = .000001f,
                     animationSpec = spring(
                         stiffness = Spring.StiffnessLow,
@@ -220,8 +247,6 @@ private fun NavigationBottomTabs(
                         painter = painterResource(tab.icon),
                         contentDescription = null
                     )
-
-                    //Text(text = tab.title)
                 }
             }
         }

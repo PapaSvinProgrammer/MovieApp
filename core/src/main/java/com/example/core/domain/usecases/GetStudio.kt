@@ -1,14 +1,11 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.StudioRepository
-import com.example.network.Constants
-import com.example.network.Constants.MOVIE_ID_FIELD
-import com.example.network.Constants.PAGE_FIELD
-import com.example.network.Constants.SORT_ASC
-import com.example.network.Constants.SORT_DESC
-import com.example.network.Constants.SORT_FIELD
-import com.example.network.Constants.SORT_TYPE
-import com.example.network.Constants.TITLE_FIELD
+import com.example.network.utils.Constants.PAGE_FIELD
+import com.example.network.utils.Constants.SORT_DESC
+import com.example.network.utils.Constants.SORT_FIELD
+import com.example.network.utils.Constants.SORT_TYPE
+import com.example.network.utils.Constants.TITLE_FIELD
 import com.example.network.module.movie.Studio
 import javax.inject.Inject
 

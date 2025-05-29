@@ -29,7 +29,7 @@ import com.example.movieapp.ui.theme.ColorGradient1
 import com.example.movieapp.ui.theme.ColorGradient2
 import com.example.movieapp.ui.theme.ColorGradient3
 import com.example.movieapp.ui.theme.ColorGradient4
-import com.example.movieapp.ui.widget.componentRow.TitleRow
+import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.other.animatedBorder
 
 @Preview(showSystemUi = true)

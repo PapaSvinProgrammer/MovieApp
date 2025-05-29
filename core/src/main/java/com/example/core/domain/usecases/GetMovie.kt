@@ -1,7 +1,7 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.MovieRepository
-import com.example.network.Constants
+import com.example.network.utils.Constants
 import com.example.network.module.movie.Movie
 import javax.inject.Inject
 

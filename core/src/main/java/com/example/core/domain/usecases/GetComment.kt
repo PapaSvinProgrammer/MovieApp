@@ -1,17 +1,17 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.CommentRepository
-import com.example.network.Constants.DATE_FIELD
-import com.example.network.Constants.MOVIE_ID_FIELD
-import com.example.network.Constants.PAGE_FIELD
-import com.example.network.Constants.SORT_ASC
-import com.example.network.Constants.SORT_DESC
-import com.example.network.Constants.SORT_FIELD
-import com.example.network.Constants.SORT_TYPE
-import com.example.network.Constants.TYPE_FIELD
-import com.example.network.Constants.POSITIVE_VALUE
-import com.example.network.Constants.NEUTRAL_VALUE
-import com.example.network.Constants.NEGATIVE_VALUE
+import com.example.network.utils.Constants.DATE_FIELD
+import com.example.network.utils.Constants.MOVIE_ID_FIELD
+import com.example.network.utils.Constants.PAGE_FIELD
+import com.example.network.utils.Constants.SORT_ASC
+import com.example.network.utils.Constants.SORT_DESC
+import com.example.network.utils.Constants.SORT_FIELD
+import com.example.network.utils.Constants.SORT_TYPE
+import com.example.network.utils.Constants.TYPE_FIELD
+import com.example.network.utils.Constants.POSITIVE_VALUE
+import com.example.network.utils.Constants.NEUTRAL_VALUE
+import com.example.network.utils.Constants.NEGATIVE_VALUE
 import com.example.network.module.movie.Comment
 import javax.inject.Inject
 

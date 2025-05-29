@@ -1,9 +1,11 @@
 package com.example.movieapp.di.viewModel
 
+import android.widget.SearchView
 import androidx.lifecycle.ViewModel
 import com.example.movieapp.MainViewModel
 import com.example.movieapp.ui.viewModel.EntryViewModel
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.viewModel.StartViewModel
 import dagger.Binds
 import dagger.MapKey
@@ -41,4 +43,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(HomeViewModel::class)
     fun bindHomeViewModel(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchViewModel::class)
+    fun bindSearchViewModel(viewModel: SearchViewModel): ViewModel
 }

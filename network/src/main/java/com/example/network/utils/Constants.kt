@@ -1,4 +1,4 @@
-package com.example.network
+package com.example.network.utils
 
 object Constants {
     const val SORT_FIELD = "sortField"
@@ -19,6 +19,8 @@ object Constants {
     const val RATING_KP_FIELD = "rating.kp"
     const val GENRES_NAME_FIELD = "genres.name"
     const val LISTS_FIELD = "lists"
+    const val CATEGORY_FIELD = "category"
+    const val SLUG_FIELD = "slug"
 
     const val SORT_ASC = "1"
     const val SORT_DESC = "-1"

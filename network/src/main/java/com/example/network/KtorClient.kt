@@ -1,11 +1,11 @@
 package com.example.network
 
-import com.example.network.Constants.LIMIT_FIELD
-import com.example.network.Constants.MOVIE_ID_FIELD
-import com.example.network.Constants.PAGE_FIELD
-import com.example.network.Constants.QUERY_FIELD
-import com.example.network.Constants.SORT_FIELD
-import com.example.network.Constants.SORT_TYPE
+import com.example.network.utils.Constants.LIMIT_FIELD
+import com.example.network.utils.Constants.MOVIE_ID_FIELD
+import com.example.network.utils.Constants.PAGE_FIELD
+import com.example.network.utils.Constants.QUERY_FIELD
+import com.example.network.utils.Constants.SORT_FIELD
+import com.example.network.utils.Constants.SORT_TYPE
 import com.example.network.module.category.Country
 import com.example.network.module.category.Genre
 import com.example.network.module.category.MovieType
