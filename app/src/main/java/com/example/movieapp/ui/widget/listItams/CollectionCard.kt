@@ -20,6 +20,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.movieapp.R
 
@@ -55,6 +56,7 @@ fun CollectionCard(
             Text(
                 text = title,
                 fontWeight = FontWeight.Medium,
+                fontSize = 14.sp,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
                 modifier = Modifier.padding(vertical = 10.dp)

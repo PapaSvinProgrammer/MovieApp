@@ -24,6 +24,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.CompositionLocalProvider
 import androidx.compose.runtime.LaunchedEffect
@@ -43,7 +44,6 @@ import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.RoundRect
 import androidx.compose.ui.geometry.toRect
 import androidx.compose.ui.graphics.Brush
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.PathEffect
 import androidx.compose.ui.graphics.PathMeasure
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -103,8 +103,8 @@ fun HazeBottomBar(
                     width = Dp.Hairline,
                     brush = Brush.verticalGradient(
                         colors = listOf(
-                            Color.White.copy(alpha = .8f),
-                            Color.White.copy(alpha = .2f),
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = .8f),
+                            MaterialTheme.colorScheme.onSurface.copy(alpha = .2f),
                         ),
                     ),
                     shape = CircleShape
@@ -136,6 +136,8 @@ private fun BackgroundContent(
     tabs: List<BottomBarTab>,
     selectedTab: Int
 ) {
+    if (selectedTab < 0) return
+
     val animatedSelectedTabIndex by animateFloatAsState(
         targetValue = selectedTab.toFloat(),
         animationSpec = spring(
@@ -208,11 +210,11 @@ private fun NavigationBottomTabs(
     onTabSelected: (BottomBarTab) -> Unit
 ) {
     CompositionLocalProvider(
-        LocalTextStyle provides  LocalTextStyle.current.copy(
+        LocalTextStyle provides LocalTextStyle.current.copy(
             fontSize = 12.sp,
             fontWeight = FontWeight.Medium
         ),
-        LocalContentColor provides Color.White
+        LocalContentColor provides MaterialTheme.colorScheme.onSurface
     ) {
         Row(modifier = Modifier.fillMaxSize()) {
             tabs.forEach { tab ->
@@ -245,7 +247,8 @@ private fun NavigationBottomTabs(
                 ) {
                     Icon(
                         painter = painterResource(tab.icon),
-                        contentDescription = null
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurface
                     )
                 }
             }

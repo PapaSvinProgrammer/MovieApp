@@ -7,6 +7,7 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -16,7 +17,10 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.itemsIndexed
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -29,6 +33,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Switch
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -44,6 +49,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.R
+import com.example.movieapp.app.utils.ApplicationIcon
+import com.example.movieapp.app.utils.iconsApplication
 import com.example.movieapp.ui.viewModel.SettingsViewModel
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 
@@ -55,6 +62,13 @@ fun SettingsScreen(
 ) {
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getTheme()
+        viewModel.getCurrentIconIndex()
+    }
+
+    LaunchedEffect(viewModel.currentIcon) {
+        if (viewModel.currentIcon != 1) {
+            viewModel.updateAlternativeSwitch(true)
+        }
     }
 
     Scaffold(
@@ -77,6 +91,7 @@ fun SettingsScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
+                .verticalScroll(rememberScrollState())
                 .padding(
                     top = innerPadding.calculateTopPadding(),
                     bottom = innerPadding.calculateBottomPadding(),
@@ -106,7 +121,17 @@ fun SettingsScreen(
             Spacer(modifier = Modifier.height(15.dp))
             OtherIconAppContent(
                 checked = viewModel.alternativeIconSwitch,
-                onClick = { viewModel.updateAlternativeSwitch(it) }
+                onClick = {
+                    viewModel.updateAlternativeSwitch(it)
+
+                    if (!it) {
+                        viewModel.setCurrentIconIndex(1)
+                    }
+                },
+                currentIconIndex = viewModel.currentIcon,
+                onChangeIcon = {
+                    viewModel.setCurrentIconIndex(it)
+                }
             )
             Spacer(modifier = Modifier.height(30.dp))
 
@@ -182,7 +207,9 @@ private fun TwinTitleRow(
 @Composable
 private fun OtherIconAppContent(
     checked: Boolean,
-    onClick: (Boolean) -> Unit
+    onClick: (Boolean) -> Unit,
+    onChangeIcon: (Int) -> Unit,
+    currentIconIndex: Int
 ) {
     Column(
         modifier = Modifier
@@ -192,7 +219,6 @@ private fun OtherIconAppContent(
                 color = MaterialTheme.colorScheme.surfaceContainer,
                 shape = RoundedCornerShape(10.dp)
             )
-            .padding(15.dp)
             .animateContentSize()
     ) {
         OnceTitleRow(
@@ -202,26 +228,66 @@ private fun OtherIconAppContent(
         )
 
         if (checked) {
-            Spacer(modifier = Modifier.height(5.dp))
             HorizontalDivider()
             Spacer(modifier = Modifier.height(15.dp))
 
             LazyRow(
                 modifier = Modifier.fillMaxWidth(),
-                horizontalArrangement = Arrangement.spacedBy(15.dp)
+                horizontalArrangement = Arrangement.spacedBy(15.dp),
+                contentPadding = PaddingValues(vertical = 15.dp, horizontal = 10.dp)
             ) {
-                items(5) {
-                    Icon(
-                        painter = painterResource(R.drawable.ic_launcher_background),
-                        contentDescription = null,
-                        tint = Color.Unspecified,
-                        modifier = Modifier
-                            .size(60.dp)
-                            .clip(RoundedCornerShape(10.dp))
+                itemsIndexed(iconsApplication) { index, item ->
+                    IconCard(
+                        icon = item,
+                        currentIcon = currentIconIndex,
+                        currentIndex = index,
+                        onClick = { onChangeIcon(index + 1) }
                     )
                 }
             }
         }
+    }
+}
+
+@Composable
+private fun IconCard(
+    modifier: Modifier = Modifier,
+    icon: ApplicationIcon,
+    currentIcon: Int,
+    currentIndex: Int,
+    onClick: () -> Unit
+) {
+    val tint = if (icon.origColor)
+        Color.Unspecified
+    else
+        MaterialTheme.colorScheme.onSurface
+
+    val borderColor = if (currentIcon - 1 == currentIndex)
+        MaterialTheme.colorScheme.primary
+    else
+        Color.Transparent
+
+    Box(
+        modifier = Modifier
+            .size(80.dp)
+            .background(
+                color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clip(RoundedCornerShape(10.dp))
+            .border(
+                width = 2.dp,
+                color = borderColor,
+                shape = RoundedCornerShape(10.dp)
+            )
+            .clickable(onClick = onClick)
+    ) {
+        Icon(
+            painter = painterResource(icon.image),
+            contentDescription = null,
+            tint = tint,
+            modifier = modifier.align(Alignment.Center)
+        )
     }
 }
 
@@ -309,13 +375,12 @@ private fun OnceTitleRow(
             .background(
                 color = MaterialTheme.colorScheme.surfaceContainer,
                 shape = RoundedCornerShape(10.dp)
-            ),
+            )
+            .padding(15.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
-            modifier = Modifier
-                .fillMaxWidth()
-                .weight(5f),
+            modifier = Modifier.weight(5f),
             text = title,
             textAlign = TextAlign.Start,
             fontSize = 14.sp,

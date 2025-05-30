@@ -5,6 +5,7 @@ import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
+import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
 import com.example.core.domain.repositories.PreferencesRepository
 import kotlinx.coroutines.flow.Flow
@@ -14,6 +15,7 @@ import javax.inject.Inject
 private const val NAME_DATA_STORE = "SettingsMovieApp"
 private val DARK_THEME = booleanPreferencesKey("dark_theme")
 private val ENTRY_STATE = booleanPreferencesKey("entry_state")
+private val CURRENT_ICON = intPreferencesKey("current_icon")
 
 class PreferencesRepositoryImpl @Inject constructor(
     private val context: Context
@@ -32,6 +34,12 @@ class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
+    override suspend fun setCurrentIcon(index: Int) {
+        context.dataStore.edit {
+            it[CURRENT_ICON] = index
+        }
+    }
+
     override suspend fun getDarkTheme(): Flow<Boolean> {
         return context.dataStore.data.map {
             it[DARK_THEME] ?: true
@@ -41,6 +49,12 @@ class PreferencesRepositoryImpl @Inject constructor(
     override suspend fun getEntryState(): Flow<Boolean> {
         return context.dataStore.data.map {
             it[ENTRY_STATE] ?: false
+        }
+    }
+
+    override suspend fun getCurrentIcon(): Flow<Int> {
+        return context.dataStore.data.map {
+            it[CURRENT_ICON] ?: 1
         }
     }
 }

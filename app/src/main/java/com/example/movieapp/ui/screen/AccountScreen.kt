@@ -24,7 +24,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.AboutAppRoute
+import com.example.movieapp.app.navigation.SettingsRoute
 import com.example.movieapp.ui.theme.ColorGradient1
 import com.example.movieapp.ui.theme.ColorGradient2
 import com.example.movieapp.ui.theme.ColorGradient3
@@ -32,10 +35,9 @@ import com.example.movieapp.ui.theme.ColorGradient4
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.other.animatedBorder
 
-@Preview(showSystemUi = true)
 @Composable
 fun AccountScreen(
-
+    navController: NavController
 ) {
     Scaffold(
         topBar = {
@@ -59,9 +61,9 @@ fun AccountScreen(
             Spacer(modifier = Modifier.height(30.dp))
 
             SettingsContent(
-                onSettings = {},
+                onSettings = { navController.navigate(SettingsRoute) },
                 onSupport = {},
-                onAbout = {}
+                onAbout = { navController.navigate(AboutAppRoute) }
             )
         }
     }

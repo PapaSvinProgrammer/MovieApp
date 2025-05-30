@@ -1,9 +1,9 @@
 package com.example.movieapp.ui.viewModel
 
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.runtime.traceEventEnd
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.repositories.PreferencesRepository
@@ -21,6 +21,8 @@ class SettingsViewModel @Inject constructor(
     var alternativeIconSwitch by mutableStateOf(false)
         private set
     var isDark by mutableStateOf(true)
+        private set
+    var currentIcon by mutableIntStateOf(1)
         private set
 
     fun updatePinSwitch(state: Boolean) {
@@ -46,6 +48,20 @@ class SettingsViewModel @Inject constructor(
             preferencesRepository.getDarkTheme().collect {
                 isDark = it
             }
+        }
+    }
+
+    fun getCurrentIconIndex() {
+        viewModelScope.launch(Dispatchers.IO) {
+            preferencesRepository.getCurrentIcon().collect {
+                currentIcon = it
+            }
+        }
+    }
+
+    fun setCurrentIconIndex(index: Int) {
+        viewModelScope.launch(Dispatchers.IO) {
+            preferencesRepository.setCurrentIcon(index)
         }
     }
 }

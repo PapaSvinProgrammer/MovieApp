@@ -87,7 +87,7 @@ fun NavigationGraph(
 
         composable<AccountRoute> {
             AccountScreen(
-                //navController = navController
+                navController = navController
             )
         }
 
