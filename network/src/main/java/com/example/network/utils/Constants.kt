@@ -20,8 +20,9 @@ object Constants {
     const val CATEGORY_FIELD = "category"
     const val SLUG_FIELD = "slug"
     const val MOVIES_RATING_FIELD = "movies.rating"
-    const val NOT_NULL_FILED = "notNullFields"
+    const val NOT_NULL_FIELD = "notNullFields"
     const val PHOTO_FIELD = "photo"
+    const val PROFESSION_VALUE = "profession.value"
 
     const val SORT_ASC = "1"
     const val SORT_DESC = "-1"

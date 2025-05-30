@@ -14,11 +14,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import com.example.movieapp.R
 import com.example.network.module.person.Person
 
 @Composable
@@ -39,6 +41,7 @@ fun PersonCard(
         ) {
             AsyncImage(
                 model = person.photo,
+                error = painterResource(R.drawable.ic_face),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

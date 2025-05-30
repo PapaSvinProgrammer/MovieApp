@@ -6,16 +6,20 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.usecases.GetCollection
+import com.example.core.domain.usecases.GetMovie
 import com.example.core.domain.usecases.GetPerson
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
+import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.network.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SearchViewModel @Inject constructor(
     private val getCollection: GetCollection,
-    private val getPerson: GetPerson
+    private val getPerson: GetPerson,
+    private val getMovie: GetMovie
 ): ViewModel() {
     var query by mutableStateOf("")
         private set
@@ -23,9 +27,9 @@ class SearchViewModel @Inject constructor(
         private set
     var collectionsState by mutableStateOf(CollectionUIState.Loading as CollectionUIState)
         private set
-    var popularPersonState by mutableStateOf(PersonUIState.Loading as PersonUIState)
+    var dubbingPersonState by mutableStateOf(PersonUIState.Loading as PersonUIState)
         private set
-    var personAwardsState by mutableStateOf(PersonUIState.Loading as PersonUIState)
+    var topSerialsState by mutableStateOf(MovieUIState.Loading as MovieUIState)
         private set
 
     fun updateQuery(text: String) {
@@ -48,26 +52,36 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun getPopularPersons() {
-        if (popularPersonState is PersonUIState.Success) return
+    fun getPopularDubbingActor() {
+        if (dubbingPersonState is PersonUIState.Success) return
+
+        val queryParameters = mapOf(
+            Constants.PROFESSION_VALUE to "Актер дубляжа"
+        )
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getPerson.getPersonsByRatingMovies()
+            val res = getPerson.getPersonsByFilter(queryParameters)
 
             if (res.isNotEmpty()) {
-                popularPersonState = PersonUIState.Success(res)
+                dubbingPersonState = PersonUIState.Success(res)
             }
         }
     }
 
-    fun getPersonByCountAwards() {
-        if (personAwardsState is PersonUIState.Loading) return
+    fun getTopSerials() {
+        if (topSerialsState is MovieUIState.Success) return
+
+        val queryParameters = mapOf(
+            "isSeries" to "true",
+            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+            Constants.SORT_TYPE to Constants.SORT_DESC
+        )
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getPerson.getPersonsByCountAwards()
+            val res = getMovie.getByFilter(queryParameters)
 
             if (res.isNotEmpty()) {
-                personAwardsState = PersonUIState.Success(res)
+                topSerialsState = MovieUIState.Success(res)
             }
         }
     }

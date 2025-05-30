@@ -136,19 +136,19 @@ fun SearchScreen(
             }
 
             item {
-                viewModel.getPopularPersons()
+                viewModel.getPopularDubbingActor()
                 RenderPersonRowState(
-                    state = viewModel.popularPersonState,
-                    title = stringResource(R.string.popular_person),
+                    state = viewModel.dubbingPersonState,
+                    title = stringResource(R.string.dubbing_actor),
                     onClick = {},
                     onShowAll = {}
                 )
             }
 
             item {
-                viewModel.getPersonByCountAwards()
-                RenderPersonRowState(
-                    state = viewModel.personAwardsState,
+                viewModel.getTopSerials()
+                RenderMovieRowState(
+                    state = viewModel.topSerialsState,
                     title = stringResource(R.string.have_most_awards),
                     onClick = {},
                     onShowAll = {}

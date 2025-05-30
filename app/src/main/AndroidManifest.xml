@@ -25,44 +25,5 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
-        <activity-alias
-            android:name=".MainActivity2"
-            android:targetActivity=".MainActivity"
-            android:icon="@mipmap/ic_launcher2"
-            android:roundIcon="@mipmap/ic_launcher2_round"
-            android:exported="true"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
-
-        <activity-alias
-            android:name=".MainActivity3"
-            android:targetActivity=".MainActivity"
-            android:icon="@mipmap/ic_launcher3"
-            android:roundIcon="@mipmap/ic_launcher3_round"
-            android:exported="true"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
-
-        <activity-alias
-            android:name=".MainActivity4"
-            android:targetActivity=".MainActivity"
-            android:icon="@mipmap/ic_launcher4"
-            android:roundIcon="@mipmap/ic_launcher4_round"
-            android:exported="true"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity-alias>
     </application>
 </manifest>
