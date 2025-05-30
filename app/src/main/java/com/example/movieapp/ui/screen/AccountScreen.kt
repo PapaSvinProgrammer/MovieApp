@@ -84,7 +84,7 @@ private fun ColumnScope.ProfileContent(
             .padding(20.dp)
     ) {
         Image(
-            modifier = Modifier.size(100.dp),
+            modifier = Modifier.size(80.dp),
             painter = painterResource(R.drawable.ic_duck),
             contentDescription = null
         )

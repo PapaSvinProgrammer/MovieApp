@@ -10,4 +10,17 @@
     <string name="search_hint">Кино, сериалы, актеры и т.д.</string>
     <string name="categories">Категории</string>
     <string name="advise_watch">Советуем посмотреть</string>
+    <string name="popular_person">Популярные персоны</string>
+    <string name="have_most_awards">Имеют больше всего наград</string>
+    <string name="parent_control">Родительский контроль</string>
+    <string name="other">Прочее</string>
+    <string name="vibration">Вибрация</string>
+    <string name="vibration_description">Тактильные сигналы при управлении</string>
+    <string name="theme">Тема оформления</string>
+    <string name="icon_app">Иконка приложения</string>
+    <string name="enter_with_pin_code">Вход в аккаунт по ПИН-коду</string>
+    <string name="enter_with_pin_code_description">Будем запрашивать его при каждом входе в приложение</string>
+    <string name="alternative_icon">Альтернативная иконка</string>
+    <string name="dark">Темная</string>
+    <string name="light">Светлая</string>
 </resources>

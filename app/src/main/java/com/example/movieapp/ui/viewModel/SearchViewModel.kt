@@ -25,7 +25,7 @@ class SearchViewModel @Inject constructor(
         private set
     var popularPersonState by mutableStateOf(PersonUIState.Loading as PersonUIState)
         private set
-    var personByAgeState by mutableStateOf(PersonUIState.Loading as PersonUIState)
+    var personAwardsState by mutableStateOf(PersonUIState.Loading as PersonUIState)
         private set
 
     fun updateQuery(text: String) {
@@ -52,10 +52,22 @@ class SearchViewModel @Inject constructor(
         if (popularPersonState is PersonUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getPerson.getPersonsByCountAwards()
+            val res = getPerson.getPersonsByRatingMovies()
 
             if (res.isNotEmpty()) {
                 popularPersonState = PersonUIState.Success(res)
+            }
+        }
+    }
+
+    fun getPersonByCountAwards() {
+        if (personAwardsState is PersonUIState.Loading) return
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val res = getPerson.getPersonsByCountAwards()
+
+            if (res.isNotEmpty()) {
+                personAwardsState = PersonUIState.Success(res)
             }
         }
     }

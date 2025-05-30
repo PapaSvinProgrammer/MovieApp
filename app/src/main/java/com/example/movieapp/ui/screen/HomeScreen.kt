@@ -21,6 +21,7 @@ import com.example.movieapp.ui.viewModel.HomeViewModel
 import com.example.movieapp.ui.widget.component.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.listItams.CollectionCard
+import com.example.movieapp.ui.widget.listItams.LastItemCard
 import com.example.movieapp.ui.widget.listItams.MovieCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerCollectionRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
@@ -190,7 +191,15 @@ private fun MainCollectionRow(
 
     DefaultLazyRow(
         list = collections,
-        onShowAll = onShowAll,
+        lastItemCard = {
+            LastItemCard(
+                width = 140.dp,
+                height = 140.dp,
+                onClick = {
+
+                }
+            )
+        },
         content = {
             CollectionCard(
                 image = it.cover?.url ?: "",
@@ -215,7 +224,15 @@ private fun MainMovieRow(
 
     DefaultLazyRow(
         list = movies,
-        onShowAll = onShowAll,
+        lastItemCard = {
+            LastItemCard(
+                width = 160.dp,
+                height = 260.dp,
+                onClick = {
+
+                }
+            )
+        },
         content = {
             MovieCard(
                 movie = it,

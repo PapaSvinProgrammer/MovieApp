@@ -17,8 +17,8 @@ import com.example.movieapp.ui.widget.listItams.LastItemCard
 fun <T> DefaultLazyRow(
     modifier: Modifier = Modifier,
     list: List<T>,
-    onShowAll: () -> Unit,
-    content: @Composable (T) -> Unit
+    content: @Composable (T) -> Unit,
+    lastItemCard: @Composable () -> Unit
 ) {
     val listState = rememberLazyListState()
     val flingBehavior = rememberSnapFlingBehavior(listState, SnapPosition.Start)
@@ -35,11 +35,7 @@ fun <T> DefaultLazyRow(
         }
 
         item {
-            LastItemCard(
-                onClick = onShowAll,
-                height = 260.dp,
-                width = 160.dp
-            )
+            lastItemCard()
         }
     }
 }

@@ -8,13 +8,16 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.movieapp.di.viewModel.ViewModelFactory
+import com.example.movieapp.ui.screen.AboutAppScreen
 import com.example.movieapp.ui.screen.AccountScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.SearchScreen
+import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
 import com.example.movieapp.ui.viewModel.HomeViewModel
 import com.example.movieapp.ui.viewModel.SearchViewModel
+import com.example.movieapp.ui.viewModel.SettingsViewModel
 import com.example.movieapp.ui.viewModel.StartViewModel
 import dev.chrisbanes.haze.HazeState
 
@@ -27,7 +30,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SearchRoute,
+        startDestination = SettingsRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -90,6 +93,21 @@ fun NavigationGraph(
 
         composable<FavoriteRoute> {
             FavoriteScreen(
+                navController = navController
+            )
+        }
+
+        composable<SettingsRoute> {
+            val viewModel: SettingsViewModel = viewModel(factory = viewModelFactory)
+
+            SettingsScreen(
+                navController = navController,
+                viewModel = viewModel
+            )
+        }
+
+        composable<AboutAppRoute> {
+            AboutAppScreen(
                 navController = navController
             )
         }

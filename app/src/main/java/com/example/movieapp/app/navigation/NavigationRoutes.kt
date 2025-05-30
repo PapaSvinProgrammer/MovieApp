@@ -18,3 +18,9 @@ data object SearchRoute: NavRoute
 
 @Serializable
 data object FavoriteRoute: NavRoute
+
+@Serializable
+data object SettingsRoute: NavRoute
+
+@Serializable
+data object AboutAppRoute: NavRoute

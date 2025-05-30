@@ -24,7 +24,9 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.utils.collectionCategoryList
@@ -33,6 +35,7 @@ import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.widget.component.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.SearchContent
 import com.example.movieapp.ui.widget.component.TitleRow
+import com.example.movieapp.ui.widget.listItams.LastItemCard
 import com.example.movieapp.ui.widget.listItams.PersonCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
 import com.example.network.module.person.Person
@@ -110,9 +113,11 @@ fun SearchScreen(
             }
 
             item {
-                TitleRow(
-                    title = stringResource(R.string.categories),
-                    onClick = {  }
+                Text(
+                    modifier = Modifier.padding(15.dp),
+                    text = stringResource(R.string.categories),
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold
                 )
 
                 FlowRow(
@@ -134,7 +139,17 @@ fun SearchScreen(
                 viewModel.getPopularPersons()
                 RenderPersonRowState(
                     state = viewModel.popularPersonState,
-                    title = "Популярные персоны",
+                    title = stringResource(R.string.popular_person),
+                    onClick = {},
+                    onShowAll = {}
+                )
+            }
+
+            item {
+                viewModel.getPersonByCountAwards()
+                RenderPersonRowState(
+                    state = viewModel.personAwardsState,
+                    title = stringResource(R.string.have_most_awards),
                     onClick = {},
                     onShowAll = {}
                 )
@@ -179,10 +194,17 @@ private fun PersonRow(
     DefaultLazyRow(
         modifier = modifier,
         list = persons,
-        onShowAll = onShowAll
-    ) {
-        PersonCard(person = it) { onClick(it) }
-    }
+        lastItemCard = {
+            LastItemCard(
+                width = 160.dp,
+                height = 250.dp,
+                onClick = onShowAll
+            )
+        },
+        content = {
+            PersonCard(person = it) { onClick(it) }
+        }
+    )
 }
 
 @Composable
