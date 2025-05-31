@@ -13,9 +13,11 @@ import com.example.movieapp.ui.screen.AccountScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.SearchScreen
+import com.example.movieapp.ui.screen.SearchSettingsScreen
 import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.viewModel.SettingsViewModel
 import com.example.movieapp.ui.viewModel.StartViewModel
@@ -109,6 +111,16 @@ fun NavigationGraph(
         composable<AboutAppRoute> {
             AboutAppScreen(
                 navController = navController
+            )
+        }
+
+        composable<SearchSettingsRoute> {
+            val viewModel: SearchSettingsViewModel = viewModel(factory = viewModelFactory)
+
+            SearchSettingsScreen(
+                navController = navController,
+                hazeState = hazeState,
+                viewModel = viewModel
             )
         }
     }

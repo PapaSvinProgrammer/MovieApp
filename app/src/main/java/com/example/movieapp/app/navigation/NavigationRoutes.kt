@@ -24,3 +24,6 @@ data object SettingsRoute: NavRoute
 
 @Serializable
 data object AboutAppRoute: NavRoute
+
+@Serializable
+data object SearchSettingsRoute: NavRoute

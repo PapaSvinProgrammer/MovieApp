@@ -29,6 +29,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.viewModel.SearchViewModel
@@ -78,7 +79,7 @@ fun SearchScreen(
                     trailingIcon = {
                         TrailingIcon(
                             expanded = viewModel.isExpanded,
-                            onSettings = {  },
+                            onSettings = { navController.navigate(SearchSettingsRoute) },
                             onClear = {
                                 if (viewModel.query.isEmpty()) {
                                     viewModel.updateExpanded(false)
@@ -103,7 +104,7 @@ fun SearchScreen(
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             item {
-                viewModel.getCollections()
+                //viewModel.getCollections()
                 RenderCollectionRowState(
                     state = viewModel.collectionsState,
                     title = stringResource(R.string.advise_watch),
@@ -136,7 +137,7 @@ fun SearchScreen(
             }
 
             item {
-                viewModel.getPopularDubbingActor()
+                //viewModel.getPopularDubbingActor()
                 RenderPersonRowState(
                     state = viewModel.dubbingPersonState,
                     title = stringResource(R.string.dubbing_actor),
@@ -146,7 +147,7 @@ fun SearchScreen(
             }
 
             item {
-                viewModel.getTopSerials()
+                //viewModel.getTopSerials()
                 RenderMovieRowState(
                     state = viewModel.topSerialsState,
                     title = stringResource(R.string.have_most_awards),

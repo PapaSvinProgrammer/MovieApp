@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import com.example.movieapp.MainViewModel
 import com.example.movieapp.ui.viewModel.EntryViewModel
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.viewModel.SettingsViewModel
 import com.example.movieapp.ui.viewModel.StartViewModel
@@ -53,4 +54,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(SettingsViewModel::class)
     fun bindSettingsViewModel(viewModel: SettingsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(SearchSettingsViewModel::class)
+    fun bindSearchSettingsViewModel(viewModel: SearchSettingsViewModel): ViewModel
 }

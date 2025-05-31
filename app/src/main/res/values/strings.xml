@@ -23,4 +23,17 @@
     <string name="alternative_icon">Альтернативная иконка</string>
     <string name="dark">Темная</string>
     <string name="light">Светлая</string>
+    <string name="search_settings">Настройки поиска</string>
+    <string name="reset">Сбросить</string>
+    <string name="genres">Жанры</string>
+    <string name="countries">Страны</string>
+    <string name="year">Год</string>
+    <string name="all">Все</string>
+    <string name="movies">Фильмы</string>
+    <string name="serials">Сериалы</string>
+    <string name="any1">Любые</string>
+    <string name="any2">Любой</string>
+    <string name="by_rating_short">Рейтингу</string>
+    <string name="by_popular_short">Популярности</string>
+    <string name="by_date_short">Дате</string>
 </resources>
