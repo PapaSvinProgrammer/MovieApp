@@ -36,7 +36,9 @@ import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import com.example.movieapp.R
@@ -178,17 +180,17 @@ private fun BoxScope.SuccessButton(
     Button(
         modifier = Modifier
             .navigationBarsPadding()
-            .padding(
-                bottom = 40.dp,
-                start = 30.dp,
-                end = 30.dp
-            )
+            .padding(30.dp)
             .fillMaxWidth()
             .align(Alignment.BottomCenter),
         onClick = onClick,
         enabled = isEnabled
     ) {
-        Text(text = "Сохранить настройки")
+        Text(
+            text = stringResource(R.string.save_settings),
+            fontSize = 16.sp,
+            fontWeight = FontWeight.Bold
+        )
     }
 }
 

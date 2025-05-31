@@ -3,7 +3,6 @@ package com.example.movieapp.ui.viewModel
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -35,6 +34,9 @@ class SearchSettingsViewModel @Inject constructor(
     var countries by mutableStateOf<List<String>>(listOf())
         private set
 
+    var ratingSliderPosition by mutableStateOf(6f..10f)
+        private set
+
     fun updateSelectedCategoryIndex(index: Int) {
         selectedCategoryIndex = index
     }
@@ -59,6 +61,10 @@ class SearchSettingsViewModel @Inject constructor(
         countriesResult = list
     }
 
+    fun updateRatingSliderPosition(position: ClosedFloatingPointRange<Float>) {
+        ratingSliderPosition = position
+    }
+
     fun getGenres() {
         viewModelScope.launch(Dispatchers.IO) {
             genres = categoryRepository.getGenres().map { it.name ?: "" }
@@ -72,6 +78,10 @@ class SearchSettingsViewModel @Inject constructor(
     }
 
     fun resetAllSettings() {
-
+        selectedCategoryIndex = 0
+        selectedSortTypeIndex = 0
+        genresResult = listOf()
+        countriesResult = listOf()
+        ratingSliderPosition = 6f..10f
     }
 }
