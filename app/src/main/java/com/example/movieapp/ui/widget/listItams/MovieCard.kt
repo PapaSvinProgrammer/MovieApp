@@ -15,12 +15,15 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.chips.RatingChip
 import com.example.network.module.movie.Movie
@@ -42,7 +45,10 @@ fun MovieCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             AsyncImage(
-                model = movie.poster?.previewUrl ?: "",
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(movie.poster?.url)
+                    .crossfade(true)
+                    .build(),
                 error = painterResource(R.drawable.ic_movie),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,

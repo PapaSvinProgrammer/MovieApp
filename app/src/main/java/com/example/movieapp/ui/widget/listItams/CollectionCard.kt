@@ -16,12 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
+import coil3.request.ImageRequest
+import coil3.request.crossfade
 import com.example.movieapp.R
 
 @Composable
@@ -42,7 +45,10 @@ fun CollectionCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             AsyncImage(
-                model = image,
+                model = ImageRequest.Builder(LocalContext.current)
+                    .data(image)
+                    .crossfade(true)
+                    .build(),
                 error = painterResource(R.drawable.ic_image),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,

@@ -16,6 +16,7 @@ object Constants {
     const val TITLE_FIELD = "title"
     const val RATING_KP_FIELD = "rating.kp"
     const val GENRES_NAME_FIELD = "genres.name"
+    const val COUNTRIES_NAME_FIELD = "countries.name"
     const val LISTS_FIELD = "lists"
     const val CATEGORY_FIELD = "category"
     const val SLUG_FIELD = "slug"
@@ -23,9 +24,14 @@ object Constants {
     const val NOT_NULL_FIELD = "notNullFields"
     const val PHOTO_FIELD = "photo"
     const val PROFESSION_VALUE = "profession.value"
+    const val IS_SERIES_FIELD = "isSeries"
+    const val VOTES_KP_FIELD = "votes.kp"
+    const val YEAR_FIELD = "year"
 
     const val SORT_ASC = "1"
     const val SORT_DESC = "-1"
+    const val TRUE = "true"
+    const val FALSE = "false"
 
     const val POSITIVE_VALUE = "Позитивный"
     const val NEGATIVE_VALUE = "Негативный"

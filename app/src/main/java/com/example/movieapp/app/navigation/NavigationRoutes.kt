@@ -27,3 +27,8 @@ data object AboutAppRoute: NavRoute
 
 @Serializable
 data object SearchSettingsRoute: NavRoute
+
+@Serializable
+data class SearchResultRoute(
+    val queryParameters: Map<String, String>
+): NavRoute

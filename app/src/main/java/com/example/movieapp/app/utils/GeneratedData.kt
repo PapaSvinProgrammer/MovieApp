@@ -1,5 +1,6 @@
 package com.example.movieapp.app.utils
 
+import androidx.compose.ui.res.stringResource
 import com.example.movieapp.R
 
 data class ApplicationIcon(

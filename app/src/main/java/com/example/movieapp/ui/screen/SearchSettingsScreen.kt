@@ -45,6 +45,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.SearchResultRoute
+import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.widget.component.TextListLayout
 import com.example.movieapp.ui.widget.other.TitleTopBarText
@@ -144,7 +146,16 @@ fun SearchSettingsScreen(
             }
 
             SuccessButton {
+                val convertData = ConvertData.convertQueryParameters(
+                    category = optionsCategory[viewModel.selectedCategoryIndex],
+                    sortBy = optionsSortType[viewModel.selectedSortTypeIndex],
+                    genres = viewModel.genresResult,
+                    counties = viewModel.countriesResult,
+                    rating = viewModel.ratingSliderPosition,
+                    year = ""
+                )
 
+                navController.navigate(SearchResultRoute(convertData))
             }
         }
     }
@@ -339,7 +350,7 @@ private fun RatingRow(
         )
 
         Text(
-            text = convertRating(sliderPosition),
+            text = ConvertData.convertRating(sliderPosition),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -356,30 +367,4 @@ private fun RatingRow(
         valueRange = 0f..10f,
         onValueChangeFinished = {}
     )
-}
-
-private fun convertRating(position: ClosedFloatingPointRange<Float>): String {
-    val start = position.start.roundToInt()
-    val end = position.endInclusive.roundToInt()
-
-    val startStr = "от $start"
-    val endStr = "до $end"
-
-    if (start == end) {
-        return "только $start"
-    }
-
-    if (start == 0 && end == 10) {
-        return "неважно"
-    }
-
-    if (start == 0) {
-        return endStr
-    }
-
-    if (end == 10) {
-        return startStr
-    }
-
-    return startStr + endStr
 }

@@ -7,21 +7,26 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.toRoute
+import com.example.movieapp.app.utils.CustomNavType
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.screen.AboutAppScreen
 import com.example.movieapp.ui.screen.AccountScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeScreen
+import com.example.movieapp.ui.screen.SearchResultScreen
 import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.SearchSettingsScreen
 import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.SearchResultViewModel
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.viewModel.SettingsViewModel
 import com.example.movieapp.ui.viewModel.StartViewModel
 import dev.chrisbanes.haze.HazeState
+import kotlin.reflect.typeOf
 
 @Composable
 fun NavigationGraph(
@@ -32,7 +37,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SearchRoute,
+        startDestination = SearchSettingsRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -121,6 +126,21 @@ fun NavigationGraph(
                 navController = navController,
                 hazeState = hazeState,
                 viewModel = viewModel
+            )
+        }
+
+        composable<SearchResultRoute> (
+            typeMap = mapOf(
+                typeOf<LinkedHashMap<String, String>>() to CustomNavType.LinkedHashMapType
+            )
+        ) {
+            val data = it.toRoute<SearchResultRoute>()
+            val viewModel: SearchResultViewModel = viewModel(factory = viewModelFactory)
+
+            SearchResultScreen(
+                navController = navController,
+                viewModel = viewModel,
+                queryParameters = data.queryParameters
             )
         }
     }
