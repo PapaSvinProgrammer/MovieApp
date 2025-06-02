@@ -41,4 +41,6 @@
     <string name="sorting_by">Сортировать по</string>
     <string name="rating">Рейтинг</string>
     <string name="search_result">Результаты поиска</string>
+    <string name="cancel">Отменить</string>
+    <string name="input_value">Введите название</string>
 </resources>
