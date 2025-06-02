@@ -16,7 +16,7 @@ class PersonRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPersonByFilter(queryParameters: Map<String, String>): List<Person> {
+    override suspend fun getPersonByFilter(queryParameters: List<Pair<String, String>>): List<Person> {
         return try {
             ktorClient.getPersonByFilter(queryParameters)
         } catch (e: Exception) {

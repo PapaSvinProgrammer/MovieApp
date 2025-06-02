@@ -17,6 +17,8 @@ import com.example.network.module.movie.Studio
 import com.example.network.module.person.NominationAward
 import com.example.network.module.person.Person
 import com.example.network.module.season.Season
+import com.example.network.utils.Constants.NAME_FIELD
+import com.example.network.utils.Constants.NOT_NULL_FIELD
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
@@ -96,22 +98,23 @@ class KtorClient(okHttpClient: OkHttpClient) {
         return res.docs
     }
 
-    suspend fun getMoviesByFilter(queryParameters: Map<String, String>): List<Movie> {
+    suspend fun getMoviesByFilter(queryParameters: List<Pair<String, String>>): List<Movie> {
         val res: Docs<Movie> = client.get("v1.4/movie") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                parameters.append(NOT_NULL_FIELD, NAME_FIELD)
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 
         return res.docs
     }
 
-    suspend fun getCommentsByFilter(queryParameters: Map<String, String>): List<Comment> {
+    suspend fun getCommentsByFilter(queryParameters: List<Pair<String, String>>): List<Comment> {
         val res: Docs<Comment> = client.get("v1.4/review") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 
@@ -131,11 +134,11 @@ class KtorClient(okHttpClient: OkHttpClient) {
         return res.docs
     }
 
-    suspend fun getStudies(queryParameters: Map<String, String>): List<Studio> {
+    suspend fun getStudies(queryParameters: List<Pair<String, String>>): List<Studio> {
         val res: Docs<Studio> = client.get("v1.4/studio") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 
@@ -158,44 +161,44 @@ class KtorClient(okHttpClient: OkHttpClient) {
         return res.docs
     }
 
-    suspend fun getPersonByFilter(queryParameters: Map<String, String>): List<Person> {
+    suspend fun getPersonByFilter(queryParameters: List<Pair<String, String>>): List<Person> {
         val res: Docs<Person> = client.get("v1.4/person") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 
         return res.docs
     }
 
-    suspend fun getPersonAwardsByFilter(queryParameters: Map<String, String>): List<NominationAward> {
+    suspend fun getPersonAwardsByFilter(queryParameters: List<Pair<String, String>>): List<NominationAward> {
         val res: Docs<NominationAward> = client.get("v1.4/person/awards") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 
         return res.docs
     }
 
-    suspend fun getMovieAwardsByFilter(queryParameters: Map<String, String>): List<NominationAward> {
+    suspend fun getMovieAwardsByFilter(queryParameters: List<Pair<String, String>>): List<NominationAward> {
         val res: Docs<NominationAward> = client.get("v1.4/movie/awards") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 
         return res.docs
     }
 
-    suspend fun getCollectionByFilter(queryParameters: Map<String, String>): List<Collection> {
+    suspend fun getCollectionByFilter(queryParameters: List<Pair<String, String>>): List<Collection> {
         val res: Docs<Collection> = client.get("v1.4/list") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
-                queryParameters.forEach { parameters.append(it.key, it.value) }
+                queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()
 

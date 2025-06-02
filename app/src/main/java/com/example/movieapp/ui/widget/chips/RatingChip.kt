@@ -16,10 +16,10 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
+import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.theme.Gold
 import com.example.movieapp.ui.theme.Green
 
@@ -61,7 +61,6 @@ fun RatingChip(
     }
 }
 
-@Preview
 @SuppressLint("DefaultLocale")
 @Composable
 private fun EliteBox(
@@ -121,7 +120,7 @@ private fun DefaultBox(
             .background(color)
     ) {
         Text(
-            text = String.format("%.1f", rating),
+            text = ConvertData.convertRatingKP(rating),
             fontWeight = FontWeight.Bold,
             fontSize = 14.sp,
             color = Color.White,

@@ -19,7 +19,7 @@ class GetPerson @Inject constructor(
         return personRepository.searchPersonByName(q = q, page = page)
     }
 
-    suspend fun getPersonsByFilter(queryParameters: Map<String, String>): List<Person> {
+    suspend fun getPersonsByFilter(queryParameters: List<Pair<String, String>>): List<Person> {
         return personRepository.getPersonByFilter(queryParameters)
     }
 }

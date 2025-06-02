@@ -8,7 +8,7 @@ import javax.inject.Inject
 class AwardRepositoryImpl @Inject constructor(
     private val ktorClient: KtorClient
 ): AwardRepository {
-    override suspend fun getMovieAwards(queryParameters: Map<String, String>): List<NominationAward> {
+    override suspend fun getMovieAwards(queryParameters: List<Pair<String, String>>): List<NominationAward> {
         return try {
             ktorClient.getMovieAwardsByFilter(queryParameters)
         } catch (e: Exception) {
@@ -16,7 +16,7 @@ class AwardRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getPersonAwards(queryParameters: Map<String, String>): List<NominationAward> {
+    override suspend fun getPersonAwards(queryParameters: List<Pair<String, String>>): List<NominationAward> {
         return try {
             ktorClient.getPersonAwardsByFilter(queryParameters)
         } catch (e: Exception) {

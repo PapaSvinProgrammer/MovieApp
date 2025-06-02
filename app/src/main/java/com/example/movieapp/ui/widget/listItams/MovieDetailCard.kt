@@ -32,7 +32,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.R
 import com.example.movieapp.app.utils.ConvertData
-import com.example.movieapp.ui.theme.Green
+import com.example.movieapp.ui.widget.other.RatingText
 import com.example.network.module.category.Country
 import com.example.network.module.category.Genre
 import com.example.network.module.movie.Movie
@@ -72,11 +72,7 @@ fun MovieDetailCard(
             )
 
             Column(modifier = Modifier.align(Alignment.BottomStart)) {
-                Spacer(modifier = Modifier.height(10.dp))
-
                 GenreContent(movie.genres)
-
-                Spacer(modifier = Modifier.height(5.dp))
 
                 OtherInfoContent(
                     rating = movie.rating?.kp ?: 0f,
@@ -99,17 +95,15 @@ private fun BoxScope.NameContent(
         Text(
             text = title,
             fontWeight = FontWeight.Bold,
-            fontSize = 15.sp,
+            fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
 
-        Spacer(modifier = Modifier.height(5.dp))
-
         Text(
             text = subtitle,
             fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
+            fontSize = 13.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -139,17 +133,8 @@ private fun OtherInfoContent(
         modifier = Modifier.fillMaxWidth()
     ) {
         Row(modifier = Modifier.weight(1f)) {
-            Text(
-                text = String.format("%.1f", rating),
-                fontWeight = FontWeight.Bold,
-                fontSize = 15.sp,
-                maxLines = 1,
-                overflow = TextOverflow.Ellipsis,
-                color = Green
-            )
-
-            Spacer(modifier = Modifier.width(10.dp))
-
+            RatingText(rating)
+            Spacer(modifier = Modifier.width(5.dp))
             Text(
                 text = votes.toString(),
                 fontWeight = FontWeight.Normal,
@@ -163,7 +148,7 @@ private fun OtherInfoContent(
         Text(
             text = country.map { it.name }.joinToString(", "),
             fontWeight = FontWeight.Normal,
-            fontSize = 15.sp,
+            fontSize = 14.sp,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.End,

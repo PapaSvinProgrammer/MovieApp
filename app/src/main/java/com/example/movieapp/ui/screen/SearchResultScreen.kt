@@ -1,27 +1,28 @@
 package com.example.movieapp.ui.screen
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.viewModel.SearchResultViewModel
+import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItams.MovieDetailCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
+import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.network.module.movie.Movie
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -29,7 +30,7 @@ import com.example.network.module.movie.Movie
 fun SearchResultScreen(
     navController: NavController,
     viewModel: SearchResultViewModel,
-    queryParameters: Map<String, String>
+    queryParameters: List<Pair<String, String>>
 ) {
     Scaffold(
         topBar = {
@@ -55,7 +56,8 @@ fun SearchResultScreen(
         RenderMovieState(
             state = viewModel.movieUIState,
             modifier = Modifier.padding(innerPadding),
-            onClick = {  }
+            onClick = {  },
+            loadMore = { viewModel.loadMoreMovies(queryParameters) }
         )
     }
 }
@@ -64,15 +66,17 @@ fun SearchResultScreen(
 private fun RenderMovieState(
     modifier: Modifier,
     state: MovieUIState,
-    onClick: (Movie) -> Unit
+    onClick: (Movie) -> Unit,
+    loadMore: () -> Unit
 ) {
     when (state) {
-        MovieUIState.Loading -> {}
+        MovieUIState.Loading -> ShimmerMovieDetailList(modifier)
         is MovieUIState.Success -> {
             MainContent(
                 modifier = modifier,
                 movies = state.data,
-                onClick = onClick
+                onClick = onClick,
+                loadMore = loadMore
             )
         }
     }
@@ -82,13 +86,16 @@ private fun RenderMovieState(
 private fun MainContent(
     modifier: Modifier,
     movies: List<Movie>,
-    onClick: (Movie) -> Unit
+    onClick: (Movie) -> Unit,
+    loadMore: () -> Unit
 ) {
-    LazyColumn(
-        modifier = modifier.fillMaxSize()
+
+    EndlessLazyColumn(
+        modifier = modifier,
+        items = movies,
+        loadMore = loadMore
     ) {
-        items(movies) {
-            MovieDetailCard(it) { onClick(it) }
-        }
+        MovieDetailCard(it) { onClick(it) }
+        HorizontalDivider(modifier = Modifier.padding(start = 110.dp))
     }
 }

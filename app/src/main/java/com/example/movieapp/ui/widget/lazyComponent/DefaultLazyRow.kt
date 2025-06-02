@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.component
+package com.example.movieapp.ui.widget.lazyComponent
 
 import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
@@ -11,7 +11,6 @@ import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.ui.widget.listItams.LastItemCard
 
 @Composable
 fun <T> DefaultLazyRow(

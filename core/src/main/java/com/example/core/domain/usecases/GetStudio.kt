@@ -13,7 +13,7 @@ class GetStudio @Inject constructor(
     private val studioRepository: StudioRepository
 ) {
     suspend fun getStudiesByMovieId(movieId: Int, page: Int = 1): List<Studio> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             "movies.id" to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to TITLE_FIELD,
@@ -24,7 +24,7 @@ class GetStudio @Inject constructor(
     }
 
     suspend fun getStudiesByTitle(page: Int = 1): List<Studio> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             PAGE_FIELD to page.toString(),
             SORT_FIELD to TITLE_FIELD,
             SORT_TYPE to SORT_DESC

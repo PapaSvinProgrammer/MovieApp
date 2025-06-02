@@ -2,10 +2,12 @@ package com.example.movieapp.app.utils
 
 import com.example.network.module.movie.Movie
 import com.example.network.utils.Constants
+import java.math.BigDecimal
+import java.math.RoundingMode
 import kotlin.math.roundToInt
 
 object ConvertData {
-    fun convertRating(position: ClosedFloatingPointRange<Float>): String {
+    fun convertRatingRange(position: ClosedFloatingPointRange<Float>): String {
         val start = position.start.roundToInt()
         val end = position.endInclusive.roundToInt()
 
@@ -38,34 +40,29 @@ object ConvertData {
         counties: List<String>,
         year: String,
         rating: ClosedFloatingPointRange<Float>
-    ): Map<String, String> {
-        val res = mutableMapOf<String, String>()
+    ): List<Pair<String, String>> {
+        val res = mutableListOf<Pair<String, String>>()
 
         when (category) {
-            "Фильмы" -> res[Constants.IS_SERIES_FIELD] = Constants.FALSE
-            "Сериалы" -> res[Constants.IS_SERIES_FIELD] = Constants.TRUE
+            "Фильмы" -> res.add(Constants.IS_SERIES_FIELD to Constants.FALSE)
+            "Сериалы" -> res.add(Constants.IS_SERIES_FIELD to Constants.TRUE)
         }
 
         when (sortBy) {
-            "Рейтингу" -> res[Constants.SORT_FIELD] = Constants.RATING_KP_FIELD
-            "Популярности" -> res[Constants.SORT_FIELD] = Constants.VOTES_KP_FIELD
-            "Дате" -> res[Constants.SORT_FIELD] = Constants.YEAR_FIELD
+            "Рейтингу" -> res.add(Constants.SORT_FIELD to Constants.RATING_KP_FIELD)
+            "Популярности" -> res.add(Constants.SORT_FIELD to Constants.VOTES_KP_FIELD)
+            "Дате" -> res.add(Constants.SORT_FIELD to Constants.YEAR_FIELD)
         }
 
-        res[Constants.SORT_TYPE] = Constants.SORT_DESC
+        res.add(Constants.SORT_TYPE to Constants.SORT_DESC)
 
-        if (genres.isNotEmpty()) {
-            res[Constants.GENRES_NAME_FIELD] = genres.joinToString(",")
-        }
-
-        if (counties.isNotEmpty()) {
-            res[Constants.COUNTRIES_NAME_FIELD] = counties.joinToString(",")
-        }
+        genres.forEach { res.add(Constants.GENRES_NAME_FIELD to it) }
+        counties.forEach { res.add(Constants.COUNTRIES_NAME_FIELD to it) }
 
         val startRating = rating.start.roundToInt()
         val endRating = rating.endInclusive.roundToInt()
 
-        res[Constants.RATING_KP_FIELD] = "$startRating-$endRating"
+        res.add(Constants.RATING_KP_FIELD to "$startRating-$endRating")
         //res[Constants.YEAR_FIELD] = year
 
         return res
@@ -76,9 +73,14 @@ object ConvertData {
             return it
         }
 
-        if (movie.releaseYears.isNotEmpty() ) {
-            val start = movie.releaseYears[0].start
-            val end = movie.releaseYears[0].end
+        if (movie.releaseYears.isNotEmpty()) {
+            val start = movie.releaseYears[0].start.toString()
+            var end = movie.releaseYears[0].end.toString()
+
+            if (movie.releaseYears[0].end == null) {
+                end = "...."
+            }
+
             return "$start-$end"
         }
 
@@ -87,5 +89,10 @@ object ConvertData {
         }
 
         return ""
+    }
+
+    fun convertRatingKP(rating: Float): String {
+        val temp = BigDecimal(rating.toDouble()).setScale(1, RoundingMode.HALF_EVEN)
+        return temp.toString()
     }
 }

@@ -18,7 +18,7 @@ import com.example.movieapp.R
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.viewModel.HomeViewModel
-import com.example.movieapp.ui.widget.component.DefaultLazyRow
+import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.listItams.CollectionCard
 import com.example.movieapp.ui.widget.listItams.LastItemCard

@@ -1,5 +1,6 @@
 package com.example.core.data.repositories
 
+import android.util.Log
 import com.example.core.domain.repositories.MovieRepository
 import com.example.network.KtorClient
 import com.example.network.module.movie.Movie
@@ -8,10 +9,12 @@ import javax.inject.Inject
 class MovieRepositoryImpl @Inject constructor(
     private val ktorClient: KtorClient
 ): MovieRepository {
-    override suspend fun getMovieByFilter(queryParameters: Map<String, String>): List<Movie> {
+    override suspend fun getMovieByFilter(queryParameters: List<Pair<String, String>>): List<Movie> {
         return try {
+            Log.d("RRRR", queryParameters.toString())
             ktorClient.getMoviesByFilter(queryParameters)
         } catch (e: Exception) {
+            Log.d("RRRR", e.toString())
             listOf()
         }
     }

@@ -17,7 +17,7 @@ class GetAward @Inject constructor(
     private val awardRepository: AwardRepository
 ) {
     suspend fun getPersonAwardsByDate(personId: Int, page: Int = 1): List<NominationAward> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             PERSON_ID_FIELD to personId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to NOM_AWARD_YEAR_FIELD,
@@ -28,7 +28,7 @@ class GetAward @Inject constructor(
     }
 
     suspend fun getPersonAwardsByTitle(personId: Int, page: Int = 1): List<NominationAward> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             PERSON_ID_FIELD to personId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to NOM_AWARD_TITLE_FIELD,
@@ -39,7 +39,7 @@ class GetAward @Inject constructor(
     }
 
     suspend fun getMovieAwardsByDate(movieId: Int, page: Int = 1): List<NominationAward> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to NOM_AWARD_YEAR_FIELD,
@@ -50,7 +50,7 @@ class GetAward @Inject constructor(
     }
 
     suspend fun getMovieAwardsByTitle(movieId: Int, page: Int = 1): List<NominationAward> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to NOM_AWARD_TITLE_FIELD,

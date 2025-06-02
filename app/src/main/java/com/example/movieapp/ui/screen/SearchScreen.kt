@@ -33,8 +33,8 @@ import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.viewModel.SearchViewModel
-import com.example.movieapp.ui.widget.component.DefaultLazyRow
-import com.example.movieapp.ui.widget.component.SearchContent
+import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
+import com.example.movieapp.ui.widget.lazyComponent.SearchContent
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.listItams.LastItemCard
 import com.example.movieapp.ui.widget.listItams.PersonCard

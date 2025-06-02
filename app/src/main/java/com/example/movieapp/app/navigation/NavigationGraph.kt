@@ -129,9 +129,9 @@ fun NavigationGraph(
             )
         }
 
-        composable<SearchResultRoute> (
+        composable<SearchResultRoute>(
             typeMap = mapOf(
-                typeOf<LinkedHashMap<String, String>>() to CustomNavType.LinkedHashMapType
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ArrayListType
             )
         ) {
             val data = it.toRoute<SearchResultRoute>()

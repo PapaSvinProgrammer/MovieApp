@@ -6,23 +6,23 @@ import androidx.savedstate.SavedState
 import kotlinx.serialization.json.Json
 
 object CustomNavType {
-    val LinkedHashMapType = object: NavType<LinkedHashMap<String, String>>(
+    val ArrayListType = object: NavType<ArrayList<Pair<String, String>>>(
         isNullableAllowed = false
     ) {
-        override fun put(bundle: SavedState, key: String, value: LinkedHashMap<String, String>) {
+        override fun put(bundle: SavedState, key: String, value: ArrayList<Pair<String, String>>) {
             bundle.putString(key, Json.encodeToString(value))
         }
 
-        override fun get(bundle: SavedState, key: String): LinkedHashMap<String, String>? {
+        override fun get(bundle: SavedState, key: String): ArrayList<Pair<String, String>>? {
             return Json.decodeFromString(bundle.getString(key) ?: return null)
         }
 
-        override fun serializeAsValue(value: LinkedHashMap<String, String>): String {
-            return Uri.encode(Json.encodeToString(value))
+        override fun parseValue(value: String): ArrayList<Pair<String, String>> {
+            return Json.decodeFromString(Uri.decode(value))
         }
 
-        override fun parseValue(value: String): LinkedHashMap<String, String> {
-            return Json.decodeFromString(Uri.decode(value))
+        override fun serializeAsValue(value: ArrayList<Pair<String, String>>): String {
+            return Uri.encode(Json.encodeToString(value))
         }
     }
 }

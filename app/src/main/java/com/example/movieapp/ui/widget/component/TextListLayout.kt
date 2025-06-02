@@ -30,17 +30,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.snapshots.SnapshotStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
@@ -51,17 +46,12 @@ import dev.chrisbanes.haze.haze
 fun TextListLayout(
     visible: Boolean,
     hazeState: HazeState,
-    onClose: () -> Unit,
     title: String,
-    list: List<String>,
-    onResult: (List<String>) -> Unit
+    list: List<Pair<String, Boolean>>,
+    onClose: () -> Unit,
+    onReset: () -> Unit,
+    onClick: (Int) -> Unit
 ) {
-    val result = remember { mutableStateListOf<Pair<String, Boolean>>() }
-
-    LifecycleEventEffect(Lifecycle.Event.ON_START) {
-        list.forEach { result.add(it to false) }
-    }
-
     AnimatedVisibility(
         visible = visible,
         enter = slideInHorizontally(initialOffsetX = { it }),
@@ -75,10 +65,7 @@ fun TextListLayout(
                     },
                     navigationIcon = {
                         IconButton(
-                            onClick = {
-                                onClose()
-                                result.reset()
-                            }
+                            onClick = onClose
                         ) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Default.ArrowBack,
@@ -87,12 +74,7 @@ fun TextListLayout(
                         }
                     },
                     actions = {
-                        TextButton(
-                            onClick = {
-                                result.reset()
-                                onResult(listOf())
-                            }
-                        ) {
+                        TextButton(onClick = onReset) {
                             Text(
                                 text = stringResource(R.string.reset),
                                 color = MaterialTheme.colorScheme.onSurface
@@ -106,21 +88,13 @@ fun TextListLayout(
                 MainContent(
                     innerPadding = innerPadding,
                     hazeState = hazeState,
-                    result = result,
-                    onClick = {
-                        result[it] = result[it].copy(
-                            second = !result[it].second
-                        )
-                    }
+                    result = list,
+                    onClick = { onClick(it) }
                 )
 
                 SuccessButton(
-                    isEnabled = result.any { it.second },
-                    onClick = {
-                        val res = result.filter { it.second }.map { it.first }
-                        onResult(res)
-                        onClose()
-                    }
+                    isEnabled = list.any { it.second },
+                    onClick = onClose
                 )
             }
         }
@@ -191,11 +165,5 @@ private fun BoxScope.SuccessButton(
             fontSize = 16.sp,
             fontWeight = FontWeight.Bold
         )
-    }
-}
-
-private fun SnapshotStateList<Pair<String, Boolean>>.reset() {
-    repeat(this.size) { index ->
-        this[index] = this[index].copy(second = false)
     }
 }

@@ -51,7 +51,6 @@ import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.widget.component.TextListLayout
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
-import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -117,8 +116,8 @@ fun SearchSettingsScreen(
                 )
 
                 DetailSettingsContent(
-                    genresResult = viewModel.genresResult,
-                    countriesResult = viewModel.countriesResult,
+                    genresResult = viewModel.resultGenres.filter { it.second }.map { it.first },
+                    countriesResult = viewModel.resultCountries.filter { it.second }.map { it.first },
                     onCountryClick = { viewModel.updateCountryVisible(true) },
                     onGenreClick = { viewModel.updateGenreVisible(true) },
                     onYearClick = {  }
@@ -149,8 +148,8 @@ fun SearchSettingsScreen(
                 val convertData = ConvertData.convertQueryParameters(
                     category = optionsCategory[viewModel.selectedCategoryIndex],
                     sortBy = optionsSortType[viewModel.selectedSortTypeIndex],
-                    genres = viewModel.genresResult,
-                    counties = viewModel.countriesResult,
+                    genres = viewModel.resultGenres.filter { it.second }.map { it.first },
+                    counties = viewModel.resultCountries.filter { it.second }.map { it.first },
                     rating = viewModel.ratingSliderPosition,
                     year = ""
                 )
@@ -160,27 +159,25 @@ fun SearchSettingsScreen(
         }
     }
 
-    if (viewModel.genres.isNotEmpty()) {
-        TextListLayout(
-            visible = viewModel.genreListVisible,
-            title = stringResource(R.string.genres),
-            hazeState = hazeState,
-            onClose = { viewModel.updateGenreVisible(false)},
-            list = viewModel.genres,
-            onResult = { viewModel.updateGenresResult(it) }
-        )
-    }
+    TextListLayout(
+        visible = viewModel.genreListVisible,
+        title = stringResource(R.string.genres),
+        hazeState = hazeState,
+        onClose = { viewModel.updateGenreVisible(false)},
+        list = viewModel.resultGenres,
+        onClick = { viewModel.updateResultGenres(it) },
+        onReset = { viewModel.resetGenres() }
+    )
 
-    if (viewModel.countries.isNotEmpty()) {
-        TextListLayout(
-            visible = viewModel.countryListVisible,
-            title = stringResource(R.string.countries),
-            hazeState = hazeState,
-            onClose = { viewModel.updateCountryVisible(false) },
-            list = viewModel.countries,
-            onResult = { viewModel.updateCountriesResult(it)}
-        )
-    }
+    TextListLayout(
+        visible = viewModel.countryListVisible,
+        title = stringResource(R.string.countries),
+        hazeState = hazeState,
+        onClose = { viewModel.updateCountryVisible(false) },
+        list = viewModel.resultCountries,
+        onClick = { viewModel.updateResultCountries(it) },
+        onReset = { viewModel.resetCountries() }
+    )
 }
 
 @Composable
@@ -198,7 +195,12 @@ private fun ColumnScope.SegmentedButton(
         list.forEachIndexed { index, item ->
             SegmentedButton(
                 selected = index == selectedIndex,
-                label = { Text(item) },
+                label = {
+                    Text(
+                        text = item,
+                        maxLines = 1
+                    )
+                },
                 icon = {  },
                 shape = SegmentedButtonDefaults.itemShape(
                     index = index,
@@ -294,17 +296,17 @@ private fun CategoryRow(
         Text(
             text = s,
             fontWeight = FontWeight.Medium,
-            fontSize = 14.sp,
+            fontSize = 13.sp,
             modifier = Modifier.weight(1f)
         )
 
         Text(
             modifier = Modifier
                 .fillMaxWidth()
-                .weight(5f),
+                .weight(2f),
             text = description,
             textAlign = TextAlign.End,
-            fontSize = 14.sp,
+            fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
@@ -350,7 +352,7 @@ private fun RatingRow(
         )
 
         Text(
-            text = ConvertData.convertRating(sliderPosition),
+            text = ConvertData.convertRatingRange(sliderPosition),
             fontSize = 14.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant

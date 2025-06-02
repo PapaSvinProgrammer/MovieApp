@@ -21,7 +21,7 @@ class GetMovie @Inject constructor(
     }
 
     suspend fun getMoviesByGenre(genre: String, page: Int = 1): List<Movie> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             Constants.PAGE_FIELD to page.toString(),
             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC,
@@ -32,7 +32,7 @@ class GetMovie @Inject constructor(
     }
 
     suspend fun getMoviesByCollection(name: String, page: Int = 1): List<Movie> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             Constants.PAGE_FIELD to page.toString(),
             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC,
@@ -43,7 +43,7 @@ class GetMovie @Inject constructor(
     }
 
     suspend fun getMoviesByCompany(name: String, page: Int = 1): List<Movie> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             Constants.PAGE_FIELD to page.toString(),
             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC,
@@ -53,7 +53,7 @@ class GetMovie @Inject constructor(
         return movieRepository.getMovieByFilter(queryParameters)
     }
 
-    suspend fun getByFilter(queryParameters: Map<String, String>): List<Movie> {
+    suspend fun getByFilter(queryParameters: List<Pair<String, String>>): List<Movie> {
         return movieRepository.getMovieByFilter(queryParameters)
     }
 }

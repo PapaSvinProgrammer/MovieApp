@@ -11,7 +11,7 @@ class GetCollection @Inject constructor(
     private val collectionRepository: CollectionRepository
 ) {
     suspend fun getAll(page: Int = 1): List<Collection> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             PAGE_FIELD to page.toString(),
             Constants.SLUG_FIELD to "!hd"
         )
@@ -20,7 +20,7 @@ class GetCollection @Inject constructor(
     }
 
     suspend fun getByCategory(category: String, page: Int = 1): List<Collection> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             PAGE_FIELD to page.toString(),
             CATEGORY_FIELD to category
         )

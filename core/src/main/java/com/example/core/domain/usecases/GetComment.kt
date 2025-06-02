@@ -19,7 +19,7 @@ class GetComment @Inject constructor(
     private val commentRepository: CommentRepository
 ) {
     suspend fun getByDateAsc(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to DATE_FIELD,
@@ -30,7 +30,7 @@ class GetComment @Inject constructor(
     }
 
     suspend fun getByDateDesc(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to DATE_FIELD,
@@ -41,7 +41,7 @@ class GetComment @Inject constructor(
     }
 
     suspend fun getByTypePositive(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to TYPE_FIELD,
@@ -52,7 +52,7 @@ class GetComment @Inject constructor(
     }
 
     suspend fun getByTypeNegative(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             SORT_FIELD to TYPE_FIELD,
@@ -63,7 +63,7 @@ class GetComment @Inject constructor(
     }
 
     suspend fun getOnlyPositive(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             TYPE_FIELD to POSITIVE_VALUE
@@ -73,7 +73,7 @@ class GetComment @Inject constructor(
     }
 
     suspend fun getOnlyNegative(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             TYPE_FIELD to NEGATIVE_VALUE
@@ -83,7 +83,7 @@ class GetComment @Inject constructor(
     }
 
     suspend fun getOnlyNeutral(movieId: Int, page: Int = 1): List<Comment> {
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
             TYPE_FIELD to NEUTRAL_VALUE

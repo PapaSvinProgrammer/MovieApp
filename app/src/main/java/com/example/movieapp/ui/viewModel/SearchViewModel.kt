@@ -55,7 +55,7 @@ class SearchViewModel @Inject constructor(
     fun getPopularDubbingActor() {
         if (dubbingPersonState is PersonUIState.Success) return
 
-        val queryParameters = mapOf(
+        val queryParameters = listOf(
             Constants.PROFESSION_VALUE to "Актер дубляжа"
         )
 
@@ -71,8 +71,8 @@ class SearchViewModel @Inject constructor(
     fun getTopSerials() {
         if (topSerialsState is MovieUIState.Success) return
 
-        val queryParameters = mapOf(
-            "isSeries" to "true",
+        val queryParameters = listOf(
+            Constants.IS_SERIES_FIELD to Constants.TRUE,
             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC
         )
