@@ -30,12 +30,13 @@ import com.example.network.module.movie.Movie
 
 @Composable
 fun SearchHistoryMovieCard(
+    modifier: Modifier = Modifier,
     movie: Movie,
     onClick: () -> Unit,
     onRemove: () -> Unit
 ) {
     Row(
-        modifier = Modifier
+        modifier = modifier
             .fillMaxWidth()
             .height(110.dp)
             .clickable(onClick = onClick)

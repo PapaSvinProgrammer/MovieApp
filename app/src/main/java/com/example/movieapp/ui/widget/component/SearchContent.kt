@@ -105,6 +105,7 @@ fun SearchHistoryContent(
 
                 entity?.let {
                     SearchHistoryMovieCard(
+                        modifier = Modifier.animateItem(),
                         movie = it.toMovie(),
                         onClick = { onClick(entity.toMovie()) },
                         onRemove = { onRemoveClick(it.movieId) }
