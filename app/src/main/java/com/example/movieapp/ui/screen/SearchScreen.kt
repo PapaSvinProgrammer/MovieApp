@@ -29,6 +29,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
@@ -41,9 +42,10 @@ import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.component.ErrorSearchContent
 import com.example.movieapp.ui.widget.component.LoadingSearchContent
 import com.example.movieapp.ui.widget.component.SearchHistoryContent
-import com.example.movieapp.ui.widget.listItams.LastItemCard
-import com.example.movieapp.ui.widget.listItams.PersonCard
+import com.example.movieapp.ui.widget.listItems.LastItemCard
+import com.example.movieapp.ui.widget.listItems.PersonCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
+import com.example.network.module.movie.Movie
 import com.example.network.module.person.Person
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
@@ -55,6 +57,8 @@ fun SearchScreen(
     viewModel: SearchViewModel,
     hazeState: HazeState
 ) {
+    val searchHistoryLazyPaging = viewModel.resultHistory.collectAsLazyPagingItems()
+
     LaunchedEffect(viewModel.isExpanded) {
         if (!viewModel.isExpanded) {
             viewModel.clearSearchResult()
@@ -108,13 +112,18 @@ fun SearchScreen(
             },
             content = {
                 if (viewModel.query.isEmpty()) {
-                    SearchHistoryContent()
+                    SearchHistoryContent(
+                        lazyPaging = searchHistoryLazyPaging,
+                        hazeState = hazeState,
+                        onClick = {  },
+                        onRemoveClick = { viewModel.deleteSearchHistoryItem(it) }
+                    )
                 }
                 else {
                     RenderSearchResult(
                         state = viewModel.movieSearchState,
                         hazeState = hazeState,
-                        onClick = {},
+                        onClick = { viewModel.insertSearchHistoryItem(it) },
                         onLoadMore = { viewModel.loadMoreMovieByName() }
                     )
                 }
@@ -189,7 +198,7 @@ fun SearchScreen(
 @Composable
 private fun RenderSearchResult(
     state: MovieUIState,
-    onClick: (Int) -> Unit,
+    onClick: (Movie) -> Unit,
     onLoadMore: () -> Unit,
     hazeState: HazeState
 ) {

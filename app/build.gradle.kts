@@ -44,6 +44,8 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":network"))
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
     implementation(libs.haze.jetpack.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.kotlinx.serialization.json)

@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.listItams
+package com.example.movieapp.ui.widget.listItems
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement

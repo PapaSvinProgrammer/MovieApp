@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     id("kotlin-kapt")
+    id("com.google.devtools.ksp")
 }
 
 android {
@@ -35,6 +36,10 @@ android {
 
 dependencies {
     implementation(project(":network"))
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    implementation(libs.androidx.room.paging)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.ktor.client.okhttp)
     implementation(libs.dagger)

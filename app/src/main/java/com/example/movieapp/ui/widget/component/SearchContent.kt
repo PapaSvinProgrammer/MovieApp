@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
@@ -16,9 +17,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.paging.compose.LazyPagingItems
+import androidx.paging.compose.itemContentType
+import androidx.paging.compose.itemKey
+import com.example.core.data.room.entity.HistoryEntity
 import com.example.movieapp.R
+import com.example.movieapp.app.utils.toMovie
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.movieapp.ui.widget.listItams.SearchMovieCard
+import com.example.movieapp.ui.widget.listItems.SearchHistoryMovieCard
+import com.example.movieapp.ui.widget.listItems.SearchMovieCard
 import com.example.network.module.movie.Movie
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
@@ -27,7 +34,7 @@ import dev.chrisbanes.haze.haze
 fun SearchContent(
     list: List<Movie>,
     hazeState: HazeState,
-    onClick: (Int) -> Unit,
+    onClick: (Movie) -> Unit,
     onLoadMore: () -> Unit
 ) {
     EndlessLazyColumn(
@@ -35,7 +42,10 @@ fun SearchContent(
         loadMore = onLoadMore,
         modifier = Modifier.haze(hazeState)
     ) {
-        SearchMovieCard(it) { onClick(it.id) }
+        SearchMovieCard(
+            movie = it,
+            onClick = { onClick(it) }
+        )
         HorizontalDivider(modifier = Modifier.padding(start = 110.dp))
     }
 }
@@ -75,6 +85,32 @@ fun LoadingSearchContent() {
 }
 
 @Composable
-fun SearchHistoryContent() {
+fun SearchHistoryContent(
+    lazyPaging: LazyPagingItems<HistoryEntity>,
+    hazeState: HazeState,
+    onClick: (Movie) -> Unit,
+    onRemoveClick: (Int) -> Unit
+) {
+    LazyColumn(
+        modifier = Modifier
+            .fillMaxSize()
+            .haze(hazeState)
+    ) {
+        items(
+            count = lazyPaging.itemCount,
+            key = lazyPaging.itemKey { it.id },
+            contentType = lazyPaging.itemContentType { "Search item" },
+            itemContent = { index ->
+                val entity = lazyPaging[index]
 
+                entity?.let {
+                    SearchHistoryMovieCard(
+                        movie = it.toMovie(),
+                        onClick = { onClick(entity.toMovie()) },
+                        onRemove = { onRemoveClick(it.movieId) }
+                    )
+                }
+            }
+        )
+    }
 }

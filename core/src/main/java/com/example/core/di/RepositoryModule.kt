@@ -4,6 +4,7 @@ import com.example.core.data.repositories.AwardRepositoryImpl
 import com.example.core.data.repositories.CategoryRepositoryImpl
 import com.example.core.data.repositories.CollectionRepositoryImpl
 import com.example.core.data.repositories.CommentRepositoryImpl
+import com.example.core.data.repositories.HistoryRepositoryImpl
 import com.example.core.data.repositories.MovieRepositoryImpl
 import com.example.core.data.repositories.PersonRepositoryImpl
 import com.example.core.data.repositories.PreferencesRepositoryImpl
@@ -13,6 +14,7 @@ import com.example.core.domain.repositories.AwardRepository
 import com.example.core.domain.repositories.CategoryRepository
 import com.example.core.domain.repositories.CollectionRepository
 import com.example.core.domain.repositories.CommentRepository
+import com.example.core.domain.repositories.HistoryRepository
 import com.example.core.domain.repositories.MovieRepository
 import com.example.core.domain.repositories.PersonRepository
 import com.example.core.domain.repositories.PreferencesRepository
@@ -59,4 +61,8 @@ interface RepositoryModule {
     @Binds
     @Singleton
     fun bindPreferencesRepositoryImpl(repository: PreferencesRepositoryImpl): PreferencesRepository
+
+    @Binds
+    @Singleton
+    fun bindHistoryRepositoryImpl(repository: HistoryRepositoryImpl): HistoryRepository
 }

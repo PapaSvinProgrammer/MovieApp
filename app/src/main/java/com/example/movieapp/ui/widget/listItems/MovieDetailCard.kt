@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.listItams
+package com.example.movieapp.ui.widget.listItems
 
 import android.annotation.SuppressLint
 import androidx.compose.foundation.clickable

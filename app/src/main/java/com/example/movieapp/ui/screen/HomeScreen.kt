@@ -20,9 +20,9 @@ import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.viewModel.HomeViewModel
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.TitleRow
-import com.example.movieapp.ui.widget.listItams.CollectionCard
-import com.example.movieapp.ui.widget.listItams.LastItemCard
-import com.example.movieapp.ui.widget.listItams.MovieCard
+import com.example.movieapp.ui.widget.listItems.CollectionCard
+import com.example.movieapp.ui.widget.listItems.LastItemCard
+import com.example.movieapp.ui.widget.listItems.MovieCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerCollectionRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
 import com.example.network.module.image.Collection

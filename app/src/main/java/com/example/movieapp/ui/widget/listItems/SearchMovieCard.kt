@@ -1,9 +1,8 @@
-package com.example.movieapp.ui.widget.listItams
+package com.example.movieapp.ui.widget.listItems
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
@@ -24,6 +23,7 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -42,7 +42,7 @@ fun SearchMovieCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(130.dp)
+            .height(110.dp)
             .clickable(onClick = onClick)
             .padding(15.dp)
     ) {
@@ -55,39 +55,44 @@ fun SearchMovieCard(
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(100.dp)
-                .width(80.dp)
+                .height(80.dp)
+                .width(60.dp)
                 .clip(RoundedCornerShape(10.dp))
         )
         Spacer(modifier = Modifier.width(15.dp))
+
         Box(modifier = Modifier.fillMaxSize()) {
-            Row(
+            DetailInfoContent(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .align(Alignment.Center),
-                verticalAlignment = Alignment.CenterVertically
-            ) {
-                DetailInfoContent(movie)
-                RatingText(
-                    modifier = Modifier.weight(1f),
-                    rating = movie.rating?.kp ?: 0f
-                )
-            }
+                    .align(Alignment.CenterStart)
+                    .padding(end = 30.dp),
+                movie = movie
+            )
+
+            RatingText(
+                modifier = Modifier.align(Alignment.CenterEnd),
+                rating = movie.rating?.kp ?: 0f
+            )
         }
     }
 }
 
 @Composable
-private fun RowScope.DetailInfoContent(movie: Movie) {
+internal fun DetailInfoContent(
+    modifier: Modifier = Modifier,
+    movie: Movie
+) {
     Column(
-        modifier = Modifier.fillMaxSize().weight(6f),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
             text = movie.name ?: "",
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
-            color = MaterialTheme.colorScheme.onSurface
+            color = MaterialTheme.colorScheme.onSurface,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
         )
 
         AlternativeName(movie)
@@ -96,7 +101,7 @@ private fun RowScope.DetailInfoContent(movie: Movie) {
 }
 
 @Composable
-private fun AlternativeName(movie: Movie) {
+internal fun AlternativeName(movie: Movie) {
     var name = ConvertData.getAlternativeNameForMovie(movie)
 
     if (name.isEmpty()) {
@@ -107,27 +112,30 @@ private fun AlternativeName(movie: Movie) {
         text = name,
         fontSize = 14.sp,
         fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
 }
 
 @Composable
-private fun DateRange(movie: Movie) {
-    val text: String
+internal fun DateRange(movie: Movie) {
+    var text = movie.year.toString()
 
     if (movie.releaseYears.isNotEmpty()) {
-        val start = movie.releaseYears[0].start
-        val end = movie.releaseYears[0].end
-        text = "$start-$end"
-    }
-    else {
-        text = movie.year.toString()
+        if (movie.releaseYears[0].start != -1 && movie.releaseYears[0].end != -1) {
+            val start = movie.releaseYears[0].start
+            val end = movie.releaseYears[0].end
+            text = "$start-$end"
+        }
     }
 
     Text(
         text = text,
         fontSize = 13.sp,
         fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant
+        color = MaterialTheme.colorScheme.onSurfaceVariant,
+        maxLines = 1,
+        overflow = TextOverflow.Ellipsis
     )
 }
