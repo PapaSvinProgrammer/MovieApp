@@ -2,6 +2,7 @@ package com.example.movieapp.ui.widget.other
 
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
@@ -10,7 +11,10 @@ import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.theme.Green
 
 @Composable
-fun RatingText(rating: Float) {
+fun RatingText(
+    rating: Float,
+    modifier: Modifier = Modifier
+) {
     val color: Color
 
     if (rating.toInt() >= 7) {
@@ -24,6 +28,7 @@ fun RatingText(rating: Float) {
     }
 
     Text(
+        modifier = modifier,
         text = ConvertData.convertRatingKP(rating),
         fontWeight = FontWeight.Bold,
         fontSize = 14.sp,

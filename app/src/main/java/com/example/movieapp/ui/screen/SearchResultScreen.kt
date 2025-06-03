@@ -70,7 +70,6 @@ private fun RenderMovieState(
     loadMore: () -> Unit
 ) {
     when (state) {
-        MovieUIState.Loading -> ShimmerMovieDetailList(modifier)
         is MovieUIState.Success -> {
             MainContent(
                 modifier = modifier,
@@ -79,6 +78,7 @@ private fun RenderMovieState(
                 loadMore = loadMore
             )
         }
+        else -> ShimmerMovieDetailList(modifier)
     }
 }
 

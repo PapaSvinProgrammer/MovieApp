@@ -20,6 +20,7 @@ import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -31,11 +32,15 @@ import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
+import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
-import com.example.movieapp.ui.widget.lazyComponent.SearchContent
+import com.example.movieapp.ui.widget.component.SearchContent
 import com.example.movieapp.ui.widget.component.TitleRow
+import com.example.movieapp.ui.widget.component.ErrorSearchContent
+import com.example.movieapp.ui.widget.component.LoadingSearchContent
+import com.example.movieapp.ui.widget.component.SearchHistoryContent
 import com.example.movieapp.ui.widget.listItams.LastItemCard
 import com.example.movieapp.ui.widget.listItams.PersonCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
@@ -50,6 +55,12 @@ fun SearchScreen(
     viewModel: SearchViewModel,
     hazeState: HazeState
 ) {
+    LaunchedEffect(viewModel.isExpanded) {
+        if (!viewModel.isExpanded) {
+            viewModel.clearSearchResult()
+        }
+    }
+
     Column(modifier = Modifier.fillMaxSize()) {
         SearchBar(
             modifier = Modifier.align(Alignment.CenterHorizontally),
@@ -58,7 +69,10 @@ fun SearchScreen(
             inputField = {
                 SearchBarDefaults.InputField(
                     query = viewModel.query,
-                    onQueryChange = { viewModel.updateQuery(it) },
+                    onQueryChange = {
+                        viewModel.updateQuery(it)
+                        viewModel.getMovieByName(it)
+                    },
                     onSearch = {
                         viewModel.updateExpanded(false)
                         viewModel.updateQuery("")
@@ -92,7 +106,19 @@ fun SearchScreen(
                     }
                 )
             },
-            content = { SearchContent() }
+            content = {
+                if (viewModel.query.isEmpty()) {
+                    SearchHistoryContent()
+                }
+                else {
+                    RenderSearchResult(
+                        state = viewModel.movieSearchState,
+                        hazeState = hazeState,
+                        onClick = {},
+                        onLoadMore = { viewModel.loadMoreMovieByName() }
+                    )
+                }
+            }
         )
 
         Spacer(modifier = Modifier.height(30.dp))
@@ -137,10 +163,10 @@ fun SearchScreen(
             }
 
             item {
-                viewModel.getPopularDubbingActor()
+                viewModel.getActorByCountAwards()
                 RenderPersonRowState(
                     state = viewModel.dubbingPersonState,
-                    title = stringResource(R.string.dubbing_actor),
+                    title = stringResource(R.string.have_most_awards),
                     onClick = {},
                     onShowAll = {}
                 )
@@ -150,12 +176,33 @@ fun SearchScreen(
                 viewModel.getTopSerials()
                 RenderMovieRowState(
                     state = viewModel.topSerialsState,
-                    title = stringResource(R.string.have_most_awards),
+                    title = stringResource(R.string.popular_serials),
                     onClick = {},
                     onShowAll = {}
                 )
                 Spacer(modifier = Modifier.height(130.dp))
             }
+        }
+    }
+}
+
+@Composable
+private fun RenderSearchResult(
+    state: MovieUIState,
+    onClick: (Int) -> Unit,
+    onLoadMore: () -> Unit,
+    hazeState: HazeState
+) {
+    when (state) {
+        MovieUIState.Error -> ErrorSearchContent()
+        MovieUIState.Loading -> LoadingSearchContent()
+        is MovieUIState.Success -> {
+            SearchContent(
+                list = state.data,
+                onClick = onClick,
+                onLoadMore = onLoadMore,
+                hazeState = hazeState
+            )
         }
     }
 }

@@ -32,6 +32,10 @@ class SearchViewModel @Inject constructor(
     var topSerialsState by mutableStateOf(MovieUIState.Loading as MovieUIState)
         private set
 
+    private var searchPage = 1
+    var movieSearchState by mutableStateOf(MovieUIState.Loading as MovieUIState)
+        private set
+
     fun updateQuery(text: String) {
         query = text
     }
@@ -52,11 +56,12 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun getPopularDubbingActor() {
+    fun getActorByCountAwards() {
         if (dubbingPersonState is PersonUIState.Success) return
 
         val queryParameters = listOf(
-            Constants.PROFESSION_VALUE to "Актер дубляжа"
+            Constants.SORT_FIELD to Constants.COUNT_AWARDS_FIELD,
+            Constants.SORT_TYPE to Constants.SORT_DESC
         )
 
         viewModelScope.launch(Dispatchers.IO) {
@@ -84,5 +89,29 @@ class SearchViewModel @Inject constructor(
                 topSerialsState = MovieUIState.Success(res)
             }
         }
+    }
+
+    fun getMovieByName(q: String) {
+        searchPage = 1
+        movieSearchState = MovieUIState.Loading
+
+        viewModelScope.launch(Dispatchers.IO) {
+            val res = getMovie.search(q)
+
+            if (res.isEmpty()) {
+                movieSearchState = MovieUIState.Error
+            }
+            else {
+                movieSearchState = MovieUIState.Success(res)
+            }
+        }
+    }
+
+    fun loadMoreMovieByName() {
+        searchPage++
+    }
+
+    fun clearSearchResult() {
+        movieSearchState = MovieUIState.Loading
     }
 }

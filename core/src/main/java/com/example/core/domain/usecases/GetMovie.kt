@@ -13,7 +13,7 @@ class GetMovie @Inject constructor(
     }
 
     suspend fun search(q: String, page: Int = 1): List<Movie> {
-        if (q.length < 3 || page <= 0) {
+        if (q.length < 2 || page <= 0) {
             return listOf()
         }
 

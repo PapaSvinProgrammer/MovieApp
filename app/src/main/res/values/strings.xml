@@ -43,4 +43,6 @@
     <string name="search_result">Результаты поиска</string>
     <string name="cancel">Отменить</string>
     <string name="input_value">Введите название</string>
+    <string name="popular_serials">Популярные сериалы</string>
+    <string name="not_found">Ничего не найдено</string>
 </resources>
