@@ -15,6 +15,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
@@ -42,14 +43,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.other.TitleTopBarText
-import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TextListLayout(
     visible: Boolean,
-    hazeState: HazeState,
     title: String,
     list: List<Pair<String, Boolean>>,
     onClose: () -> Unit,
@@ -91,7 +89,6 @@ fun TextListLayout(
             Box {
                 MainContent(
                     innerPadding = innerPadding,
-                    hazeState = hazeState,
                     result = list,
                     onClick = { onClick(it) }
                 )
@@ -108,7 +105,6 @@ fun TextListLayout(
 @Composable
 private fun MainContent(
     innerPadding: PaddingValues,
-    hazeState: HazeState,
     result: List<Pair<String, Boolean>>,
     onClick: (Int) -> Unit
 ) {
@@ -126,35 +122,92 @@ private fun MainContent(
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        LazyColumn(
-            modifier = Modifier
-                .fillMaxWidth()
-                .haze(hazeState)
-        ) {
-            items(result.size) { index ->
-                ListItem(
-                    headlineContent = {
-                        Text(text = result[index].first)
-                    },
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .clickable { onClick(index) },
-                    trailingContent = {
-                        if (result[index].second) {
-                            Icon(
-                                imageVector = Icons.Default.Check,
-                                contentDescription = null
-                            )
-                        }
+        if (query.isEmpty()) {
+            MainLazyColumn(
+                result = result,
+                onClick = onClick
+            )
+        }
+        else {
+            SearchLazyColumn(
+                query = query,
+                result = result,
+                onClick = onClick
+            )
+        }
+    }
+}
+
+@Composable
+private fun MainLazyColumn(
+    result: List<Pair<String, Boolean>>,
+    onClick: (Int) -> Unit
+) {
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        items(result.size) { index ->
+            ListItem(
+                headlineContent = {
+                    Text(text = result[index].first)
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { onClick(index) },
+                trailingContent = {
+                    if (result[index].second) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null
+                        )
                     }
-                )
+                }
+            )
 
-                HorizontalDivider()
-            }
+            HorizontalDivider()
+        }
 
-            item {
-                Spacer(modifier = Modifier.height(130.dp))
-            }
+        item {
+            Spacer(modifier = Modifier.height(130.dp))
+        }
+    }
+}
+
+@Composable
+private fun SearchLazyColumn(
+    query: String,
+    result: List<Pair<String, Boolean>>,
+    onClick: (Int) -> Unit
+) {
+    val searchResult: List<Pair<String, Boolean>> = result
+        .filter {
+            it.first.lowercase().contains(
+                query.lowercase()
+            )
+        }
+
+    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+        items(searchResult) {
+            ListItem(
+                headlineContent = {
+                    Text(text = it.first)
+                },
+                modifier = Modifier
+                    .fillMaxSize()
+                    .clickable { onClick(result.indexOf(it)) },
+                trailingContent = {
+                    if (it.second) {
+                        Icon(
+                            imageVector = Icons.Default.Check,
+                            contentDescription = null
+                        )
+                    }
+                }
+            )
+
+            HorizontalDivider()
+        }
+
+        item {
+            Spacer(modifier = Modifier.height(130.dp))
         }
     }
 }

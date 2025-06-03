@@ -124,7 +124,6 @@ fun NavigationGraph(
 
             SearchSettingsScreen(
                 navController = navController,
-                hazeState = hazeState,
                 viewModel = viewModel
             )
         }

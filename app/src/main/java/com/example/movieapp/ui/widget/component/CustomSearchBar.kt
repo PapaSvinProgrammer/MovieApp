@@ -5,6 +5,7 @@ import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
@@ -39,11 +40,16 @@ fun CustomSearchBar(
     val focus = remember { FocusRequester() }
     val focusManager = LocalFocusManager.current
 
+    val searchBarPadding = if (isFocused)
+        PaddingValues(start = 15.dp, end = 5.dp)
+    else
+        PaddingValues(horizontal = 15.dp)
+
     Row {
         BasicTextField(
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(horizontal = 15.dp)
+                .padding(searchBarPadding)
                 .background(
                     color = MaterialTheme.colorScheme.surfaceContainerHighest,
                     shape = RoundedCornerShape(15.dp)
@@ -76,7 +82,10 @@ fun CustomSearchBar(
         AnimatedVisibility(visible = isFocused) {
             TextButton(
                 modifier = Modifier.weight(1f),
-                onClick = { focusManager.clearFocus() }
+                onClick = {
+                    focusManager.clearFocus()
+                    onValueChange("")
+                }
             ) {
                 Text(
                     text = stringResource(R.string.cancel),

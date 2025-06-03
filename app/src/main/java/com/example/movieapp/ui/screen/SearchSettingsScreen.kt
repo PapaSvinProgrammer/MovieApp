@@ -50,13 +50,11 @@ import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.widget.component.TextListLayout
 import com.example.movieapp.ui.widget.other.TitleTopBarText
-import dev.chrisbanes.haze.HazeState
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchSettingsScreen(
     navController: NavController,
-    hazeState: HazeState,
     viewModel: SearchSettingsViewModel
 ) {
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
@@ -162,7 +160,6 @@ fun SearchSettingsScreen(
     TextListLayout(
         visible = viewModel.genreListVisible,
         title = stringResource(R.string.genres),
-        hazeState = hazeState,
         onClose = { viewModel.updateGenreVisible(false)},
         list = viewModel.resultGenres,
         onClick = { viewModel.updateResultGenres(it) },
@@ -172,7 +169,6 @@ fun SearchSettingsScreen(
     TextListLayout(
         visible = viewModel.countryListVisible,
         title = stringResource(R.string.countries),
-        hazeState = hazeState,
         onClose = { viewModel.updateCountryVisible(false) },
         list = viewModel.resultCountries,
         onClick = { viewModel.updateResultCountries(it) },
