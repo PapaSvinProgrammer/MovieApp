@@ -1,5 +1,7 @@
 package com.example.movieapp.ui.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -43,14 +45,17 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchResultRoute
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.widget.component.TextListLayout
+import com.example.movieapp.ui.widget.dialog.YearPickerDialog
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 
+@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchSettingsScreen(
@@ -116,9 +121,10 @@ fun SearchSettingsScreen(
                 DetailSettingsContent(
                     genresResult = viewModel.resultGenres.filter { it.second }.map { it.first },
                     countriesResult = viewModel.resultCountries.filter { it.second }.map { it.first },
+                    yearResult = viewModel.yearFilter,
                     onCountryClick = { viewModel.updateCountryVisible(true) },
                     onGenreClick = { viewModel.updateGenreVisible(true) },
-                    onYearClick = {  }
+                    onYearClick = { viewModel.updateVisibleYearPicker(true) }
                 )
 
                 RatingRow(
@@ -149,7 +155,7 @@ fun SearchSettingsScreen(
                     genres = viewModel.resultGenres.filter { it.second }.map { it.first },
                     counties = viewModel.resultCountries.filter { it.second }.map { it.first },
                     rating = viewModel.ratingSliderPosition,
-                    year = ""
+                    year = viewModel.yearFilter
                 )
 
                 navController.navigate(SearchResultRoute(convertData))
@@ -174,6 +180,16 @@ fun SearchSettingsScreen(
         onClick = { viewModel.updateResultCountries(it) },
         onReset = { viewModel.resetCountries() }
     )
+
+    if (viewModel.yearPickerVisible) {
+        YearPickerDialog(
+            onDismiss = { viewModel.updateVisibleYearPicker(false) },
+            onConfirm = { start, end ->
+                viewModel.updateYearFilter(start, end)
+                viewModel.updateVisibleYearPicker(false)
+            }
+        )
+    }
 }
 
 @Composable
@@ -209,10 +225,12 @@ private fun ColumnScope.SegmentedButton(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun DetailSettingsContent(
     genresResult: List<String>,
     countriesResult: List<String>,
+    yearResult: Pair<Int, Int>,
     onGenreClick: () -> Unit,
     onCountryClick: () -> Unit,
     onYearClick: () -> Unit
@@ -253,7 +271,7 @@ private fun DetailSettingsContent(
         CategoryRow(
             index = 2,
             s = stringResource(R.string.year),
-            defaultDescription = stringResource(R.string.any2),
+            defaultDescription = ConvertData.convertYearRange(yearResult.first, yearResult.second),
             onCountryClick = onCountryClick,
             onGenreClick = onGenreClick,
             onYearClick = onYearClick

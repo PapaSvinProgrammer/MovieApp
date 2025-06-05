@@ -1,5 +1,7 @@
 package com.example.movieapp.ui.viewModel
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
@@ -8,10 +10,13 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.repositories.CategoryRepository
+import com.example.core.utils.FormatDate
+import com.example.network.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+@RequiresApi(Build.VERSION_CODES.O)
 class SearchSettingsViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ): ViewModel() {
@@ -22,14 +27,26 @@ class SearchSettingsViewModel @Inject constructor(
 
     val resultGenres = mutableStateListOf<Pair<String, Boolean>>()
     val resultCountries = mutableStateListOf<Pair<String, Boolean>>()
+    var yearFilter by mutableStateOf(Constants.LAST_YEAR to FormatDate.getCurrentYear())
+        private set
 
     var genreListVisible by mutableStateOf(false)
         private set
     var countryListVisible by mutableStateOf(false)
         private set
+    var yearPickerVisible by mutableStateOf(false)
+        private set
 
     var ratingSliderPosition by mutableStateOf(6f..10f)
         private set
+
+    fun updateYearFilter(start: Int, end: Int) {
+        yearFilter = start to end
+    }
+
+    fun updateVisibleYearPicker(state: Boolean) {
+        yearPickerVisible = state
+    }
 
     fun updateSelectedCategoryIndex(index: Int) {
         selectedCategoryIndex = index
@@ -87,6 +104,7 @@ class SearchSettingsViewModel @Inject constructor(
         resetGenres()
         resetCountries()
         ratingSliderPosition = 6f..10f
+        yearFilter = Constants.LAST_YEAR to FormatDate.getCurrentYear()
     }
 
     fun resetGenres() {

@@ -47,4 +47,6 @@
     <string name="not_found">Ничего не найдено</string>
     <string name="cinema">Кино</string>
     <string name="persons">Персоны</string>
+    <string name="select_date">Выбор даты</string>
+    <string name="select">Выбрать</string>
 </resources>

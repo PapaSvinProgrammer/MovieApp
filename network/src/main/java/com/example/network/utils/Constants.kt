@@ -37,4 +37,6 @@ object Constants {
     const val POSITIVE_VALUE = "Позитивный"
     const val NEGATIVE_VALUE = "Негативный"
     const val NEUTRAL_VALUE = "Нейтральный"
+
+    const val LAST_YEAR = 1888
 }

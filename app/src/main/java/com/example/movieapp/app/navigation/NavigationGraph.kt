@@ -1,5 +1,7 @@
 package com.example.movieapp.app.navigation
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
@@ -28,6 +30,7 @@ import com.example.movieapp.ui.viewModel.StartViewModel
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
@@ -37,7 +40,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SearchRoute,
+        startDestination = SearchSettingsRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,

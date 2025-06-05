@@ -1,5 +1,7 @@
 package com.example.core.utils
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import com.example.network.module.movie.Movie
 import com.example.network.utils.Constants
 import java.math.BigDecimal
@@ -33,12 +35,35 @@ object ConvertData {
         return startStr + endStr
     }
 
+    @RequiresApi(Build.VERSION_CODES.O)
+    fun convertYearRange(start: Int, end: Int): String {
+        if (start == end) {
+            return start.toString()
+        }
+
+        val currentYear = FormatDate.getCurrentYear()
+
+        if (start == Constants.LAST_YEAR && end == currentYear) {
+            return "Любой"
+        }
+
+        if (start == Constants.LAST_YEAR) {
+            return "по $end"
+        }
+
+        if (end == currentYear) {
+            return "с $start"
+        }
+
+        return "с $start по $end"
+    }
+
     fun convertQueryParameters(
         category: String,
         sortBy: String,
         genres: List<String>,
         counties: List<String>,
-        year: String,
+        year: Pair<Int, Int>,
         rating: ClosedFloatingPointRange<Float>
     ): List<Pair<String, String>> {
         val res = mutableListOf<Pair<String, String>>()
@@ -63,7 +88,7 @@ object ConvertData {
         val endRating = rating.endInclusive.roundToInt()
 
         res.add(Constants.RATING_KP_FIELD to "$startRating-$endRating")
-        //res[Constants.YEAR_FIELD] = year
+        res.add(Constants.YEAR_FIELD to "${year.first}-${year.second}")
 
         return res
     }
@@ -74,14 +99,16 @@ object ConvertData {
         }
 
         if (movie.releaseYears.isNotEmpty()) {
-            val start = movie.releaseYears[0].start.toString()
-            var end = movie.releaseYears[0].end.toString()
+            val start = movie.releaseYears[0].start
+            val end = movie.releaseYears[0].end
 
-            if (movie.releaseYears[0].end == null) {
-                end = "...."
+            start?.let {
+                if (end == null) {
+                    return "$start-..."
+                }
+
+                return "$start-$end"
             }
-
-            return "$start-$end"
         }
 
         movie.year?.let {
