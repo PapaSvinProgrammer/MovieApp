@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -22,7 +23,7 @@ fun <T: Any> EndlessLazyColumn(
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     items: List<T>,
     loadMore: () -> Unit,
-    itemContent: @Composable (T) -> Unit
+    itemContent: @Composable (index: Int, item: T) -> Unit
 ) {
     val reachBottom: Boolean by remember {
         derivedStateOf { listState.reachBottom() }
@@ -40,8 +41,8 @@ fun <T: Any> EndlessLazyColumn(
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement
     ) {
-        items(items) {
-            itemContent(it)
+        itemsIndexed(items) { index, item ->
+            itemContent(index, item)
         }
     }
 }

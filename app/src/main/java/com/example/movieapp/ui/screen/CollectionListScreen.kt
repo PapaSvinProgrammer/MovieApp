@@ -5,38 +5,41 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.R
-import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.viewModel.SearchResultViewModel
+import com.example.movieapp.ui.screen.uiState.CollectionUIState
+import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.movieapp.ui.widget.listItems.MovieDetailCard
+import com.example.movieapp.ui.widget.listItems.CollectionRowCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
-import com.example.network.module.movie.Movie
+import com.example.network.module.image.Collection
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchResultScreen(
+fun CollectionListScreen(
     navController: NavController,
-    viewModel: SearchResultViewModel,
-    queryParameters: List<Pair<String, String>>
+    viewModel: CollectionListViewModel,
+    hazeState: HazeState,
+    category: String? = null
 ) {
+    LifecycleEventEffect(Lifecycle.Event.ON_START) {
+        viewModel.getCollections(category)
+    }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    TitleTopBarText(text = stringResource(R.string.search_result))
+                    TitleTopBarText("Коллекции: $category")
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -49,53 +52,51 @@ fun SearchResultScreen(
             )
         }
     ) { innerPadding ->
-        LifecycleEventEffect(Lifecycle.Event.ON_START) {
-            viewModel.getMovies(queryParameters)
-        }
-
-        RenderMovieState(
-            state = viewModel.movieUIState,
-            modifier = Modifier.padding(innerPadding),
-            onClick = {  },
-            loadMore = { viewModel.loadMoreMovies(queryParameters) }
+        RenderCollectionState(
+            modifier = Modifier.padding(innerPadding).haze(hazeState),
+            state = viewModel.collectionState,
+            onClick = {},
+            onLoadMore = { viewModel.loadMoreCollections(category) }
         )
     }
 }
 
 @Composable
-private fun RenderMovieState(
-    modifier: Modifier,
-    state: MovieUIState,
-    onClick: (Movie) -> Unit,
-    loadMore: () -> Unit
+private fun RenderCollectionState(
+    modifier: Modifier = Modifier,
+    state: CollectionUIState,
+    onClick: (Collection) -> Unit,
+    onLoadMore: () -> Unit
 ) {
     when (state) {
-        is MovieUIState.Success -> {
+        CollectionUIState.Loading -> ShimmerMovieDetailList(modifier)
+        is CollectionUIState.Success -> {
             MainContent(
                 modifier = modifier,
-                movies = state.data,
+                collections = state.data,
                 onClick = onClick,
-                loadMore = loadMore
+                onLoadMore = onLoadMore
             )
         }
-        else -> ShimmerMovieDetailList(modifier)
     }
 }
 
 @Composable
 private fun MainContent(
     modifier: Modifier,
-    movies: List<Movie>,
-    onClick: (Movie) -> Unit,
-    loadMore: () -> Unit
+    collections: List<Collection>,
+    onLoadMore: () -> Unit,
+    onClick: (Collection) -> Unit
 ) {
-
     EndlessLazyColumn(
         modifier = modifier,
-        items = movies,
-        loadMore = loadMore
-    ) { _, it ->
-        MovieDetailCard(it) { onClick(it) }
-        HorizontalDivider(modifier = Modifier.padding(start = 110.dp))
+        items = collections,
+        loadMore = onLoadMore
+    ) { index, item ->
+        CollectionRowCard(
+            index = index + 1,
+            collection = item,
+            onClick = { onClick(item) }
+        )
     }
 }

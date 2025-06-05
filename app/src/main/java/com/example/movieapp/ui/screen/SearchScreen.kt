@@ -31,6 +31,7 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
 import com.example.movieapp.ui.screen.uiState.PersonUIState
@@ -141,7 +142,11 @@ fun SearchScreen(
                     state = viewModel.collectionsState,
                     title = stringResource(R.string.advise_watch),
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        navController.navigate(
+                            CollectionListRoute("Фильмы")
+                        )
+                    }
                 )
             }
 

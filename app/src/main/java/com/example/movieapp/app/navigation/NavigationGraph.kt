@@ -14,6 +14,7 @@ import com.example.movieapp.app.utils.CustomNavType
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.screen.AboutAppScreen
 import com.example.movieapp.ui.screen.AccountScreen
+import com.example.movieapp.ui.screen.CollectionListScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.SearchResultScreen
@@ -21,6 +22,7 @@ import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.SearchSettingsScreen
 import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
+import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.viewModel.HomeViewModel
 import com.example.movieapp.ui.viewModel.SearchResultViewModel
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
@@ -40,7 +42,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SearchSettingsRoute,
+        startDestination = CollectionListRoute("Фильмы"),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -143,6 +145,18 @@ fun NavigationGraph(
                 navController = navController,
                 viewModel = viewModel,
                 queryParameters = data.queryParameters
+            )
+        }
+
+        composable<CollectionListRoute> {
+            val route = it.toRoute<CollectionListRoute>()
+            val viewModel: CollectionListViewModel = viewModel(factory = viewModelFactory)
+
+            CollectionListScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState,
+                category = route.category
             )
         }
     }

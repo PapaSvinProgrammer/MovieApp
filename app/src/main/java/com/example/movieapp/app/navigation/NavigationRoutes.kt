@@ -32,3 +32,8 @@ data object SearchSettingsRoute: NavRoute
 data class SearchResultRoute(
     val queryParameters: List<Pair<String, String>>
 ): NavRoute
+
+@Serializable
+data class CollectionListRoute(
+    val category: String
+): NavRoute

@@ -41,7 +41,7 @@ fun SearchContent(
         items = list,
         loadMore = onLoadMore,
         modifier = Modifier.haze(hazeState)
-    ) {
+    ) { _, it ->
         SearchItemCard(
             searchItem = it,
             onClick = { onClick(it) }
