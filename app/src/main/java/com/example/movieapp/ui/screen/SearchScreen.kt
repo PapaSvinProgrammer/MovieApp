@@ -167,7 +167,11 @@ fun SearchScreen(
                     collectionCategoryList.forEach {
                         SuggestionChip(
                             label = { Text(text = it) },
-                            onClick = {}
+                            onClick = {
+                                navController.navigate(
+                                    CollectionListRoute(it)
+                                )
+                            }
                         )
                     }
                 }

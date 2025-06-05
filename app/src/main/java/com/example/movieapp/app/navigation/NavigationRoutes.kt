@@ -35,5 +35,5 @@ data class SearchResultRoute(
 
 @Serializable
 data class CollectionListRoute(
-    val category: String
+    val category: String? = null
 ): NavRoute

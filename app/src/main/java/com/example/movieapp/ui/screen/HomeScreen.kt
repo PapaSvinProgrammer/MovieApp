@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.viewModel.HomeViewModel
@@ -23,6 +24,7 @@ import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.listItems.CollectionCard
 import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.listItems.MovieCard
+import com.example.movieapp.ui.widget.other.TopBarIconApp
 import com.example.movieapp.ui.widget.shimmer.ShimmerCollectionRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
 import com.example.network.module.image.Collection
@@ -41,7 +43,7 @@ fun HomeScreen(
         topBar = {
             TopAppBar(
                 title = {
-
+                    TopBarIconApp()
                 }
             )
         }
@@ -54,7 +56,17 @@ fun HomeScreen(
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             item {
-            viewModel.getMoviesDrama()
+                viewModel.getCollections()
+                RenderCollectionRowState(
+                    state = viewModel.collectionState,
+                    title = stringResource(R.string.collections),
+                    onClick = {},
+                    onShowAll = { navController.navigate(CollectionListRoute()) }
+                )
+            }
+
+            item {
+                viewModel.getMoviesDrama()
                 RenderMovieRowState(
                     state = viewModel.movieDramaState,
                     title = "Драмы",
@@ -98,16 +110,6 @@ fun HomeScreen(
                 RenderMovieRowState(
                     state = viewModel.movieBest501State,
                     title = "Стоит посмотреть",
-                    onClick = {},
-                    onShowAll = {}
-                )
-            }
-
-            item {
-                viewModel.getCollections()
-                RenderCollectionRowState(
-                    state = viewModel.collectionState,
-                    title = stringResource(R.string.collections),
                     onClick = {},
                     onShowAll = {}
                 )
@@ -195,9 +197,7 @@ private fun MainCollectionRow(
             LastItemCard(
                 width = 140.dp,
                 height = 140.dp,
-                onClick = {
-
-                }
+                onClick = onShowAll
             )
         },
         content = {

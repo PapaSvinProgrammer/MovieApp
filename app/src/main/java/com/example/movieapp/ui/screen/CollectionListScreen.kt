@@ -39,7 +39,12 @@ fun CollectionListScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    TitleTopBarText("Коллекции: $category")
+                    val text = if (category == null)
+                        "Все коллекции"
+                    else
+                        "Коллекции: $category"
+
+                    TitleTopBarText(text)
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
