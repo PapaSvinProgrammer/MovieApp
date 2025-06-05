@@ -4,6 +4,6 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ReleaseYears(
-    val start: Int?,
-    val end: Int?
+    val start: Int? = null,
+    val end: Int? = null
 )

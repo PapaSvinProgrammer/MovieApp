@@ -20,7 +20,8 @@ data class HistoryEntity(
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "alternative_name") val alternativeName: String,
     @ColumnInfo(name = "year") val year: Int,
-    @ColumnInfo(name = "start") val start: Int,
-    @ColumnInfo(name = "end") val end: Int,
-    @ColumnInfo(name = "poster") val poster: String
+    @ColumnInfo(name = "start") val start: Int?,
+    @ColumnInfo(name = "end") val end: Int?,
+    @ColumnInfo(name = "poster") val poster: String,
+    @ColumnInfo(name = "isMovie") val isMovie: Boolean
 )

@@ -1,4 +1,4 @@
-package com.example.movieapp.app.utils
+package com.example.core.utils
 
 import com.example.network.module.movie.Movie
 import com.example.network.utils.Constants
@@ -86,6 +86,10 @@ object ConvertData {
 
         movie.year?.let {
             return it.toString()
+        }
+
+        if (movie.genres.isNotEmpty()) {
+            return movie.genres.map { it.name }.joinToString(", ")
         }
 
         return ""

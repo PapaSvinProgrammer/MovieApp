@@ -45,4 +45,6 @@
     <string name="input_value">Введите название</string>
     <string name="popular_serials">Популярные сериалы</string>
     <string name="not_found">Ничего не найдено</string>
+    <string name="cinema">Кино</string>
+    <string name="persons">Персоны</string>
 </resources>

@@ -33,19 +33,14 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
-import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.viewModel.SearchViewModel
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
-import com.example.movieapp.ui.widget.component.SearchContent
 import com.example.movieapp.ui.widget.component.TitleRow
-import com.example.movieapp.ui.widget.component.ErrorSearchContent
-import com.example.movieapp.ui.widget.component.LoadingSearchContent
-import com.example.movieapp.ui.widget.component.SearchHistoryContent
+import com.example.movieapp.ui.widget.component.SearchBarContent
 import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.listItems.PersonCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.module.movie.Movie
 import com.example.network.module.person.Person
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
@@ -75,7 +70,7 @@ fun SearchScreen(
                     query = viewModel.query,
                     onQueryChange = {
                         viewModel.updateQuery(it)
-                        viewModel.getMovieByName(it)
+                        viewModel.search(it)
                     },
                     onSearch = {
                         viewModel.updateExpanded(false)
@@ -111,22 +106,24 @@ fun SearchScreen(
                 )
             },
             content = {
-                if (viewModel.query.isEmpty()) {
-                    SearchHistoryContent(
-                        lazyPaging = searchHistoryLazyPaging,
-                        hazeState = hazeState,
-                        onClick = {  },
-                        onRemoveClick = { viewModel.deleteSearchHistoryItem(it) }
-                    )
-                }
-                else {
-                    RenderSearchResult(
-                        state = viewModel.movieSearchState,
-                        hazeState = hazeState,
-                        onClick = { viewModel.insertSearchHistoryItem(it) },
-                        onLoadMore = { viewModel.loadMoreMovieByName() }
-                    )
-                }
+                SearchBarContent(
+                    query = viewModel.query,
+                    hazeState = hazeState,
+                    movieSearchState = viewModel.searchState,
+                    searchHistoryLazyPaging = searchHistoryLazyPaging,
+                    selectedItem = viewModel.selectedSearchIndex,
+                    onDeleteHistoryItem = {
+                        viewModel.deleteSearchHistoryItem(it)
+                    },
+                    onClick = {
+                        viewModel.insertSearchHistoryItem(it)
+                    },
+                    onLoadMore = { viewModel.loadMore() },
+                    onSelectItem = {
+                        viewModel.updateSelectedSearchIndex(it)
+                        viewModel.search(viewModel.query)
+                    }
+                )
             }
         )
 
@@ -191,27 +188,6 @@ fun SearchScreen(
                 )
                 Spacer(modifier = Modifier.height(130.dp))
             }
-        }
-    }
-}
-
-@Composable
-private fun RenderSearchResult(
-    state: MovieUIState,
-    onClick: (Movie) -> Unit,
-    onLoadMore: () -> Unit,
-    hazeState: HazeState
-) {
-    when (state) {
-        MovieUIState.Error -> ErrorSearchContent()
-        MovieUIState.Loading -> LoadingSearchContent()
-        is MovieUIState.Success -> {
-            SearchContent(
-                list = state.data,
-                onClick = onClick,
-                onLoadMore = onLoadMore,
-                hazeState = hazeState
-            )
         }
     }
 }

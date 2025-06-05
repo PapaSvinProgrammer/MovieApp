@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.core.utils.ConvertData
 import com.example.movieapp.R
-import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.widget.other.RatingText
 import com.example.network.module.category.Country
 import com.example.network.module.category.Genre

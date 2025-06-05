@@ -18,8 +18,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.core.utils.ConvertData
 import com.example.movieapp.R
-import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.theme.Gold
 import com.example.movieapp.ui.theme.Green
 

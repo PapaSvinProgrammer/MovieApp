@@ -44,9 +44,9 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchResultRoute
-import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.widget.component.TextListLayout
 import com.example.movieapp.ui.widget.other.TitleTopBarText

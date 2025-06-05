@@ -28,14 +28,13 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.core.domain.module.SearchItem
 import com.example.movieapp.R
-import com.example.movieapp.app.utils.ConvertData
 import com.example.movieapp.ui.widget.other.RatingText
-import com.example.network.module.movie.Movie
 
 @Composable
-fun SearchMovieCard(
-    movie: Movie,
+fun SearchItemCard(
+    searchItem: SearchItem,
     onClick: () -> Unit
 ) {
     Row(
@@ -47,7 +46,7 @@ fun SearchMovieCard(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.poster?.url)
+                .data(searchItem.poster)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
@@ -65,13 +64,15 @@ fun SearchMovieCard(
                 modifier = Modifier
                     .align(Alignment.CenterStart)
                     .padding(end = 30.dp),
-                movie = movie
+                searchItem = searchItem
             )
 
-            RatingText(
-                modifier = Modifier.align(Alignment.CenterEnd),
-                rating = movie.rating?.kp ?: 0f
-            )
+            if (searchItem.isMovie) {
+                RatingText(
+                    modifier = Modifier.align(Alignment.CenterEnd),
+                    rating = searchItem.rating
+                )
+            }
         }
     }
 }
@@ -79,14 +80,14 @@ fun SearchMovieCard(
 @Composable
 internal fun DetailInfoContent(
     modifier: Modifier = Modifier,
-    movie: Movie
+    searchItem: SearchItem
 ) {
     Column(
         modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center
     ) {
         Text(
-            text = movie.name ?: "",
+            text = searchItem.name,
             fontSize = 14.sp,
             fontWeight = FontWeight.Bold,
             color = MaterialTheme.colorScheme.onSurface,
@@ -94,39 +95,27 @@ internal fun DetailInfoContent(
             overflow = TextOverflow.Ellipsis
         )
 
-        AlternativeName(movie)
-        DateRange(movie)
+        Text(
+            text = searchItem.alternativeName,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
+            maxLines = 1,
+            overflow = TextOverflow.Ellipsis
+        )
+
+        DateRange(searchItem)
     }
 }
 
 @Composable
-internal fun AlternativeName(movie: Movie) {
-    var name = ConvertData.getAlternativeNameForMovie(movie)
+internal fun DateRange(searchItem: SearchItem) {
+    var text = searchItem.year.toString()
 
-    if (name.isEmpty()) {
-        name = movie.genres.map { it.name }.joinToString(", ")
-    }
-
-    Text(
-        text = name,
-        fontSize = 14.sp,
-        fontWeight = FontWeight.Medium,
-        color = MaterialTheme.colorScheme.onSurfaceVariant,
-        maxLines = 1,
-        overflow = TextOverflow.Ellipsis
-    )
-}
-
-@Composable
-internal fun DateRange(movie: Movie) {
-    var text = movie.year.toString()
-
-    if (movie.releaseYears.isNotEmpty()) {
-        if (movie.releaseYears[0].start != -1 && movie.releaseYears[0].end != -1) {
-            val start = movie.releaseYears[0].start
-            val end = movie.releaseYears[0].end
-            text = "$start-$end"
-        }
+    if (searchItem.releaseYears.start != null && searchItem.releaseYears.end != null) {
+        val start = searchItem.releaseYears.start
+        val end = searchItem.releaseYears.end
+        text = "$start-$end"
     }
 
     Text(

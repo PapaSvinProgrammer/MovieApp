@@ -25,13 +25,13 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.core.domain.module.SearchItem
 import com.example.movieapp.R
-import com.example.network.module.movie.Movie
 
 @Composable
 fun SearchHistoryMovieCard(
     modifier: Modifier = Modifier,
-    movie: Movie,
+    searchItem: SearchItem,
     onClick: () -> Unit,
     onRemove: () -> Unit
 ) {
@@ -44,7 +44,7 @@ fun SearchHistoryMovieCard(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.poster?.url)
+                .data(searchItem.poster)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
@@ -66,7 +66,7 @@ fun SearchHistoryMovieCard(
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                         .padding(end = 30.dp),
-                    movie = movie
+                    searchItem = searchItem
                 )
 
                 IconButton(

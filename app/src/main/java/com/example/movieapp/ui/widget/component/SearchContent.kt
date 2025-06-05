@@ -21,20 +21,20 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.core.data.room.entity.HistoryEntity
+import com.example.core.domain.module.SearchItem
+import com.example.core.utils.toSearchItem
 import com.example.movieapp.R
-import com.example.movieapp.app.utils.toMovie
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.SearchHistoryMovieCard
-import com.example.movieapp.ui.widget.listItems.SearchMovieCard
-import com.example.network.module.movie.Movie
+import com.example.movieapp.ui.widget.listItems.SearchItemCard
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 
 @Composable
 fun SearchContent(
-    list: List<Movie>,
+    list: List<SearchItem>,
     hazeState: HazeState,
-    onClick: (Movie) -> Unit,
+    onClick: (SearchItem) -> Unit,
     onLoadMore: () -> Unit
 ) {
     EndlessLazyColumn(
@@ -42,10 +42,11 @@ fun SearchContent(
         loadMore = onLoadMore,
         modifier = Modifier.haze(hazeState)
     ) {
-        SearchMovieCard(
-            movie = it,
+        SearchItemCard(
+            searchItem = it,
             onClick = { onClick(it) }
         )
+
         HorizontalDivider(modifier = Modifier.padding(start = 110.dp))
     }
 }
@@ -88,7 +89,7 @@ fun LoadingSearchContent() {
 fun SearchHistoryContent(
     lazyPaging: LazyPagingItems<HistoryEntity>,
     hazeState: HazeState,
-    onClick: (Movie) -> Unit,
+    onClick: (SearchItem) -> Unit,
     onRemoveClick: (Int) -> Unit
 ) {
     LazyColumn(
@@ -106,8 +107,8 @@ fun SearchHistoryContent(
                 entity?.let {
                     SearchHistoryMovieCard(
                         modifier = Modifier.animateItem(),
-                        movie = it.toMovie(),
-                        onClick = { onClick(entity.toMovie()) },
+                        searchItem = it.toSearchItem(),
+                        onClick = { onClick(entity.toSearchItem()) },
                         onRemove = { onRemoveClick(it.movieId) }
                     )
                 }
