@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.usecases.GetCollection
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
+import com.example.network.module.image.Collection
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject

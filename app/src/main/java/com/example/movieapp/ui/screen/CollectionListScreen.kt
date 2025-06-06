@@ -13,6 +13,7 @@ import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
 import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
@@ -20,6 +21,7 @@ import com.example.movieapp.ui.widget.listItems.CollectionRowCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.network.module.image.Collection
+import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 
@@ -60,7 +62,20 @@ fun CollectionListScreen(
         RenderCollectionState(
             modifier = Modifier.padding(innerPadding).haze(hazeState),
             state = viewModel.collectionState,
-            onClick = {},
+            onClick = {
+                val query = arrayListOf(
+                    Constants.LISTS_FIELD to it.slug.toString(),
+                    Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                    Constants.SORT_TYPE to Constants.SORT_DESC
+                )
+
+                navController.navigate(
+                    MovieListRoute(
+                        title = it.name ?: "",
+                        queryParameters = query
+                    )
+                )
+            },
             onLoadMore = { viewModel.loadMoreCollections(category) }
         )
     }

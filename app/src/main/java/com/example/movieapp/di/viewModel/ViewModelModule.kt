@@ -5,6 +5,7 @@ import com.example.movieapp.MainViewModel
 import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.viewModel.EntryViewModel
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.MovieListViewModel
 import com.example.movieapp.ui.viewModel.SearchResultViewModel
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.viewModel.SearchViewModel
@@ -71,4 +72,9 @@ interface ViewModelModule {
     @IntoMap
     @ViewModelKey(CollectionListViewModel::class)
     fun bindCollectionLIstViewModel(viewModel: CollectionListViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MovieListViewModel::class)
+    fun bindMovieListViewModel(viewModel: MovieListViewModel): ViewModel
 }

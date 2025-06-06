@@ -4,6 +4,5 @@ import com.example.network.module.movie.Movie
 
 sealed interface MovieUIState {
     data class Success(val data: List<Movie>): MovieUIState
-    data object Error: MovieUIState
     data object Loading: MovieUIState
 }

@@ -3,6 +3,7 @@ package com.example.core.utils
 import android.os.Build
 import androidx.annotation.RequiresApi
 import com.example.network.module.movie.Movie
+import com.example.network.module.totalValue.ReleaseYears
 import com.example.network.utils.Constants
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -58,6 +59,27 @@ object ConvertData {
         return "с $start по $end"
     }
 
+    fun convertDateCreated(year: Int?, releaseYears: List<ReleaseYears>): String {
+        year?.let {
+            return it.toString()
+        }
+
+        if (releaseYears.isNotEmpty()) {
+            val start = releaseYears[0].start
+            val end = releaseYears[0].end
+
+            start?.let {
+                if (end == null) {
+                    return "$start-..."
+                }
+
+                return "$start-$end"
+            }
+        }
+
+       return ""
+    }
+
     fun convertQueryParameters(
         category: String,
         sortBy: String,
@@ -98,21 +120,10 @@ object ConvertData {
             return it
         }
 
-        if (movie.releaseYears.isNotEmpty()) {
-            val start = movie.releaseYears[0].start
-            val end = movie.releaseYears[0].end
+        val year = convertDateCreated(movie.year, movie.releaseYears)
 
-            start?.let {
-                if (end == null) {
-                    return "$start-..."
-                }
-
-                return "$start-$end"
-            }
-        }
-
-        movie.year?.let {
-            return it.toString()
+        if (year.isNotEmpty()) {
+            return year
         }
 
         if (movie.genres.isNotEmpty()) {

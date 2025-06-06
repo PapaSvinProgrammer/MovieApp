@@ -17,6 +17,7 @@ import com.example.movieapp.ui.screen.AccountScreen
 import com.example.movieapp.ui.screen.CollectionListScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeScreen
+import com.example.movieapp.ui.screen.MovieListScreen
 import com.example.movieapp.ui.screen.SearchResultScreen
 import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.SearchSettingsScreen
@@ -24,6 +25,7 @@ import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
 import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.ui.viewModel.MovieListViewModel
 import com.example.movieapp.ui.viewModel.SearchResultViewModel
 import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.viewModel.SearchViewModel
@@ -42,7 +44,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = HomeRoute,
+        startDestination = SearchRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -157,6 +159,23 @@ fun NavigationGraph(
                 viewModel = viewModel,
                 hazeState = hazeState,
                 category = route.category
+            )
+        }
+
+        composable<MovieListRoute>(
+            typeMap = mapOf(
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ArrayListType
+            )
+        ) {
+            val route = it.toRoute<MovieListRoute>()
+            val viewModel: MovieListViewModel = viewModel(factory = viewModelFactory)
+
+            MovieListScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState,
+                title = route.title,
+                queryParameters = route.queryParameters
             )
         }
     }

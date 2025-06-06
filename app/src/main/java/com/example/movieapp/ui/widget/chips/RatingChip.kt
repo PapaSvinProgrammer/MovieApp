@@ -16,6 +16,7 @@ import androidx.compose.ui.draw.scale
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.core.utils.ConvertData
@@ -27,12 +28,14 @@ import com.example.movieapp.ui.theme.Green
 @Composable
 fun RatingChip(
     modifier: Modifier = Modifier,
+    fontSize: TextUnit = 14.sp,
     rating: Float,
     top: Int? = null
 ) {
     if (top != null) {
         EliteBox(
             modifier = modifier,
+            fontSize = fontSize,
             rating = rating
         )
         return
@@ -42,6 +45,7 @@ fun RatingChip(
         DefaultBox(
             modifier = modifier,
             rating = rating,
+            fontSize = fontSize,
             color = Green
         )
     }
@@ -49,6 +53,7 @@ fun RatingChip(
         DefaultBox(
             modifier = modifier,
             rating = rating,
+            fontSize = fontSize,
             color = Color.Gray
         )
     }
@@ -56,7 +61,8 @@ fun RatingChip(
         DefaultBox(
             modifier = modifier.background(Color.Red),
             rating = rating,
-            color = Color.Red
+            color = Color.Red,
+            fontSize = fontSize
         )
     }
 }
@@ -65,11 +71,11 @@ fun RatingChip(
 @Composable
 private fun EliteBox(
     modifier: Modifier = Modifier,
+    fontSize: TextUnit,
     rating: Float = 9.0f
 ) {
     Box(
         modifier = modifier
-            .padding(5.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(Gold)
     ) {
@@ -87,7 +93,7 @@ private fun EliteBox(
         Text(
             text = String.format("%.1f", rating),
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp,
+            fontSize = fontSize,
             color = Color.Black,
             modifier = Modifier
                 .align(Alignment.Center)
@@ -110,19 +116,19 @@ private fun EliteBox(
 @Composable
 private fun DefaultBox(
     modifier: Modifier,
+    fontSize: TextUnit,
     rating: Float,
     color: Color
 ) {
     Box(
         modifier = modifier
-            .padding(5.dp)
             .clip(RoundedCornerShape(10.dp))
             .background(color)
     ) {
         Text(
             text = ConvertData.convertRatingKP(rating),
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp,
+            fontSize = fontSize,
             color = Color.White,
             modifier = Modifier.padding(horizontal = 8.dp)
         )

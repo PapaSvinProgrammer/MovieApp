@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
+import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
 import com.example.movieapp.ui.screen.uiState.PersonUIState
@@ -42,7 +43,9 @@ import com.example.movieapp.ui.widget.component.SearchBarContent
 import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.listItems.PersonCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
+import com.example.network.module.image.Collection
 import com.example.network.module.person.Person
+import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 
@@ -141,7 +144,7 @@ fun SearchScreen(
                 RenderCollectionRowState(
                     state = viewModel.collectionsState,
                     title = stringResource(R.string.advise_watch),
-                    onClick = {},
+                    onClick = { navigateToMovieList(navController, it) },
                     onShowAll = {
                         navController.navigate(
                             CollectionListRoute("Фильмы")
@@ -287,4 +290,22 @@ private fun TrailingIcon(
             contentDescription = null
         )
     }
+}
+
+private fun navigateToMovieList(
+    navController: NavController,
+    collection: Collection
+) {
+    val query = arrayListOf(
+        Constants.LISTS_FIELD to collection.slug.toString(),
+        Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+        Constants.SORT_TYPE to Constants.SORT_DESC
+    )
+
+    navController.navigate(
+        MovieListRoute(
+            title = collection.name ?: "",
+            queryParameters = query
+        )
+    )
 }

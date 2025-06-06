@@ -37,3 +37,9 @@ data class SearchResultRoute(
 data class CollectionListRoute(
     val category: String? = null
 ): NavRoute
+
+@Serializable
+data class MovieListRoute(
+    val title: String,
+    val queryParameters: List<Pair<String, String>>
+): NavRoute

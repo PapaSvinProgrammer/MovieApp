@@ -13,6 +13,7 @@ fun TitleTopBarText(text: String) {
         fontWeight = FontWeight.Bold,
         fontSize = 16.sp,
         lineHeight = 13.sp,
+        maxLines = 1,
         overflow = TextOverflow.Ellipsis
     )
 }

@@ -67,7 +67,9 @@ fun MovieCard(
         }
 
         RatingChip(
-            modifier = Modifier.align(Alignment.TopStart),
+            modifier = Modifier
+                .align(Alignment.TopStart)
+                .padding(5.dp),
             rating = movie.rating?.kp ?: 0f,
             top = movie.top250
         )

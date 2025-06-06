@@ -59,14 +59,14 @@ fun MovieDetailCard(
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(100.dp)
-                .width(80.dp)
-                .clip(RoundedCornerShape(10.dp))
+                .width(85.dp)
+                .clip(RoundedCornerShape(5.dp))
         )
 
         Spacer(modifier = Modifier.width(15.dp))
 
         Box(modifier = Modifier.fillMaxSize()) {
-            NameContent(
+            DetailInfoContent(
                 title = movie.name ?: "",
                 subtitle = ConvertData.getAlternativeNameForMovie(movie)
             )
@@ -85,7 +85,7 @@ fun MovieDetailCard(
 }
 
 @Composable
-private fun BoxScope.NameContent(
+private fun BoxScope.DetailInfoContent(
     title: String,
     subtitle: String
 ) {
