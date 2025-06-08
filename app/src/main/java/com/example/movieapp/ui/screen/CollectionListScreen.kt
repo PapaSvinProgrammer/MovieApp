@@ -17,7 +17,7 @@ import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
 import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.movieapp.ui.widget.listItems.CollectionRowCard
+import com.example.movieapp.ui.widget.listItems.CollectionListItem
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.network.module.image.Collection
@@ -113,7 +113,7 @@ private fun MainContent(
         items = collections,
         loadMore = onLoadMore
     ) { index, item ->
-        CollectionRowCard(
+        CollectionListItem(
             index = index + 1,
             collection = item,
             onClick = { onClick(item) }

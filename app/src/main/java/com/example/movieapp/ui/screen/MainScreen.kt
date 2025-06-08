@@ -1,5 +1,7 @@
 package com.example.movieapp.ui.screen
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
@@ -21,6 +23,7 @@ import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.widget.other.HazeBottomBar
 import dev.chrisbanes.haze.HazeState
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
     viewModelFactory: ViewModelFactory,

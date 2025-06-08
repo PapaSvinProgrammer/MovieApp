@@ -137,4 +137,22 @@ object ConvertData {
         val temp = BigDecimal(rating.toDouble()).setScale(1, RoundingMode.HALF_EVEN)
         return temp.toString()
     }
+
+    fun getPrettyInt(number: Int): String {
+        val str = number.toString()
+        val res = StringBuilder()
+        var count = 0
+
+        for (i in str.lastIndex downTo 0) {
+            if (count == 3) {
+                res.append(" ")
+                count = 0
+            }
+
+            count++
+            res.append(str[i])
+        }
+
+        return res.reversed().toString()
+    }
 }

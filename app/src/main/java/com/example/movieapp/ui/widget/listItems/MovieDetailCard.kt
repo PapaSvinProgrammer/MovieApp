@@ -136,7 +136,7 @@ private fun OtherInfoContent(
             RatingText(rating)
             Spacer(modifier = Modifier.width(5.dp))
             Text(
-                text = votes.toString(),
+                text = ConvertData.getPrettyInt(votes),
                 fontWeight = FontWeight.Normal,
                 fontSize = 13.sp,
                 maxLines = 1,

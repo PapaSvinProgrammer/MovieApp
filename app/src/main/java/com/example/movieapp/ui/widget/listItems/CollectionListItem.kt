@@ -28,7 +28,7 @@ import com.example.movieapp.R
 import com.example.network.module.image.Collection
 
 @Composable
-fun CollectionRowCard(
+fun CollectionListItem(
     index: Int,
     collection: Collection,
     onClick: () -> Unit
