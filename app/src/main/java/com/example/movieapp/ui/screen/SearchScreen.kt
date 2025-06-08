@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
+import com.example.movieapp.app.navigation.HomeDetailListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
@@ -196,7 +197,7 @@ fun SearchScreen(
                     state = viewModel.topSerialsState,
                     title = stringResource(R.string.popular_serials),
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = { }
                 )
                 Spacer(modifier = Modifier.height(130.dp))
             }

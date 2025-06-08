@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
+import com.example.movieapp.app.navigation.HomeDetailListRoute
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.viewModel.HomeViewModel
@@ -29,6 +30,7 @@ import com.example.movieapp.ui.widget.shimmer.ShimmerCollectionRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
 import com.example.network.module.image.Collection
 import com.example.network.module.movie.Movie
+import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
 
@@ -66,72 +68,170 @@ fun HomeScreen(
             }
 
             item {
+                val title = "Драмы"
                 viewModel.getMoviesDrama()
                 RenderMovieRowState(
                     state = viewModel.movieDramaState,
-                    title = "Драмы",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val query = arrayListOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.GENRES_NAME_FIELD to "драма"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = query
+                            )
+                        )
+                    }
                 )
             }
 
             item {
+                val title = "Собственные рекомендации"
                 viewModel.getMoviesBest250()
                 RenderMovieRowState(
                     state = viewModel.movieBest250State,
-                    title = "Собственные рекомендации",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val queryParameters = listOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.LISTS_FIELD to "top250"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = queryParameters
+                            )
+                        )
+                    }
                 )
             }
 
             item {
+                val title = "Боевики"
                 viewModel.getMoviesBoevik()
                 RenderMovieRowState(
                     state = viewModel.movieBoevikState,
-                    title = "Боевики",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val query = listOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.GENRES_NAME_FIELD to "боевик"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = query
+                            )
+                        )
+                    }
                 )
             }
 
             item {
+                val title = "Научная фантастика"
                 viewModel.getMoviesBest100()
                 RenderMovieRowState(
                     state =  viewModel.movieBest100State,
-                    title = "Научная фантастика",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val queryParameters = listOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.LISTS_FIELD to "top_100_scifi_by_total_scifi_online"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = queryParameters
+                            )
+                        )
+                    }
                 )
             }
 
             item {
+                val title = "Стоит посмотреть"
                 viewModel.getMoviesBest501()
                 RenderMovieRowState(
                     state = viewModel.movieBest501State,
-                    title = "Стоит посмотреть",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val queryParameters = listOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.LISTS_FIELD to "best_501"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = queryParameters
+                            )
+                        )
+                    }
                 )
             }
 
             item {
+                val title = "Снято HBO"
                 viewModel.getMoviesHBO()
                 RenderMovieRowState(
                     state = viewModel.movieHBOState,
-                    title = "Снято HBO",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val queryParameters = listOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.NETWORK_ITEMS_NAME to "HBO"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = queryParameters
+                            )
+                        )
+                    }
                 )
             }
 
             item {
+                val title = "Снято Netflix"
                 viewModel.getMoviesNetflix()
                 RenderMovieRowState(
                     state = viewModel.movieNetflixState,
-                    title = "Снято Netflix",
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val queryParameters = listOf(
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC,
+                            Constants.NETWORK_ITEMS_NAME to "Netflix"
+                        )
+
+                        navController.navigate(
+                            HomeDetailListRoute(
+                                title = title,
+                                queryParameters = queryParameters
+                            )
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.height(90.dp))
             }

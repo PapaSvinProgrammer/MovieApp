@@ -16,6 +16,7 @@ import com.example.movieapp.ui.screen.AboutAppScreen
 import com.example.movieapp.ui.screen.AccountScreen
 import com.example.movieapp.ui.screen.CollectionListScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
+import com.example.movieapp.ui.screen.HomeDetailListScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.MovieListScreen
 import com.example.movieapp.ui.screen.SearchResultScreen
@@ -137,7 +138,7 @@ fun NavigationGraph(
 
         composable<SearchResultRoute>(
             typeMap = mapOf(
-                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ArrayListType
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
             )
         ) {
             val data = it.toRoute<SearchResultRoute>()
@@ -164,7 +165,7 @@ fun NavigationGraph(
 
         composable<MovieListRoute>(
             typeMap = mapOf(
-                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ArrayListType
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
             )
         ) {
             val route = it.toRoute<MovieListRoute>()
@@ -174,6 +175,22 @@ fun NavigationGraph(
                 navController = navController,
                 viewModel = viewModel,
                 hazeState = hazeState,
+                title = route.title,
+                queryParameters = route.queryParameters
+            )
+        }
+
+        composable<HomeDetailListRoute>(
+            typeMap = mapOf(
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
+            )
+        ) {
+            val route = it.toRoute<HomeDetailListRoute>()
+            val viewModel: MovieListViewModel = viewModel(factory = viewModelFactory)
+
+            HomeDetailListScreen(
+                navController = navController,
+                viewModel = viewModel,
                 title = route.title,
                 queryParameters = route.queryParameters
             )

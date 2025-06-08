@@ -47,7 +47,7 @@ class GetMovie @Inject constructor(
             Constants.PAGE_FIELD to page.toString(),
             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC,
-            "networks.items.name" to name
+            Constants.NETWORK_ITEMS_NAME to name
         )
 
         return movieRepository.getMovieByFilter(queryParameters)

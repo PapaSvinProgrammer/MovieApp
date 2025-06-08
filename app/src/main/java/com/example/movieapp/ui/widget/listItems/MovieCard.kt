@@ -31,12 +31,11 @@ import com.example.network.module.movie.Movie
 @Composable
 fun MovieCard(
     movie: Movie,
+    modifier: Modifier = Modifier.width(160.dp).height(260.dp),
     onClick: () -> Unit = {}
 ) {
     Box(
-        modifier = Modifier
-            .width(160.dp)
-            .height(260.dp)
+        modifier = modifier
             .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick)
     ) {
