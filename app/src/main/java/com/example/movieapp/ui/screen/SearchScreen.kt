@@ -32,7 +32,6 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
-import com.example.movieapp.app.navigation.HomeDetailListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
@@ -192,12 +191,26 @@ fun SearchScreen(
             }
 
             item {
+                val title = stringResource(R.string.popular_serials)
                 viewModel.getTopSerials()
                 RenderMovieRowState(
                     state = viewModel.topSerialsState,
-                    title = stringResource(R.string.popular_serials),
+                    title = title,
                     onClick = {},
-                    onShowAll = { }
+                    onShowAll = {
+                        val query = listOf(
+                            Constants.IS_SERIES_FIELD to Constants.TRUE,
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC
+                        )
+
+                        navController.navigate(
+                            MovieListRoute(
+                                title = title,
+                                queryParameters = query
+                            )
+                        )
+                    }
                 )
                 Spacer(modifier = Modifier.height(130.dp))
             }
