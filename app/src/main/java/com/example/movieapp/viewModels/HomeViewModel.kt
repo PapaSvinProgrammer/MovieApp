@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.viewModel
+package com.example.movieapp.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

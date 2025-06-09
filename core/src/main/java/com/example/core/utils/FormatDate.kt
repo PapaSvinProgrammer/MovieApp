@@ -9,4 +9,8 @@ object FormatDate {
     fun getCurrentYear(): Int {
         return LocalDate.now().year
     }
+
+    fun formatDate(date: String): String {
+        return ""
+    }
 }

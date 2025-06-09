@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.viewModel
+package com.example.movieapp.viewModels
 
 import android.os.Build
 import androidx.annotation.RequiresApi

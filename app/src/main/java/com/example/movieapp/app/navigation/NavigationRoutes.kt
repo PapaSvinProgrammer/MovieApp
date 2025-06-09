@@ -49,3 +49,9 @@ data class HomeDetailListRoute(
     val title: String,
     val queryParameters: List<Pair<String, String>>
 ): NavRoute
+
+@Serializable
+data class PersonPodiumListRoute(
+    val title: String,
+    val queryParameters: List<Pair<String, String>>
+): NavRoute

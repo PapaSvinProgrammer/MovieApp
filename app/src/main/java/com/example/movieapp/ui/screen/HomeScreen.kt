@@ -17,9 +17,10 @@ import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.HomeDetailListRoute
+import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
 import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.viewModel.HomeViewModel
+import com.example.movieapp.viewModels.HomeViewModel
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.listItems.CollectionCard
@@ -62,7 +63,20 @@ fun HomeScreen(
                 RenderCollectionRowState(
                     state = viewModel.collectionState,
                     title = stringResource(R.string.collections),
-                    onClick = {},
+                    onClick = {
+                        val query = listOf(
+                            Constants.LISTS_FIELD to it.slug.toString(),
+                            Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC
+                        )
+
+                        navController.navigate(
+                            MovieListRoute(
+                                title = it.name ?: "",
+                                queryParameters = query
+                            )
+                        )
+                    },
                     onShowAll = { navController.navigate(CollectionListRoute()) }
                 )
             }

@@ -3,7 +3,7 @@ package com.example.movieapp.ui.screen
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
@@ -16,11 +16,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.viewModel.MovieListViewModel
-import com.example.movieapp.ui.widget.component.LoadingSearchContent
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyVerticalGrid
 import com.example.movieapp.ui.widget.listItems.MovieCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
+import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
+import com.example.movieapp.viewModels.MovieListViewModel
 import com.example.network.module.movie.Movie
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -42,7 +42,7 @@ fun HomeDetailListScreen(
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
-                            imageVector = Icons.AutoMirrored.Default.ArrowBack,
+                            imageVector = Icons.AutoMirrored.Rounded.ArrowBack,
                             contentDescription = null
                         )
                     }
@@ -65,7 +65,7 @@ private fun RenderMovieState(
     onLoadMore: () -> Unit
 ) {
     when (state) {
-        MovieUIState.Loading -> LoadingSearchContent()
+        MovieUIState.Loading -> ShimmerMovieDetailList(modifier)
         is MovieUIState.Success -> MainContent(
             list = state.data,
             modifier = modifier,

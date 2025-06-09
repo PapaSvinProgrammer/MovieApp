@@ -51,8 +51,8 @@ import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.utils.ApplicationIcon
 import com.example.movieapp.app.utils.iconsApplication
-import com.example.movieapp.ui.viewModel.SettingsViewModel
 import com.example.movieapp.ui.widget.other.TitleTopBarText
+import com.example.movieapp.viewModels.SettingsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

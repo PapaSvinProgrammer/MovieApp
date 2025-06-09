@@ -32,12 +32,12 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
-import com.example.movieapp.app.navigation.HomeDetailListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
+import com.example.movieapp.app.navigation.PersonPodiumListRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
 import com.example.movieapp.ui.screen.uiState.PersonUIState
-import com.example.movieapp.ui.viewModel.SearchViewModel
+import com.example.movieapp.viewModels.SearchViewModel
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.component.SearchBarContent
@@ -182,12 +182,25 @@ fun SearchScreen(
             }
 
             item {
+                val title = stringResource(R.string.have_most_awards)
                 viewModel.getActorByCountAwards()
                 RenderPersonRowState(
                     state = viewModel.dubbingPersonState,
-                    title = stringResource(R.string.have_most_awards),
+                    title = title,
                     onClick = {},
-                    onShowAll = {}
+                    onShowAll = {
+                        val queryParameters = listOf(
+                            Constants.SORT_FIELD to Constants.COUNT_AWARDS_FIELD,
+                            Constants.SORT_TYPE to Constants.SORT_DESC
+                        )
+
+                        navController.navigate(
+                            PersonPodiumListRoute(
+                                title = title,
+                                queryParameters = queryParameters
+                            )
+                        )
+                    }
                 )
             }
 
@@ -233,9 +246,10 @@ private fun PersonRow(
     onClick: (Person) -> Unit,
     onShowAll: () -> Unit
 ) {
-    TitleRow(title = title) {
-
-    }
+    TitleRow(
+        title = title,
+        onClick = onShowAll
+    )
 
     DefaultLazyRow(
         modifier = modifier,

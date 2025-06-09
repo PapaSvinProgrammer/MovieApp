@@ -49,10 +49,10 @@ import androidx.navigation.NavController
 import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchResultRoute
-import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
 import com.example.movieapp.ui.widget.component.TextListLayout
 import com.example.movieapp.ui.widget.dialog.YearPickerDialog
 import com.example.movieapp.ui.widget.other.TitleTopBarText
+import com.example.movieapp.viewModels.SearchSettingsViewModel
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)

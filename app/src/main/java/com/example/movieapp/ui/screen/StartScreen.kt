@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.HomeRoute
-import com.example.movieapp.ui.viewModel.StartViewModel
+import com.example.movieapp.viewModels.StartViewModel
 
 @Composable
 fun StartScreen(

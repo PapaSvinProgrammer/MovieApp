@@ -18,11 +18,11 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.viewModel.SearchResultViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.MovieDetailCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
+import com.example.movieapp.viewModels.SearchResultViewModel
 import com.example.network.module.movie.Movie
 
 @OptIn(ExperimentalMaterial3Api::class)

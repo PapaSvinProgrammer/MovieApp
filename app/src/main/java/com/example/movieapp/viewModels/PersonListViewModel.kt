@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.viewModel
+package com.example.movieapp.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -15,7 +15,7 @@ import javax.inject.Inject
 class PersonListViewModel @Inject constructor(
     private val getPerson: GetPerson
 ): ViewModel() {
-    private var page = 0
+    private var page = 1
     var personState by mutableStateOf(PersonUIState.Loading as PersonUIState)
         private set
 

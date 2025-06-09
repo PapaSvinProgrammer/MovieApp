@@ -27,11 +27,11 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.viewModel.MovieListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.MovieListCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
+import com.example.movieapp.viewModels.MovieListViewModel
 import com.example.network.module.movie.Movie
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
