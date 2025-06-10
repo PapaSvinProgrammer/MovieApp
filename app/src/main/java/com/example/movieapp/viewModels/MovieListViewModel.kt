@@ -33,8 +33,7 @@ class MovieListViewModel @Inject constructor(
         page++
 
         viewModelScope.launch(Dispatchers.IO) {
-            val query = mutableListOf<Pair<String, String>>()
-            query.addAll(queryParameters)
+            val query = queryParameters.toMutableList()
             query.add(Constants.PAGE_FIELD to page.toString())
 
             val res = getMovie.getByFilter(query)

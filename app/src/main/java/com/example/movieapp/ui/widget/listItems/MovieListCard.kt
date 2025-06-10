@@ -122,7 +122,7 @@ private fun getAlternativeName(movie: Movie): String {
     var res = ""
 
     movie.alternativeName?.let {
-        res += "$it, "
+        if (it.isNotEmpty()) res += "$it, "
     }
 
     res += ConvertData.convertDateCreated(movie.year, movie.releaseYears)
