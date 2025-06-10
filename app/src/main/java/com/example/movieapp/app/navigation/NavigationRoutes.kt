@@ -55,3 +55,8 @@ data class PersonPodiumListRoute(
     val title: String,
     val queryParameters: List<Pair<String, String>>
 ): NavRoute
+
+@Serializable
+data class PersonRoute(
+    val id: Int
+): NavRoute

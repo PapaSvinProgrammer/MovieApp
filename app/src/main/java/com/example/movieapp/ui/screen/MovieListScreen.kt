@@ -2,7 +2,6 @@ package com.example.movieapp.ui.screen
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -119,7 +118,7 @@ private fun RenderResult(
     when (state) {
         MovieUIState.Loading -> ShimmerMovieDetailList(modifier)
         is MovieUIState.Success -> {
-            MainContent(
+            MainPersonContent(
                 modifier = modifier,
                 list = state.data,
                 onClick = onClick,
@@ -131,7 +130,7 @@ private fun RenderResult(
 }
 
 @Composable
-private fun MainContent(
+private fun MainPersonContent(
     modifier: Modifier = Modifier,
     list: List<Movie>,
     onClick: (Movie) -> Unit,

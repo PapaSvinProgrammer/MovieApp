@@ -68,6 +68,7 @@ fun MovieListCard(
                     .padding(5.dp)
                     .clip(RoundedCornerShape(10.dp)),
                 rating = movie.rating?.kp ?: 0f,
+                top = movie.top250,
                 fontSize = 12.sp
             )
         }

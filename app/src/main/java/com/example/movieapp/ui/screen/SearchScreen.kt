@@ -43,6 +43,8 @@ import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.component.SearchBarContent
 import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.listItems.PersonCard
+import com.example.movieapp.ui.widget.renderState.RenderCollectionStateRow
+import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
 import com.example.network.module.image.Collection
 import com.example.network.module.person.Person
@@ -142,7 +144,7 @@ fun SearchScreen(
         ) {
             item {
                 viewModel.getCollections()
-                RenderCollectionRowState(
+                RenderCollectionStateRow(
                     state = viewModel.collectionsState,
                     title = stringResource(R.string.advise_watch),
                     onClick = { navigateToMovieList(navController, it) },
@@ -207,7 +209,7 @@ fun SearchScreen(
             item {
                 val title = stringResource(R.string.popular_serials)
                 viewModel.getTopSerials()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.topSerialsState,
                     title = title,
                     onClick = {},

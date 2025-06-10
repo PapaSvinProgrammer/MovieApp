@@ -20,6 +20,7 @@ import com.example.movieapp.ui.screen.HomeDetailListScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.MovieListScreen
 import com.example.movieapp.ui.screen.PersonPodiumListScreen
+import com.example.movieapp.ui.screen.PersonScreen
 import com.example.movieapp.ui.screen.SearchResultScreen
 import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.SearchSettingsScreen
@@ -29,6 +30,7 @@ import com.example.movieapp.viewModels.PersonListViewModel
 import com.example.movieapp.viewModels.CollectionListViewModel
 import com.example.movieapp.viewModels.HomeViewModel
 import com.example.movieapp.viewModels.MovieListViewModel
+import com.example.movieapp.viewModels.PersonViewModel
 import com.example.movieapp.viewModels.SearchResultViewModel
 import com.example.movieapp.viewModels.SearchSettingsViewModel
 import com.example.movieapp.viewModels.SearchViewModel
@@ -47,7 +49,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = SearchRoute,
+        startDestination = PersonRoute(1514),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -211,6 +213,17 @@ fun NavigationGraph(
                 viewModel = viewMode,
                 title = route.title,
                 queryParameters = route.queryParameters
+            )
+        }
+
+        composable<PersonRoute> {
+            val route = it.toRoute<PersonRoute>()
+            val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
+
+            PersonScreen(
+                navController = navController,
+                viewModel = viewModel,
+                id = route.id
             )
         }
     }

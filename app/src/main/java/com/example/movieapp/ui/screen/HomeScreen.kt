@@ -18,19 +18,10 @@ import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.HomeDetailListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
-import com.example.movieapp.ui.screen.uiState.CollectionUIState
-import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.viewModels.HomeViewModel
-import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
-import com.example.movieapp.ui.widget.component.TitleRow
-import com.example.movieapp.ui.widget.listItems.CollectionCard
-import com.example.movieapp.ui.widget.listItems.LastItemCard
-import com.example.movieapp.ui.widget.listItems.MovieCard
 import com.example.movieapp.ui.widget.other.TopBarIconApp
-import com.example.movieapp.ui.widget.shimmer.ShimmerCollectionRow
-import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.module.image.Collection
-import com.example.network.module.movie.Movie
+import com.example.movieapp.ui.widget.renderState.RenderCollectionStateRow
+import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
@@ -60,7 +51,7 @@ fun HomeScreen(
         ) {
             item {
                 viewModel.getCollections()
-                RenderCollectionRowState(
+                RenderCollectionStateRow(
                     state = viewModel.collectionState,
                     title = stringResource(R.string.collections),
                     onClick = {
@@ -84,7 +75,7 @@ fun HomeScreen(
             item {
                 val title = "Драмы"
                 viewModel.getMoviesDrama()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.movieDramaState,
                     title = title,
                     onClick = {},
@@ -108,7 +99,7 @@ fun HomeScreen(
             item {
                 val title = "Собственные рекомендации"
                 viewModel.getMoviesBest250()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.movieBest250State,
                     title = title,
                     onClick = {},
@@ -132,7 +123,7 @@ fun HomeScreen(
             item {
                 val title = "Боевики"
                 viewModel.getMoviesBoevik()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.movieBoevikState,
                     title = title,
                     onClick = {},
@@ -156,7 +147,7 @@ fun HomeScreen(
             item {
                 val title = "Научная фантастика"
                 viewModel.getMoviesBest100()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state =  viewModel.movieBest100State,
                     title = title,
                     onClick = {},
@@ -180,7 +171,7 @@ fun HomeScreen(
             item {
                 val title = "Стоит посмотреть"
                 viewModel.getMoviesBest501()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.movieBest501State,
                     title = title,
                     onClick = {},
@@ -204,7 +195,7 @@ fun HomeScreen(
             item {
                 val title = "Снято HBO"
                 viewModel.getMoviesHBO()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.movieHBOState,
                     title = title,
                     onClick = {},
@@ -228,7 +219,7 @@ fun HomeScreen(
             item {
                 val title = "Снято Netflix"
                 viewModel.getMoviesNetflix()
-                RenderMovieRowState(
+                RenderMovieStateRow(
                     state = viewModel.movieNetflixState,
                     title = title,
                     onClick = {},
@@ -251,109 +242,4 @@ fun HomeScreen(
             }
         }
     }
-}
-
-@Composable
-fun RenderMovieRowState(
-    state: MovieUIState,
-    title: String,
-    onClick: (Movie) -> Unit,
-    onShowAll: () -> Unit
-) {
-    when (state) {
-        is MovieUIState.Success -> {
-            MainMovieRow(
-                title = title,
-                movies = state.data,
-                onCLick = onClick,
-                onShowAll = onShowAll
-            )
-        }
-        else -> ShimmerMovieRow()
-    }
-}
-
-@Composable
-fun RenderCollectionRowState(
-    state: CollectionUIState,
-    title: String,
-    onClick: (Collection) -> Unit,
-    onShowAll: () -> Unit
-) {
-    when (state) {
-        is CollectionUIState.Success -> {
-            MainCollectionRow(
-                collections = state.data,
-                title = title,
-                onClick = onClick,
-                onShowAll = onShowAll
-            )
-        }
-        else -> ShimmerCollectionRow()
-    }
-}
-
-@Composable
-private fun MainCollectionRow(
-    collections: List<Collection>,
-    title: String,
-    onClick: (Collection) -> Unit,
-    onShowAll: () -> Unit
-) {
-    TitleRow(
-        title = title,
-        onClick = onShowAll
-    )
-
-    DefaultLazyRow(
-        list = collections,
-        key = { it.id },
-        lastItemCard = {
-            LastItemCard(
-                width = 140.dp,
-                height = 140.dp,
-                onClick = onShowAll
-            )
-        },
-        content = {
-            CollectionCard(
-                image = it.cover?.url ?: "",
-                title = it.name ?: "",
-                onClick = { onClick(it) }
-            )
-        }
-    )
-}
-
-@Composable
-private fun MainMovieRow(
-    title: String,
-    movies: List<Movie>,
-    onCLick: (Movie) -> Unit,
-    onShowAll: () -> Unit
-) {
-    TitleRow(
-        title = title,
-        onClick = onShowAll
-    )
-
-    DefaultLazyRow(
-        list = movies,
-        key = { it.id },
-        lastItemCard = {
-            LastItemCard(
-                width = 160.dp,
-                height = 260.dp,
-                onClick = {
-
-                }
-            )
-        },
-        content = {
-            MovieCard(
-                movie = it,
-                onClick = { onCLick(it) }
-            )
-        }
-    )
 }

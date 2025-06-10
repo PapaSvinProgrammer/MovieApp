@@ -77,7 +77,7 @@ private fun RenderPersonResult(
     when (state) {
         PersonUIState.Loading -> ShimmerMovieDetailList(modifier)
         is PersonUIState.Success -> {
-            MainContent(
+            MainPersonContent(
                 modifier = modifier,
                 list = state.data,
                 onLoadMore = onLoadMore,
@@ -88,7 +88,7 @@ private fun RenderPersonResult(
 }
 
 @Composable
-private fun MainContent(
+private fun MainPersonContent(
     modifier: Modifier,
     list: List<Person>,
     onLoadMore: () -> Unit,

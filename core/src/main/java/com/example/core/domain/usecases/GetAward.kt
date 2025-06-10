@@ -1,6 +1,7 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.AwardRepository
+import com.example.network.module.image.Docs
 import com.example.network.utils.Constants.MOVIE_ID_FIELD
 import com.example.network.utils.Constants.NOM_AWARD_TITLE_FIELD
 import com.example.network.utils.Constants.NOM_AWARD_YEAR_FIELD
@@ -16,7 +17,7 @@ import javax.inject.Inject
 class GetAward @Inject constructor(
     private val awardRepository: AwardRepository
 ) {
-    suspend fun getPersonAwardsByDate(personId: Int, page: Int = 1): List<NominationAward> {
+    suspend fun getPersonAwardsByDate(personId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             PERSON_ID_FIELD to personId.toString(),
             PAGE_FIELD to page.toString(),
@@ -27,7 +28,7 @@ class GetAward @Inject constructor(
         return awardRepository.getPersonAwards(queryParameters)
     }
 
-    suspend fun getPersonAwardsByTitle(personId: Int, page: Int = 1): List<NominationAward> {
+    suspend fun getPersonAwardsByTitle(personId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             PERSON_ID_FIELD to personId.toString(),
             PAGE_FIELD to page.toString(),
@@ -38,7 +39,7 @@ class GetAward @Inject constructor(
         return awardRepository.getPersonAwards(queryParameters)
     }
 
-    suspend fun getMovieAwardsByDate(movieId: Int, page: Int = 1): List<NominationAward> {
+    suspend fun getMovieAwardsByDate(movieId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
@@ -49,7 +50,7 @@ class GetAward @Inject constructor(
         return awardRepository.getMovieAwards(queryParameters)
     }
 
-    suspend fun getMovieAwardsByTitle(movieId: Int, page: Int = 1): List<NominationAward> {
+    suspend fun getMovieAwardsByTitle(movieId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),

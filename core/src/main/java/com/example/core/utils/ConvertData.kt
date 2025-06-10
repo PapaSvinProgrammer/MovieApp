@@ -155,4 +155,24 @@ object ConvertData {
 
         return res.reversed().toString()
     }
+
+    fun getPrettyAge(value: Int): String {
+        val res = when (value % 10) {
+            1 -> "год"
+            2, 3, 4 -> "годв"
+            else -> "лет"
+        }
+
+        return "$value $res"
+    }
+
+    fun getPrettyGrowth(value: Int): String {
+        var res = ""
+
+        res += value / 100
+        res += "."
+        res += value % 100
+
+        return "$res м"
+    }
 }

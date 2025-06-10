@@ -17,8 +17,8 @@ fun <T> DefaultLazyRow(
     modifier: Modifier = Modifier,
     list: List<T>,
     key: ((item: T) -> Any)? = null,
-    content: @Composable (T) -> Unit,
-    lastItemCard: @Composable () -> Unit
+    lastItemCard: @Composable () -> Unit,
+    content: @Composable (T) -> Unit
 ) {
     val listState = rememberLazyListState()
     val flingBehavior = rememberSnapFlingBehavior(listState, SnapPosition.Start)

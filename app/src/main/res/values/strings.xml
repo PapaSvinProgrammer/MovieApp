@@ -49,4 +49,7 @@
     <string name="persons">Персоны</string>
     <string name="select_date">Выбор даты</string>
     <string name="select">Выбрать</string>
+    <string name="best_movies_and_serials">Лучшие фильмы и сериалы</string>
+    <string name="awards">Награды</string>
+    <string name="details">Подробнее</string>
 </resources>

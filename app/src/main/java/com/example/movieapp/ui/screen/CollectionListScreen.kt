@@ -15,11 +15,11 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.ui.screen.uiState.CollectionUIState
-import com.example.movieapp.ui.viewModel.CollectionListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.CollectionListItem
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
+import com.example.movieapp.viewModels.CollectionListViewModel
 import com.example.network.module.image.Collection
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
@@ -91,7 +91,7 @@ private fun RenderCollectionState(
     when (state) {
         CollectionUIState.Loading -> ShimmerMovieDetailList(modifier)
         is CollectionUIState.Success -> {
-            MainContent(
+            MainPersonContent(
                 modifier = modifier,
                 collections = state.data,
                 onClick = onClick,
@@ -102,7 +102,7 @@ private fun RenderCollectionState(
 }
 
 @Composable
-private fun MainContent(
+private fun MainPersonContent(
     modifier: Modifier,
     collections: List<Collection>,
     onLoadMore: () -> Unit,
