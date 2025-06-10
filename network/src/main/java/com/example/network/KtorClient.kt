@@ -19,6 +19,7 @@ import com.example.network.module.person.Person
 import com.example.network.module.season.Season
 import com.example.network.utils.Constants.NAME_FIELD
 import com.example.network.utils.Constants.NOT_NULL_FIELD
+import com.example.network.utils.Constants.SELECT_FILED
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.engine.okhttp.OkHttp
@@ -162,9 +163,12 @@ class KtorClient(okHttpClient: OkHttpClient) {
     }
 
     suspend fun getPersonByFilter(queryParameters: List<Pair<String, String>>): List<Person> {
+        val selectsList = listOf("name", "enName", "photo", "sex", "birthday", "age")
+
         val res: Docs<Person> = client.get("v1.4/person") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
+                selectsList.forEach { parameters.append(SELECT_FILED, it) }
                 queryParameters.forEach { parameters.append(it.first, it.second) }
             }
         }.body()

@@ -14,6 +14,6 @@ data class Person(
     val growth: Int?,
     val birthday: String?,
     val age: Int?,
-    val facts: List<Fact>?,
-    val movies: List<Movie>?,
+    val facts: List<Fact> = listOf(),
+    val movies: List<Movie> = listOf(),
 )

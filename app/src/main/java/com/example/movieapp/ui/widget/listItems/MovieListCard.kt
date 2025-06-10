@@ -59,7 +59,7 @@ fun MovieListCard(
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .height(130.dp)
-                    .width(85.dp)
+                    .width(90.dp)
                     .clip(RoundedCornerShape(10.dp))
             )
 

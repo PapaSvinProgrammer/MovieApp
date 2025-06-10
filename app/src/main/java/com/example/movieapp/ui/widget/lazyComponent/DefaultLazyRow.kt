@@ -16,6 +16,7 @@ import androidx.compose.ui.unit.dp
 fun <T> DefaultLazyRow(
     modifier: Modifier = Modifier,
     list: List<T>,
+    key: ((item: T) -> Any)? = null,
     content: @Composable (T) -> Unit,
     lastItemCard: @Composable () -> Unit
 ) {
@@ -29,7 +30,10 @@ fun <T> DefaultLazyRow(
         state = listState,
         flingBehavior = flingBehavior
     ) {
-        items(list) {
+        items(
+            items = list,
+            key = key
+        ) {
             content(it)
         }
 

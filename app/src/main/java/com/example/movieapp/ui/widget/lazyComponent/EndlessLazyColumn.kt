@@ -22,6 +22,7 @@ fun <T: Any> EndlessLazyColumn(
     contentPadding: PaddingValues = PaddingValues(0.dp),
     verticalArrangement: Arrangement.Vertical = Arrangement.Top,
     items: List<T>,
+    key: ((index: Int, item: T) -> Any)? = null,
     loadMore: () -> Unit,
     itemContent: @Composable (index: Int, item: T) -> Unit
 ) {
@@ -41,7 +42,10 @@ fun <T: Any> EndlessLazyColumn(
         contentPadding = contentPadding,
         verticalArrangement = verticalArrangement
     ) {
-        itemsIndexed(items) { index, item ->
+        itemsIndexed(
+            items = items,
+            key = key
+        ) { index, item ->
             itemContent(index, item)
         }
     }

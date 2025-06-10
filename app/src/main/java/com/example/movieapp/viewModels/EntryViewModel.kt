@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.viewModel
+package com.example.movieapp.viewModels
 
 import androidx.lifecycle.ViewModel
 import javax.inject.Inject

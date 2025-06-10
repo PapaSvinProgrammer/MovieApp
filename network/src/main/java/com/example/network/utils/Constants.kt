@@ -8,6 +8,7 @@ object Constants {
     const val DATE_FIELD = "date"
     const val TYPE_FIELD = "type"
     const val LIMIT_FIELD = "limit"
+    const val SELECT_FILED = "selectFields"
     const val QUERY_FIELD = "query"
     const val PERSON_ID_FIELD = "personId"
     const val NOM_AWARD_YEAR_FIELD = "nomination.award.year"

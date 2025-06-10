@@ -19,19 +19,21 @@ import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeDetailListScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.MovieListScreen
+import com.example.movieapp.ui.screen.PersonPodiumListScreen
 import com.example.movieapp.ui.screen.SearchResultScreen
 import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.SearchSettingsScreen
 import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
-import com.example.movieapp.ui.viewModel.CollectionListViewModel
-import com.example.movieapp.ui.viewModel.HomeViewModel
-import com.example.movieapp.ui.viewModel.MovieListViewModel
-import com.example.movieapp.ui.viewModel.SearchResultViewModel
-import com.example.movieapp.ui.viewModel.SearchSettingsViewModel
-import com.example.movieapp.ui.viewModel.SearchViewModel
-import com.example.movieapp.ui.viewModel.SettingsViewModel
-import com.example.movieapp.ui.viewModel.StartViewModel
+import com.example.movieapp.viewModels.PersonListViewModel
+import com.example.movieapp.viewModels.CollectionListViewModel
+import com.example.movieapp.viewModels.HomeViewModel
+import com.example.movieapp.viewModels.MovieListViewModel
+import com.example.movieapp.viewModels.SearchResultViewModel
+import com.example.movieapp.viewModels.SearchSettingsViewModel
+import com.example.movieapp.viewModels.SearchViewModel
+import com.example.movieapp.viewModels.SettingsViewModel
+import com.example.movieapp.viewModels.StartViewModel
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
@@ -191,6 +193,22 @@ fun NavigationGraph(
             HomeDetailListScreen(
                 navController = navController,
                 viewModel = viewModel,
+                title = route.title,
+                queryParameters = route.queryParameters
+            )
+        }
+
+        composable<PersonPodiumListRoute>(
+            typeMap = mapOf(
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
+            )
+        ) {
+            val route = it.toRoute<PersonPodiumListRoute>()
+            val viewMode: PersonListViewModel = viewModel(factory = viewModelFactory)
+
+            PersonPodiumListScreen(
+                navController = navController,
+                viewModel = viewMode,
                 title = route.title,
                 queryParameters = route.queryParameters
             )

@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.viewModel
+package com.example.movieapp.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -37,7 +37,7 @@ class SearchViewModel @Inject constructor(
         private set
     var collectionsState by mutableStateOf(CollectionUIState.Loading as CollectionUIState)
         private set
-    var dubbingPersonState by mutableStateOf(PersonUIState.Loading as PersonUIState)
+    var personState by mutableStateOf(PersonUIState.Loading as PersonUIState)
         private set
     var topSerialsState by mutableStateOf(MovieUIState.Loading as MovieUIState)
         private set
@@ -73,11 +73,11 @@ class SearchViewModel @Inject constructor(
         }
     }
 
-    fun getActorByCountAwards() {
-        if (dubbingPersonState is PersonUIState.Success) return
+    fun getActorByPopularityMovies() {
+        if (personState is PersonUIState.Success) return
 
         val queryParameters = listOf(
-            Constants.SORT_FIELD to Constants.COUNT_AWARDS_FIELD,
+            Constants.SORT_FIELD to Constants.MOVIES_RATING_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC
         )
 
@@ -85,7 +85,7 @@ class SearchViewModel @Inject constructor(
             val res = getPerson.getPersonsByFilter(queryParameters)
 
             if (res.isNotEmpty()) {
-                dubbingPersonState = PersonUIState.Success(res)
+                personState = PersonUIState.Success(res)
             }
         }
     }

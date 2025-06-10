@@ -1,9 +1,8 @@
-package com.example.movieapp.ui.viewModel
+package com.example.movieapp.viewModels
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.graphics.colorspace.TransferParameters
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.usecases.GetMovie
