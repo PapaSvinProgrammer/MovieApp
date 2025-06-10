@@ -182,15 +182,15 @@ fun SearchScreen(
             }
 
             item {
-                val title = stringResource(R.string.have_most_awards)
-                viewModel.getActorByCountAwards()
+                val title = stringResource(R.string.popular_names)
+                viewModel.getActorByPopularityMovies()
                 RenderPersonRowState(
-                    state = viewModel.dubbingPersonState,
+                    state = viewModel.personState,
                     title = title,
                     onClick = {},
                     onShowAll = {
                         val queryParameters = listOf(
-                            Constants.SORT_FIELD to Constants.COUNT_AWARDS_FIELD,
+                            Constants.SORT_FIELD to Constants.MOVIES_RATING_FIELD,
                             Constants.SORT_TYPE to Constants.SORT_DESC
                         )
 

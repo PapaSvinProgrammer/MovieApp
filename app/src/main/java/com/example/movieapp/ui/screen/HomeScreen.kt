@@ -307,6 +307,7 @@ private fun MainCollectionRow(
 
     DefaultLazyRow(
         list = collections,
+        key = { it.id },
         lastItemCard = {
             LastItemCard(
                 width = 140.dp,
@@ -338,6 +339,7 @@ private fun MainMovieRow(
 
     DefaultLazyRow(
         list = movies,
+        key = { it.id },
         lastItemCard = {
             LastItemCard(
                 width = 160.dp,

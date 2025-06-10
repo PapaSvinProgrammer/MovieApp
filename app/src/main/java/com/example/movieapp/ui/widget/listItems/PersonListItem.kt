@@ -1,5 +1,7 @@
 package com.example.movieapp.ui.widget.listItems
 
+import android.os.Build
+import androidx.annotation.RequiresApi
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -30,9 +32,11 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.core.utils.FormatDate
 import com.example.movieapp.R
 import com.example.network.module.person.Person
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun PersonListItem(
     person: Person,
@@ -69,6 +73,7 @@ fun PersonListItem(
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun InfoColumn(person: Person) {
     Column {
@@ -94,11 +99,12 @@ private fun InfoColumn(person: Person) {
     }
 }
 
+@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun AgeContent(person: Person) {
     person.birthday?.let {
         Text(
-            text = it,
+            text = FormatDate.formatDate(it),
             fontSize = 13.sp,
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -108,10 +114,14 @@ private fun AgeContent(person: Person) {
 
 @Composable
 private fun BoxScope.BottomContent(person: Person, professions: List<String>) {
-    var text = "Пол: ${person.sex}"
+    var text = ""
 
     if (professions.isNotEmpty()) {
         text = professions.joinToString(", ")
+    }
+
+    person.sex?.let {
+        text = "Пол: ${person.sex}"
     }
 
     Text(

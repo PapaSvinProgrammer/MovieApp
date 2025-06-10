@@ -4,22 +4,18 @@ import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
 import androidx.compose.animation.slideOutHorizontally
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
-import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
@@ -35,12 +31,9 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 
@@ -86,18 +79,11 @@ fun TextListLayout(
                 )
             }
         ) { innerPadding ->
-            Box {
-                MainContent(
-                    innerPadding = innerPadding,
-                    result = list,
-                    onClick = { onClick(it) }
-                )
-
-                SuccessButton(
-                    isEnabled = list.any { it.second },
-                    onClick = onClose
-                )
-            }
+            MainContent(
+                innerPadding = innerPadding,
+                result = list,
+                onClick = { onClick(it) }
+            )
         }
     }
 }
@@ -164,10 +150,6 @@ private fun MainLazyColumn(
 
             HorizontalDivider()
         }
-
-        item {
-            Spacer(modifier = Modifier.height(130.dp))
-        }
     }
 }
 
@@ -205,31 +187,5 @@ private fun SearchLazyColumn(
 
             HorizontalDivider()
         }
-
-        item {
-            Spacer(modifier = Modifier.height(130.dp))
-        }
-    }
-}
-
-@Composable
-private fun BoxScope.SuccessButton(
-    isEnabled: Boolean,
-    onClick: () -> Unit
-) {
-    Button(
-        modifier = Modifier
-            .navigationBarsPadding()
-            .padding(30.dp)
-            .fillMaxWidth()
-            .align(Alignment.BottomCenter),
-        onClick = onClick,
-        enabled = isEnabled
-    ) {
-        Text(
-            text = stringResource(R.string.save_settings),
-            fontSize = 16.sp,
-            fontWeight = FontWeight.Bold
-        )
     }
 }

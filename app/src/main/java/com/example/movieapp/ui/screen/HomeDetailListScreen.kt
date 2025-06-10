@@ -83,6 +83,7 @@ private fun MainContent(
     EndlessLazyVerticalGrid(
         modifier = modifier,
         list = list,
+        key = { it.id },
         onLoadMore = onLoadMore
     ) {
         MovieCard(

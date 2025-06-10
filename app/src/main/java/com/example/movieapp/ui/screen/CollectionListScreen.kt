@@ -111,7 +111,8 @@ private fun MainContent(
     EndlessLazyColumn(
         modifier = modifier,
         items = collections,
-        loadMore = onLoadMore
+        loadMore = onLoadMore,
+        key = { index, _ ->  index }
     ) { index, item ->
         CollectionListItem(
             index = index + 1,

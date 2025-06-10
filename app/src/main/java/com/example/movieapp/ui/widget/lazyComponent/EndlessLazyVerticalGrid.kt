@@ -24,6 +24,7 @@ fun <T> EndlessLazyVerticalGrid(
     columns: GridCells = GridCells.Fixed(2),
     gridState: LazyGridState = rememberLazyGridState(),
     list: List<T>,
+    key: ((item: T) -> Any)? = null,
     onLoadMore: () -> Unit,
     content: @Composable (T) -> Unit
 ) {
@@ -45,7 +46,10 @@ fun <T> EndlessLazyVerticalGrid(
         horizontalArrangement = horizontalArrangement,
         verticalArrangement = verticalArrangement
     ) {
-        items(list) {
+        items(
+            items = list,
+            key = key
+        ) {
             content(it)
         }
     }
