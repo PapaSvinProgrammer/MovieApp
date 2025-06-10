@@ -11,6 +11,7 @@ import com.example.network.module.category.Genre
 import com.example.network.module.category.MovieType
 import com.example.network.module.image.Collection
 import com.example.network.module.image.Docs
+import com.example.network.module.image.Poster
 import com.example.network.module.movie.Comment
 import com.example.network.module.movie.Movie
 import com.example.network.module.movie.Studio
@@ -203,6 +204,18 @@ class KtorClient(okHttpClient: OkHttpClient) {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
                 queryParameters.forEach { parameters.append(it.first, it.second) }
+            }
+        }.body()
+
+        return res.docs
+    }
+
+    suspend fun getMovieImages(movieId: Int, page: Int = 1): List<Poster> {
+        val res: Docs<Poster> = client.get("v1.4/image") {
+            url {
+                parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
+                parameters.append(PAGE_FIELD, page.toString())
+                parameters.append(MOVIE_ID_FIELD, movieId.toString())
             }
         }.body()
 

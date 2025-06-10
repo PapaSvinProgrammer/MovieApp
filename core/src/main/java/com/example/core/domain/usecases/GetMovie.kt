@@ -1,6 +1,7 @@
 package com.example.core.domain.usecases
 
 import com.example.core.domain.repositories.MovieRepository
+import com.example.network.module.image.Poster
 import com.example.network.utils.Constants
 import com.example.network.module.movie.Movie
 import javax.inject.Inject
@@ -55,5 +56,9 @@ class GetMovie @Inject constructor(
 
     suspend fun getByFilter(queryParameters: List<Pair<String, String>>): List<Movie> {
         return movieRepository.getMovieByFilter(queryParameters)
+    }
+
+    suspend fun getImages(movieId: Int, page: Int = 1): List<Poster> {
+        return movieRepository.getImages(movieId, page)
     }
 }

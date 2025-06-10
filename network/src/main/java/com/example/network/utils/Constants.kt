@@ -14,6 +14,7 @@ object Constants {
     const val NOM_AWARD_YEAR_FIELD = "nomination.award.year"
     const val NOM_AWARD_TITLE_FIELD = "nomination.award.title"
     const val COUNT_AWARDS_FIELD = "countAwards"
+    const val PERSONS_ID_FIELD = "persons.id"
     const val NAME_FIELD = "name"
     const val TITLE_FIELD = "title"
     const val RATING_KP_FIELD = "rating.kp"
