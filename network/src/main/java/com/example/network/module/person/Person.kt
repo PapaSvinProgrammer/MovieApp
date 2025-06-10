@@ -1,7 +1,6 @@
 package com.example.network.module.person
 
 import com.example.network.module.movie.Fact
-import com.example.network.module.movie.Movie
 import kotlinx.serialization.Serializable
 
 @Serializable
@@ -15,5 +14,4 @@ data class Person(
     val birthday: String?,
     val age: Int?,
     val facts: List<Fact> = listOf(),
-    val movies: List<Movie> = listOf(),
 )

@@ -177,7 +177,7 @@ class KtorClient(okHttpClient: OkHttpClient) {
         return res.docs
     }
 
-    suspend fun getPersonAwardsByFilter(queryParameters: List<Pair<String, String>>): List<NominationAward> {
+    suspend fun getPersonAwardsByFilter(queryParameters: List<Pair<String, String>>): Docs<NominationAward> {
         val res: Docs<NominationAward> = client.get("v1.4/person/awards") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
@@ -185,10 +185,10 @@ class KtorClient(okHttpClient: OkHttpClient) {
             }
         }.body()
 
-        return res.docs
+        return res
     }
 
-    suspend fun getMovieAwardsByFilter(queryParameters: List<Pair<String, String>>): List<NominationAward> {
+    suspend fun getMovieAwardsByFilter(queryParameters: List<Pair<String, String>>): Docs<NominationAward> {
         val res: Docs<NominationAward> = client.get("v1.4/movie/awards") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
@@ -196,7 +196,7 @@ class KtorClient(okHttpClient: OkHttpClient) {
             }
         }.body()
 
-        return res.docs
+        return res
     }
 
     suspend fun getCollectionByFilter(queryParameters: List<Pair<String, String>>): List<Collection> {
