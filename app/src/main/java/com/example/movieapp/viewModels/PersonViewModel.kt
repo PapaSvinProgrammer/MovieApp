@@ -1,7 +1,6 @@
 package com.example.movieapp.viewModels
 
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
@@ -9,6 +8,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.domain.usecases.GetAward
 import com.example.core.domain.usecases.GetMovie
 import com.example.core.domain.usecases.GetPerson
+import com.example.movieapp.ui.screen.uiState.FactUIState
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.network.utils.Constants
@@ -27,12 +27,15 @@ class PersonViewModel @Inject constructor(
         private set
     var countAwards by mutableStateOf<Int?>(null)
         private set
+    var factState by mutableStateOf(FactUIState.Loading as FactUIState)
+        private set
 
     fun getPerson(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPerson.getPersonById(id)
             if (res != null) {
                 personState = PersonUIState.Success(listOf(res))
+                factState = FactUIState.Success(res.facts)
             }
         }
     }

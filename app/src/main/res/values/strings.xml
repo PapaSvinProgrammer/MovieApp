@@ -52,4 +52,6 @@
     <string name="best_movies_and_serials">Лучшие фильмы и сериалы</string>
     <string name="awards">Награды</string>
     <string name="details">Подробнее</string>
+    <string name="spoilers_title">Тут есть спойлеры!</string>
+    <string name="spoilers_description">Нажмите, чтобы посмотреть</string>
 </resources>

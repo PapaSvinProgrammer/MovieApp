@@ -3,6 +3,7 @@ package com.example.movieapp.ui.screen
 import android.os.Build
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -29,6 +30,10 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -51,7 +56,10 @@ import com.example.core.utils.FormatDate
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.widget.listItems.FactCard
+import com.example.movieapp.ui.widget.listItems.TotalListItem
 import com.example.movieapp.ui.widget.other.TitleTopBarText
+import com.example.movieapp.ui.widget.renderState.RenderFactStateRow
 import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.movieapp.viewModels.PersonViewModel
 import com.example.network.module.person.Person
@@ -129,36 +137,24 @@ fun PersonScreen(
                 viewModel.countAwards?.let {
                     TotalListItem(
                         title = stringResource(R.string.awards),
-                        value = it.toString()
+                        value = it.toString(),
+                        modifier = Modifier.clickable {
+
+                        }
                     )
                 }
             }
+
+            item {
+                RenderFactStateRow(
+                    state = viewModel.factState,
+                    title = "Знаете ли вы, что...",
+                    onClick = {},
+                    onShowAll = {}
+                )
+            }
         }
     }
-}
-
-@Composable
-fun TotalListItem(
-    title: String,
-    value: String
-) {
-    ListItem(
-        headlineContent = {
-            Text(
-                text = title,
-                fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
-            )
-        },
-        trailingContent = {
-            Text(
-                text = value,
-                fontWeight = FontWeight.Bold,
-                fontSize = 16.sp,
-                color = MaterialTheme.colorScheme.primary
-            )
-        }
-    )
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
