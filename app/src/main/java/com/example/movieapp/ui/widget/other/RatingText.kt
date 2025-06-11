@@ -16,6 +16,8 @@ fun RatingText(
     rating: Float,
     modifier: Modifier = Modifier
 ) {
+    if (rating.toInt() == 0) return
+
     val color: Color
 
     if (rating.toInt() >= 7) {

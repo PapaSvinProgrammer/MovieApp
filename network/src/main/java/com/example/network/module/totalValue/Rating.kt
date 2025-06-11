@@ -4,8 +4,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class Rating(
-    val kp: Float?,
-    val imdb: Float?,
-    val filmCritics: Float?,
-    val russianFilmCritics: Float?
+    val kp: Float? = null,
+    val imdb: Float? = null,
+    val filmCritics: Float? = null,
+    val russianFilmCritics: Float? = null
 )

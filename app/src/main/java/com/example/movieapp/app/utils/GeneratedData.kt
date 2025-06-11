@@ -38,3 +38,10 @@ val iconsApplication = listOf(
         origColor = true
     )
 )
+
+val categoriesFilmography = mapOf(
+    "actor" to "Актер",
+    "producer" to "Продюсер",
+    "cameo" to "Играет самого себя",
+    "uncredited" to "Не указан в титрах"
+)

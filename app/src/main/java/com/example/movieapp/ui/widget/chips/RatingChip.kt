@@ -57,7 +57,7 @@ fun RatingChip(
             color = Color.Gray
         )
     }
-    else {
+    else if (rating.toInt() > 0) {
         DefaultBox(
             modifier = modifier.background(Color.Red),
             rating = rating,

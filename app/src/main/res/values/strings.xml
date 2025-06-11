@@ -54,4 +54,6 @@
     <string name="details">Подробнее</string>
     <string name="spoilers_title">Тут есть спойлеры!</string>
     <string name="spoilers_description">Нажмите, чтобы посмотреть</string>
+    <string name="facts_title">Знаете ли вы, что...</string>
+    <string name="filmography">Фильмография</string>
 </resources>
