@@ -19,6 +19,7 @@ import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeDetailListScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.MovieListScreen
+import com.example.movieapp.ui.screen.PersonDetailScreen
 import com.example.movieapp.ui.screen.PersonPodiumListScreen
 import com.example.movieapp.ui.screen.PersonScreen
 import com.example.movieapp.ui.screen.SearchResultScreen
@@ -221,6 +222,17 @@ fun NavigationGraph(
             val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
 
             PersonScreen(
+                navController = navController,
+                viewModel = viewModel,
+                id = route.id
+            )
+        }
+
+        composable<PersonDetailRoute> {
+            val route = it.toRoute<PersonDetailRoute>()
+            val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
+
+            PersonDetailScreen(
                 navController = navController,
                 viewModel = viewModel,
                 id = route.id

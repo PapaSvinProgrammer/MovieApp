@@ -60,3 +60,8 @@ data class PersonPodiumListRoute(
 data class PersonRoute(
     val id: Int
 ): NavRoute
+
+@Serializable
+data class PersonDetailRoute(
+    val id: Int
+): NavRoute

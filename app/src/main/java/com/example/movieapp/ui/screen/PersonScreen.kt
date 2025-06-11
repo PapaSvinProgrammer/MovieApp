@@ -2,9 +2,9 @@ package com.example.movieapp.ui.screen
 
 import android.os.Build
 import androidx.annotation.RequiresApi
+import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -17,6 +17,7 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
@@ -31,6 +32,12 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.derivedStateOf
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -52,10 +59,12 @@ import com.example.core.utils.ConvertData
 import com.example.core.utils.FormatDate
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.MovieListRoute
+import com.example.movieapp.app.navigation.PersonDetailRoute
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.widget.component.CategoriesHeader
 import com.example.movieapp.ui.widget.listItems.ShortMovieListItem
 import com.example.movieapp.ui.widget.listItems.TotalListItem
+import com.example.movieapp.ui.widget.other.BirthdayDepthContent
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.renderState.RenderFactStateRow
 import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
@@ -71,17 +80,37 @@ fun PersonScreen(
     viewModel: PersonViewModel,
     id: Int
 ) {
+    val lazyState = rememberLazyListState()
+    val firstOffset by remember { derivedStateOf { lazyState.firstVisibleItemScrollOffset } }
+    val index by remember { derivedStateOf { lazyState.firstVisibleItemIndex } }
+    var topBarTitle by remember { mutableStateOf("") }
+
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getPerson(id)
         viewModel.getMovies(id)
         viewModel.getCountAwards(id)
     }
 
+    LaunchedEffect(index, firstOffset) {
+        if (index == 0) {
+            if (firstOffset > 150) {
+                topBarTitle = (viewModel.personState as PersonUIState.Success).data.first().name ?: ""
+            }
+            else {
+                topBarTitle = ""
+            }
+        }
+    }
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    TitleTopBarText(text = "Person name")
+                    AnimatedContent(
+                        targetState = topBarTitle
+                    ) { targetState ->
+                        TitleTopBarText(text = targetState)
+                    }
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -96,12 +125,30 @@ fun PersonScreen(
     ) { innerPadding ->
         LazyColumn(
             modifier = Modifier.padding(innerPadding),
-            verticalArrangement = Arrangement.spacedBy(20.dp)
+            state = lazyState
         ) {
             item {
                 RenderPersonContent(
-                    state = viewModel.personState
+                    state = viewModel.personState,
+                    onClickDetail = {
+                        navController.navigate(PersonDetailRoute(id))
+                    }
                 )
+
+                Spacer(modifier = Modifier.height(20.dp))
+            }
+
+            item {
+                viewModel.countAwards?.let {
+                    TotalListItem(
+                        title = stringResource(R.string.awards),
+                        value = it.toString(),
+                        modifier = Modifier
+                            .clickable {
+
+                            }
+                    )
+                }
             }
 
             item {
@@ -129,18 +176,8 @@ fun PersonScreen(
                         )
                     }
                 )
-            }
 
-            item {
-                viewModel.countAwards?.let {
-                    TotalListItem(
-                        title = stringResource(R.string.awards),
-                        value = it.toString(),
-                        modifier = Modifier.clickable {
-
-                        }
-                    )
-                }
+                Spacer(modifier = Modifier.height(20.dp))
             }
 
             item {
@@ -150,6 +187,8 @@ fun PersonScreen(
                     onClick = {  },
                     onShowAll = {  }
                 )
+
+                Spacer(modifier = Modifier.height(20.dp))
             }
 
             item {
@@ -176,7 +215,7 @@ fun PersonScreen(
             ) {
                 ShortMovieListItem(
                     shortMovie = it,
-                    onClick = {}
+                    onClick = {  }
                 )
 
                 HorizontalDivider()
@@ -187,16 +226,27 @@ fun PersonScreen(
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-private fun RenderPersonContent(state: PersonUIState) {
+private fun RenderPersonContent(
+    state: PersonUIState,
+    onClickDetail: () -> Unit
+) {
     when (state) {
         PersonUIState.Loading -> {}
-        is PersonUIState.Success ->  MainPersonContent(state.data.first())
+        is PersonUIState.Success -> {
+            MainPersonContent(
+                person = state.data.first(),
+                onClickDetail = onClickDetail
+            )
+        }
     }
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
-fun MainPersonContent(person: Person) {
+fun MainPersonContent(
+    person: Person,
+    onClickDetail: () -> Unit
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -230,10 +280,9 @@ fun MainPersonContent(person: Person) {
 
                 Spacer(modifier = Modifier.height(10.dp))
 
-                Text(
-                    text = FormatDate.formatDate(person.birthday ?: ""),
-                    fontSize = 14.sp,
-                    color = MaterialTheme.colorScheme.onSurfaceVariant
+                BirthdayDepthContent(
+                    birthday = person.birthday,
+                    death = person.death
                 )
 
                 AgeAndGrowthContent(
@@ -245,7 +294,7 @@ fun MainPersonContent(person: Person) {
             TextButton(
                 modifier = Modifier.align(Alignment.BottomStart),
                 contentPadding = PaddingValues(0.dp),
-                onClick = {}
+                onClick = onClickDetail
             ) {
                 Text(text = stringResource(R.string.details))
             }
@@ -276,7 +325,7 @@ private fun NameContent(
 }
 
 @Composable
-private fun AgeAndGrowthContent(
+fun AgeAndGrowthContent(
     age: Int?,
     growth: Int?
 ) {

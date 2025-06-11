@@ -43,7 +43,7 @@ class PersonViewModel @Inject constructor(
 
     fun updateSelectedGroup(index: Int) {
         selectedGroup = index
-        moviesFromGroup  = groups[groupsKeys[index]] ?: listOf()
+        moviesFromGroup = groups[groupsKeys[index]] ?: listOf()
     }
 
     fun getPerson(id: Int) {
@@ -86,6 +86,6 @@ class PersonViewModel @Inject constructor(
     private fun getGroups(movies: List<ShortMovie>) {
         groups = movies.groupBy { it.enProfession ?: "" }
         groupsKeys = groups.map { it.key }
-        moviesFromGroup  = groups[groupsKeys[0]] ?: listOf()
+        moviesFromGroup = groups[groupsKeys[0]] ?: listOf()
     }
 }

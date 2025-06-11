@@ -56,4 +56,12 @@
     <string name="spoilers_description">Нажмите, чтобы посмотреть</string>
     <string name="facts_title">Знаете ли вы, что...</string>
     <string name="filmography">Фильмография</string>
+    <string name="count_awards">Количество наград</string>
+    <string name="total_movies">Всего фильмов</string>
+    <string name="death_place">Место смерти</string>
+    <string name="birth_place">Место рождения</string>
+    <string name="growth">Рост</string>
+    <string name="professions">Карьера</string>
+    <string name="birthday">Дата рождения</string>
+    <string name="death">Дата смерти</string>
 </resources>
