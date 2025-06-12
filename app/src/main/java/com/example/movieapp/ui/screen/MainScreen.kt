@@ -1,6 +1,7 @@
 package com.example.movieapp.ui.screen
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -14,11 +15,13 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.example.movieapp.app.navigation.AccountRoute
 import com.example.movieapp.app.navigation.BottomBarItems
+import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.FavoriteRoute
 import com.example.movieapp.app.navigation.HomeRoute
 import com.example.movieapp.app.navigation.NavRoute
 import com.example.movieapp.app.navigation.NavigationGraph
 import com.example.movieapp.app.navigation.SearchRoute
+import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.widget.other.HazeBottomBar
 import dev.chrisbanes.haze.HazeState
@@ -63,10 +66,7 @@ fun MainScreen(
 
 private fun bottomBarIsVisibility(route: String?, onResult: (Boolean) -> Unit) {
     when (route) {
-        AccountRoute::class.java.canonicalName -> onResult(true)
-        HomeRoute::class.java.canonicalName  -> onResult(true)
-        SearchRoute::class.java.canonicalName  -> onResult(true)
-        FavoriteRoute::class.java.canonicalName -> onResult(true)
-        else -> onResult(false)
+        SearchSettingsRoute::class.java.canonicalName -> onResult(false)
+        else -> onResult(true)
     }
 }

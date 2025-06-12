@@ -152,7 +152,8 @@ fun NavigationGraph(
             SearchResultScreen(
                 navController = navController,
                 viewModel = viewModel,
-                queryParameters = data.queryParameters
+                queryParameters = data.queryParameters,
+                hazeState = hazeState
             )
         }
 
@@ -196,6 +197,7 @@ fun NavigationGraph(
             HomeDetailListScreen(
                 navController = navController,
                 viewModel = viewModel,
+                hazeState = hazeState,
                 title = route.title,
                 queryParameters = route.queryParameters
             )
@@ -212,6 +214,7 @@ fun NavigationGraph(
             PersonPodiumListScreen(
                 navController = navController,
                 viewModel = viewMode,
+                hazeState = hazeState,
                 title = route.title,
                 queryParameters = route.queryParameters
             )
@@ -224,6 +227,7 @@ fun NavigationGraph(
             PersonScreen(
                 navController = navController,
                 viewModel = viewModel,
+                hazeState = hazeState,
                 id = route.id
             )
         }

@@ -1,11 +1,13 @@
 package com.example.movieapp
 
 import android.annotation.SuppressLint
+import android.os.Build
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
+import androidx.annotation.RequiresApi
 import androidx.compose.runtime.DisposableEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
@@ -22,6 +24,7 @@ class MainActivity : ComponentActivity() {
     @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var viewModel: MainViewModel
 
+    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ContextCastToActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as App).appComponent.inject(this)

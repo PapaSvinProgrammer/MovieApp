@@ -30,6 +30,8 @@ import com.example.movieapp.ui.widget.listItems.PersonListItem
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.network.module.person.Person
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -37,6 +39,7 @@ import com.example.network.module.person.Person
 fun PersonPodiumListScreen(
     navController: NavController,
     viewModel: PersonListViewModel,
+    hazeState: HazeState,
     title: String,
     queryParameters: List<Pair<String, String>>
 ) {
@@ -62,7 +65,7 @@ fun PersonPodiumListScreen(
         }
     ) { innerPadding ->
         RenderPersonResult(
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding).haze(hazeState),
             state = viewModel.personState,
             onClick = {},
             onLoadMore = { viewModel.loadMorePersons(queryParameters) }

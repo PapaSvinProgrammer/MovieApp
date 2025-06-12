@@ -24,12 +24,15 @@ import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.movieapp.viewModels.SearchResultViewModel
 import com.example.network.module.movie.Movie
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchResultScreen(
     navController: NavController,
     viewModel: SearchResultViewModel,
+    hazeState: HazeState,
     queryParameters: List<Pair<String, String>>
 ) {
     Scaffold(
@@ -55,7 +58,7 @@ fun SearchResultScreen(
 
         RenderMovieState(
             state = viewModel.movieUIState,
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding).haze(hazeState),
             onClick = {  },
             loadMore = { viewModel.loadMoreMovies(queryParameters) }
         )

@@ -72,6 +72,8 @@ import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.movieapp.viewModels.PersonViewModel
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.haze
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -79,6 +81,7 @@ import com.example.network.utils.Constants
 fun PersonScreen(
     navController: NavController,
     viewModel: PersonViewModel,
+    hazeState: HazeState,
     id: Int
 ) {
     val lazyState = rememberLazyListState()
@@ -125,7 +128,7 @@ fun PersonScreen(
         }
     ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier.padding(innerPadding),
+            modifier = Modifier.padding(innerPadding).haze(hazeState),
             state = lazyState
         ) {
             item {
@@ -219,6 +222,10 @@ fun PersonScreen(
                 )
 
                 HorizontalDivider()
+            }
+
+            item {
+                Spacer(modifier = Modifier.height(130.dp))
             }
         }
     }

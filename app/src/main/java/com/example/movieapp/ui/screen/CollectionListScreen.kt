@@ -1,5 +1,6 @@
 package com.example.movieapp.ui.screen
 
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -60,7 +61,10 @@ fun CollectionListScreen(
         }
     ) { innerPadding ->
         RenderCollectionState(
-            modifier = Modifier.padding(innerPadding).haze(hazeState),
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(innerPadding)
+                .haze(hazeState),
             state = viewModel.collectionState,
             onClick = {
                 val query = arrayListOf(
