@@ -64,4 +64,5 @@
     <string name="professions">Карьера</string>
     <string name="birthday">Дата рождения</string>
     <string name="death">Дата смерти</string>
+    <string name="spouse">Брак</string>
 </resources>

@@ -56,7 +56,6 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.core.utils.ConvertData
-import com.example.core.utils.FormatDate
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.PersonDetailRoute

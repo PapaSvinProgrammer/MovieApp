@@ -13,8 +13,12 @@ import com.example.movieapp.ui.screen.uiState.FactUIState
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.network.module.movie.ShortMovie
+import com.example.network.module.person.Person
 import com.example.network.utils.Constants
+import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -30,6 +34,8 @@ class PersonViewModel @Inject constructor(
     var countAwards by mutableStateOf<Int?>(null)
         private set
     var factState by mutableStateOf(FactUIState.Loading as FactUIState)
+        private set
+    var personSpouseState by mutableStateOf(PersonUIState.Loading as PersonUIState)
         private set
 
     var groups by mutableStateOf<Map<String, List<ShortMovie>>>(mapOf())
@@ -80,6 +86,27 @@ class PersonViewModel @Inject constructor(
             if (res.total != 0) {
                 countAwards = res.total
             }
+        }
+    }
+
+    fun getSpouses(list: List<Int>) {
+        viewModelScope.launch(Dispatchers.Default) {
+            val tasks = mutableListOf<Deferred<Person>>()
+
+            list.forEach { id ->
+                val query = listOf(
+                    "id" to id.toString(),
+                    Constants.SELECT_FILED to "id"
+                )
+
+                val task = async(Dispatchers.IO) {
+                    getPerson.getPersonsByFilter(query).firstOrNull() ?: Person(id = -1)
+                }
+
+                tasks.add(task)
+            }
+
+            personSpouseState = PersonUIState.Success(tasks.awaitAll())
         }
     }
 

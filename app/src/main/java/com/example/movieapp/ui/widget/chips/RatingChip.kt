@@ -28,7 +28,7 @@ import com.example.movieapp.ui.theme.Green
 @Composable
 fun RatingChip(
     modifier: Modifier = Modifier,
-    fontSize: TextUnit = 14.sp,
+    fontSize: TextUnit = 12.sp,
     rating: Float,
     top: Int? = null
 ) {

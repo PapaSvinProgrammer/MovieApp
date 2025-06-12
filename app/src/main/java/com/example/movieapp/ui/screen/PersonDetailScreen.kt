@@ -19,6 +19,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -32,10 +34,12 @@ import com.example.core.utils.FormatDate
 import com.example.movieapp.R
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.widget.listItems.DetailInfoListItem
+import com.example.movieapp.ui.widget.listItems.SpouseCard
 import com.example.movieapp.ui.widget.other.PrettyAgeContent
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.viewModels.PersonViewModel
 import com.example.network.module.person.Person
+import com.example.network.module.person.Spouse
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,6 +51,12 @@ fun PersonDetailScreen(
 ) {
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getPerson(id)
+    }
+
+    LaunchedEffect(viewModel.personState) {
+        (viewModel.personState as? PersonUIState.Success)?.data?.let { persons ->
+            viewModel.getSpouses(persons.first().spouses.map { it.id })
+        }
     }
 
     Scaffold(
@@ -76,9 +86,14 @@ fun PersonDetailScreen(
                 .padding(innerPadding)
                 .verticalScroll(rememberScrollState())
         ) {
-            RenderPersonDetailState(
-                state = viewModel.personState
-            )
+            RenderPersonDetailState(viewModel.personState)
+
+            (viewModel.personState as? PersonUIState.Success)?.data?.let { persons ->
+                SpouseContent(
+                    state = viewModel.personSpouseState,
+                    spouses = persons.first().spouses
+                )
+            }
         }
     }
 }
@@ -89,9 +104,7 @@ fun RenderPersonDetailState(state: PersonUIState) {
     when(state) {
         PersonUIState.Loading -> {}
         is PersonUIState.Success -> {
-            MainPersonDetailContent(
-                person = state.data.first()
-            )
+            MainPersonDetailContent(person = state.data.first())
         }
     }
 }
@@ -146,6 +159,8 @@ private fun MainPersonDetailContent(person: Person) {
             trailing = person.movies.size.toString()
         )
     }
+
+
 }
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -197,7 +212,8 @@ private fun CustomDetailInfo(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(15.dp)
+            .padding(15.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = header,
@@ -205,10 +221,48 @@ private fun CustomDetailInfo(
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
+                .padding(end = 10.dp)
                 .fillMaxWidth()
                 .weight(1f)
         )
 
         trailing()
+    }
+}
+
+@Composable
+private fun SpouseContent(
+    spouses: List<Spouse>,
+    state: PersonUIState
+) {
+    (state as? PersonUIState.Success)?.let {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(15.dp)
+        ) {
+            Text(
+                text = stringResource(R.string.spouse),
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .weight(1f)
+            )
+
+            Column(modifier = Modifier.weight(2f).fillMaxWidth()) {
+                it.data.forEachIndexed { index, person ->
+                    val spouse = spouses[index]
+
+                    SpouseCard(
+                        name = person.name ?: "",
+                        countChild = spouse.children,
+                        divorced = spouse.divorced ?: false,
+                        photo = person.photo
+                    )
+                }
+            }
+        }
     }
 }

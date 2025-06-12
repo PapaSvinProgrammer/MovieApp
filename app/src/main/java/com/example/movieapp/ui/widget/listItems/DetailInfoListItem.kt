@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -20,7 +21,8 @@ fun DetailInfoListItem(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(15.dp)
+            .padding(15.dp),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Text(
             text = header,
@@ -28,6 +30,7 @@ fun DetailInfoListItem(
             fontWeight = FontWeight.Medium,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
+                .padding(end = 10.dp)
                 .fillMaxWidth()
                 .weight(1f)
         )
