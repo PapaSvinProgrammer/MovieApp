@@ -28,14 +28,15 @@ fun SpouseCard(
     name: String,
     photo: String? = null,
     countChild: Int? = null,
-    divorced: Boolean = false
+    divorced: Boolean = false,
+    onClick: () -> Unit
 ) {
     Column(
         modifier = modifier
             .clickable(
                 interactionSource = null,
                 indication = null,
-                onClick = {}
+                onClick = onClick
             )
     ) {
         AsyncImage(

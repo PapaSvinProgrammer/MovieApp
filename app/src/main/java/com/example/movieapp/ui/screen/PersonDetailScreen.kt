@@ -32,6 +32,7 @@ import androidx.navigation.NavController
 import com.example.core.utils.ConvertData
 import com.example.core.utils.FormatDate
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.PersonRoute
 import com.example.movieapp.ui.screen.uiState.PersonUIState
 import com.example.movieapp.ui.widget.listItems.DetailInfoListItem
 import com.example.movieapp.ui.widget.listItems.SpouseCard
@@ -88,12 +89,14 @@ fun PersonDetailScreen(
         ) {
             RenderPersonDetailState(viewModel.personState)
 
-            (viewModel.personState as? PersonUIState.Success)?.data?.let { persons ->
-                SpouseContent(
-                    state = viewModel.personSpouseState,
-                    spouses = persons.first().spouses
-                )
-            }
+            SpouseContent(
+                state = viewModel.personSpouseState,
+                spouses = (viewModel.personState as? PersonUIState.Success)
+                    ?.data
+                    ?.first()
+                    ?.spouses ?: listOf(),
+                onClick = { navController.navigate(PersonRoute(it)) }
+            )
         }
     }
 }
@@ -233,23 +236,32 @@ private fun CustomDetailInfo(
 @Composable
 private fun SpouseContent(
     spouses: List<Spouse>,
-    state: PersonUIState
+    state: PersonUIState,
+    onClick: (Int) -> Unit
 ) {
-    (state as? PersonUIState.Success)?.let {
-        Row(
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(15.dp)
+    ) {
+        Text(
+            text = stringResource(R.string.spouse),
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Medium,
+            color = MaterialTheme.colorScheme.onSurfaceVariant,
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(15.dp)
-        ) {
-            Text(
-                text = stringResource(R.string.spouse),
-                fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
-                color = MaterialTheme.colorScheme.onSurfaceVariant,
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .weight(1f)
-            )
+                .weight(1f)
+        )
+
+        (state as? PersonUIState.Success)?.let {
+            if (it.data.isEmpty()) {
+                Text(
+                    text = "-",
+                    modifier = Modifier.fillMaxWidth().weight(2f)
+                )
+                return
+            }
 
             Column(modifier = Modifier.weight(2f).fillMaxWidth()) {
                 it.data.forEachIndexed { index, person ->
@@ -259,7 +271,8 @@ private fun SpouseContent(
                         name = person.name ?: "",
                         countChild = spouse.children,
                         divorced = spouse.divorced ?: false,
-                        photo = person.photo
+                        photo = person.photo,
+                        onClick = { onClick(person.id) }
                     )
                 }
             }

@@ -5,11 +5,13 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.defaultMinSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -142,10 +144,9 @@ fun PersonScreen(
                     TotalListItem(
                         title = stringResource(R.string.awards),
                         value = it.toString(),
-                        modifier = Modifier
-                            .clickable {
+                        modifier = Modifier.clickable {
 
-                            }
+                        }
                     )
                 }
             }
@@ -267,9 +268,9 @@ fun MainPersonContent(
 
         Spacer(modifier = Modifier.width(15.dp))
 
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(210.dp)
+        Column(
+            modifier = Modifier.defaultMinSize(minHeight = 210.dp),
+            verticalArrangement = Arrangement.SpaceBetween
         ) {
             Column {
                 NameContent(
@@ -291,7 +292,6 @@ fun MainPersonContent(
             }
 
             TextButton(
-                modifier = Modifier.align(Alignment.BottomStart),
                 contentPadding = PaddingValues(0.dp),
                 onClick = onClickDetail
             ) {
@@ -308,7 +308,7 @@ private fun NameContent(
 ) {
     Text(
         text = name ?: "",
-        fontSize = 25.sp,
+        fontSize = 23.sp,
         fontWeight = FontWeight.ExtraBold,
         lineHeight = 40.sp
     )
