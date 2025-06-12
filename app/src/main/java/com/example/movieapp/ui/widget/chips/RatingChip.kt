@@ -84,7 +84,7 @@ private fun EliteBox(
             contentDescription = null,
             tint = Color.Black,
             modifier = Modifier
-                .size(18.dp)
+                .size(15.dp)
                 .align(Alignment.CenterStart)
                 .padding(start = 5.dp)
                 .scale(scaleX = -1f, scaleY = 1f)
@@ -105,7 +105,7 @@ private fun EliteBox(
             contentDescription = null,
             tint = Color.Black,
             modifier = Modifier
-                .size(18.dp)
+                .size(15.dp)
                 .align(Alignment.CenterEnd)
                 .padding(end = 5.dp)
         )

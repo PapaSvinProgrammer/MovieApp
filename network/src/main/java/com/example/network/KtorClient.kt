@@ -15,7 +15,7 @@ import com.example.network.module.image.Poster
 import com.example.network.module.movie.Comment
 import com.example.network.module.movie.Movie
 import com.example.network.module.movie.Studio
-import com.example.network.module.person.NominationAward
+import com.example.network.module.person.NominationAwardPerson
 import com.example.network.module.person.Person
 import com.example.network.module.season.Season
 import com.example.network.utils.Constants.NAME_FIELD
@@ -177,8 +177,8 @@ class KtorClient(okHttpClient: OkHttpClient) {
         return res.docs
     }
 
-    suspend fun getPersonAwardsByFilter(queryParameters: List<Pair<String, String>>): Docs<NominationAward> {
-        val res: Docs<NominationAward> = client.get("v1.4/person/awards") {
+    suspend fun getPersonAwardsByFilter(queryParameters: List<Pair<String, String>>): Docs<NominationAwardPerson> {
+        val res: Docs<NominationAwardPerson> = client.get("v1.4/person/awards") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
                 queryParameters.forEach { parameters.append(it.first, it.second) }
@@ -188,8 +188,8 @@ class KtorClient(okHttpClient: OkHttpClient) {
         return res
     }
 
-    suspend fun getMovieAwardsByFilter(queryParameters: List<Pair<String, String>>): Docs<NominationAward> {
-        val res: Docs<NominationAward> = client.get("v1.4/movie/awards") {
+    suspend fun getMovieAwardsByFilter(queryParameters: List<Pair<String, String>>): Docs<NominationAwardPerson> {
+        val res: Docs<NominationAwardPerson> = client.get("v1.4/movie/awards") {
             url {
                 parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
                 queryParameters.forEach { parameters.append(it.first, it.second) }

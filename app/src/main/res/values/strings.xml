@@ -65,4 +65,6 @@
     <string name="birthday">Дата рождения</string>
     <string name="death">Дата смерти</string>
     <string name="spouse">Брак</string>
+    <string name="award">Награда</string>
+    <string name="nomination">Номинаиця</string>
 </resources>

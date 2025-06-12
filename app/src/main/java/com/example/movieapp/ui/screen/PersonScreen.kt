@@ -1,6 +1,7 @@
 package com.example.movieapp.ui.screen
 
 import android.os.Build
+import android.util.Log
 import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.background
@@ -59,6 +60,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.core.utils.ConvertData
 import com.example.movieapp.R
+import com.example.movieapp.app.navigation.AwardPersonListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.PersonDetailRoute
 import com.example.movieapp.ui.screen.uiState.PersonUIState
@@ -149,7 +151,7 @@ fun PersonScreen(
                         title = stringResource(R.string.awards),
                         value = it.toString(),
                         modifier = Modifier.clickable {
-
+                            navController.navigate(AwardPersonListRoute(id))
                         }
                     )
                 }

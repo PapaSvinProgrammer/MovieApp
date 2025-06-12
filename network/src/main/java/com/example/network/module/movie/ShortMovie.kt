@@ -4,7 +4,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class ShortMovie(
-    val id: Int,
+    val id: Int = 0,
     val name: String? = null,
     val alternativeName: String? = null,
     val rating: Float? = null,
