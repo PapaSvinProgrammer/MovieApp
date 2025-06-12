@@ -69,6 +69,7 @@ import com.example.movieapp.ui.widget.other.BirthdayDepthContent
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.renderState.RenderFactStateRow
 import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
+import com.example.movieapp.ui.widget.shimmer.ShimmerPersonContent
 import com.example.movieapp.viewModels.PersonViewModel
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants
@@ -238,7 +239,7 @@ private fun RenderPersonContent(
     onClickDetail: () -> Unit
 ) {
     when (state) {
-        PersonUIState.Loading -> {}
+        PersonUIState.Loading -> ShimmerPersonContent()
         is PersonUIState.Success -> {
             MainPersonContent(
                 person = state.data.first(),

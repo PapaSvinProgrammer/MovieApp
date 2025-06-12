@@ -7,6 +7,7 @@ import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.FactCard
 import com.example.movieapp.ui.widget.listItems.LastItemCard
+import com.example.movieapp.ui.widget.shimmer.ShimmerFactRow
 import com.example.network.module.movie.Fact
 
 @Composable
@@ -17,7 +18,7 @@ fun RenderFactStateRow(
     onShowAll: () -> Unit
 ) {
     when (state) {
-        FactUIState.Loading -> {}
+        FactUIState.Loading -> ShimmerFactRow()
         is FactUIState.Success -> {
             MainFactRowContent(
                 list = state.data,

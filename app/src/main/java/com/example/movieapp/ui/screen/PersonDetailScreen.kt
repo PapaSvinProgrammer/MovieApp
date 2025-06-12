@@ -7,8 +7,6 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.RowScope
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -38,6 +36,7 @@ import com.example.movieapp.ui.widget.listItems.DetailInfoListItem
 import com.example.movieapp.ui.widget.listItems.SpouseCard
 import com.example.movieapp.ui.widget.other.PrettyAgeContent
 import com.example.movieapp.ui.widget.other.TitleTopBarText
+import com.example.movieapp.ui.widget.shimmer.ShimmerPersonDetail
 import com.example.movieapp.viewModels.PersonViewModel
 import com.example.network.module.person.Person
 import com.example.network.module.person.Spouse
@@ -82,21 +81,16 @@ fun PersonDetailScreen(
             )
         }
     ) { innerPadding ->
-        Column(
-            modifier = Modifier
-                .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
-        ) {
+        Column(modifier = Modifier.padding(innerPadding)) {
             RenderPersonDetailState(viewModel.personState)
 
-            SpouseContent(
-                state = viewModel.personSpouseState,
-                spouses = (viewModel.personState as? PersonUIState.Success)
-                    ?.data
-                    ?.first()
-                    ?.spouses ?: listOf(),
-                onClick = { navController.navigate(PersonRoute(it)) }
-            )
+            (viewModel.personState as? PersonUIState.Success)?.data?.let {
+                SpouseContent(
+                    state = viewModel.personSpouseState,
+                    spouses = it.first().spouses,
+                    onClick = { navController.navigate(PersonRoute(it)) }
+                )
+            }
         }
     }
 }
@@ -105,7 +99,7 @@ fun PersonDetailScreen(
 @Composable
 fun RenderPersonDetailState(state: PersonUIState) {
     when(state) {
-        PersonUIState.Loading -> {}
+        PersonUIState.Loading -> ShimmerPersonDetail()
         is PersonUIState.Success -> {
             MainPersonDetailContent(person = state.data.first())
         }

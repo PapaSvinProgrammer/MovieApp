@@ -20,7 +20,7 @@ import androidx.compose.ui.unit.dp
 @Composable
 fun ShimmerMovieDetailList(modifier: Modifier = Modifier) {
     LazyColumn(modifier = modifier.fillMaxSize()) {
-        items(5) {
+        items(7) {
             ShimmerMovieDetailCard()
         }
     }

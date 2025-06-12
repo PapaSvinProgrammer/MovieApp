@@ -75,8 +75,8 @@ fun ErrorSearchContent() {
 }
 
 @Composable
-fun LoadingSearchContent() {
-    Box(modifier = Modifier.fillMaxSize()) {
+fun LoadingSearchContent(modifier: Modifier = Modifier) {
+    Box(modifier = modifier.fillMaxSize()) {
         CircularProgressIndicator(
             modifier = Modifier
                 .align(Alignment.TopCenter)
