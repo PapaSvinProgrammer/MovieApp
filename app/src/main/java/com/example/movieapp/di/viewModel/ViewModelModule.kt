@@ -2,7 +2,7 @@ package com.example.movieapp.di.viewModel
 
 import androidx.lifecycle.ViewModel
 import com.example.movieapp.MainViewModel
-import com.example.movieapp.viewModels.AwardPersonListViewModel
+import com.example.movieapp.viewModels.AwardListViewModel
 import com.example.movieapp.viewModels.CollectionListViewModel
 import com.example.movieapp.viewModels.EntryViewModel
 import com.example.movieapp.viewModels.HomeViewModel
@@ -93,6 +93,6 @@ interface ViewModelModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AwardPersonListViewModel::class)
-    fun bindAwardPersonListViewModel(viewModel: AwardPersonListViewModel): ViewModel
+    @ViewModelKey(AwardListViewModel::class)
+    fun bindAwardPersonListViewModel(viewModel: AwardListViewModel): ViewModel
 }

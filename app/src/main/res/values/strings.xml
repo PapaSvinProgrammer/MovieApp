@@ -67,4 +67,7 @@
     <string name="spouse">Брак</string>
     <string name="award">Награда</string>
     <string name="nomination">Номинаиця</string>
+    <string name="sort">Сортировка</string>
+    <string name="by_alphabet">По алфавиту</string>
+    <string name="by_date">По дате</string>
 </resources>

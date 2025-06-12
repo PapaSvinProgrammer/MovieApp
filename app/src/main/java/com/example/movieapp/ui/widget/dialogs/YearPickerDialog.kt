@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.dialog
+package com.example.movieapp.ui.widget.dialogs
 
 import android.os.Build
 import androidx.annotation.RequiresApi

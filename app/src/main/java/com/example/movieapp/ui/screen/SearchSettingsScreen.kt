@@ -18,7 +18,6 @@ import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -51,7 +50,7 @@ import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.SearchResultRoute
 import com.example.movieapp.ui.widget.component.TextListLayout
-import com.example.movieapp.ui.widget.dialog.YearPickerDialog
+import com.example.movieapp.ui.widget.dialogs.YearPickerDialog
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.viewModels.SearchSettingsViewModel
 

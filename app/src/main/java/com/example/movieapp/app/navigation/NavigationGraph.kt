@@ -14,7 +14,7 @@ import com.example.movieapp.app.utils.CustomNavType
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.screen.AboutAppScreen
 import com.example.movieapp.ui.screen.AccountScreen
-import com.example.movieapp.ui.screen.AwardPersonListScreen
+import com.example.movieapp.ui.screen.AwardListScreen
 import com.example.movieapp.ui.screen.CollectionListScreen
 import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeDetailListScreen
@@ -28,7 +28,7 @@ import com.example.movieapp.ui.screen.SearchScreen
 import com.example.movieapp.ui.screen.SearchSettingsScreen
 import com.example.movieapp.ui.screen.SettingsScreen
 import com.example.movieapp.ui.screen.StartScreen
-import com.example.movieapp.viewModels.AwardPersonListViewModel
+import com.example.movieapp.viewModels.AwardListViewModel
 import com.example.movieapp.viewModels.PersonListViewModel
 import com.example.movieapp.viewModels.CollectionListViewModel
 import com.example.movieapp.viewModels.HomeViewModel
@@ -52,7 +52,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = PersonRoute(180600),
+        startDestination = AwardListRoute(2286874),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -245,11 +245,11 @@ fun NavigationGraph(
             )
         }
 
-        composable<AwardPersonListRoute> {
-            val route = it.toRoute<AwardPersonListRoute>()
-            val viewModel: AwardPersonListViewModel = viewModel(factory = viewModelFactory)
+        composable<AwardListRoute> {
+            val route = it.toRoute<AwardListRoute>()
+            val viewModel: AwardListViewModel = viewModel(factory = viewModelFactory)
 
-            AwardPersonListScreen(
+            AwardListScreen(
                 navController = navController,
                 viewModel = viewModel,
                 hazeState = hazeState,

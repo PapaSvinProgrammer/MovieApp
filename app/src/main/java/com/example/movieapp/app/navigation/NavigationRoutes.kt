@@ -67,6 +67,6 @@ data class PersonDetailRoute(
 ): NavRoute
 
 @Serializable
-data class AwardPersonListRoute(
+data class AwardListRoute(
     val id: Int
 ): NavRoute

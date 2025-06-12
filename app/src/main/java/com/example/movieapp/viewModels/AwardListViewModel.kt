@@ -1,6 +1,5 @@
 package com.example.movieapp.viewModels
 
-import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -13,7 +12,7 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class AwardPersonListViewModel @Inject constructor(
+class AwardListViewModel @Inject constructor(
     private val getAward: GetAward
 ): ViewModel() {
     private var page = 1
@@ -21,11 +20,23 @@ class AwardPersonListViewModel @Inject constructor(
 
     var currentFilterType by mutableStateOf(AwardsFilterType.BY_DATE)
         private set
+    var visibleBottomSheet by mutableStateOf(false)
+        private set
+
     var groupAwards by mutableStateOf<List<Pair<String, List<NominationAwardPerson>>>>(listOf())
         private set
 
+    fun updateVisibleBottomSheet(state: Boolean) {
+        visibleBottomSheet = state
+    }
+
+    fun updateCurrentFilter(state: AwardsFilterType) {
+        currentFilterType = state
+    }
+
     fun getAwards(id: Int) {
         page = 1
+        groupAwards = listOf()
 
         when (currentFilterType) {
             AwardsFilterType.BY_TITLE -> getAwardsByTitle(id)
@@ -78,8 +89,6 @@ class AwardPersonListViewModel @Inject constructor(
                 val temp = awards.toMutableList()
                 temp.addAll(res.docs)
                 awards = temp
-
-                Log.d("RRRR", temp.toString())
 
                 groupAwards = temp.groupBy {
                     it.nomination?.award?.title + ", " + it.nomination?.award?.year
