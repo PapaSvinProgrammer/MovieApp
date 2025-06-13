@@ -1,12 +1,15 @@
 package com.example.movieapp.ui.widget.renderState
 
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.screen.uiState.FactUIState
-import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.FactCard
-import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerFactRow
 import com.example.network.module.movie.Fact
 
@@ -14,8 +17,7 @@ import com.example.network.module.movie.Fact
 fun RenderFactStateRow(
     state: FactUIState,
     title: String,
-    onClick: (Fact) -> Unit,
-    onShowAll: () -> Unit
+    onClick: (Fact) -> Unit
 ) {
     when (state) {
         FactUIState.Loading -> ShimmerFactRow()
@@ -23,8 +25,7 @@ fun RenderFactStateRow(
             MainFactRowContent(
                 list = state.data,
                 title = title,
-                onClick = onClick,
-                onShowAll = onShowAll
+                onClick = onClick
             )
         }
     }
@@ -34,23 +35,19 @@ fun RenderFactStateRow(
 private fun MainFactRowContent(
     list: List<Fact>,
     title: String,
-    onClick: (Fact) -> Unit,
-    onShowAll: () -> Unit
+    onClick: (Fact) -> Unit
 ) {
-    TitleRow(
-        title = title,
-        onClick = onShowAll
+    Text(
+        text = title,
+        fontSize = 18.sp,
+        fontWeight = FontWeight.Bold,
+        modifier = Modifier.padding(15.dp)
     )
 
     DefaultLazyRow(
         list = list,
         key = { it.value },
-        lastItemCard = {
-            LastItemCard(
-                width = 200.dp,
-                height = 160.dp
-            )
-        }
+        lastItemCard = {}
     ) {
         FactCard(
             text = it.value,

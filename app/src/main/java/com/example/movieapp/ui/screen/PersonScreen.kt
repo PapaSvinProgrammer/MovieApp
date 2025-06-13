@@ -196,8 +196,7 @@ fun PersonScreen(
                 RenderFactStateRow(
                     state = viewModel.factState,
                     title = stringResource(R.string.facts_title),
-                    onClick = { selectedFact = it.value },
-                    onShowAll = {  }
+                    onClick = { selectedFact = it.value }
                 )
 
                 Spacer(modifier = Modifier.height(20.dp))

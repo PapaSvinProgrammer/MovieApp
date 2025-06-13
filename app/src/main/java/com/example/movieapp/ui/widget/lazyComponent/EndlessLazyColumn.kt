@@ -2,6 +2,8 @@ package com.example.movieapp.ui.widget.lazyComponent
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
 import androidx.compose.foundation.lazy.itemsIndexed
@@ -46,6 +48,10 @@ fun <T: Any> EndlessLazyColumn(
             key = key
         ) { index, item ->
             itemContent(index, item)
+
+            if (index == items.lastIndex) {
+                Spacer(modifier = Modifier.height(130.dp))
+            }
         }
     }
 }
