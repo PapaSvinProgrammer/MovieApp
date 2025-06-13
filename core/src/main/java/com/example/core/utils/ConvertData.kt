@@ -157,9 +157,10 @@ object ConvertData {
     }
 
     fun getPrettyAge(value: Int): String {
-        val res = when (value % 10) {
-            1 -> "год"
-            2, 3, 4 -> "года"
+        val res = when {
+            value % 100 in 11..14 -> "лет"
+            value % 10 == 1 -> "год"
+            value % 10 in 2..4 -> "года"
             else -> "лет"
         }
 
@@ -188,5 +189,14 @@ object ConvertData {
         val hours = value / 60
         val minutes = value % 60
         return "$hours ч $minutes мин"
+    }
+
+    fun getPrettyCountSeasons(value: Int): String {
+        return when {
+            value % 100 in 11..14 -> "$value сезонов"
+            value % 10 == 1 -> "$value сезон"
+            value % 10 in 2..4 -> "$value сезона"
+            else -> "$value сезонов"
+        }
     }
 }

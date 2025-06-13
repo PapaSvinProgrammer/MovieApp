@@ -5,6 +5,7 @@ import com.example.network.module.category.Country
 import com.example.network.module.category.Genre
 import com.example.network.module.category.ProductionCompany
 import com.example.network.module.image.Poster
+import com.example.network.module.season.Season
 import com.example.network.module.totalValue.Audience
 import com.example.network.module.totalValue.Budget
 import com.example.network.module.totalValue.Premiere
@@ -49,5 +50,6 @@ data class Movie(
     val isSeries: Boolean? = null,
     val seriesLength: Int? = null,
     val totalSeriesLength: Int? = null,
-    val releaseYears: List<ReleaseYears> = listOf()
+    val releaseYears: List<ReleaseYears> = listOf(),
+    val seasonsInfo: List<Season> = listOf()
 )

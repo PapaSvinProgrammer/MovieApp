@@ -2,7 +2,6 @@ package com.example.movieapp.ui.screen
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
@@ -37,7 +36,7 @@ import com.example.movieapp.app.utils.FadingDefaults
 import com.example.movieapp.app.utils.fadingEdge
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.widget.collapsingTopBar.CollapsedTopBar
-import com.example.movieapp.ui.widget.collapsingTopBar.ExpandedMovieContent
+import com.example.movieapp.ui.widget.collapsingTopBar.ExpandedContent
 import com.example.movieapp.ui.widget.component.BasicLoadingBox
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.viewModels.MovieViewModel
@@ -100,7 +99,7 @@ fun MovieScreen(
                 state = scrollState
             ) {
                 item {
-                    ExpandedMovieContent(movie)
+                    ExpandedContent(movie)
                 }
 
                 items(100) {
@@ -125,28 +124,34 @@ private fun RenderMovieContent(
 }
 
 @Composable
-private fun BackdropContent(scrollState: LazyListState, movie: Movie) {
+fun BackdropContent(scrollState: LazyListState, movie: Movie) {
     val alpha by remember {
         derivedStateOf {
             if (scrollState.firstVisibleItemIndex > 0) {
                 0f
             } else {
-                1f - (scrollState.firstVisibleItemScrollOffset / 700f).coerceIn(0f, 1f)
+                1f - (scrollState.firstVisibleItemScrollOffset / 600f).coerceIn(0f, 1f)
             }
         }
     }
 
-    AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(movie.backdrop?.url)
-            .crossfade(true)
-            .build(),
-        error = painterResource(R.drawable.ic_movie),
-        contentDescription = null,
-        contentScale = ContentScale.Crop,
-        modifier = Modifier
-            .fadingEdge(FadingDefaults.bottomFade)
-            .height(350.dp)
-            .graphicsLayer { this.alpha = alpha }
-    )
+    if (movie.backdrop?.url.isCorrectUrl()) {
+        AsyncImage(
+            model = ImageRequest.Builder(LocalContext.current)
+                .data(movie.backdrop?.url)
+                .crossfade(true)
+                .build(),
+            error = painterResource(R.drawable.ic_movie),
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier
+                .fadingEdge(FadingDefaults.bottomFade)
+                .height(350.dp)
+                .graphicsLayer { this.alpha = alpha }
+        )
+    }
+}
+
+internal fun String?.isCorrectUrl(): Boolean {
+    return this != null && this != "https://image.openmoviedb.com/kinopoisk-ott-images/2385704/2a00000194b0fed07179b4dc6e80a80f4afd/orig"
 }

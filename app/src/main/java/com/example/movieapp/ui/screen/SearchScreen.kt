@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -26,6 +27,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -33,6 +35,7 @@ import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
+import com.example.movieapp.app.navigation.MovieRoute
 import com.example.movieapp.app.navigation.PersonPodiumListRoute
 import com.example.movieapp.app.navigation.PersonRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
@@ -51,7 +54,7 @@ import com.example.network.module.image.Collection
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -75,6 +78,7 @@ fun SearchScreen(
             onExpandedChange = { viewModel.updateExpanded(it) },
             inputField = {
                 SearchBarDefaults.InputField(
+                    modifier = Modifier.width(320.dp),
                     query = viewModel.query,
                     onQueryChange = {
                         viewModel.updateQuery(it)
@@ -86,7 +90,13 @@ fun SearchScreen(
                     },
                     expanded = viewModel.isExpanded,
                     onExpandedChange = { viewModel.updateExpanded(it) },
-                    placeholder = { Text(stringResource(R.string.search_hint)) },
+                    placeholder = {
+                        Text(
+                            text = stringResource(R.string.search_hint),
+                            maxLines = 1,
+                            overflow = TextOverflow.Ellipsis
+                        )
+                    },
                     leadingIcon = {
                         LeadingIcon(
                             expanded = viewModel.isExpanded,
@@ -135,12 +145,12 @@ fun SearchScreen(
             }
         )
 
-        Spacer(modifier = Modifier.height(30.dp))
+        Spacer(modifier = Modifier.height(20.dp))
 
         LazyColumn(
             modifier = Modifier
                 .fillMaxWidth()
-                .haze(hazeState),
+                .hazeSource(hazeState),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             item {
@@ -215,7 +225,7 @@ fun SearchScreen(
                 RenderMovieStateRow(
                     state = viewModel.topSerialsState,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val query = listOf(
                             Constants.IS_SERIES_FIELD to Constants.TRUE,

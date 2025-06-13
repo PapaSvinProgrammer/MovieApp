@@ -18,6 +18,7 @@ import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.HomeDetailListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
+import com.example.movieapp.app.navigation.MovieRoute
 import com.example.movieapp.viewModels.HomeViewModel
 import com.example.movieapp.ui.widget.other.TopBarIconApp
 import com.example.movieapp.ui.widget.renderState.RenderCollectionStateRow
@@ -78,7 +79,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state = viewModel.movieDramaState,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val query = arrayListOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -102,7 +103,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state = viewModel.movieBest250State,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParameters = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -126,7 +127,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state = viewModel.movieBoevikState,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val query = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -150,7 +151,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state =  viewModel.movieBest100State,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParameters = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -174,7 +175,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state = viewModel.movieBest501State,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParameters = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -198,7 +199,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state = viewModel.movieHBOState,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParameters = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -222,7 +223,7 @@ fun HomeScreen(
                 RenderMovieStateRow(
                     state = viewModel.movieNetflixState,
                     title = title,
-                    onClick = {},
+                    onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParameters = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,

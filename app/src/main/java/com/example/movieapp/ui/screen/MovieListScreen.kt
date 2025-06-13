@@ -26,6 +26,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.movieapp.app.navigation.MovieRoute
 import com.example.movieapp.ui.screen.uiState.MovieUIState
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.MovieListCard
@@ -82,7 +83,7 @@ fun MovieListScreen(
         RenderResult(
             state = viewModel.moviesState,
             modifier = Modifier.hazeSource(hazeState).padding(innerPadding),
-            onClick = {  },
+            onClick = { navController.navigate(MovieRoute(it.id)) },
             onSettingsClick = {},
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) }
         )
