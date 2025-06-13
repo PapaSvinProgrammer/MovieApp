@@ -7,18 +7,23 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.example.core.utils.ConvertData
+import com.example.movieapp.ui.theme.Gold
 import com.example.movieapp.ui.theme.Green
 
 @Composable
 fun RatingText(
     rating: Float,
-    modifier: Modifier = Modifier
+    modifier: Modifier = Modifier,
+    fontSize: TextUnit = 14.sp,
+    fontWeight: FontWeight = FontWeight.Bold,
+    isTop: Int? = null
 ) {
     if (rating.toInt() == 0) return
 
-    val color: Color
+    var color: Color
 
     if (rating.toInt() >= 7) {
         color = Green
@@ -30,11 +35,15 @@ fun RatingText(
         color = Color.Red
     }
 
+    isTop?.let {
+        color = Gold
+    }
+
     Text(
         modifier = modifier,
         text = ConvertData.convertRatingKP(rating),
-        fontWeight = FontWeight.Bold,
-        fontSize = 14.sp,
+        fontWeight = fontWeight,
+        fontSize = fontSize,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = color,

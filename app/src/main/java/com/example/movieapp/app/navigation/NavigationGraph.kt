@@ -20,6 +20,7 @@ import com.example.movieapp.ui.screen.FavoriteScreen
 import com.example.movieapp.ui.screen.HomeDetailListScreen
 import com.example.movieapp.ui.screen.HomeScreen
 import com.example.movieapp.ui.screen.MovieListScreen
+import com.example.movieapp.ui.screen.MovieScreen
 import com.example.movieapp.ui.screen.PersonDetailScreen
 import com.example.movieapp.ui.screen.PersonPodiumListScreen
 import com.example.movieapp.ui.screen.PersonScreen
@@ -33,6 +34,7 @@ import com.example.movieapp.viewModels.PersonListViewModel
 import com.example.movieapp.viewModels.CollectionListViewModel
 import com.example.movieapp.viewModels.HomeViewModel
 import com.example.movieapp.viewModels.MovieListViewModel
+import com.example.movieapp.viewModels.MovieViewModel
 import com.example.movieapp.viewModels.PersonViewModel
 import com.example.movieapp.viewModels.SearchResultViewModel
 import com.example.movieapp.viewModels.SearchSettingsViewModel
@@ -52,7 +54,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = PersonRoute(37859),
+        startDestination = MovieRoute(280961),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -255,6 +257,18 @@ fun NavigationGraph(
                 hazeState = hazeState,
                 id = route.id,
                 isMovie = route.isMovie
+            )
+        }
+
+        composable<MovieRoute> {
+            val route = it.toRoute<MovieRoute>()
+            val viewModel: MovieViewModel = viewModel(factory = viewModelFactory)
+
+            MovieScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState,
+                id = route.id
             )
         }
     }

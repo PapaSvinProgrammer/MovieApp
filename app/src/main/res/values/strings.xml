@@ -71,4 +71,8 @@
     <string name="by_alphabet">По алфавиту</string>
     <string name="by_date">По дате</string>
     <string name="all_facts">Все факты</string>
+    <string name="evaluate">Оценить</string>
+    <string name="will_watching">Буду смотреть</string>
+    <string name="share">Поделиться</string>
+    <string name="more">Еще</string>
 </resources>

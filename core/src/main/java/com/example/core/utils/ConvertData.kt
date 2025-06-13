@@ -60,10 +60,6 @@ object ConvertData {
     }
 
     fun convertDateCreated(year: Int?, releaseYears: List<ReleaseYears>): String {
-        year?.let {
-            return it.toString()
-        }
-
         if (releaseYears.isNotEmpty()) {
             val start = releaseYears[0].start
             val end = releaseYears[0].end
@@ -75,6 +71,10 @@ object ConvertData {
 
                 return "$start-$end"
             }
+        }
+
+        year?.let {
+            return it.toString()
         }
 
        return ""
@@ -174,5 +174,19 @@ object ConvertData {
         res += value % 100
 
         return "$res м"
+    }
+
+    fun getPrettyVotes(value: Int): String {
+        return "${value / 1000}K"
+    }
+
+    fun getPrettyAgeRating(value: Int): String {
+        return "$value+"
+    }
+
+    fun getPrettyLength(value: Int): String {
+        val hours = value / 60
+        val minutes = value % 60
+        return "$hours ч $minutes мин"
     }
 }

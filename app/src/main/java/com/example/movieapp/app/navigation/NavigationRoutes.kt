@@ -71,3 +71,8 @@ data class AwardListRoute(
     val id: Int,
     val isMovie: Boolean
 ): NavRoute
+
+@Serializable
+data class MovieRoute(
+    val id: Int
+): NavRoute
