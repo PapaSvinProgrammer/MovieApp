@@ -52,7 +52,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = AwardListRoute(2286874),
+        startDestination = PersonRoute(37859),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -253,7 +253,8 @@ fun NavigationGraph(
                 navController = navController,
                 viewModel = viewModel,
                 hazeState = hazeState,
-                id = route.id
+                id = route.id,
+                isMovie = route.isMovie
             )
         }
     }

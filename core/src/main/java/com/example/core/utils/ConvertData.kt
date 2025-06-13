@@ -159,7 +159,7 @@ object ConvertData {
     fun getPrettyAge(value: Int): String {
         val res = when (value % 10) {
             1 -> "год"
-            2, 3, 4 -> "годв"
+            2, 3, 4 -> "года"
             else -> "лет"
         }
 

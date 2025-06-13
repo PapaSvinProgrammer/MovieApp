@@ -34,28 +34,31 @@ class AwardListViewModel @Inject constructor(
         currentFilterType = state
     }
 
-    fun getAwards(id: Int) {
+    fun getAwards(id: Int, isMovie: Boolean) {
         page = 1
         groupAwards = listOf()
 
         when (currentFilterType) {
-            AwardsFilterType.BY_TITLE -> getAwardsByTitle(id)
-            AwardsFilterType.BY_DATE -> getAwardsByDate(id)
+            AwardsFilterType.BY_TITLE -> getAwardsByTitle(id, isMovie)
+            AwardsFilterType.BY_DATE -> getAwardsByDate(id, isMovie)
         }
     }
 
-    fun loadMoreAwards(id: Int) {
+    fun loadMoreAwards(id: Int, isMovie: Boolean) {
         page++
 
         when (currentFilterType) {
-            AwardsFilterType.BY_TITLE -> loadMoreByTitle(id, page)
-            AwardsFilterType.BY_DATE -> loadMoreByDate(id, page)
+            AwardsFilterType.BY_TITLE -> loadMoreByTitle(id, page, isMovie)
+            AwardsFilterType.BY_DATE -> loadMoreByDate(id, page, isMovie)
         }
     }
 
-    private fun getAwardsByTitle(id: Int) {
+    private fun getAwardsByTitle(id: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getAward.getPersonAwardsByTitle(id)
+            val res = if (isMovie)
+                    getAward.getMovieAwardsByTitle(id)
+                else
+                    getAward.getPersonAwardsByTitle(id)
 
             if (res.docs.isNotEmpty()) {
                 awards = res.docs
@@ -67,9 +70,12 @@ class AwardListViewModel @Inject constructor(
         }
     }
 
-    private fun getAwardsByDate(id: Int) {
+    private fun getAwardsByDate(id: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getAward.getPersonAwardsByDate(id)
+            val res = if (isMovie)
+                getAward.getMovieAwardsByDate(id)
+            else
+                getAward.getPersonAwardsByDate(id)
 
             if (res.docs.isNotEmpty()) {
                 awards = res.docs
@@ -81,9 +87,12 @@ class AwardListViewModel @Inject constructor(
         }
     }
 
-    private fun loadMoreByTitle(id: Int, page: Int) {
+    private fun loadMoreByTitle(id: Int, page: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getAward.getPersonAwardsByTitle(id, page)
+            val res = if (isMovie)
+                    getAward.getMovieAwardsByTitle(id, page)
+                else
+                    getAward.getPersonAwardsByTitle(id, page)
 
             if (res.docs.isNotEmpty()) {
                 val temp = awards.toMutableList()
@@ -97,9 +106,12 @@ class AwardListViewModel @Inject constructor(
         }
     }
 
-    private fun loadMoreByDate(id: Int, page: Int) {
+    private fun loadMoreByDate(id: Int, page: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getAward.getPersonAwardsByDate(id, page)
+            val res = if (isMovie)
+                getAward.getMovieAwardsByDate(id, page)
+            else
+                getAward.getPersonAwardsByDate(id, page)
 
             if (res.docs.isNotEmpty()) {
                 val temp = awards.toMutableList()

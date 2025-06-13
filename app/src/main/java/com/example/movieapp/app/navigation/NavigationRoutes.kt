@@ -68,5 +68,6 @@ data class PersonDetailRoute(
 
 @Serializable
 data class AwardListRoute(
-    val id: Int
+    val id: Int,
+    val isMovie: Boolean
 ): NavRoute

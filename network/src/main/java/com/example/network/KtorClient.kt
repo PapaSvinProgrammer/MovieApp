@@ -164,7 +164,7 @@ class KtorClient(okHttpClient: OkHttpClient) {
     }
 
     suspend fun getPersonByFilter(queryParameters: List<Pair<String, String>>): List<Person> {
-        val selectsList = listOf("name", "enName", "photo", "sex", "birthday", "age")
+        val selectsList = listOf("id", "name", "enName", "photo", "sex", "birthday", "age")
 
         val res: Docs<Person> = client.get("v1.4/person") {
             url {

@@ -34,6 +34,7 @@ import com.example.movieapp.R
 import com.example.movieapp.app.navigation.CollectionListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.PersonPodiumListRoute
+import com.example.movieapp.app.navigation.PersonRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
 import com.example.movieapp.ui.screen.uiState.PersonUIState
@@ -189,7 +190,9 @@ fun SearchScreen(
                 RenderPersonRowState(
                     state = viewModel.personState,
                     title = title,
-                    onClick = {},
+                    onClick = {
+                        navController.navigate(PersonRoute(it.id))
+                    },
                     onShowAll = {
                         val queryParameters = listOf(
                             Constants.SORT_FIELD to Constants.MOVIES_RATING_FIELD,

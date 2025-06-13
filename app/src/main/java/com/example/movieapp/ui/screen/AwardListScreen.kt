@@ -7,7 +7,6 @@ import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -30,7 +29,8 @@ fun AwardListScreen(
     navController: NavController,
     viewModel: AwardListViewModel,
     hazeState: HazeState,
-    id: Int
+    id: Int,
+    isMovie: Boolean
 ) {
     Scaffold(
         topBar = {
@@ -58,7 +58,7 @@ fun AwardListScreen(
         }
     ) { innerPadding ->
         LifecycleEventEffect(Lifecycle.Event.ON_START) {
-            viewModel.getAwards(id)
+            viewModel.getAwards(id, isMovie)
         }
 
         RenderAwardsContent(
@@ -67,7 +67,7 @@ fun AwardListScreen(
                 .haze(hazeState),
             list = viewModel.groupAwards,
             onClick = {},
-            onLoadMore = { viewModel.loadMoreAwards(id) }
+            onLoadMore = { viewModel.loadMoreAwards(id, isMovie) }
         )
 
         if (viewModel.visibleBottomSheet) {
@@ -75,7 +75,7 @@ fun AwardListScreen(
                 current = viewModel.currentFilterType,
                 onClick = {
                     viewModel.updateCurrentFilter(it)
-                    viewModel.getAwards(id)
+                    viewModel.getAwards(id, isMovie)
                     viewModel.updateVisibleBottomSheet(false)
                 },
                 onDismissRequest = { viewModel.updateVisibleBottomSheet(false) }

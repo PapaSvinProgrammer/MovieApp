@@ -63,6 +63,7 @@ import com.example.movieapp.app.navigation.AwardListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.PersonDetailRoute
 import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.widget.bottomSheets.FactSheet
 import com.example.movieapp.ui.widget.component.CategoriesHeader
 import com.example.movieapp.ui.widget.listItems.ShortMovieListItem
 import com.example.movieapp.ui.widget.listItems.TotalListItem
@@ -90,6 +91,7 @@ fun PersonScreen(
     val firstOffset by remember { derivedStateOf { lazyState.firstVisibleItemScrollOffset } }
     val index by remember { derivedStateOf { lazyState.firstVisibleItemIndex } }
     var topBarTitle by remember { mutableStateOf("") }
+    var selectedFact by remember { mutableStateOf("") }
 
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getPerson(id)
@@ -100,7 +102,10 @@ fun PersonScreen(
     LaunchedEffect(index, firstOffset) {
         if (index == 0) {
             if (firstOffset > 150) {
-                topBarTitle = (viewModel.personState as PersonUIState.Success).data.first().name ?: ""
+                topBarTitle = (viewModel.personState as? PersonUIState.Success)
+                    ?.data
+                    ?.first()
+                    ?.name ?: ""
             }
             else {
                 topBarTitle = ""
@@ -150,7 +155,9 @@ fun PersonScreen(
                         title = stringResource(R.string.awards),
                         value = it.toString(),
                         modifier = Modifier.clickable {
-                            navController.navigate(AwardListRoute(id))
+                            navController.navigate(
+                                AwardListRoute(id = id, isMovie = false)
+                            )
                         }
                     )
                 }
@@ -189,7 +196,7 @@ fun PersonScreen(
                 RenderFactStateRow(
                     state = viewModel.factState,
                     title = stringResource(R.string.facts_title),
-                    onClick = {  },
+                    onClick = { selectedFact = it.value },
                     onShowAll = {  }
                 )
 
@@ -229,6 +236,13 @@ fun PersonScreen(
             item {
                 Spacer(modifier = Modifier.height(130.dp))
             }
+        }
+
+        if (selectedFact.isNotEmpty()) {
+            FactSheet(
+                text = selectedFact,
+                onDismissRequest = { selectedFact = "" }
+            )
         }
     }
 }
