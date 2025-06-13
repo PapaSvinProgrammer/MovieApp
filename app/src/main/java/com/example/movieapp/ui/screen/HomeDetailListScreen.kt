@@ -23,7 +23,7 @@ import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.viewModels.MovieListViewModel
 import com.example.network.module.movie.Movie
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,7 +54,7 @@ fun HomeDetailListScreen(
         }
     ) { innerPadding ->
         RenderMovieState(
-            modifier = Modifier.padding(innerPadding).haze(hazeState),
+            modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             state = viewModel.moviesState,
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) }
         )

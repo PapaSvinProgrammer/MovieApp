@@ -24,7 +24,7 @@ import com.example.movieapp.viewModels.CollectionListViewModel
 import com.example.network.module.image.Collection
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +64,7 @@ fun CollectionListScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .haze(hazeState),
+                .hazeSource(hazeState),
             state = viewModel.collectionState,
             onClick = {
                 val query = arrayListOf(

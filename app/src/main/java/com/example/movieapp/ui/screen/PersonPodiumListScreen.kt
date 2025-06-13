@@ -31,7 +31,7 @@ import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.network.module.person.Person
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -65,7 +65,7 @@ fun PersonPodiumListScreen(
         }
     ) { innerPadding ->
         RenderPersonResult(
-            modifier = Modifier.padding(innerPadding).haze(hazeState),
+            modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             state = viewModel.personState,
             onClick = {},
             onLoadMore = { viewModel.loadMorePersons(queryParameters) }

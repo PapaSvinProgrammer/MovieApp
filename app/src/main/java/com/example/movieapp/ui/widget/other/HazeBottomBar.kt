@@ -62,7 +62,9 @@ import com.example.movieapp.app.navigation.FavoriteRoute
 import com.example.movieapp.app.navigation.HomeRoute
 import com.example.movieapp.app.navigation.SearchRoute
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.hazeChild
+import dev.chrisbanes.haze.hazeEffect
+import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
+import dev.chrisbanes.haze.materials.HazeMaterials
 
 private val routeList = listOf(
     HomeRoute::class.java.canonicalName,
@@ -71,6 +73,7 @@ private val routeList = listOf(
     AccountRoute::class.java.canonicalName
 )
 
+@OptIn(ExperimentalHazeMaterialsApi::class)
 @Composable
 fun HazeBottomBar(
     tabs: List<BottomBarTab>,
@@ -109,7 +112,13 @@ fun HazeBottomBar(
                     ),
                     shape = CircleShape
                 )
-                .hazeChild(state = hazeState, shape = CircleShape)
+                .clip(CircleShape)
+                .hazeEffect(
+                    state = hazeState,
+                    style = HazeMaterials.ultraThin()
+                ) {
+                    blurRadius = 20.dp
+                }
         ) {
             NavigationBottomTabs(
                 tabs = tabs,

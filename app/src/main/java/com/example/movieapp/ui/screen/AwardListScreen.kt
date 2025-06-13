@@ -21,7 +21,7 @@ import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.renderState.RenderAwardsContent
 import com.example.movieapp.viewModels.AwardListViewModel
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -64,7 +64,7 @@ fun AwardListScreen(
         RenderAwardsContent(
             modifier = Modifier
                 .padding(innerPadding)
-                .haze(hazeState),
+                .hazeSource(hazeState),
             list = viewModel.groupAwards,
             onClick = {},
             onLoadMore = { viewModel.loadMoreAwards(id, isMovie) }

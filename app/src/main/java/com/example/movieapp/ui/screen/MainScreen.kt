@@ -18,7 +18,7 @@ import com.example.movieapp.app.navigation.NavigationGraph
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.widget.other.HazeBottomBar
-import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.rememberHazeState
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
@@ -36,7 +36,7 @@ fun MainScreen(
         onResult = { bottomBarVisible = it }
     )
 
-    val hazeState = remember { HazeState() }
+    val hazeState = rememberHazeState()
 
     Scaffold(
         modifier = Modifier.fillMaxSize(),

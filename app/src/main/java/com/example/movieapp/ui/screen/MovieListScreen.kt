@@ -34,7 +34,7 @@ import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.movieapp.viewModels.MovieListViewModel
 import com.example.network.module.movie.Movie
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -81,7 +81,7 @@ fun MovieListScreen(
     ) { innerPadding ->
         RenderResult(
             state = viewModel.moviesState,
-            modifier = Modifier.haze(hazeState).padding(innerPadding),
+            modifier = Modifier.hazeSource(hazeState).padding(innerPadding),
             onClick = {  },
             onSettingsClick = {},
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) }

@@ -76,7 +76,7 @@ import com.example.movieapp.viewModels.PersonViewModel
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
@@ -135,7 +135,7 @@ fun PersonScreen(
         }
     ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier.padding(innerPadding).haze(hazeState),
+            modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             state = lazyState
         ) {
             item {

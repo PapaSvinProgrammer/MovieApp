@@ -25,7 +25,7 @@ import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.movieapp.viewModels.SearchResultViewModel
 import com.example.network.module.movie.Movie
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -58,7 +58,7 @@ fun SearchResultScreen(
 
         RenderMovieState(
             state = viewModel.movieUIState,
-            modifier = Modifier.padding(innerPadding).haze(hazeState),
+            modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             onClick = {  },
             loadMore = { viewModel.loadMoreMovies(queryParameters) }
         )
