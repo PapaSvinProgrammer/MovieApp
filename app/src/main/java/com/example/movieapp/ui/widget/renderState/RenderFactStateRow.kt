@@ -7,7 +7,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.movieapp.ui.screen.uiState.FactUIState
+import com.example.movieapp.ui.uiState.FactUIState
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.FactCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerFactRow

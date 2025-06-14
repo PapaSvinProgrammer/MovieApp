@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.movieapp.viewModels.PersonListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.PersonListItem

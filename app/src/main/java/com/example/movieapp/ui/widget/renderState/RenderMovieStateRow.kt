@@ -2,7 +2,7 @@ package com.example.movieapp.ui.widget.renderState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.ui.screen.uiState.MovieUIState
+import com.example.movieapp.ui.uiState.MovieUIState
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.LastItemCard

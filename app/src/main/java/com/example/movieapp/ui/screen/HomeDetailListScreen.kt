@@ -15,7 +15,8 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.ui.screen.uiState.MovieUIState
+import com.example.movieapp.app.navigation.MovieRoute
+import com.example.movieapp.ui.uiState.MovieUIState
 import com.example.movieapp.ui.widget.component.LoadingSearchContent
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyVerticalGrid
 import com.example.movieapp.ui.widget.listItems.MovieCard
@@ -56,7 +57,8 @@ fun HomeDetailListScreen(
         RenderMovieState(
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             state = viewModel.moviesState,
-            onLoadMore = { viewModel.loadMoreMovies(queryParameters) }
+            onLoadMore = { viewModel.loadMoreMovies(queryParameters) },
+            onClick = { navController.navigate(MovieRoute(it.id)) }
         )
     }
 }
@@ -65,14 +67,16 @@ fun HomeDetailListScreen(
 private fun RenderMovieState(
     state: MovieUIState,
     modifier: Modifier,
-    onLoadMore: () -> Unit
+    onLoadMore: () -> Unit,
+    onClick: (Movie) -> Unit
 ) {
     when (state) {
         MovieUIState.Loading -> LoadingSearchContent()
         is MovieUIState.Success -> MainPersonContent(
             list = state.data,
             modifier = modifier,
-            onLoadMore = onLoadMore
+            onLoadMore = onLoadMore,
+            onClick = onClick
         )
     }
 }
@@ -81,7 +85,8 @@ private fun RenderMovieState(
 private fun MainPersonContent(
     list: List<Movie>,
     modifier: Modifier,
-    onLoadMore: () -> Unit
+    onLoadMore: () -> Unit,
+    onClick: (Movie) -> Unit
 ) {
     EndlessLazyVerticalGrid(
         modifier = modifier,
@@ -90,7 +95,8 @@ private fun MainPersonContent(
     ) {
         MovieCard(
             movie = it,
-            modifier = Modifier.height(300.dp)
+            modifier = Modifier.height(300.dp),
+            onClick = { onClick(it) }
         )
     }
 }

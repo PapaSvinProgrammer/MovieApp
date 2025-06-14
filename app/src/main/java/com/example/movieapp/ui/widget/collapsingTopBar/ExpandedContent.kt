@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -24,7 +25,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.core.utils.ConvertData
 import com.example.movieapp.R
-import com.example.movieapp.ui.screen.isCorrectUrl
+import com.example.movieapp.ui.widget.component.isCorrectUrl
 import com.example.network.module.movie.Movie
 
 @Composable
@@ -36,12 +37,12 @@ fun ExpandedContent(movie: Movie) {
     val age = ConvertData.getPrettyAgeRating(movie.ageRating ?: 0)
 
     if (movie.isSeries == true) {
-        val seasonCount = movie.seasonsInfo.count { it.number != 0 }
+        val seasonCount = movie.seasonsInfo?.count { it.number != 0 } ?: 0
         length = ConvertData.getPrettyCountSeasons(seasonCount)
     }
 
     Column(horizontalAlignment = Alignment.CenterHorizontally) {
-        if (movie.backdrop?.url.isCorrectUrl()) {
+        if (movie.backdrop?.url.isCorrectUrl() && movie.logo?.url.isCorrectUrl()) {
             ContentWithBackdrop(
                 movie = movie,
                 genres = genres,
@@ -65,6 +66,8 @@ fun ExpandedContent(movie: Movie) {
         Spacer(modifier = Modifier.height(20.dp))
 
         ExpandedNavigationBar()
+        Spacer(modifier = Modifier.height(20.dp))
+        HorizontalDivider()
     }
 }
 
@@ -149,7 +152,7 @@ internal fun MovieLogo(url: String?, name: String) {
                 .build(),
             error = painterResource(R.drawable.ic_movie),
             contentDescription = null,
-            modifier = Modifier.padding(horizontal = 45.dp)
+            modifier = Modifier.padding(horizontal = 55.dp)
         )
     }
     else {

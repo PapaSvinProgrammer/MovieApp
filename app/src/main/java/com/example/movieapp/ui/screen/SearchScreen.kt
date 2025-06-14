@@ -40,7 +40,7 @@ import com.example.movieapp.app.navigation.PersonPodiumListRoute
 import com.example.movieapp.app.navigation.PersonRoute
 import com.example.movieapp.app.navigation.SearchSettingsRoute
 import com.example.movieapp.app.utils.collectionCategoryList
-import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.movieapp.viewModels.SearchViewModel
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.component.TitleRow
@@ -134,6 +134,13 @@ fun SearchScreen(
                         viewModel.deleteSearchHistoryItem(it)
                     },
                     onClick = {
+                        if (it.isMovie) {
+                            navController.navigate(MovieRoute(it.id))
+                        }
+                        else {
+                            navController.navigate(PersonRoute(it.id))
+                        }
+
                         viewModel.insertSearchHistoryItem(it)
                     },
                     onLoadMore = { viewModel.loadMore() },

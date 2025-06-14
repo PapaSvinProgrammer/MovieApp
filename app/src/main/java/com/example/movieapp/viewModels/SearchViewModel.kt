@@ -15,10 +15,10 @@ import com.example.core.domain.usecases.GetPerson
 import com.example.core.domain.usecases.GetSearchHistory
 import com.example.core.utils.toHistoryEntity
 import com.example.core.utils.toSearchItemList
-import com.example.movieapp.ui.screen.uiState.CollectionUIState
-import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.screen.uiState.PersonUIState
-import com.example.movieapp.ui.screen.uiState.SearchUIState
+import com.example.movieapp.ui.uiState.CollectionUIState
+import com.example.movieapp.ui.uiState.MovieUIState
+import com.example.movieapp.ui.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.SearchUIState
 import com.example.network.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

@@ -26,6 +26,7 @@ import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -47,7 +48,7 @@ fun HomeScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .haze(hazeState),
+                .hazeSource(hazeState),
             verticalArrangement = Arrangement.spacedBy(15.dp)
         ) {
             item {

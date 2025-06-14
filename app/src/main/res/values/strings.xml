@@ -54,7 +54,7 @@
     <string name="details">Подробнее</string>
     <string name="spoilers_title">Тут есть спойлеры!</string>
     <string name="spoilers_description">Нажмите, чтобы посмотреть</string>
-    <string name="facts_title">Знаете ли вы, что...</string>
+    <string name="facts_title">Знаете ли вы, что…</string>
     <string name="filmography">Фильмография</string>
     <string name="count_awards">Количество наград</string>
     <string name="total_movies">Всего фильмов</string>
@@ -75,4 +75,8 @@
     <string name="will_watching">Буду смотреть</string>
     <string name="share">Поделиться</string>
     <string name="more">Еще</string>
+    <string name="where_can_watch">Где можно посмотреть</string>
+    <string name="seasons_series">Сезоны и серии</string>
+    <string name="rating_kinopoisk">Рейтинг Кинопоиска</string>
+    <string name="actors">Актеры</string>
 </resources>

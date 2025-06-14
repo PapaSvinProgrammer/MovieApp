@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.screen.uiState
+package com.example.movieapp.ui.uiState
 
 import com.example.core.domain.module.SearchItem
 

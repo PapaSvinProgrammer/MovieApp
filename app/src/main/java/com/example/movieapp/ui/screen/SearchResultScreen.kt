@@ -18,7 +18,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.MovieRoute
-import com.example.movieapp.ui.screen.uiState.MovieUIState
+import com.example.movieapp.ui.uiState.MovieUIState
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.MovieDetailCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText

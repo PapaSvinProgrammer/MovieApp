@@ -57,6 +57,7 @@ fun SearchItemCard(
                 .width(60.dp)
                 .clip(RoundedCornerShape(10.dp))
         )
+
         Spacer(modifier = Modifier.width(15.dp))
 
         Box(modifier = Modifier.fillMaxSize()) {

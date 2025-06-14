@@ -1,10 +1,9 @@
 package com.example.network.module.movie
 
-import com.example.network.module.person.Person
 import com.example.network.module.category.Country
 import com.example.network.module.category.Genre
-import com.example.network.module.category.ProductionCompany
 import com.example.network.module.image.Poster
+import com.example.network.module.person.PersonMovie
 import com.example.network.module.season.Season
 import com.example.network.module.totalValue.Audience
 import com.example.network.module.totalValue.Budget
@@ -31,8 +30,8 @@ data class Movie(
     val facts: List<Fact> = listOf(),
     val genres: List<Genre> = listOf(),
     val countries: List<Country> = listOf(),
-    val persons: List<Person> = listOf(),
-    val productionCompanies: List<ProductionCompany> = listOf(),
+    val persons: List<PersonMovie> = listOf(),
+    val watchability: Watchability = Watchability(),
     val alternativeName: String? = null,
     val backdrop: Poster? = null,
     val movieLength: Int? = null,
@@ -51,5 +50,5 @@ data class Movie(
     val seriesLength: Int? = null,
     val totalSeriesLength: Int? = null,
     val releaseYears: List<ReleaseYears> = listOf(),
-    val seasonsInfo: List<Season> = listOf()
+    val seasonsInfo: List<Season>? = null
 )

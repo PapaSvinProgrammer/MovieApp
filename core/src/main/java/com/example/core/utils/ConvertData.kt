@@ -199,4 +199,13 @@ object ConvertData {
             else -> "$value сезонов"
         }
     }
+
+    fun getPrettyCountSeries(value: Int): String {
+        return when {
+            value % 100 in 11..14 -> "$value серий"
+            value % 10 == 1 -> "$value серия"
+            value % 10 in 2..4 -> "$value серии"
+            else -> "$value серий"
+        }
+    }
 }

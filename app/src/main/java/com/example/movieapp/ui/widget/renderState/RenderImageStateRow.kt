@@ -15,7 +15,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.R
-import com.example.movieapp.ui.screen.uiState.ImageUIState
+import com.example.movieapp.ui.uiState.ImageUIState
 import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.LastItemCard

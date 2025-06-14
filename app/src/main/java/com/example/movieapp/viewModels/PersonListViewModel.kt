@@ -6,7 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.usecases.GetPerson
-import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.network.utils.Constants
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

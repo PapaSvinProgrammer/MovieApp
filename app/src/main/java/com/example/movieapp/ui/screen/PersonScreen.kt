@@ -62,7 +62,7 @@ import com.example.movieapp.R
 import com.example.movieapp.app.navigation.AwardListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
 import com.example.movieapp.app.navigation.PersonDetailRoute
-import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.movieapp.ui.widget.bottomSheets.FactSheet
 import com.example.movieapp.ui.widget.component.CategoriesHeader
 import com.example.movieapp.ui.widget.listItems.ShortMovieListItem

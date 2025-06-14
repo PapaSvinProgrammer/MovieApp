@@ -9,9 +9,9 @@ import androidx.lifecycle.viewModelScope
 import com.example.core.domain.usecases.GetAward
 import com.example.core.domain.usecases.GetMovie
 import com.example.core.domain.usecases.GetPerson
-import com.example.movieapp.ui.screen.uiState.FactUIState
-import com.example.movieapp.ui.screen.uiState.MovieUIState
-import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.FactUIState
+import com.example.movieapp.ui.uiState.MovieUIState
+import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.network.module.movie.ShortMovie
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants

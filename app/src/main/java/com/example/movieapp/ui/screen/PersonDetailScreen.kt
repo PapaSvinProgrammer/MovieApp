@@ -31,7 +31,7 @@ import com.example.core.utils.ConvertData
 import com.example.core.utils.FormatDate
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.PersonRoute
-import com.example.movieapp.ui.screen.uiState.PersonUIState
+import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.movieapp.ui.widget.listItems.DetailInfoListItem
 import com.example.movieapp.ui.widget.listItems.SpouseCard
 import com.example.movieapp.ui.widget.other.PrettyAgeContent
