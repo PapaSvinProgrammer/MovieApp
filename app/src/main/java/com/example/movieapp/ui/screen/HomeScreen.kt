@@ -25,7 +25,6 @@ import com.example.movieapp.ui.widget.renderState.RenderCollectionStateRow
 import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
 import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)

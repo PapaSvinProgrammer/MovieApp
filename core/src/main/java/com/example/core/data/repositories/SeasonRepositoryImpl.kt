@@ -1,7 +1,6 @@
 package com.example.core.data.repositories
 
 import com.example.core.domain.repositories.SeasonRepository
-import com.example.network.KtorClient
 import com.example.network.module.season.Season
 import javax.inject.Inject
 

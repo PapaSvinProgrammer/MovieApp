@@ -11,13 +11,13 @@ import com.example.network.utils.Constants.SORT_ASC
 import com.example.network.utils.Constants.SORT_DESC
 import com.example.network.utils.Constants.SORT_FIELD
 import com.example.network.utils.Constants.SORT_TYPE
-import com.example.network.module.person.NominationAwardPerson
+import com.example.network.module.person.NominationAward
 import javax.inject.Inject
 
 class GetAward @Inject constructor(
     private val awardRepository: AwardRepository
 ) {
-    suspend fun getPersonAwardsByDate(personId: Int, page: Int = 1): Docs<NominationAwardPerson> {
+    suspend fun getPersonAwardsByDate(personId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             PERSON_ID_FIELD to personId.toString(),
             PAGE_FIELD to page.toString(),
@@ -28,7 +28,7 @@ class GetAward @Inject constructor(
         return awardRepository.getPersonAwards(queryParameters)
     }
 
-    suspend fun getPersonAwardsByTitle(personId: Int, page: Int = 1): Docs<NominationAwardPerson> {
+    suspend fun getPersonAwardsByTitle(personId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             PERSON_ID_FIELD to personId.toString(),
             PAGE_FIELD to page.toString(),
@@ -39,7 +39,7 @@ class GetAward @Inject constructor(
         return awardRepository.getPersonAwards(queryParameters)
     }
 
-    suspend fun getMovieAwardsByDate(movieId: Int, page: Int = 1): Docs<NominationAwardPerson> {
+    suspend fun getMovieAwardsByDate(movieId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),
@@ -50,7 +50,7 @@ class GetAward @Inject constructor(
         return awardRepository.getMovieAwards(queryParameters)
     }
 
-    suspend fun getMovieAwardsByTitle(movieId: Int, page: Int = 1): Docs<NominationAwardPerson> {
+    suspend fun getMovieAwardsByTitle(movieId: Int, page: Int = 1): Docs<NominationAward> {
         val queryParameters = listOf(
             MOVIE_ID_FIELD to movieId.toString(),
             PAGE_FIELD to page.toString(),

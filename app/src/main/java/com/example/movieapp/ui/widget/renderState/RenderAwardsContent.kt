@@ -7,13 +7,13 @@ import androidx.compose.ui.unit.dp
 import com.example.movieapp.ui.widget.component.AwardListGroup
 import com.example.movieapp.ui.widget.component.BasicLoadingBox
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.network.module.person.NominationAwardPerson
+import com.example.network.module.person.NominationAward
 
 @Composable
 fun RenderAwardsContent(
     modifier: Modifier = Modifier,
-    list: List<Pair<String, List<NominationAwardPerson>>>,
-    onClick: (NominationAwardPerson) -> Unit,
+    list: List<Pair<String, List<NominationAward>>>,
+    onClick: (NominationAward) -> Unit,
     onLoadMore: () -> Unit
 ) {
     if (list.isEmpty()) {
@@ -32,8 +32,8 @@ fun RenderAwardsContent(
 @Composable
 private fun MainAwardContent(
     modifier: Modifier,
-    awards: List<Pair<String, List<NominationAwardPerson>>>,
-    onClick: (NominationAwardPerson) -> Unit,
+    awards: List<Pair<String, List<NominationAward>>>,
+    onClick: (NominationAward) -> Unit,
     onLoadMore: () -> Unit
 ) {
     EndlessLazyColumn(

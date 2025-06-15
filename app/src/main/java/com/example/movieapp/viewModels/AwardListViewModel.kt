@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.core.domain.module.AwardsFilterType
 import com.example.core.domain.usecases.GetAward
-import com.example.network.module.person.NominationAwardPerson
+import com.example.network.module.person.NominationAward
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -16,14 +16,14 @@ class AwardListViewModel @Inject constructor(
     private val getAward: GetAward
 ): ViewModel() {
     private var page = 1
-    private var awards by mutableStateOf<List<NominationAwardPerson>>(listOf())
+    private var awards by mutableStateOf<List<NominationAward>>(listOf())
 
     var currentFilterType by mutableStateOf(AwardsFilterType.BY_DATE)
         private set
     var visibleBottomSheet by mutableStateOf(false)
         private set
 
-    var groupAwards by mutableStateOf<List<Pair<String, List<NominationAwardPerson>>>>(listOf())
+    var groupAwards by mutableStateOf<List<Pair<String, List<NominationAward>>>>(listOf())
         private set
 
     fun updateVisibleBottomSheet(state: Boolean) {

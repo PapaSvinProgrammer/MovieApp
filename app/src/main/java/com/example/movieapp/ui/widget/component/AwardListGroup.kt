@@ -19,14 +19,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
-import com.example.network.module.person.NominationAwardPerson
+import com.example.network.module.person.NominationAward
 
 @Composable
 fun AwardListGroup(
     modifier: Modifier = Modifier,
     title: String,
-    awards: List<NominationAwardPerson>,
-    onClick: (NominationAwardPerson) -> Unit
+    awards: List<NominationAward>,
+    onClick: (NominationAward) -> Unit
 ) {
     Text(
         text = title,

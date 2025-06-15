@@ -8,6 +8,7 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import com.example.movieapp.ui.widget.listItems.PersonMovieListItem
 import com.example.network.module.person.PersonMovie
 
 @Composable

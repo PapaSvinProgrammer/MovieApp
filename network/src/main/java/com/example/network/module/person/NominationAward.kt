@@ -4,7 +4,7 @@ import com.example.network.module.movie.ShortMovie
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class NominationAwardPerson(
+data class NominationAward(
     val nomination: Nomination?,
     val winning: Boolean?,
     val personId: Int?,

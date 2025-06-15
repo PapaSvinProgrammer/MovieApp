@@ -1,7 +1,6 @@
 package com.example.core.data.repositories
 
 import com.example.core.domain.repositories.CategoryRepository
-import com.example.network.KtorClient
 import com.example.network.module.category.Country
 import com.example.network.module.category.Genre
 import com.example.network.module.category.MovieType

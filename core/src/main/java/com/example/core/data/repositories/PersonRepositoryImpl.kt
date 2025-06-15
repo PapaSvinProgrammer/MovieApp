@@ -1,7 +1,6 @@
 package com.example.core.data.repositories
 
 import com.example.core.domain.repositories.PersonRepository
-import com.example.network.KtorClient
 import com.example.network.module.person.Person
 import javax.inject.Inject
 

@@ -1,8 +1,9 @@
-package com.example.network.di
+package com.example.movieapp.di
 
-import com.example.network.KtorClient
+import com.example.network.core.HttpClientFactory
 import dagger.Module
 import dagger.Provides
+import io.ktor.client.HttpClient
 import okhttp3.OkHttpClient
 import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
@@ -20,11 +21,10 @@ interface NetworkModule {
                 .build()
         }
 
-
-        @Provides
         @Singleton
-        fun provideKtorClient(okHttpClient: OkHttpClient): KtorClient {
-            return KtorClient(okHttpClient)
+        @Provides
+        fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
+            return HttpClientFactory.create(okHttpClient)
         }
     }
 }

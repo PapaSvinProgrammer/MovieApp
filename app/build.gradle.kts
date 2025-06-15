@@ -44,6 +44,7 @@ android {
 dependencies {
     implementation(project(":core"))
     implementation(project(":network"))
+    implementation(libs.ktor.client.core)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.compose)
     implementation(libs.haze)
