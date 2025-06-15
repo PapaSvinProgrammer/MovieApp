@@ -14,7 +14,6 @@ import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
 
 const val LIMIT_API_COUNT = "20"
-const val LIMIT_API_MAX_COUNT = "250"
 
 object HttpClientFactory {
     fun create(okHttpClient: OkHttpClient): HttpClient {

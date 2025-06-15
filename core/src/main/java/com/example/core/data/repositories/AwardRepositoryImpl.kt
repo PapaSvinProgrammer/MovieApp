@@ -1,26 +1,25 @@
 package com.example.core.data.repositories
 
 import com.example.core.domain.repositories.AwardRepository
+import com.example.network.core.NetworkError
+import com.example.network.core.Operation
 import com.example.network.module.image.Docs
 import com.example.network.module.person.NominationAward
+import com.example.network.service.AwardService
 import javax.inject.Inject
 
 class AwardRepositoryImpl @Inject constructor(
-    private val ktorClient: KtorClient
+    private val service: AwardService
 ): AwardRepository {
-    override suspend fun getMovieAwards(queryParameters: List<Pair<String, String>>): Docs<NominationAward> {
-        return try {
-            ktorClient.getMovieAwardsByFilter(queryParameters)
-        } catch (e: Exception) {
-            Docs()
-        }
+    override suspend fun getMovieAwards(
+        queryParameters: List<Pair<String, String>>
+    ): Operation<Docs<NominationAward>, NetworkError> {
+        return service.getMovieAwardsByFilter(queryParameters)
     }
 
-    override suspend fun getPersonAwards(queryParameters: List<Pair<String, String>>): Docs<NominationAward> {
-        return try {
-            ktorClient.getPersonAwardsByFilter(queryParameters)
-        } catch (e: Exception) {
-            Docs()
-        }
+    override suspend fun getPersonAwards(
+        queryParameters: List<Pair<String, String>>
+    ): Operation<Docs<NominationAward>, NetworkError> {
+        return service.getPersonAwardsByFilter(queryParameters)
     }
 }

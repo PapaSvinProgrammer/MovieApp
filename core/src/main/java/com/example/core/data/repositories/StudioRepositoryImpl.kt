@@ -1,17 +1,19 @@
 package com.example.core.data.repositories
 
 import com.example.core.domain.repositories.StudioRepository
+import com.example.network.core.NetworkError
+import com.example.network.core.Operation
+import com.example.network.module.image.Docs
 import com.example.network.module.movie.Studio
+import com.example.network.service.StudiesService
 import javax.inject.Inject
 
 class StudioRepositoryImpl @Inject constructor(
-    private val ktorClient: KtorClient
+    private val service: StudiesService
 ): StudioRepository {
-    override suspend fun getStudies(queryParameters: List<Pair<String, String>>): List<Studio> {
-        return try {
-            ktorClient.getStudies(queryParameters)
-        } catch (e: Exception) {
-            listOf()
-        }
+    override suspend fun getStudies(
+        queryParameters: List<Pair<String, String>>
+    ): Operation<Docs<Studio>, NetworkError> {
+        return service.getStudies(queryParameters)
     }
 }
