@@ -28,7 +28,7 @@ import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.SearchHistoryMovieCard
 import com.example.movieapp.ui.widget.listItems.SearchItemCard
 import dev.chrisbanes.haze.HazeState
-import dev.chrisbanes.haze.haze
+import dev.chrisbanes.haze.hazeSource
 
 @Composable
 fun SearchContent(
@@ -40,7 +40,7 @@ fun SearchContent(
     EndlessLazyColumn(
         items = list,
         loadMore = onLoadMore,
-        modifier = Modifier.haze(hazeState)
+        modifier = Modifier.hazeSource(hazeState)
     ) { _, it ->
         SearchItemCard(
             searchItem = it,
@@ -95,7 +95,7 @@ fun SearchHistoryContent(
     LazyColumn(
         modifier = Modifier
             .fillMaxSize()
-            .haze(hazeState)
+            .hazeSource(hazeState)
     ) {
         items(
             count = lazyPaging.itemCount,

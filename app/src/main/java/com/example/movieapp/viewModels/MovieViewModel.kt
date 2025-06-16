@@ -21,8 +21,10 @@ class MovieViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getById(id)
 
-            if (res != null) {
-                movieState = MovieUIState.Success(listOf(res))
+            res.onSuccess {
+                movieState = MovieUIState.Success(listOf(it))
+            }.onError {
+
             }
         }
     }

@@ -70,19 +70,31 @@ class SearchSettingsViewModel @Inject constructor(
 
     fun getGenres() {
         viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getGenres().map {
-                val name = it.name ?: ""
-                resultGenres.add(name to false)
-            }
+            categoryRepository.getGenres()
+                .onSuccess { data ->
+                    data.map {
+                        val name = it.name ?: ""
+                        resultGenres.add(name to false)
+                    }
+                }
+                .onError {
+
+                }
         }
     }
 
     fun getCounties() {
         viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getCounties().map {
-                val name = it.name ?: ""
-                resultCountries.add(name to false)
-            }
+            categoryRepository.getCounties()
+                .onSuccess { data ->
+                    data.map {
+                        val name = it.name ?: ""
+                        resultCountries.add(name to false)
+                    }
+                }
+                .onError {
+
+                }
         }
     }
 

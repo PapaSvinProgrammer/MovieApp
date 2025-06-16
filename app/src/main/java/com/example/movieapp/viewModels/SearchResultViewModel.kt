@@ -23,8 +23,10 @@ class SearchResultViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getByFilter(queryParameters)
 
-            if (res.isNotEmpty()) {
-                movieUIState = MovieUIState.Success(res)
+            res.onSuccess {
+                movieUIState = MovieUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -39,10 +41,12 @@ class SearchResultViewModel @Inject constructor(
 
             val res = getMovie.getByFilter(newQuery)
 
-            if (res.isNotEmpty()) {
+            res.onSuccess {
                 val newList = (movieUIState as MovieUIState.Success).data.toMutableList()
-                newList.addAll(res)
+                newList.addAll(it.docs)
                 movieUIState = MovieUIState.Success(newList)
+            }.onError {
+
             }
         }
     }

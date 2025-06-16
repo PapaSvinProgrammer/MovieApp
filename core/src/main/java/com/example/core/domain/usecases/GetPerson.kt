@@ -5,6 +5,7 @@ import com.example.network.core.NetworkError
 import com.example.network.core.Operation
 import com.example.network.module.image.Docs
 import com.example.network.module.person.Person
+import kotlinx.coroutines.async
 import javax.inject.Inject
 
 class GetPerson @Inject constructor(

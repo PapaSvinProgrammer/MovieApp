@@ -6,7 +6,6 @@ import com.example.core.di.RoomModule
 import com.example.movieapp.MainActivity
 import com.example.movieapp.di.viewModel.ViewModelFactoryModule
 import com.example.movieapp.di.viewModel.ViewModelModule
-import com.example.network.di.NetworkModule
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

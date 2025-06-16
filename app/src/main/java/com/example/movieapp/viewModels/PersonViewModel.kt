@@ -12,6 +12,9 @@ import com.example.core.domain.usecases.GetPerson
 import com.example.movieapp.ui.uiState.FactUIState
 import com.example.movieapp.ui.uiState.MovieUIState
 import com.example.movieapp.ui.uiState.PersonUIState
+import com.example.network.core.NetworkError
+import com.example.network.core.Operation
+import com.example.network.module.image.Docs
 import com.example.network.module.movie.ShortMovie
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants
@@ -57,10 +60,13 @@ class PersonViewModel @Inject constructor(
     fun getPerson(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPerson.getPersonById(id)
-            if (res != null) {
-                personState = PersonUIState.Success(listOf(res))
-                factState = FactUIState.Success(res.facts)
-                getGroups(res.movies)
+
+            res.onSuccess {
+                personState = PersonUIState.Success(listOf(it))
+                factState = FactUIState.Success(it.facts)
+                getGroups(it.movies)
+            }.onError {
+
             }
         }
     }
@@ -75,8 +81,10 @@ class PersonViewModel @Inject constructor(
 
             val res = getMovie.getByFilter(query)
 
-            if (res.isNotEmpty()) {
-                moviesState = MovieUIState.Success(res)
+            res.onSuccess {
+                moviesState = MovieUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -85,30 +93,35 @@ class PersonViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getAward.getPersonAwardsByDate(personId)
 
-            if (res.total != 0) {
-                countAwards = res.total
+            res.onSuccess {
+                if (it.total != 0) {
+                    countAwards = it.total
+                }
+            }.onError {
+
             }
         }
     }
 
     fun getSpouses(list: List<Int>) {
         viewModelScope.launch(Dispatchers.Default) {
-            val tasks = mutableListOf<Deferred<Person>>()
+            val tasks = mutableListOf<Deferred<Operation<Person, NetworkError>>>()
 
             list.forEach { id ->
-                val query = listOf(
-                    "id" to id.toString(),
-                    Constants.SELECT_FILED to "id"
-                )
-
                 val task = async(Dispatchers.IO) {
-                    getPerson.getPersonsByFilter(query).firstOrNull() ?: Person(id = -1)
+                    getPerson.getPersonById(id)
                 }
 
                 tasks.add(task)
             }
 
-            personSpouseState = PersonUIState.Success(tasks.awaitAll())
+            val tempSpouses = mutableListOf<Person>()
+
+            tasks.awaitAll().forEach {
+                it.onSuccess { data ->
+                    tempSpouses.add(data)
+                }
+            }
         }
     }
 

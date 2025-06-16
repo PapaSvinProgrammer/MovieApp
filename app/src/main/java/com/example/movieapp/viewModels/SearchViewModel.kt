@@ -67,8 +67,10 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getCollection.getByCategory("Фильмы")
 
-            if (res.isNotEmpty()) {
-                collectionsState = CollectionUIState.Success(res)
+            res.onSuccess {
+                collectionsState = CollectionUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -84,8 +86,10 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPerson.getPersonsByFilter(queryParameters)
 
-            if (res.isNotEmpty()) {
-                personState = PersonUIState.Success(res)
+            res.onSuccess {
+                personState = PersonUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -102,8 +106,10 @@ class SearchViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getByFilter(queryParameters)
 
-            if (res.isNotEmpty()) {
-                topSerialsState = MovieUIState.Success(res)
+            res.onSuccess {
+                topSerialsState = MovieUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -127,13 +133,12 @@ class SearchViewModel @Inject constructor(
         searchState = SearchUIState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.search(q).toSearchItemList()
+            val res = getMovie.search(q)
 
-            if (res.isEmpty()) {
+            res.onSuccess {
+                searchState = SearchUIState.Success(it.docs.toSearchItemList())
+            }.onError {
                 searchState = SearchUIState.Error
-            }
-            else {
-                searchState = SearchUIState.Success(res)
             }
         }
     }
@@ -142,10 +147,13 @@ class SearchViewModel @Inject constructor(
         searchPage++
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.search(query, searchPage).toSearchItemList()
-            val temp = (searchState as SearchUIState.Success).data.toMutableList()
-            temp.addAll(res)
-            searchState = SearchUIState.Success(temp)
+            val res = getMovie.search(query, searchPage)
+
+            res.onSuccess {
+                val temp = (searchState as SearchUIState.Success).data.toMutableList()
+                temp.addAll(it.docs.toSearchItemList())
+                searchState = SearchUIState.Success(temp)
+            }
         }
     }
 
@@ -154,13 +162,12 @@ class SearchViewModel @Inject constructor(
         searchState = SearchUIState.Loading
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getPerson.search(q).toSearchItemList()
+            val res = getPerson.search(q)
 
-            if (res.isEmpty()) {
+            res.onSuccess {
+                searchState = SearchUIState.Success(it.docs.toSearchItemList())
+            }.onError {
                 searchState = SearchUIState.Error
-            }
-            else {
-                searchState = SearchUIState.Success(res)
             }
         }
     }
@@ -169,10 +176,13 @@ class SearchViewModel @Inject constructor(
         searchPage++
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getPerson.search(query, searchPage).toSearchItemList()
-            val temp = (searchState as SearchUIState.Success).data.toMutableList()
-            temp.addAll(res)
-            searchState = SearchUIState.Success(temp)
+            val res = getPerson.search(query, searchPage)
+
+            res.onSuccess {
+                val temp = (searchState as SearchUIState.Success).data.toMutableList()
+                temp.addAll(it.docs.toSearchItemList())
+                searchState = SearchUIState.Success(temp)
+            }
         }
     }
 

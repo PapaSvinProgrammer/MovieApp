@@ -23,8 +23,10 @@ class MovieListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getByFilter(queryParameters)
 
-            if (res.isNotEmpty()) {
-                moviesState = MovieUIState.Success(res)
+            res.onSuccess {
+                moviesState = MovieUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -38,9 +40,13 @@ class MovieListViewModel @Inject constructor(
 
             val res = getMovie.getByFilter(query)
 
-            val temp = (moviesState as MovieUIState.Success).data.toMutableList()
-            temp.addAll(res)
-            moviesState = MovieUIState.Success(temp)
+            res.onSuccess {
+                val temp = (moviesState as MovieUIState.Success).data.toMutableList()
+                temp.addAll(it.docs)
+                moviesState = MovieUIState.Success(temp)
+            }.onError {
+
+            }
         }
     }
 }

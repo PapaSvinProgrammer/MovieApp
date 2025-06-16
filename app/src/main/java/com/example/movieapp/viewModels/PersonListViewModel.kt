@@ -23,8 +23,10 @@ class PersonListViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPerson.getPersonsByFilter(queryParameters)
 
-            if (res.isNotEmpty()) {
-                personState = PersonUIState.Success(res)
+            res.onSuccess {
+                personState = PersonUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -37,10 +39,14 @@ class PersonListViewModel @Inject constructor(
 
             val res = getPerson.getPersonsByFilter(newQuery)
 
-            val newRes = (personState as PersonUIState.Success).data.toMutableList()
-            newRes.addAll(res)
+            res.onSuccess {
+                val newRes = (personState as PersonUIState.Success).data.toMutableList()
+                newRes.addAll(it.docs)
 
-            personState = PersonUIState.Success(newRes)
+                personState = PersonUIState.Success(newRes)
+            }.onError {
+
+            }
         }
     }
 }

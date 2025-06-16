@@ -60,13 +60,14 @@ class AwardListViewModel @Inject constructor(
                 else
                     getAward.getPersonAwardsByTitle(id)
 
-            if (res.docs.isNotEmpty()) {
-                awards = res.docs
-            }
+            res.onSuccess {
+                awards = it.docs
+                groupAwards = it.docs.groupBy { award ->
+                    award.nomination?.award?.title + ", " + award.nomination?.award?.year
+                }.toList()
+            }.onError {
 
-            groupAwards = res.docs.groupBy {
-                it.nomination?.award?.title + ", " + it.nomination?.award?.year
-            }.toList()
+            }
         }
     }
 
@@ -77,13 +78,14 @@ class AwardListViewModel @Inject constructor(
             else
                 getAward.getPersonAwardsByDate(id)
 
-            if (res.docs.isNotEmpty()) {
-                awards = res.docs
-            }
+            res.onSuccess { data ->
+                awards = data.docs
+                groupAwards = data.docs.groupBy {
+                    it.nomination?.award?.title + ", " + it.nomination?.award?.year
+                }.toList()
+            }.onError {
 
-            groupAwards = res.docs.groupBy {
-                it.nomination?.award?.title + ", " + it.nomination?.award?.year
-            }.toList()
+            }
         }
     }
 
@@ -94,14 +96,16 @@ class AwardListViewModel @Inject constructor(
                 else
                     getAward.getPersonAwardsByTitle(id, page)
 
-            if (res.docs.isNotEmpty()) {
+            res.onSuccess { data ->
                 val temp = awards.toMutableList()
-                temp.addAll(res.docs)
+                temp.addAll(data.docs)
                 awards = temp
 
                 groupAwards = temp.groupBy {
                     it.nomination?.award?.title + ", " + it.nomination?.award?.year
                 }.toList()
+            }.onError {
+
             }
         }
     }
@@ -113,14 +117,16 @@ class AwardListViewModel @Inject constructor(
             else
                 getAward.getPersonAwardsByDate(id, page)
 
-            if (res.docs.isNotEmpty()) {
+            res.onSuccess { data ->
                 val temp = awards.toMutableList()
-                temp.addAll(res.docs)
+                temp.addAll(data.docs)
                 awards = temp
 
                 groupAwards = temp.groupBy {
                     it.nomination?.award?.title + ", " + it.nomination?.award?.year
                 }.toList()
+            }.onError {
+
             }
         }
     }

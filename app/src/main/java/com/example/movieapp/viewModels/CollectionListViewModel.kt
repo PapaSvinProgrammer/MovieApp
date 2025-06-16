@@ -26,8 +26,10 @@ class CollectionListViewModel @Inject constructor(
             else
                 getCollection.getByCategory(category)
 
-            if (res.isNotEmpty()) {
-                collectionState = CollectionUIState.Success(res)
+            res.onSuccess {
+                collectionState = CollectionUIState.Success(it.docs)
+            }.onError {
+
             }
         }
     }
@@ -41,9 +43,13 @@ class CollectionListViewModel @Inject constructor(
             else
                 getCollection.getByCategory(category = category, page = page)
 
-            val temp = (collectionState as CollectionUIState.Success).data.toMutableList()
-            temp.addAll(res)
-            collectionState = CollectionUIState.Success(temp)
+            res.onSuccess {
+                val temp = (collectionState as CollectionUIState.Success).data.toMutableList()
+                temp.addAll(it.docs)
+                collectionState = CollectionUIState.Success(temp)
+            }.onError {
+
+            }
         }
     }
 }
