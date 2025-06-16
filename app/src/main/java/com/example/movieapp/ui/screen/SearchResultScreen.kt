@@ -60,7 +60,11 @@ fun SearchResultScreen(
         RenderMovieState(
             state = viewModel.movieUIState,
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
-            onClick = { navController.navigate(MovieRoute(it.id)) },
+            onClick = {
+                navController.navigate(MovieRoute(it.id)) {
+                    launchSingleTop = true
+                }
+            },
             loadMore = { viewModel.loadMoreMovies(queryParameters) }
         )
     }

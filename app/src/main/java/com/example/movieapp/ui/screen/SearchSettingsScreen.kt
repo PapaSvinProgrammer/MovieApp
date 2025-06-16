@@ -157,7 +157,9 @@ fun SearchSettingsScreen(
                     year = viewModel.yearFilter
                 )
 
-                navController.navigate(SearchResultRoute(convertData))
+                navController.navigate(SearchResultRoute(convertData)) {
+                    launchSingleTop = true
+                }
             }
         }
     }

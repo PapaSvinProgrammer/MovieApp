@@ -135,10 +135,14 @@ fun SearchScreen(
                     },
                     onClick = {
                         if (it.isMovie) {
-                            navController.navigate(MovieRoute(it.id))
+                            navController.navigate(MovieRoute(it.id)) {
+                                launchSingleTop = true
+                            }
                         }
                         else {
-                            navController.navigate(PersonRoute(it.id))
+                            navController.navigate(PersonRoute(it.id)) {
+                                launchSingleTop = true
+                            }
                         }
 
                         viewModel.insertSearchHistoryItem(it)
@@ -358,5 +362,5 @@ private fun navigateToMovieList(
             title = collection.name ?: "",
             queryParameters = query
         )
-    )
+    ) { launchSingleTop = true }
 }

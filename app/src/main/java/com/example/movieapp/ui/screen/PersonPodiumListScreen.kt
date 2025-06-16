@@ -23,6 +23,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.movieapp.app.navigation.PersonRoute
 import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.movieapp.viewModels.PersonListViewModel
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
@@ -67,7 +68,11 @@ fun PersonPodiumListScreen(
         RenderPersonResult(
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             state = viewModel.personState,
-            onClick = {},
+            onClick = {
+                navController.navigate(PersonRoute(it.id)) {
+                    launchSingleTop = true
+                }
+            },
             onLoadMore = { viewModel.loadMorePersons(queryParameters) }
         )
     }

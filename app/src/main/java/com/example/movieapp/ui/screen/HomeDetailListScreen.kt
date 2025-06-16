@@ -58,7 +58,9 @@ fun HomeDetailListScreen(
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             state = viewModel.moviesState,
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) },
-            onClick = { navController.navigate(MovieRoute(it.id)) }
+            onClick = {
+                navController.navigate(MovieRoute(it.id)) { launchSingleTop = true }
+            }
         )
     }
 }

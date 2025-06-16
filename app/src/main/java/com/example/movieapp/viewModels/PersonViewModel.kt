@@ -14,7 +14,6 @@ import com.example.movieapp.ui.uiState.MovieUIState
 import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.network.core.NetworkError
 import com.example.network.core.Operation
-import com.example.network.module.image.Docs
 import com.example.network.module.movie.ShortMovie
 import com.example.network.module.person.Person
 import com.example.network.utils.Constants

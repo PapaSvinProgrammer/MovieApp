@@ -40,6 +40,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.MovieListRoute
+import com.example.movieapp.app.navigation.PersonRoute
 import com.example.movieapp.ui.uiState.CollectionUIState
 import com.example.movieapp.ui.uiState.ImageUIState
 import com.example.movieapp.ui.uiState.MovieUIState
@@ -195,7 +196,11 @@ fun MovieScreen(
 
                         PersonGridHorizontalList(
                             list = viewModel.actors.take(9),
-                            onClick = {  }
+                            onClick = {
+                                navController.navigate(PersonRoute(it.id)) {
+                                    launchSingleTop = true
+                                }
+                            }
                         )
                     }
                 }
@@ -218,7 +223,11 @@ fun MovieScreen(
                         ) {
                             SupportPersonCard(
                                 person = it,
-                                onClick = {}
+                                onClick = {
+                                    navController.navigate(PersonRoute(it.id)) {
+                                        launchSingleTop = true
+                                    }
+                                }
                             )
                         }
                     }
@@ -310,7 +319,7 @@ fun MovieScreen(
                                                     title = it.name ?: "",
                                                     queryParameters = query
                                                 )
-                                            )
+                                            ) { launchSingleTop = true }
                                         }
                                 )
                             }

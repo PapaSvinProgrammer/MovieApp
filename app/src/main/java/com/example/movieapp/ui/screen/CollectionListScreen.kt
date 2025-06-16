@@ -82,7 +82,7 @@ fun CollectionListScreen(
                         title = it.name ?: "",
                         queryParameters = query
                     )
-                )
+                ) { launchSingleTop = true }
             },
             onLoadMore = { viewModel.loadMoreCollections(category) }
         )

@@ -60,9 +60,13 @@ fun AccountScreen(
             Spacer(modifier = Modifier.height(30.dp))
 
             SettingsContent(
-                onSettings = { navController.navigate(SettingsRoute) },
+                onSettings = {
+                    navController.navigate(SettingsRoute) { launchSingleTop = true }
+                },
                 onSupport = {},
-                onAbout = { navController.navigate(AboutAppRoute) }
+                onAbout = {
+                    navController.navigate(AboutAppRoute) { launchSingleTop = true }
+                }
             )
         }
     }

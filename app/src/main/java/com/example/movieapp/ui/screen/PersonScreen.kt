@@ -61,6 +61,7 @@ import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.app.navigation.AwardListRoute
 import com.example.movieapp.app.navigation.MovieListRoute
+import com.example.movieapp.app.navigation.MovieRoute
 import com.example.movieapp.app.navigation.PersonDetailRoute
 import com.example.movieapp.ui.uiState.PersonUIState
 import com.example.movieapp.ui.widget.bottomSheets.FactSheet
@@ -142,7 +143,9 @@ fun PersonScreen(
                 RenderPersonContent(
                     state = viewModel.personState,
                     onClickDetail = {
-                        navController.navigate(PersonDetailRoute(id))
+                        navController.navigate(PersonDetailRoute(id)) {
+                            launchSingleTop = true
+                        }
                     }
                 )
 
@@ -157,7 +160,7 @@ fun PersonScreen(
                         modifier = Modifier.clickable {
                             navController.navigate(
                                 AwardListRoute(id = id, isMovie = false)
-                            )
+                            ) { launchSingleTop = true }
                         }
                     )
                 }
@@ -185,7 +188,7 @@ fun PersonScreen(
                                         .name
                                 }"
                             )
-                        )
+                        ) { launchSingleTop = true }
                     }
                 )
 
@@ -226,7 +229,11 @@ fun PersonScreen(
             ) {
                 ShortMovieListItem(
                     shortMovie = it,
-                    onClick = {  }
+                    onClick = {
+                        navController.navigate(MovieRoute(it.id)) {
+                            launchSingleTop = true
+                        }
+                    }
                 )
 
                 HorizontalDivider()

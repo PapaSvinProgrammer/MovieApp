@@ -84,11 +84,15 @@ fun PersonDetailScreen(
         Column(modifier = Modifier.padding(innerPadding)) {
             RenderPersonDetailState(viewModel.personState)
 
-            (viewModel.personState as? PersonUIState.Success)?.data?.let {
+            (viewModel.personState as? PersonUIState.Success)?.data?.let { data ->
                 SpouseContent(
                     state = viewModel.personSpouseState,
-                    spouses = it.first().spouses,
-                    onClick = { navController.navigate(PersonRoute(it)) }
+                    spouses = data.first().spouses,
+                    onClick = {
+                        navController.navigate(PersonRoute(it)) {
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
         }

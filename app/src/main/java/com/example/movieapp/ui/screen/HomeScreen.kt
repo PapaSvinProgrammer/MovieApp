@@ -69,7 +69,11 @@ fun HomeScreen(
                             )
                         )
                     },
-                    onShowAll = { navController.navigate(CollectionListRoute()) }
+                    onShowAll = {
+                        navController.navigate(CollectionListRoute()) {
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
 
@@ -92,7 +96,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = query
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
             }
@@ -116,7 +120,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = queryParameters
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
             }
@@ -140,7 +144,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = query
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
             }
@@ -164,7 +168,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = queryParameters
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
             }
@@ -188,7 +192,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = queryParameters
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
             }
@@ -212,7 +216,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = queryParameters
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
             }
@@ -236,7 +240,7 @@ fun HomeScreen(
                                 title = title,
                                 queryParameters = queryParameters
                             )
-                        )
+                        ) { launchSingleTop = true  }
                     }
                 )
                 Spacer(modifier = Modifier.height(90.dp))

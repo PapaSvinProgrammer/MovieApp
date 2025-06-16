@@ -83,7 +83,11 @@ fun MovieListScreen(
         RenderResult(
             state = viewModel.moviesState,
             modifier = Modifier.hazeSource(hazeState).padding(innerPadding),
-            onClick = { navController.navigate(MovieRoute(it.id)) },
+            onClick = {
+                navController.navigate(MovieRoute(it.id)) {
+                    launchSingleTop = true
+                }
+            },
             onSettingsClick = {},
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) }
         )
