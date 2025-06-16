@@ -50,5 +50,6 @@ data class Movie(
     val seriesLength: Int? = null,
     val totalSeriesLength: Int? = null,
     val releaseYears: List<ReleaseYears> = listOf(),
-    val seasonsInfo: List<Season>? = null
+    val seasonsInfo: List<Season>? = null,
+    val lists: List<String> = listOf()
 )

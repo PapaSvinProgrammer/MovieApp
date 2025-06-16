@@ -26,4 +26,10 @@ class CollectionService @Inject constructor(
             }
         }
     }
+
+    suspend fun getCollectionBySlug(slug: String): Operation<Collection, NetworkError> {
+        return safeCall {
+            client.get("v1.4/list/$slug")
+        }
+    }
 }

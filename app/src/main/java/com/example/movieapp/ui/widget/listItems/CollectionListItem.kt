@@ -1,9 +1,7 @@
 package com.example.movieapp.ui.widget.listItems
 
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -29,20 +27,15 @@ import com.example.network.module.image.Collection
 
 @Composable
 fun CollectionListItem(
-    index: Int,
+    modifier: Modifier = Modifier,
     collection: Collection,
-    onClick: () -> Unit
+    leadingIcon: (@Composable () -> Unit)? = null
 ) {
     ListItem(
-        modifier = Modifier.clickable(onClick = onClick),
-        leadingContent = {
-            Text(
-                text = index.toString(),
-                fontSize = 14.sp
-            )
-        },
+        modifier = modifier,
+        leadingContent = leadingIcon,
         headlineContent = {
-            Row(modifier = Modifier.fillMaxWidth()) {
+            Row {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
                         .data(collection.cover?.url)

@@ -22,6 +22,10 @@ class GetCollection @Inject constructor(
         return collectionRepository.getCollections(queryParameters)
     }
 
+    suspend fun getBySlug(slug: String): Operation<Collection, NetworkError> {
+        return collectionRepository.getCollectionBySlug(slug)
+    }
+
     suspend fun getByCategory(
         category: String,
         page: Int = 1

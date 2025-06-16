@@ -8,6 +8,5 @@ data class Collection(
     val category: String?,
     val cover: Poster?,
     val moviesCount: Int?,
-    val name: String?,
-    val id: String,
+    val name: String?
 )

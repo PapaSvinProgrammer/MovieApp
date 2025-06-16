@@ -1,6 +1,8 @@
 package com.example.movieapp.ui.screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
@@ -9,8 +11,10 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
@@ -118,9 +122,16 @@ private fun MainPersonContent(
         loadMore = onLoadMore
     ) { index, item ->
         CollectionListItem(
-            index = index + 1,
-            collection = item,
-            onClick = { onClick(item) }
+            modifier = Modifier
+                .fillMaxWidth()
+                .clickable { onClick(item) },
+            leadingIcon = {
+                Text(
+                    text = (index + 1).toString(),
+                    fontSize = 14.sp
+                )
+            },
+            collection = item
         )
     }
 }

@@ -9,4 +9,6 @@ interface CollectionRepository {
     suspend fun getCollections(
         queryParameters: List<Pair<String, String>>
     ): Operation<Docs<Collection>, NetworkError>
+
+    suspend fun getCollectionBySlug(slug: String): Operation<Collection, NetworkError>
 }

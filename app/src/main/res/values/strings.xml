@@ -79,4 +79,8 @@
     <string name="seasons_series">Сезоны и серии</string>
     <string name="rating_kinopoisk">Рейтинг Кинопоиска</string>
     <string name="actors">Актеры</string>
+    <string name="images">Изоброжения</string>
+    <string name="voice_actors">Актеры дубляжа</string>
+    <string name="support_personal">Съемочная группа</string>
+    <string name="in_lists">Входит в списки</string>
 </resources>

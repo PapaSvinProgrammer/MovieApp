@@ -16,4 +16,8 @@ class CollectionRepositoryImpl @Inject constructor(
     ): Operation<Docs<Collection>, NetworkError> {
         return service.getCollectionByFilter(queryParameters)
     }
+
+    override suspend fun getCollectionBySlug(slug: String): Operation<Collection, NetworkError> {
+        return service.getCollectionBySlug(slug)
+    }
 }
