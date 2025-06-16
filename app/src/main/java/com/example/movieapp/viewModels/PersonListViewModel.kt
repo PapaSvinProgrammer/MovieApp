@@ -20,6 +20,8 @@ class PersonListViewModel @Inject constructor(
         private set
 
     fun getPersons(queryParameters: List<Pair<String, String>>) {
+        if (personState is PersonUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPerson.getPersonsByFilter(queryParameters)
 

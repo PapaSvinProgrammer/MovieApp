@@ -69,6 +69,8 @@ class SearchSettingsViewModel @Inject constructor(
     }
 
     fun getGenres() {
+        if (resultGenres.isNotEmpty()) return
+
         viewModelScope.launch(Dispatchers.IO) {
             categoryRepository.getGenres()
                 .onSuccess { data ->
@@ -84,6 +86,8 @@ class SearchSettingsViewModel @Inject constructor(
     }
 
     fun getCounties() {
+        if (resultCountries.isNotEmpty()) return
+
         viewModelScope.launch(Dispatchers.IO) {
             categoryRepository.getCounties()
                 .onSuccess { data ->

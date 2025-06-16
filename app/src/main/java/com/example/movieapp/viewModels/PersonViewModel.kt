@@ -57,6 +57,8 @@ class PersonViewModel @Inject constructor(
     }
 
     fun getPerson(id: Int) {
+        if (personState is PersonUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPerson.getPersonById(id)
 
@@ -71,6 +73,8 @@ class PersonViewModel @Inject constructor(
     }
 
     fun getMovies(personId: Int) {
+        if (moviesState is MovieUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val query = listOf(
                 Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -89,6 +93,8 @@ class PersonViewModel @Inject constructor(
     }
 
     fun getCountAwards(personId: Int) {
+        if (countAwards == null) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = getAward.getPersonAwardsByDate(personId)
 
@@ -103,6 +109,8 @@ class PersonViewModel @Inject constructor(
     }
 
     fun getSpouses(list: List<Int>) {
+        if (personSpouseState is PersonUIState.Success) return
+
         viewModelScope.launch(Dispatchers.Default) {
             val tasks = mutableListOf<Deferred<Operation<Person, NetworkError>>>()
 

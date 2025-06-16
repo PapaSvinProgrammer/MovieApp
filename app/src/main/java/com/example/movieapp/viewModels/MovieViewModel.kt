@@ -40,6 +40,8 @@ class MovieViewModel @Inject constructor(
         private set
 
     fun getMovie(id: Int) {
+        if (movieState is MovieUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getById(id)
 
@@ -53,6 +55,8 @@ class MovieViewModel @Inject constructor(
     }
 
     fun getImages(movieId: Int) {
+        if (imagesState is ImageUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getImages(movieId)
 
@@ -63,6 +67,8 @@ class MovieViewModel @Inject constructor(
     }
 
     fun getCollections(list: List<String>) {
+        if (collectionState is CollectionUIState.Success) return
+
         viewModelScope.launch(Dispatchers.Default) {
             val tasks = mutableListOf<Deferred<Operation<Collection, NetworkError>>>()
 

@@ -58,7 +58,9 @@ fun AwardListScreen(
         }
     ) { innerPadding ->
         LifecycleEventEffect(Lifecycle.Event.ON_START) {
-            viewModel.getAwards(id, isMovie)
+            if (viewModel.groupAwards.isEmpty()) {
+                viewModel.getAwards(id, isMovie)
+            }
         }
 
         RenderAwardsContent(

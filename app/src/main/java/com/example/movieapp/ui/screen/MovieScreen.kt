@@ -251,7 +251,11 @@ fun MovieScreen(
                         ) {
                             SupportPersonCard(
                                 person = it,
-                                onClick = {}
+                                onClick = {
+                                    navController.navigate(PersonRoute(it.id)) {
+                                        launchSingleTop = true
+                                    }
+                                }
                             )
                         }
 
@@ -261,31 +265,33 @@ fun MovieScreen(
 
                 item {
                     (viewModel.imagesState as? ImageUIState.Success)?.data?.let {
-                        TitleRow(title = stringResource(R.string.images)) {
+                        if (it.isNotEmpty()) {
+                            TitleRow(title = stringResource(R.string.images)) {
 
-                        }
+                            }
 
-                        DefaultLazyRow(
-                            list = it,
-                            lastItemCard = {
-                                LastItemCard(
-                                    width = 200.dp,
-                                    height = 160.dp
+                            DefaultLazyRow(
+                                list = it,
+                                lastItemCard = {
+                                    LastItemCard(
+                                        width = 200.dp,
+                                        height = 160.dp
+                                    )
+                                }
+                            ) { poster ->
+                                AsyncImage(
+                                    model = ImageRequest.Builder(LocalContext.current)
+                                        .data(poster.url)
+                                        .crossfade(true)
+                                        .build(),
+                                    contentDescription = null,
+                                    contentScale = ContentScale.Crop,
+                                    error = painterResource(R.drawable.ic_image),
+                                    modifier = Modifier
+                                        .height(160.dp)
+                                        .clip(RoundedCornerShape(10.dp))
                                 )
                             }
-                        ) { poster ->
-                            AsyncImage(
-                                model = ImageRequest.Builder(LocalContext.current)
-                                    .data(poster.url)
-                                    .crossfade(true)
-                                    .build(),
-                                contentDescription = null,
-                                contentScale = ContentScale.Crop,
-                                error = painterResource(R.drawable.ic_image),
-                                modifier = Modifier
-                                    .height(160.dp)
-                                    .clip(RoundedCornerShape(10.dp))
-                            )
                         }
                     }
                 }

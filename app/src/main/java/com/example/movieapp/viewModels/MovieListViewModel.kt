@@ -20,6 +20,8 @@ class MovieListViewModel @Inject constructor(
         private set
 
     fun getMovies(queryParameters: List<Pair<String, String>>) {
+        if (moviesState is MovieUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovie.getByFilter(queryParameters)
 

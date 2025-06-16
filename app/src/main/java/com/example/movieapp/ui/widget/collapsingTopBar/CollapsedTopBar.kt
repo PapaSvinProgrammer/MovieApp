@@ -71,7 +71,9 @@ private fun BoxScope.TitleContent(
     isCollapsed: Boolean
 ) {
     AnimatedVisibility(
-        modifier = Modifier.align(Alignment.Center),
+        modifier = Modifier
+            .align(Alignment.Center)
+            .padding(horizontal = 50.dp),
         visible = isCollapsed,
         enter = fadeIn(),
         exit = fadeOut()

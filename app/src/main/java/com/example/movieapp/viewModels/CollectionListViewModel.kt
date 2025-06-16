@@ -20,6 +20,8 @@ class CollectionListViewModel @Inject constructor(
         private set
 
     fun getCollections(category: String?) {
+        if (collectionState is CollectionUIState.Success) return
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (category == null)
                 getCollection.getAll()
