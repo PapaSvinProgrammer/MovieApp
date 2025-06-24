@@ -7,12 +7,9 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
-import com.example.core.domain.module.SearchItem
-import com.example.core.domain.repositories.HistoryRepository
-import com.example.core.domain.usecases.GetCollection
-import com.example.core.domain.usecases.GetMovie
-import com.example.core.domain.usecases.GetPerson
-import com.example.core.domain.usecases.GetSearchHistory
+import com.example.core.domain.model.SearchItem
+import com.example.core.data.repositories.HistoryRepository
+import com.example.core.domain.searchHistory.GetSearchHistory
 import com.example.core.utils.toHistoryEntity
 import com.example.core.utils.toSearchItemList
 import com.example.movieapp.ui.uiState.CollectionUIState

@@ -1,11 +1,9 @@
 package com.example.network.service
 
 import com.example.network.core.LIMIT_API_COUNT
-import com.example.network.core.NetworkError
-import com.example.network.core.Operation
 import com.example.network.core.safeCall
-import com.example.network.module.image.Docs
-import com.example.network.module.person.Person
+import com.example.network.model.image.Docs
+import com.example.network.model.person.Person
 import com.example.network.utils.Constants.LIMIT_FIELD
 import com.example.network.utils.Constants.PAGE_FIELD
 import com.example.network.utils.Constants.QUERY_FIELD
@@ -17,7 +15,7 @@ import jakarta.inject.Inject
 class PersonService @Inject constructor(
     private val client: HttpClient
 ) {
-    suspend fun getPersonById(personId: Int): Operation<Person, NetworkError> {
+    suspend fun getPersonById(personId: Int): Result<Person> {
         return safeCall {
             client.get("v1.4/person/$personId")
         }
@@ -26,8 +24,8 @@ class PersonService @Inject constructor(
     suspend fun searchPersonByName(
         q: String,
         page: Int
-    ): Operation<Docs<Person>, NetworkError> {
-        return safeCall {
+    ): Result<List<Person>> {
+        return safeCall<Docs<Person>> {
             client.get("v1.4/person/search") {
                 url {
                     parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
@@ -35,15 +33,15 @@ class PersonService @Inject constructor(
                     parameters.append(PAGE_FIELD, page.toString())
                 }
             }
-        }
+        }.map { it.docs }
     }
 
     suspend fun getPersonByFilter(
         queryParameters: List<Pair<String, String>>
-    ): Operation<Docs<Person>, NetworkError> {
+    ): Result<List<Person>> {
         val selectsList = listOf("id", "name", "enName", "photo", "sex", "birthday", "age")
 
-        return safeCall {
+        return safeCall<Docs<Person>> {
             client.get("v1.4/person") {
                 url {
                     parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
@@ -51,6 +49,6 @@ class PersonService @Inject constructor(
                     queryParameters.forEach { parameters.append(it.first, it.second) }
                 }
             }
-        }
+        }.map { it.docs }
     }
 }

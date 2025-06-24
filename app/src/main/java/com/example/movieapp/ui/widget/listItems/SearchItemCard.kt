@@ -28,7 +28,7 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.example.core.domain.module.SearchItem
+import com.example.core.domain.model.SearchItem
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.other.RatingText
 

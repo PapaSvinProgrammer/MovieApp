@@ -34,7 +34,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.core.utils.FormatDate
 import com.example.movieapp.R
-import com.example.network.module.person.Person
+import com.example.network.model.person.Person
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

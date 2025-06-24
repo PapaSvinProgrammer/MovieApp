@@ -12,7 +12,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
-import com.example.core.domain.module.AwardsFilterType
+import com.example.core.domain.model.AwardsFilterType
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.component.CheckRow
 

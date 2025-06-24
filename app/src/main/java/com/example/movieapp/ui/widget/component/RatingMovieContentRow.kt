@@ -6,8 +6,8 @@ import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.ui.widget.chips.RatingCard
-import com.example.network.module.totalValue.Rating
-import com.example.network.module.totalValue.Votes
+import com.example.network.model.totalValue.Rating
+import com.example.network.model.totalValue.Votes
 
 @Composable
 fun RatingMovieContentRow(

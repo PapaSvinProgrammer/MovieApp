@@ -1,6 +1,6 @@
 package com.example.movieapp.ui.uiState
 
-import com.example.network.module.image.Poster
+import com.example.network.model.image.Poster
 
 sealed interface ImageUIState {
     data object Loading: ImageUIState

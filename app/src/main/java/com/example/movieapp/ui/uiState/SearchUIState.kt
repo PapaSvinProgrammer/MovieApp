@@ -1,6 +1,6 @@
 package com.example.movieapp.ui.uiState
 
-import com.example.core.domain.module.SearchItem
+import com.example.core.domain.model.SearchItem
 
 interface SearchUIState {
     data class Success(val data: List<SearchItem>): SearchUIState

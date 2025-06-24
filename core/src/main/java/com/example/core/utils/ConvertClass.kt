@@ -1,10 +1,10 @@
 package com.example.core.utils
 
 import com.example.core.data.room.entity.HistoryEntity
-import com.example.core.domain.module.SearchItem
-import com.example.network.module.movie.Movie
-import com.example.network.module.person.Person
-import com.example.network.module.totalValue.ReleaseYears
+import com.example.core.domain.model.SearchItem
+import com.example.network.model.movie.Movie
+import com.example.network.model.person.Person
+import com.example.network.model.totalValue.ReleaseYears
 
 fun SearchItem.toHistoryEntity(): HistoryEntity {
     return HistoryEntity(

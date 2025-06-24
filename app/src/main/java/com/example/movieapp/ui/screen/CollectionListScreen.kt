@@ -25,7 +25,7 @@ import com.example.movieapp.ui.widget.listItems.CollectionListItem
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.movieapp.viewModels.CollectionListViewModel
-import com.example.network.module.image.Collection
+import com.example.network.model.image.Collection
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource

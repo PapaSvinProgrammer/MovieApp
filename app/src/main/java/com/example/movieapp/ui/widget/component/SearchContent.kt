@@ -21,7 +21,7 @@ import androidx.paging.compose.LazyPagingItems
 import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.core.data.room.entity.HistoryEntity
-import com.example.core.domain.module.SearchItem
+import com.example.core.domain.model.SearchItem
 import com.example.core.utils.toSearchItem
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn

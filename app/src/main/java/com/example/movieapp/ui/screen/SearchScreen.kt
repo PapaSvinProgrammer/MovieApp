@@ -50,8 +50,8 @@ import com.example.movieapp.ui.widget.listItems.PersonCard
 import com.example.movieapp.ui.widget.renderState.RenderCollectionStateRow
 import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.module.image.Collection
-import com.example.network.module.person.Person
+import com.example.network.model.image.Collection
+import com.example.network.model.person.Person
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource

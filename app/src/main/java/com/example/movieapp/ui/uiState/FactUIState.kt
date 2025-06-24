@@ -1,6 +1,6 @@
 package com.example.movieapp.ui.uiState
 
-import com.example.network.module.movie.Fact
+import com.example.network.model.movie.Fact
 
 sealed interface FactUIState {
     data object Loading: FactUIState

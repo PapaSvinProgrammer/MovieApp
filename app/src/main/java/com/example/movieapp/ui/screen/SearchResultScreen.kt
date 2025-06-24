@@ -24,7 +24,7 @@ import com.example.movieapp.ui.widget.listItems.MovieDetailCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.movieapp.viewModels.SearchResultViewModel
-import com.example.network.module.movie.Movie
+import com.example.network.model.movie.Movie
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

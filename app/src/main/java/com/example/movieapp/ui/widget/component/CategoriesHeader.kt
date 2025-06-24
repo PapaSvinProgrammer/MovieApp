@@ -15,7 +15,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.app.utils.categoriesFilmography
-import com.example.network.module.movie.ShortMovie
+import com.example.network.model.movie.ShortMovie
 
 @Composable
 fun CategoriesHeader(

@@ -2,7 +2,7 @@ package com.example.movieapp.viewModels
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.repositories.PreferencesRepository
+import com.example.core.data.repositories.PreferencesRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject

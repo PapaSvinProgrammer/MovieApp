@@ -33,9 +33,9 @@ import coil3.request.crossfade
 import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.other.RatingText
-import com.example.network.module.category.Country
-import com.example.network.module.category.Genre
-import com.example.network.module.movie.Movie
+import com.example.network.model.category.Country
+import com.example.network.model.category.Genre
+import com.example.network.model.movie.Movie
 
 @Composable
 fun MovieDetailCard(

@@ -74,7 +74,7 @@ import com.example.movieapp.ui.widget.renderState.RenderFactStateRow
 import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
 import com.example.movieapp.ui.widget.shimmer.ShimmerPersonContent
 import com.example.movieapp.viewModels.PersonViewModel
-import com.example.network.module.person.Person
+import com.example.network.model.person.Person
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource

@@ -20,7 +20,7 @@ import com.example.movieapp.ui.widget.component.TitleRow
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.module.image.Poster
+import com.example.network.model.image.Poster
 
 @Composable
 fun RenderImagesStateRow(

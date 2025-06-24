@@ -30,7 +30,7 @@ import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.movieapp.ui.widget.listItems.PersonListItem
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
-import com.example.network.module.person.Person
+import com.example.network.model.person.Person
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

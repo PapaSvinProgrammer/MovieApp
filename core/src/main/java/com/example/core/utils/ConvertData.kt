@@ -2,8 +2,8 @@ package com.example.core.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi
-import com.example.network.module.movie.Movie
-import com.example.network.module.totalValue.ReleaseYears
+import com.example.network.model.movie.Movie
+import com.example.network.model.totalValue.ReleaseYears
 import com.example.network.utils.Constants
 import java.math.BigDecimal
 import java.math.RoundingMode

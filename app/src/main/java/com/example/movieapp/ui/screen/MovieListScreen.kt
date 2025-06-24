@@ -33,7 +33,7 @@ import com.example.movieapp.ui.widget.listItems.MovieListCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
 import com.example.movieapp.viewModels.MovieListViewModel
-import com.example.network.module.movie.Movie
+import com.example.network.model.movie.Movie
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

@@ -25,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.example.core.domain.module.SearchItem
+import com.example.core.domain.model.SearchItem
 import com.example.movieapp.R
 
 @Composable

@@ -19,7 +19,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.widget.other.RatingText
-import com.example.network.module.movie.ShortMovie
+import com.example.network.model.movie.ShortMovie
 
 @Composable
 fun ShortMovieListItem(

@@ -9,7 +9,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.repositories.CategoryRepository
+import com.example.core.data.repositories.CategoryRepository
 import com.example.core.utils.FormatDate
 import com.example.network.utils.Constants
 import kotlinx.coroutines.Dispatchers

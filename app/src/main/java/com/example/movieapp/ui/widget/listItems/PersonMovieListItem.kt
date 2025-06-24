@@ -24,7 +24,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.R
-import com.example.network.module.person.PersonMovie
+import com.example.network.model.person.PersonMovie
 
 @Composable
 fun PersonMovieListItem(

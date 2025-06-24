@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.R
-import com.example.network.module.person.NominationAward
+import com.example.network.model.person.NominationAward
 
 @Composable
 fun AwardListGroup(

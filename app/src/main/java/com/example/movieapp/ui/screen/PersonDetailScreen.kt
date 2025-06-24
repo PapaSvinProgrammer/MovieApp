@@ -38,8 +38,8 @@ import com.example.movieapp.ui.widget.other.PrettyAgeContent
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.ui.widget.shimmer.ShimmerPersonDetail
 import com.example.movieapp.viewModels.PersonViewModel
-import com.example.network.module.person.Person
-import com.example.network.module.person.Spouse
+import com.example.network.model.person.Person
+import com.example.network.model.person.Spouse
 
 @RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)

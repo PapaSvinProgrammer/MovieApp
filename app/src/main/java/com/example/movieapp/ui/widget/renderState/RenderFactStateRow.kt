@@ -11,7 +11,7 @@ import com.example.movieapp.ui.uiState.FactUIState
 import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.FactCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerFactRow
-import com.example.network.module.movie.Fact
+import com.example.network.model.movie.Fact
 
 @Composable
 fun RenderFactStateRow(

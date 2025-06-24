@@ -8,7 +8,7 @@ import com.example.movieapp.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.listItems.MovieCard
 import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.module.movie.Movie
+import com.example.network.model.movie.Movie
 
 @Composable
 fun RenderMovieStateRow(

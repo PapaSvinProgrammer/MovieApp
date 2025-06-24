@@ -1,11 +1,9 @@
 package com.example.network.service
 
 import com.example.network.core.LIMIT_API_COUNT
-import com.example.network.core.NetworkError
-import com.example.network.core.Operation
 import com.example.network.core.safeCall
-import com.example.network.module.image.Docs
-import com.example.network.module.season.Season
+import com.example.network.model.image.Docs
+import com.example.network.model.season.Season
 import com.example.network.utils.Constants.LIMIT_FIELD
 import com.example.network.utils.Constants.MOVIE_ID_FIELD
 import com.example.network.utils.Constants.SORT_FIELD
@@ -17,8 +15,8 @@ import jakarta.inject.Inject
 class SeasonService @Inject constructor(
     private val client: HttpClient
 ){
-    suspend fun getSeasonsByMovie(movieId: Int): Operation<Docs<Season>, NetworkError> {
-        return safeCall {
+    suspend fun getSeasonsByMovie(movieId: Int): Result<List<Season>> {
+        return safeCall<Docs<Season>> {
             client.get("v1.4/season") {
                 url {
                     parameters.append(LIMIT_FIELD, LIMIT_API_COUNT)
@@ -27,6 +25,6 @@ class SeasonService @Inject constructor(
                     parameters.append(SORT_TYPE, "1")
                 }
             }
-        }
+        }.map { it.docs }
     }
 }

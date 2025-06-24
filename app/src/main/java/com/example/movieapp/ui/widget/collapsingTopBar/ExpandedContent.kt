@@ -26,7 +26,7 @@ import coil3.request.crossfade
 import com.example.core.utils.ConvertData
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.component.isCorrectUrl
-import com.example.network.module.movie.Movie
+import com.example.network.model.movie.Movie
 
 @Composable
 fun ExpandedContent(movie: Movie) {

@@ -61,8 +61,8 @@ import com.example.movieapp.ui.widget.listItems.LastItemCard
 import com.example.movieapp.ui.widget.listItems.SupportPersonCard
 import com.example.movieapp.ui.widget.other.TitleTopBarText
 import com.example.movieapp.viewModels.MovieViewModel
-import com.example.network.module.totalValue.Rating
-import com.example.network.module.totalValue.Votes
+import com.example.network.model.totalValue.Rating
+import com.example.network.model.totalValue.Votes
 import com.example.network.utils.Constants
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource

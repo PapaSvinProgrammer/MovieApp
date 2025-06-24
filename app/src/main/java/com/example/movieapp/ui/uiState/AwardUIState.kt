@@ -1,6 +1,6 @@
 package com.example.movieapp.ui.uiState
 
-import com.example.network.module.person.NominationAward
+import com.example.network.model.person.NominationAward
 
 sealed interface AwardUIState {
     data object Loading: AwardUIState

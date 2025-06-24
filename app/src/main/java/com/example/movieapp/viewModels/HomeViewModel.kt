@@ -5,8 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.usecases.GetCollection
-import com.example.core.domain.usecases.GetMovie
 import com.example.movieapp.ui.uiState.CollectionUIState
 import com.example.movieapp.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers

@@ -26,7 +26,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.R
 import com.example.movieapp.ui.widget.chips.RatingChip
-import com.example.network.module.movie.Movie
+import com.example.network.model.movie.Movie
 
 @Composable
 fun MovieCard(

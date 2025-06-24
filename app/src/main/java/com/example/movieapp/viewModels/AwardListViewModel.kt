@@ -5,9 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.module.AwardsFilterType
-import com.example.core.domain.usecases.GetAward
-import com.example.network.module.person.NominationAward
+import com.example.core.domain.model.AwardsFilterType
+import com.example.network.model.person.NominationAward
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject

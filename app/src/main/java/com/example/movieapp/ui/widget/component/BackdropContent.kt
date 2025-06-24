@@ -18,7 +18,7 @@ import coil3.request.crossfade
 import com.example.movieapp.R
 import com.example.movieapp.app.utils.FadingDefaults
 import com.example.movieapp.app.utils.fadingEdge
-import com.example.network.module.movie.Movie
+import com.example.network.model.movie.Movie
 
 @Composable
 fun BackdropContent(scrollState: LazyListState, movie: Movie) {

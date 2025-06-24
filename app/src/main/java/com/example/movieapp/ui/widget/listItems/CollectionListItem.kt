@@ -23,7 +23,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.R
-import com.example.network.module.image.Collection
+import com.example.network.model.image.Collection
 
 @Composable
 fun CollectionListItem(

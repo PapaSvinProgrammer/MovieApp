@@ -7,7 +7,7 @@ import androidx.compose.ui.unit.dp
 import com.example.movieapp.ui.widget.component.AwardListGroup
 import com.example.movieapp.ui.widget.component.BasicLoadingBox
 import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.network.module.person.NominationAward
+import com.example.network.model.person.NominationAward
 
 @Composable
 fun RenderAwardsContent(

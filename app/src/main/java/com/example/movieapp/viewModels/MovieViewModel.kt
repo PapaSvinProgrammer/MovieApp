@@ -5,15 +5,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.usecases.GetCollection
-import com.example.core.domain.usecases.GetMovie
 import com.example.movieapp.ui.uiState.CollectionUIState
 import com.example.movieapp.ui.uiState.ImageUIState
 import com.example.movieapp.ui.uiState.MovieUIState
-import com.example.network.core.NetworkError
-import com.example.network.core.Operation
-import com.example.network.module.image.Collection
-import com.example.network.module.person.PersonMovie
+import com.example.network.model.image.Collection
+import com.example.network.model.person.PersonMovie
 import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
