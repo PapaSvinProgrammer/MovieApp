@@ -13,8 +13,8 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import com.example.movieapp.app.App
-import com.example.movieapp.app.navigation.HomeRoute
-import com.example.movieapp.app.navigation.StartRoute
+import com.example.navigationroute.HomeRoute
+import com.example.navigationroute.StartRoute
 import com.example.movieapp.di.viewModel.ViewModelFactory
 import com.example.movieapp.ui.screen.MainScreen
 import com.example.movieapp.ui.theme.MovieAppTheme
@@ -36,7 +36,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MovieAppTheme(darkTheme = viewModel.darkTheme) {
-                val startRoute = if (viewModel.isEntry) HomeRoute else StartRoute
+                val startRoute = if (viewModel.isEntry) com.example.navigationroute.HomeRoute else com.example.navigationroute.StartRoute
                 val context = LocalContext.current as ComponentActivity
 
                 DisposableEffect(viewModel.darkTheme) {

@@ -50,11 +50,11 @@ fun NavigationGraph(
     navController: NavHostController,
     hazeState: HazeState,
     viewModelFactory: ViewModelFactory,
-    startRoute: NavRoute
+    startRoute: com.example.navigationroute.NavRoute
 ) {
     NavHost(
         navController = navController,
-        startDestination = MovieRoute(464963),
+        startDestination = com.example.navigationroute.MovieRoute(464963),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -80,7 +80,7 @@ fun NavigationGraph(
             )
         }
     ) {
-        composable<StartRoute> {
+        composable<com.example.navigationroute.StartRoute> {
             val viewModel: StartViewModel = viewModel(factory = viewModelFactory)
 
             StartScreen(
@@ -89,7 +89,7 @@ fun NavigationGraph(
             )
         }
 
-        composable<HomeRoute> {
+        composable<com.example.navigationroute.HomeRoute> {
             val viewModel: HomeViewModel = viewModel(factory = viewModelFactory)
 
             HomeScreen(
@@ -99,7 +99,7 @@ fun NavigationGraph(
             )
         }
 
-        composable<SearchRoute> {
+        composable<com.example.navigationroute.SearchRoute> {
             val viewModel: SearchViewModel = viewModel(factory = viewModelFactory)
 
             SearchScreen(
@@ -109,19 +109,19 @@ fun NavigationGraph(
             )
         }
 
-        composable<AccountRoute> {
+        composable<com.example.navigationroute.AccountRoute> {
             AccountScreen(
                 navController = navController
             )
         }
 
-        composable<FavoriteRoute> {
+        composable<com.example.navigationroute.FavoriteRoute> {
             FavoriteScreen(
                 navController = navController
             )
         }
 
-        composable<SettingsRoute> {
+        composable<com.example.navigationroute.SettingsRoute> {
             val viewModel: SettingsViewModel = viewModel(factory = viewModelFactory)
 
             SettingsScreen(
@@ -130,13 +130,13 @@ fun NavigationGraph(
             )
         }
 
-        composable<AboutAppRoute> {
+        composable<com.example.navigationroute.AboutAppRoute> {
             AboutAppScreen(
                 navController = navController
             )
         }
 
-        composable<SearchSettingsRoute> {
+        composable<com.example.navigationroute.SearchSettingsRoute> {
             val viewModel: SearchSettingsViewModel = viewModel(factory = viewModelFactory)
 
             SearchSettingsScreen(
@@ -145,12 +145,12 @@ fun NavigationGraph(
             )
         }
 
-        composable<SearchResultRoute>(
+        composable<com.example.navigationroute.SearchResultRoute>(
             typeMap = mapOf(
                 typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
             )
         ) {
-            val data = it.toRoute<SearchResultRoute>()
+            val data = it.toRoute<com.example.navigationroute.SearchResultRoute>()
             val viewModel: SearchResultViewModel = viewModel(factory = viewModelFactory)
 
             SearchResultScreen(
@@ -161,8 +161,8 @@ fun NavigationGraph(
             )
         }
 
-        composable<CollectionListRoute> {
-            val route = it.toRoute<CollectionListRoute>()
+        composable<com.example.navigationroute.CollectionListRoute> {
+            val route = it.toRoute<com.example.navigationroute.CollectionListRoute>()
             val viewModel: CollectionListViewModel = viewModel(factory = viewModelFactory)
 
             CollectionListScreen(
@@ -173,12 +173,12 @@ fun NavigationGraph(
             )
         }
 
-        composable<MovieListRoute>(
+        composable<com.example.navigationroute.MovieListRoute>(
             typeMap = mapOf(
                 typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
             )
         ) {
-            val route = it.toRoute<MovieListRoute>()
+            val route = it.toRoute<com.example.navigationroute.MovieListRoute>()
             val viewModel: MovieListViewModel = viewModel(factory = viewModelFactory)
 
             MovieListScreen(
@@ -190,12 +190,12 @@ fun NavigationGraph(
             )
         }
 
-        composable<HomeDetailListRoute>(
+        composable<com.example.navigationroute.HomeDetailListRoute>(
             typeMap = mapOf(
                 typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
             )
         ) {
-            val route = it.toRoute<HomeDetailListRoute>()
+            val route = it.toRoute<com.example.navigationroute.HomeDetailListRoute>()
             val viewModel: MovieListViewModel = viewModel(factory = viewModelFactory)
 
             HomeDetailListScreen(
@@ -207,12 +207,12 @@ fun NavigationGraph(
             )
         }
 
-        composable<PersonPodiumListRoute>(
+        composable<com.example.navigationroute.PersonPodiumListRoute>(
             typeMap = mapOf(
                 typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
             )
         ) {
-            val route = it.toRoute<PersonPodiumListRoute>()
+            val route = it.toRoute<com.example.navigationroute.PersonPodiumListRoute>()
             val viewMode: PersonListViewModel = viewModel(factory = viewModelFactory)
 
             PersonPodiumListScreen(
@@ -224,8 +224,8 @@ fun NavigationGraph(
             )
         }
 
-        composable<PersonRoute> {
-            val route = it.toRoute<PersonRoute>()
+        composable<com.example.navigationroute.PersonRoute> {
+            val route = it.toRoute<com.example.navigationroute.PersonRoute>()
             val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
 
             PersonScreen(
@@ -236,8 +236,8 @@ fun NavigationGraph(
             )
         }
 
-        composable<PersonDetailRoute> {
-            val route = it.toRoute<PersonDetailRoute>()
+        composable<com.example.navigationroute.PersonDetailRoute> {
+            val route = it.toRoute<com.example.navigationroute.PersonDetailRoute>()
             val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
 
             PersonDetailScreen(
@@ -247,8 +247,8 @@ fun NavigationGraph(
             )
         }
 
-        composable<AwardListRoute> {
-            val route = it.toRoute<AwardListRoute>()
+        composable<com.example.navigationroute.AwardListRoute> {
+            val route = it.toRoute<com.example.navigationroute.AwardListRoute>()
             val viewModel: AwardListViewModel = viewModel(factory = viewModelFactory)
 
             AwardListScreen(
@@ -260,8 +260,8 @@ fun NavigationGraph(
             )
         }
 
-        composable<MovieRoute> {
-            val route = it.toRoute<MovieRoute>()
+        composable<com.example.navigationroute.MovieRoute> {
+            val route = it.toRoute<com.example.navigationroute.MovieRoute>()
             val viewModel: MovieViewModel = viewModel(factory = viewModelFactory)
 
             MovieScreen(

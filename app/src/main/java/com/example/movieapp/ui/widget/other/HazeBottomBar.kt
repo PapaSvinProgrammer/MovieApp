@@ -56,21 +56,21 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
-import com.example.movieapp.app.navigation.AccountRoute
+import com.example.navigationroute.AccountRoute
 import com.example.movieapp.app.navigation.BottomBarTab
-import com.example.movieapp.app.navigation.FavoriteRoute
-import com.example.movieapp.app.navigation.HomeRoute
-import com.example.movieapp.app.navigation.SearchRoute
+import com.example.navigationroute.FavoriteRoute
+import com.example.navigationroute.HomeRoute
+import com.example.navigationroute.SearchRoute
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeEffect
 import dev.chrisbanes.haze.materials.ExperimentalHazeMaterialsApi
 import dev.chrisbanes.haze.materials.HazeMaterials
 
 private val routeList = listOf(
-    HomeRoute::class.java.canonicalName,
-    FavoriteRoute::class.java.canonicalName,
-    SearchRoute::class.java.canonicalName,
-    AccountRoute::class.java.canonicalName
+    com.example.navigationroute.HomeRoute::class.java.canonicalName,
+    com.example.navigationroute.FavoriteRoute::class.java.canonicalName,
+    com.example.navigationroute.SearchRoute::class.java.canonicalName,
+    com.example.navigationroute.AccountRoute::class.java.canonicalName
 )
 
 @OptIn(ExperimentalHazeMaterialsApi::class)
