@@ -1,4 +1,4 @@
-package com.example.homescreen.presentation
+package com.example.home.presentation
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf

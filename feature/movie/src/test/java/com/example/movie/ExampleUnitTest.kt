@@ -1,4 +1,4 @@
-package com.example.homescreen
+package com.example.movie
 
 import org.junit.Test
 

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.favoritescreen"
+    namespace = "com.example.favorite"
     compileSdk = 35
 
     defaultConfig {

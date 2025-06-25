@@ -1,4 +1,4 @@
-package com.example.moviescreen
+package com.example.movielist
 
 import org.junit.Test
 

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.movielistscreen"
+    namespace = "com.example.movielist"
     compileSdk = 35
 
     defaultConfig {

@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.moviescreen"
+    namespace = "com.example.movie"
     compileSdk = 35
 
     defaultConfig {

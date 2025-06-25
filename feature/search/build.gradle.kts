@@ -4,7 +4,7 @@ plugins {
 }
 
 android {
-    namespace = "com.example.searchscreen"
+    namespace = "com.example.search"
     compileSdk = 35
 
     defaultConfig {

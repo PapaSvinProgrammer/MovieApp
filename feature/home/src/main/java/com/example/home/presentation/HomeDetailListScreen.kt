@@ -1,4 +1,4 @@
-package com.example.homescreen.presentation
+package com.example.home.presentation
 
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding

@@ -1,4 +1,4 @@
-package com.example.searchscreen
+package com.example.favorite
 
 import org.junit.Test
 

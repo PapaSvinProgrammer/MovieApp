@@ -1,22 +1,22 @@
-package com.example.homescreen.domain
+package com.example.home.domain
 
 import com.example.core.data.repositories.MovieRepository
 import com.example.network.model.movie.Movie
 import com.example.network.utils.Constants
 import javax.inject.Inject
 
-class GetMoviesByCollection @Inject constructor(
+class GetMoviesByCompany @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
     suspend fun execute(
         name: String,
         page: Int = 1
-    ): Result<List<Movie>> {
+    ): Result<List<Movie>>{
         val queryParameters = listOf(
             Constants.PAGE_FIELD to page.toString(),
             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC,
-            Constants.LISTS_FIELD to name
+            Constants.NETWORK_ITEMS_NAME to name
         )
 
         return movieRepository.getMovieByFilter(queryParameters)
