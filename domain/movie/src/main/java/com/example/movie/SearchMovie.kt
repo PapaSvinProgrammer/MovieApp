@@ -1,8 +1,8 @@
 package com.example.movie
 
-import com.example.core.data.repositories.MovieRepository
-import com.example.network.core.ClientException
-import com.example.network.model.movie.Movie
+import com.example.common.ClientException
+import com.example.data.external.MovieRepository
+import com.example.model.movie.Movie
 import javax.inject.Inject
 
 class SearchMovie @Inject constructor(

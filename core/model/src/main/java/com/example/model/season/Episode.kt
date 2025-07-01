@@ -1,8 +1,7 @@
-package com.example.network.model.season
+package com.example.model.season
 
-import kotlinx.serialization.Serializable
+import com.example.model.image.Poster
 
-@Serializable
 data class Episode(
     val number: Int?,
     val name: String?,
@@ -10,5 +9,5 @@ data class Episode(
     val airDate: String?,
     val description: String?,
     val enDescription: String?,
-    val still: Still?,
+    val still: Poster?,
 )

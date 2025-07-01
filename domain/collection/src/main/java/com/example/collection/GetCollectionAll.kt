@@ -1,9 +1,9 @@
 package com.example.collection
 
-import com.example.core.data.repositories.CollectionRepository
-import com.example.network.model.image.Collection
-import com.example.network.utils.Constants
-import com.example.network.utils.Constants.PAGE_FIELD
+import com.example.common.Constants.PAGE_FIELD
+import com.example.common.Constants.SLUG_FIELD
+import com.example.data.external.CollectionRepository
+import com.example.model.image.Collection
 import javax.inject.Inject
 
 class GetCollectionAll @Inject constructor(
@@ -12,7 +12,7 @@ class GetCollectionAll @Inject constructor(
     suspend fun execute(page: Int = 1): Result<List<Collection>> {
         val queryParameters = listOf(
             PAGE_FIELD to page.toString(),
-            Constants.SLUG_FIELD to "!hd"
+            SLUG_FIELD to "!hd"
         )
 
         return collectionRepository.getCollections(queryParameters)

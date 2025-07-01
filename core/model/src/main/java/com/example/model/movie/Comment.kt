@@ -1,8 +1,5 @@
-package com.example.network.model.movie
+package com.example.model.movie
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Comment(
     val id: Int,
     val movieId: Int,

@@ -12,10 +12,13 @@
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/core" />
+            <option value="$PROJECT_DIR$/core/common" />
             <option value="$PROJECT_DIR$/core/data" />
             <option value="$PROJECT_DIR$/core/model" />
             <option value="$PROJECT_DIR$/core/navigationRoute" />
             <option value="$PROJECT_DIR$/core/network" />
+            <option value="$PROJECT_DIR$/core/room" />
+            <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/utils" />
             <option value="$PROJECT_DIR$/domain" />
             <option value="$PROJECT_DIR$/domain/collection" />
@@ -28,6 +31,7 @@
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/aboutApp" />
             <option value="$PROJECT_DIR$/feature/account" />
+            <option value="$PROJECT_DIR$/feature/awardList" />
             <option value="$PROJECT_DIR$/feature/awardListScreen" />
             <option value="$PROJECT_DIR$/feature/collectionList" />
             <option value="$PROJECT_DIR$/feature/favorite" />
@@ -35,10 +39,12 @@
             <option value="$PROJECT_DIR$/feature/login" />
             <option value="$PROJECT_DIR$/feature/movie" />
             <option value="$PROJECT_DIR$/feature/movieList" />
+            <option value="$PROJECT_DIR$/feature/movieListViewModel" />
             <option value="$PROJECT_DIR$/feature/person" />
+            <option value="$PROJECT_DIR$/feature/personListViewModel" />
             <option value="$PROJECT_DIR$/feature/personPodium" />
             <option value="$PROJECT_DIR$/feature/personScreen" />
-            <option value="$PROJECT_DIR$/feature/searchScreen" />
+            <option value="$PROJECT_DIR$/feature/search" />
             <option value="$PROJECT_DIR$/feature/settings" />
           </set>
         </option>

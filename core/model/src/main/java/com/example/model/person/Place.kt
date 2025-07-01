@@ -1,8 +1,5 @@
-package com.example.network.model.person
+package com.example.model.person
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Place(
     val value: String
 )

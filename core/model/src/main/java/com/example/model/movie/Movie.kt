@@ -1,19 +1,16 @@
-package com.example.network.model.movie
+package com.example.model.movie
 
-import com.example.network.model.category.Country
-import com.example.network.model.category.Genre
-import com.example.network.model.image.Poster
-import com.example.network.model.person.PersonMovie
-import com.example.network.model.season.Season
-import com.example.network.model.totalValue.Audience
-import com.example.network.model.totalValue.Budget
-import com.example.network.model.totalValue.Premiere
-import com.example.network.model.totalValue.Rating
-import com.example.network.model.totalValue.ReleaseYears
-import com.example.network.model.totalValue.Votes
-import kotlinx.serialization.Serializable
+import com.example.model.category.ItemName
+import com.example.model.image.Poster
+import com.example.model.person.PersonMovie
+import com.example.model.season.Season
+import com.example.model.totalValue.Audience
+import com.example.model.totalValue.Budget
+import com.example.model.totalValue.Premiere
+import com.example.model.totalValue.Rating
+import com.example.model.totalValue.ReleaseYears
+import com.example.model.totalValue.Votes
 
-@Serializable
 data class Movie(
     val id: Int,
     val type: String? = null,
@@ -28,10 +25,10 @@ data class Movie(
     val budget: Budget? = null,
     val poster: Poster? = null,
     val facts: List<Fact> = listOf(),
-    val genres: List<Genre> = listOf(),
-    val countries: List<Country> = listOf(),
+    val genres: List<ItemName> = listOf(),
+    val countries: List<ItemName> = listOf(),
     val persons: List<PersonMovie> = listOf(),
-    val watchability: Watchability = Watchability(),
+    val watchability: Watchability = Watchability(listOf()),
     val alternativeName: String? = null,
     val backdrop: Poster? = null,
     val movieLength: Int? = null,

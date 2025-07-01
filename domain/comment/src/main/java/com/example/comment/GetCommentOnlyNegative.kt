@@ -1,11 +1,11 @@
 package com.example.comment
 
-import com.example.core.data.repositories.CommentRepository
-import com.example.network.model.movie.Comment
-import com.example.network.utils.Constants.MOVIE_ID_FIELD
-import com.example.network.utils.Constants.NEGATIVE_VALUE
-import com.example.network.utils.Constants.PAGE_FIELD
-import com.example.network.utils.Constants.TYPE_FIELD
+import com.example.common.Constants.MOVIE_ID_FIELD
+import com.example.common.Constants.NEGATIVE_VALUE
+import com.example.common.Constants.PAGE_FIELD
+import com.example.common.Constants.TYPE_FIELD
+import com.example.data.external.CommentRepository
+import com.example.model.movie.Comment
 import javax.inject.Inject
 
 class GetCommentOnlyNegative @Inject constructor(

@@ -1,7 +1,7 @@
 package com.example.movie
 
-import com.example.core.data.repositories.MovieRepository
-import com.example.network.model.image.Poster
+import com.example.data.external.MovieRepository
+import com.example.model.image.Poster
 import javax.inject.Inject
 
 class GetMoviesImages @Inject constructor(

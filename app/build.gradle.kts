@@ -3,6 +3,7 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    id("com.google.devtools.ksp")
     id("kotlin-kapt")
 }
 
@@ -42,12 +43,14 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:navigationRoute"))
+    implementation("androidx.datastore:datastore-preferences:1.1.7")
     implementation(libs.ktor.client.core)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.compose)
     implementation(libs.haze)
     implementation(libs.haze.materials)
-    implementation(libs.androidx.navigation.compose)
+    implementation(libs.androidx.navigation)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

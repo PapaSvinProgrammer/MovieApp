@@ -1,12 +1,9 @@
-package com.example.network.model.person
+package com.example.model.person
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Spouse(
     val id: Int,
-    val name: String? = null,
-    val children: Int? = null,
-    val divorced: Boolean? = null,
-    val relation: String? = null
+    val name: String?,
+    val children: Int?,
+    val divorced: Boolean?,
+    val relation: String?
 )

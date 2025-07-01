@@ -1,6 +1,6 @@
 package com.example.searchhistory
 
-import com.example.core.data.repositories.HistoryRepository
+import com.example.data.external.HistoryRepository
 import javax.inject.Inject
 
 class DeleteSearchHistory @Inject constructor(

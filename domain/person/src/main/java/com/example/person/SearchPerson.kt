@@ -1,8 +1,8 @@
 package com.example.person
 
-import com.example.core.data.repositories.PersonRepository
-import com.example.network.core.ClientException
-import com.example.network.model.person.Person
+import com.example.common.ClientException
+import com.example.data.external.PersonRepository
+import com.example.model.person.Person
 import javax.inject.Inject
 
 class SearchPerson @Inject constructor(

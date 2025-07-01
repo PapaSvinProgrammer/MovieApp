@@ -1,13 +1,13 @@
 package com.example.comment
 
 import androidx.annotation.IntRange
-import com.example.core.data.repositories.CommentRepository
-import com.example.network.model.movie.Comment
-import com.example.network.utils.Constants.DATE_FIELD
-import com.example.network.utils.Constants.MOVIE_ID_FIELD
-import com.example.network.utils.Constants.PAGE_FIELD
-import com.example.network.utils.Constants.SORT_FIELD
-import com.example.network.utils.Constants.SORT_TYPE
+import com.example.common.Constants.DATE_FIELD
+import com.example.common.Constants.MOVIE_ID_FIELD
+import com.example.common.Constants.PAGE_FIELD
+import com.example.common.Constants.SORT_FIELD
+import com.example.common.Constants.SORT_TYPE
+import com.example.data.external.CommentRepository
+import com.example.model.movie.Comment
 import javax.inject.Inject
 
 class GetCommentByDate @Inject constructor(

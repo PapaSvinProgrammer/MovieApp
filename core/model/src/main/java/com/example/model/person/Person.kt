@@ -1,25 +1,23 @@
-package com.example.network.model.person
+package com.example.model.person
 
-import com.example.network.model.movie.Fact
-import com.example.network.model.movie.ShortMovie
-import kotlinx.serialization.Serializable
+import com.example.model.movie.Fact
+import com.example.model.movie.ShortMovie
 
-@Serializable
 data class Person(
     val id: Int = 0,
-    val name: String? = null,
-    val enName: String? = null,
-    val photo: String? = null,
-    val sex: String? = null,
-    val growth: Int? = null,
-    val birthday: String? = null,
-    val death: String? = null,
-    val age: Int? = null,
-    val countAwards: Int? = null,
-    val spouses: List<Spouse> = listOf(),
-    val birthPlace: List<Place> = listOf(),
-    val deathPlace: List<Place> = listOf(),
-    val professions: List<Profession> = listOf(),
-    val facts: List<Fact> = listOf(),
-    val movies: List<ShortMovie> = listOf()
+    val name: String?,
+    val enName: String?,
+    val photo: String?,
+    val sex: String?,
+    val growth: Int?,
+    val birthday: String?,
+    val death: String?,
+    val age: Int?,
+    val countAwards: Int?,
+    val spouses: List<Spouse>,
+    val birthPlace: List<Place>,
+    val deathPlace: List<Place>,
+    val professions: List<Profession>,
+    val facts: List<Fact>,
+    val movies: List<ShortMovie>
 )

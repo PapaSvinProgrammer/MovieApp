@@ -9,17 +9,6 @@ import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.graphicsLayer
 import com.example.movieapp.R
 
-fun Modifier.fadingEdge(brush: Brush) = this
-    .graphicsLayer(compositingStrategy = CompositingStrategy.Offscreen)
-    .drawWithContent {
-        drawContent()
-        drawRect(brush = brush, blendMode = BlendMode.DstIn)
-    }
-
-object FadingDefaults {
-    val bottomFade = Brush.verticalGradient(0.7f to Color.Red, 1f to Color.Transparent)
-}
-
 data class ApplicationIcon(
     val index: Int,
     val image: Int,
@@ -55,11 +44,4 @@ val iconsApplication = listOf(
         image = R.drawable.ic_logo4,
         origColor = true
     )
-)
-
-val categoriesFilmography = mapOf(
-    "actor" to "Актер",
-    "producer" to "Продюсер",
-    "cameo" to "Играет самого себя",
-    "uncredited" to "Не указан в титрах"
 )

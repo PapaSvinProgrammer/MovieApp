@@ -1,7 +1,7 @@
 package com.example.person
 
-import com.example.core.data.repositories.PersonRepository
-import com.example.network.model.person.Person
+import com.example.data.external.PersonRepository
+import com.example.model.person.Person
 import javax.inject.Inject
 
 class GetPersonById @Inject constructor(

@@ -1,12 +1,12 @@
 package com.example.studio
 
-import com.example.core.data.repositories.StudioRepository
-import com.example.network.model.movie.Studio
-import com.example.network.utils.Constants.PAGE_FIELD
-import com.example.network.utils.Constants.SORT_DESC
-import com.example.network.utils.Constants.SORT_FIELD
-import com.example.network.utils.Constants.SORT_TYPE
-import com.example.network.utils.Constants.TITLE_FIELD
+import com.example.common.Constants.PAGE_FIELD
+import com.example.common.Constants.SORT_DESC
+import com.example.common.Constants.SORT_FIELD
+import com.example.common.Constants.SORT_TYPE
+import com.example.common.Constants.TITLE_FIELD
+import com.example.data.external.StudioRepository
+import com.example.model.movie.Studio
 import javax.inject.Inject
 
 class GetStudiesByTitle @Inject constructor(

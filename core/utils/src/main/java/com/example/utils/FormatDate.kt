@@ -1,4 +1,4 @@
-package com.example.core.utils
+package com.example.utils
 
 import android.os.Build
 import androidx.annotation.RequiresApi

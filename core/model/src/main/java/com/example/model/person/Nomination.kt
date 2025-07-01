@@ -1,8 +1,5 @@
-package com.example.network.model.person
+package com.example.model.person
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Nomination(
     val award: Award?,
     val title: String?

@@ -1,9 +1,6 @@
-package com.example.network.model.totalValue
+package com.example.model.totalValue
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class ReleaseYears(
-    val start: Int? = null,
-    val end: Int? = null
+    val start: Int?,
+    val end: Int?
 )

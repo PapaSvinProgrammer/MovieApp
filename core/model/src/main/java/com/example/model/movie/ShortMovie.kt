@@ -1,13 +1,10 @@
-package com.example.network.model.movie
+package com.example.model.movie
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class ShortMovie(
-    val id: Int = 0,
-    val name: String? = null,
-    val alternativeName: String? = null,
-    val rating: Float? = null,
-    val description: String? = null,
-    val enProfession: String? = null
+    val id: Int,
+    val name: String?,
+    val alternativeName: String?,
+    val rating: Float?,
+    val description: String?,
+    val enProfession: String?
 )

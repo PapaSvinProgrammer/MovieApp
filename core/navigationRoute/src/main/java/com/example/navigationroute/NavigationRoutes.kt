@@ -1,5 +1,7 @@
 package com.example.navigationroute
 
+import kotlinx.serialization.Serializable
+
 sealed interface NavRoute
 
 @Serializable

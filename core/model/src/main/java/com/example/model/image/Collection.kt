@@ -1,8 +1,5 @@
-package com.example.network.model.image
+package com.example.model.image
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Collection(
     val slug: String?,
     val category: String?,

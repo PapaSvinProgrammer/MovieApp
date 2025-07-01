@@ -1,11 +1,9 @@
-package com.example.network.model.category
+package com.example.model.category
 
-import com.example.network.model.image.Poster
-import kotlinx.serialization.Serializable
+import com.example.model.image.Poster
 
-@Serializable
 data class WatchabilityItem(
-    val name: String? = null,
-    val logo: Poster? = null,
-    val url: String? = null,
+    val name: String?,
+    val logo: Poster?,
+    val url: String?,
 )

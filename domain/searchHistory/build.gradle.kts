@@ -33,7 +33,11 @@ android {
 }
 
 dependencies {
-
+    implementation(project(":core:common"))
+    implementation(project(":core:room"))
+    api(project(":core:data"))
+    implementation(libs.dagger)
+    implementation(libs.androidx.room.paging)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

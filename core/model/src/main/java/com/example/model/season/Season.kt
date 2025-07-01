@@ -1,14 +1,11 @@
-package com.example.network.model.season
+package com.example.model.season
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Season(
-    val movieId: Int = 0,
-    val number: Int = 0,
-    val name: String? = null,
-    val enName: String? = null,
-    val episodesCount: Int? = null,
-    val airDate: String? = null,
-    val episodes: List<Episode> = listOf()
+    val movieId: Int,
+    val number: Int,
+    val name: String?,
+    val enName: String?,
+    val episodesCount: Int?,
+    val airDate: String?,
+    val episodes: List<Episode>
 )

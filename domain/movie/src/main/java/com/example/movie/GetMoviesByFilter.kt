@@ -1,7 +1,7 @@
 package com.example.movie
 
-import com.example.core.data.repositories.MovieRepository
-import com.example.network.model.movie.Movie
+import com.example.data.external.MovieRepository
+import com.example.model.movie.Movie
 import javax.inject.Inject
 
 class GetMoviesByFilter @Inject constructor(

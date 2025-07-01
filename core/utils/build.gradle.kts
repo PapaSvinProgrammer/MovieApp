@@ -33,7 +33,9 @@ android {
 }
 
 dependencies {
-
+    api(project(":core:model"))
+    api(project(":core:common"))
+    implementation(project(":core:room"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

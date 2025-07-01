@@ -1,9 +1,9 @@
 package com.example.collection
 
-import com.example.core.data.repositories.CollectionRepository
-import com.example.network.model.image.Collection
-import com.example.network.utils.Constants.CATEGORY_FIELD
-import com.example.network.utils.Constants.PAGE_FIELD
+import com.example.common.Constants.CATEGORY_FIELD
+import com.example.common.Constants.PAGE_FIELD
+import com.example.data.external.CollectionRepository
+import com.example.model.image.Collection
 import javax.inject.Inject
 
 class GetCollectionByCategory @Inject constructor(

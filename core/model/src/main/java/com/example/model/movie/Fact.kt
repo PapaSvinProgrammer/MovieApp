@@ -1,10 +1,7 @@
-package com.example.network.model.movie
+package com.example.model.movie
 
-import kotlinx.serialization.Serializable
-
-@Serializable
 data class Fact(
     val value: String,
-    val type: String? = null,
-    val spoiler: Boolean? = null,
+    val type: String?,
+    val spoiler: Boolean?,
 )

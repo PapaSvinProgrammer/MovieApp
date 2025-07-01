@@ -1,9 +1,7 @@
-package com.example.network.model.movie
+package com.example.model.movie
 
-import com.example.network.model.category.WatchabilityItem
-import kotlinx.serialization.Serializable
+import com.example.model.category.WatchabilityItem
 
-@Serializable
 data class Watchability(
-    val items: List<WatchabilityItem> = listOf()
+    val items: List<WatchabilityItem>
 )

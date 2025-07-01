@@ -12,35 +12,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
 import com.example.movieapp.app.utils.CustomNavType
 import com.example.movieapp.di.viewModel.ViewModelFactory
-import com.example.movieapp.ui.screen.AboutAppScreen
-import com.example.movieapp.ui.screen.AccountScreen
-import com.example.movieapp.ui.screen.AwardListScreen
-import com.example.movieapp.ui.screen.CollectionListScreen
-import com.example.movieapp.ui.screen.FavoriteScreen
-import com.example.movieapp.ui.screen.HomeDetailListScreen
-import com.example.movieapp.ui.screen.HomeScreen
-import com.example.movieapp.ui.screen.MovieListScreen
-import com.example.movieapp.ui.screen.MovieScreen
-import com.example.movieapp.ui.screen.PersonDetailScreen
-import com.example.movieapp.ui.screen.PersonPodiumListScreen
-import com.example.movieapp.ui.screen.PersonScreen
-import com.example.movieapp.ui.screen.SearchResultScreen
-import com.example.movieapp.ui.screen.SearchScreen
-import com.example.movieapp.ui.screen.SearchSettingsScreen
-import com.example.movieapp.ui.screen.SettingsScreen
-import com.example.movieapp.ui.screen.StartScreen
-import com.example.movieapp.viewModels.AwardListViewModel
-import com.example.movieapp.viewModels.PersonListViewModel
-import com.example.movieapp.viewModels.CollectionListViewModel
-import com.example.movieapp.viewModels.HomeViewModel
-import com.example.movieapp.viewModels.MovieListViewModel
-import com.example.movieapp.viewModels.MovieViewModel
-import com.example.movieapp.viewModels.PersonViewModel
-import com.example.movieapp.viewModels.SearchResultViewModel
-import com.example.movieapp.viewModels.SearchSettingsViewModel
-import com.example.movieapp.viewModels.SearchViewModel
-import com.example.movieapp.viewModels.SettingsViewModel
-import com.example.movieapp.viewModels.StartViewModel
+import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.NavRoute
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
@@ -50,11 +23,11 @@ fun NavigationGraph(
     navController: NavHostController,
     hazeState: HazeState,
     viewModelFactory: ViewModelFactory,
-    startRoute: com.example.navigationroute.NavRoute
+    startRoute: NavRoute
 ) {
     NavHost(
         navController = navController,
-        startDestination = com.example.navigationroute.MovieRoute(464963),
+        startDestination = MovieRoute(464963),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -81,7 +54,7 @@ fun NavigationGraph(
         }
     ) {
         composable<com.example.navigationroute.StartRoute> {
-            val viewModel: StartViewModel = viewModel(factory = viewModelFactory)
+            //val viewModel: StartViewModel = viewModel(factory = viewModelFactory)
 
             StartScreen(
                 navController = navController,

@@ -1,9 +1,7 @@
-package com.example.network.model.person
+package com.example.model.person
 
-import com.example.network.model.movie.ShortMovie
-import kotlinx.serialization.Serializable
+import com.example.model.movie.ShortMovie
 
-@Serializable
 data class NominationAward(
     val nomination: Nomination?,
     val winning: Boolean?,
