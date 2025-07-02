@@ -10,11 +10,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.movie.Movie
+import com.example.ui.R
 
 @Composable
 fun BackdropContent(scrollState: LazyListState, movie: Movie) {
@@ -34,7 +36,7 @@ fun BackdropContent(scrollState: LazyListState, movie: Movie) {
                 .data(movie.backdrop?.url)
                 .crossfade(true)
                 .build(),
-            //error = painterResource(R.drawable.ic_movie),
+            error = painterResource(R.drawable.ic_movie),
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier

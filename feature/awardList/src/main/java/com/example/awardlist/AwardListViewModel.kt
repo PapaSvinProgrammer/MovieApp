@@ -1,18 +1,25 @@
-package com.example.movieapp.viewModels
+package com.example.awardlist
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.core.domain.model.AwardsFilterType
-import com.example.network.model.person.NominationAward
+import com.example.awards.GetMovieAwardsByDate
+import com.example.awards.GetMovieAwardsByTitle
+import com.example.awards.GetPersonAwardsByDate
+import com.example.awards.GetPersonAwardsByTitle
+import com.example.model.person.NominationAward
+import com.example.ui.widget.bottomSheets.AwardsFilterType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class AwardListViewModel @Inject constructor(
-    private val getAward: GetAward
+    private val getMovieAwardsByDate: GetMovieAwardsByDate,
+    private val getMovieAwardsByTitle: GetMovieAwardsByTitle,
+    private val getPersonAwardsByDate: GetPersonAwardsByDate,
+    private val getPersonAwardsByTitle: GetPersonAwardsByTitle
 ): ViewModel() {
     private var page = 1
     private var awards by mutableStateOf<List<NominationAward>>(listOf())
@@ -55,16 +62,16 @@ class AwardListViewModel @Inject constructor(
     private fun getAwardsByTitle(id: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (isMovie)
-                    getAward.getMovieAwardsByTitle(id)
+                    getMovieAwardsByTitle.execute(id)
                 else
-                    getAward.getPersonAwardsByTitle(id)
+                    getPersonAwardsByTitle.execute(id)
 
             res.onSuccess {
-                awards = it.docs
-                groupAwards = it.docs.groupBy { award ->
+                awards = it
+                groupAwards = it.groupBy { award ->
                     award.nomination?.award?.title + ", " + award.nomination?.award?.year
                 }.toList()
-            }.onError {
+            }.onFailure {
 
             }
         }
@@ -73,17 +80,15 @@ class AwardListViewModel @Inject constructor(
     private fun getAwardsByDate(id: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (isMovie)
-                getAward.getMovieAwardsByDate(id)
+                getMovieAwardsByDate.execute(id)
             else
-                getAward.getPersonAwardsByDate(id)
+                getPersonAwardsByDate.execute(id)
 
             res.onSuccess { data ->
-                awards = data.docs
-                groupAwards = data.docs.groupBy {
+                awards = data
+                groupAwards = data.groupBy {
                     it.nomination?.award?.title + ", " + it.nomination?.award?.year
                 }.toList()
-            }.onError {
-
             }
         }
     }
@@ -91,20 +96,18 @@ class AwardListViewModel @Inject constructor(
     private fun loadMoreByTitle(id: Int, page: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (isMovie)
-                    getAward.getMovieAwardsByTitle(id, page)
+                    getMovieAwardsByTitle.execute(id, page)
                 else
-                    getAward.getPersonAwardsByTitle(id, page)
+                    getPersonAwardsByTitle.execute(id, page)
 
             res.onSuccess { data ->
                 val temp = awards.toMutableList()
-                temp.addAll(data.docs)
+                temp.addAll(data)
                 awards = temp
 
                 groupAwards = temp.groupBy {
                     it.nomination?.award?.title + ", " + it.nomination?.award?.year
                 }.toList()
-            }.onError {
-
             }
         }
     }
@@ -112,20 +115,18 @@ class AwardListViewModel @Inject constructor(
     private fun loadMoreByDate(id: Int, page: Int, isMovie: Boolean) {
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (isMovie)
-                getAward.getMovieAwardsByDate(id, page)
+                getMovieAwardsByDate.execute(id, page)
             else
-                getAward.getPersonAwardsByDate(id, page)
+                getPersonAwardsByDate.execute(id, page)
 
             res.onSuccess { data ->
                 val temp = awards.toMutableList()
-                temp.addAll(data.docs)
+                temp.addAll(data)
                 awards = temp
 
                 groupAwards = temp.groupBy {
                     it.nomination?.award?.title + ", " + it.nomination?.award?.year
                 }.toList()
-            }.onError {
-
             }
         }
     }

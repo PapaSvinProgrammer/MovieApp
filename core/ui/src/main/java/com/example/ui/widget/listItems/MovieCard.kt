@@ -25,6 +25,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.movie.Movie
+import com.example.ui.R
 import com.example.ui.widget.chips.RatingChip
 
 @Composable
@@ -47,7 +48,7 @@ fun MovieCard(
                     .data(movie.poster?.url)
                     .crossfade(true)
                     .build(),
-                //error = painterResource(R.drawable.ic_movie),
+                error = painterResource(R.drawable.ic_movie),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

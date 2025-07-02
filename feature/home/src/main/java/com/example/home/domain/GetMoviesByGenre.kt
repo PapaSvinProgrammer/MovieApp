@@ -1,8 +1,8 @@
 package com.example.home.domain
 
-import com.example.core.data.repositories.MovieRepository
-import com.example.network.model.movie.Movie
-import com.example.network.utils.Constants
+import com.example.common.Constants
+import com.example.data.external.MovieRepository
+import com.example.model.movie.Movie
 import javax.inject.Inject
 
 class GetMoviesByGenre @Inject constructor(

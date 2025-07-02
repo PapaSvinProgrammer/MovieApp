@@ -2,12 +2,13 @@ package com.example.ui.widget.renderState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import com.example.model.image.Collection
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.CollectionCard
 import com.example.ui.widget.listItems.LastItemCard
-import com.example.movieapp.ui.widget.shimmer.ShimmerCollectionRow
+import com.example.ui.widget.shimmer.ShimmerCollectionRow
 
 @Composable
 fun RenderCollectionStateRow(

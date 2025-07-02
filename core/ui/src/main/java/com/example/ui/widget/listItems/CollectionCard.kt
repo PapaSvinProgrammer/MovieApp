@@ -45,7 +45,7 @@ fun CollectionCard(
                     .data(image)
                     .crossfade(true)
                     .build(),
-                //error = painterResource(R.drawable.ic_image),
+                error = painterResource(R.drawable.ic_image),
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier

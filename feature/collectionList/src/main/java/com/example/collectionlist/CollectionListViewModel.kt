@@ -1,17 +1,20 @@
-package com.example.movieapp.viewModels
+package com.example.collectionlist
 
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.ui.uiState.CollectionUIState
+import com.example.collection.GetCollectionAll
+import com.example.collection.GetCollectionByCategory
+import com.example.ui.uiState.CollectionUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class CollectionListViewModel @Inject constructor(
-    private val getCollection: GetCollection
+    private val getCollectionAll: GetCollectionAll,
+    private val getCollectionByCategory: GetCollectionByCategory
 ): ViewModel() {
     private var page = 1
 
@@ -23,14 +26,12 @@ class CollectionListViewModel @Inject constructor(
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (category == null)
-                getCollection.getAll()
+                getCollectionAll.execute()
             else
-                getCollection.getByCategory(category)
+                getCollectionByCategory.execute(category)
 
             res.onSuccess {
-                collectionState = CollectionUIState.Success(it.docs)
-            }.onError {
-
+                collectionState = CollectionUIState.Success(it)
             }
         }
     }
@@ -39,17 +40,20 @@ class CollectionListViewModel @Inject constructor(
         page++
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = if (category == null)
-                getCollection.getAll(page)
-            else
-                getCollection.getByCategory(category = category, page = page)
+            val res = if (category == null) {
+                getCollectionAll.execute(page)
+            }
+            else {
+                getCollectionByCategory.execute(
+                    category = category,
+                    page = page
+                )
+            }
 
             res.onSuccess {
                 val temp = (collectionState as CollectionUIState.Success).data.toMutableList()
-                temp.addAll(it.docs)
+                temp.addAll(it)
                 collectionState = CollectionUIState.Success(temp)
-            }.onError {
-
             }
         }
     }

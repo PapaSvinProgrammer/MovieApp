@@ -4,9 +4,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.model.totalValue.Rating
 import com.example.model.totalValue.Votes
+import com.example.ui.R
 import com.example.ui.widget.chips.RatingCard
 
 @Composable
@@ -22,7 +24,7 @@ fun RatingMovieContentRow(
         item {
             if (rating.imdb.isCorrectRating()) {
                 RatingCard(
-                    title = "Рейтинг IMDb",
+                    title = stringResource(R.string.rating_imdb),
                     rating = rating.imdb ?: 0f,
                     votes = votes.imdb ?: 0
                 )
@@ -32,7 +34,7 @@ fun RatingMovieContentRow(
         item {
             if (rating.filmCritics.isCorrectRating()) {
                 RatingCard(
-                    title = "Рейтинг критиков",
+                    title = stringResource(R.string.rating_critics),
                     rating = rating.filmCritics ?: 0f,
                     votes = votes.filmCritics ?: 0
                 )
@@ -42,7 +44,7 @@ fun RatingMovieContentRow(
         item {
             if (rating.russianFilmCritics.isCorrectRating()) {
                 RatingCard(
-                    title = "Рейтинг российских критиков",
+                    title = stringResource(R.string.rating_russian_crtics),
                     rating = rating.russianFilmCritics ?: 0f,
                     votes = votes.russianFilmCritics ?: 0
                 )

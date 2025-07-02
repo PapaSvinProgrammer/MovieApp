@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.shimmer
+package com.example.ui.widget.shimmer
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column

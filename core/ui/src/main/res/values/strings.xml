@@ -23,4 +23,7 @@
     <string name="spoilers_title">Здесь есть спойлер</string>
     <string name="spoilers_description">Нажмите, чтобы показать</string>
     <string name="app_name">MovieApp</string>
+    <string name="rating_imdb">Рейтинг IMDb</string>
+    <string name="rating_critics">Рейтинг критиков</string>
+    <string name="rating_russian_crtics">Рейтинг российских критиков</string>
 </resources>

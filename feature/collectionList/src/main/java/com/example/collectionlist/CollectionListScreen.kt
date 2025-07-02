@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.screen
+package com.example.collectionlist
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
@@ -18,15 +18,14 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.app.navigation.MovieListRoute
-import com.example.movieapp.ui.uiState.CollectionUIState
-import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.movieapp.ui.widget.listItems.CollectionListItem
-import com.example.movieapp.ui.widget.other.TitleTopBarText
-import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
-import com.example.movieapp.viewModels.CollectionListViewModel
-import com.example.network.model.image.Collection
-import com.example.network.utils.Constants
+import com.example.common.Constants
+import com.example.model.image.Collection
+import com.example.navigationroute.MovieListRoute
+import com.example.ui.uiState.CollectionUIState
+import com.example.ui.widget.lazyComponent.EndlessLazyColumn
+import com.example.ui.widget.listItems.CollectionListItem
+import com.example.ui.widget.other.TitleTopBarText
+import com.example.ui.widget.shimmer.ShimmerMovieDetailList
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

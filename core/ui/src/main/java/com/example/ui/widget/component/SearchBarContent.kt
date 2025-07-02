@@ -14,6 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
+import com.example.model.History
 import com.example.model.SearchItem
 import com.example.ui.R
 import com.example.ui.uiState.SearchUIState
@@ -22,7 +23,7 @@ import dev.chrisbanes.haze.HazeState
 @Composable
 fun SearchBarContent(
     query: String,
-    searchHistoryLazyPaging: LazyPagingItems<HistoryEntity>,
+    searchHistoryLazyPaging: LazyPagingItems<History>,
     hazeState: HazeState,
     movieSearchState: SearchUIState,
     selectedItem: Int,

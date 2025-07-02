@@ -79,16 +79,16 @@ private fun EliteBox(
             .clip(RoundedCornerShape(10.dp))
             .background(Gold)
     ) {
-//        Icon(
-//            painter = painterResource(R.drawable.ic_branch),
-//            contentDescription = null,
-//            tint = Color.Black,
-//            modifier = Modifier
-//                .size(15.dp)
-//                .align(Alignment.CenterStart)
-//                .padding(start = 5.dp)
-//                .scale(scaleX = -1f, scaleY = 1f)
-//        )
+        Icon(
+            painter = painterResource(R.drawable.ic_branch),
+            contentDescription = null,
+            tint = Color.Black,
+            modifier = Modifier
+                .size(15.dp)
+                .align(Alignment.CenterStart)
+                .padding(start = 5.dp)
+                .scale(scaleX = -1f, scaleY = 1f)
+        )
 
         Text(
             text = String.format("%.1f", rating),
@@ -100,15 +100,15 @@ private fun EliteBox(
                 .padding(horizontal = 15.dp)
         )
 
-//        Icon(
-//            painter = painterResource(R.drawable.ic_branch),
-//            contentDescription = null,
-//            tint = Color.Black,
-//            modifier = Modifier
-//                .size(15.dp)
-//                .align(Alignment.CenterEnd)
-//                .padding(end = 5.dp)
-//        )
+        Icon(
+            painter = painterResource(R.drawable.ic_branch),
+            contentDescription = null,
+            tint = Color.Black,
+            modifier = Modifier
+                .size(15.dp)
+                .align(Alignment.CenterEnd)
+                .padding(end = 5.dp)
+        )
     }
 }
 

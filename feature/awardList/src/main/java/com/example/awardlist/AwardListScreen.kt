@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.screen
+package com.example.awardlist
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
@@ -15,11 +15,9 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.R
-import com.example.movieapp.ui.widget.bottomSheets.AwardsFilterSheet
-import com.example.movieapp.ui.widget.other.TitleTopBarText
-import com.example.movieapp.ui.widget.renderState.RenderAwardsContent
-import com.example.movieapp.viewModels.AwardListViewModel
+import com.example.ui.widget.bottomSheets.AwardsFilterSheet
+import com.example.ui.widget.other.TitleTopBarText
+import com.example.ui.widget.renderState.RenderAwardsContent
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

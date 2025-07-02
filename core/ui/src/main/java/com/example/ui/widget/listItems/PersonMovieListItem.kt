@@ -24,6 +24,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.person.PersonMovie
+import com.example.ui.R
 
 @Composable
 fun PersonMovieListItem(
@@ -42,7 +43,7 @@ fun PersonMovieListItem(
                 .crossfade(true)
                 .build(),
             contentDescription = null,
-            //error = painterResource(R.drawable.ic_image),
+            error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(80.dp)

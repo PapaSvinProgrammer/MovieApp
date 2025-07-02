@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.shimmer
+package com.example.ui.widget.shimmer
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -12,6 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.unit.dp
+import com.example.ui.widget.shimmer.shimmerEffect
 
 @Composable
 fun ShimmerFactRow(modifier: Modifier = Modifier) {

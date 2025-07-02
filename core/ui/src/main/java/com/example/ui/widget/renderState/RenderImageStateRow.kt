@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.renderState
+package com.example.ui.widget.renderState
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.height
@@ -14,13 +14,13 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.example.movieapp.R
+import com.example.model.image.Poster
+import com.example.ui.R
 import com.example.ui.uiState.ImageUIState
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.LastItemCard
-import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.model.image.Poster
+import com.example.ui.widget.shimmer.ShimmerMovieRow
 
 @Composable
 fun RenderImagesStateRow(

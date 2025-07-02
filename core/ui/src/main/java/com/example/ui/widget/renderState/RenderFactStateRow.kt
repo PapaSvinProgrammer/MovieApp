@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.renderState
+package com.example.ui.widget.renderState
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Text
@@ -7,11 +7,11 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.model.movie.Fact
 import com.example.ui.uiState.FactUIState
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.FactCard
-import com.example.movieapp.ui.widget.shimmer.ShimmerFactRow
-import com.example.network.model.movie.Fact
+import com.example.ui.widget.shimmer.ShimmerFactRow
 
 @Composable
 fun RenderFactStateRow(

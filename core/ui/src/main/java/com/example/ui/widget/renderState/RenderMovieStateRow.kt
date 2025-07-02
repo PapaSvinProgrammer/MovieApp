@@ -1,14 +1,14 @@
-package com.example.movieapp.ui.widget.renderState
+package com.example.ui.widget.renderState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
+import com.example.model.movie.Movie
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.LastItemCard
 import com.example.ui.widget.listItems.MovieCard
-import com.example.movieapp.ui.widget.shimmer.ShimmerMovieRow
-import com.example.network.model.movie.Movie
+import com.example.ui.widget.shimmer.ShimmerMovieRow
 
 @Composable
 fun RenderMovieStateRow(
@@ -49,9 +49,7 @@ private fun MainMovieRow(
             LastItemCard(
                 width = 160.dp,
                 height = 260.dp,
-                onClick = {
-
-                }
+                onClick = onShowAll
             )
         },
         content = {

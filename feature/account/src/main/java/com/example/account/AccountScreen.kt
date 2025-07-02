@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.screen
+package com.example.account
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -24,15 +24,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.movieapp.R
-import com.example.movieapp.app.navigation.AboutAppRoute
-import com.example.movieapp.app.navigation.SettingsRoute
-import com.example.movieapp.ui.theme.ColorGradient1
-import com.example.movieapp.ui.theme.ColorGradient2
-import com.example.movieapp.ui.theme.ColorGradient3
-import com.example.movieapp.ui.theme.ColorGradient4
-import com.example.movieapp.ui.widget.component.TitleRow
-import com.example.movieapp.ui.widget.other.animatedBorder
+import com.example.navigationroute.AboutAppRoute
+import com.example.navigationroute.SettingsRoute
+import com.example.ui.theme.ColorGradient1
+import com.example.ui.theme.ColorGradient2
+import com.example.ui.theme.ColorGradient3
+import com.example.ui.theme.ColorGradient4
+import com.example.ui.widget.component.TitleRow
+import com.example.ui.widget.other.animatedBorder
 
 @Composable
 fun AccountScreen(
@@ -82,7 +81,12 @@ private fun ColumnScope.ProfileContent(
         modifier = Modifier
             .align(Alignment.CenterHorizontally)
             .animatedBorder(
-                borderColors = listOf(ColorGradient1, ColorGradient2, ColorGradient3, ColorGradient4),
+                borderColors = listOf(
+                    ColorGradient1,
+                    ColorGradient2,
+                    ColorGradient3,
+                    ColorGradient4
+                ),
                 backgroundColor = MaterialTheme.colorScheme.background,
                 borderWidth = 2.dp
             )

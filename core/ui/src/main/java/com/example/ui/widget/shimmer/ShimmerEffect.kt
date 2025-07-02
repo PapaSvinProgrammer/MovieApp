@@ -1,4 +1,4 @@
-package com.example.movieapp.ui.widget.shimmer
+package com.example.ui.widget.shimmer
 
 import androidx.compose.animation.core.animateFloat
 import androidx.compose.animation.core.infiniteRepeatable

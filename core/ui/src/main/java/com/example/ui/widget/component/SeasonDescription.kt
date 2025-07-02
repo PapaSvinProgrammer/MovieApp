@@ -18,6 +18,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.R
 import com.example.utils.ConvertData
+import com.example.utils.PrettyData
 
 @Composable
 fun SeasonDescription(
@@ -25,8 +26,8 @@ fun SeasonDescription(
     countSeasons: Int,
     countSeries: Int
 ) {
-    val prettySeasons = ConvertData.getPrettyCountSeasons(countSeasons)
-    val prettySeries = ConvertData.getPrettyCountSeries(countSeries)
+    val prettySeasons = PrettyData.getPrettyCountSeasons(countSeasons)
+    val prettySeries = PrettyData.getPrettyCountSeries(countSeries)
 
     Row(
         modifier = modifier

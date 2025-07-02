@@ -5,15 +5,21 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.movieapp.ui.uiState.CollectionUIState
-import com.example.movieapp.ui.uiState.MovieUIState
+import com.example.collection.GetCollectionAll
+import com.example.home.domain.GetMoviesByCollection
+import com.example.home.domain.GetMoviesByCompany
+import com.example.home.domain.GetMoviesByGenre
+import com.example.ui.uiState.CollectionUIState
+import com.example.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class HomeViewModel @Inject constructor(
-    private val getMovie: GetMovie,
-    private val getCollection: GetCollection
+    private val getMoviesByGenre: GetMoviesByGenre,
+    private val getMoviesByCollection: GetMoviesByCollection,
+    private val getMoviesByCompany: GetMoviesByCompany,
+    private val getCollectionAll: GetCollectionAll
 ): ViewModel() {
     var movieDramaState by mutableStateOf(MovieUIState.Loading as MovieUIState)
         private set
@@ -36,12 +42,10 @@ class HomeViewModel @Inject constructor(
         if (movieDramaState is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByGenre("драма")
+            val res = getMoviesByGenre.execute("драма")
 
             res.onSuccess {
-                movieDramaState = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieDramaState = MovieUIState.Success(it)
             }
         }
     }
@@ -50,12 +54,10 @@ class HomeViewModel @Inject constructor(
         if (movieBoevikState is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByGenre("боевик")
+            val res = getMoviesByGenre.execute("боевик")
 
             res.onSuccess {
-                movieBoevikState = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieBoevikState = MovieUIState.Success(it)
             }
         }
     }
@@ -64,12 +66,10 @@ class HomeViewModel @Inject constructor(
         if (movieBest250State is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByCollection("top250")
+            val res = getMoviesByCollection.execute("top250")
 
             res.onSuccess {
-                movieBest250State = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieBest250State = MovieUIState.Success(it)
             }
         }
     }
@@ -78,12 +78,10 @@ class HomeViewModel @Inject constructor(
         if (movieBest501State is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByCollection("best_501")
+            val res = getMoviesByCollection.execute("best_501")
 
             res.onSuccess {
-                movieBest501State = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieBest501State = MovieUIState.Success(it)
             }
         }
     }
@@ -92,12 +90,10 @@ class HomeViewModel @Inject constructor(
         if (movieBest100State is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByCollection("top_100_scifi_by_total_scifi_online")
+            val res = getMoviesByCollection.execute("top_100_scifi_by_total_scifi_online")
 
             res.onSuccess {
-                movieBest100State = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieBest100State = MovieUIState.Success(it)
             }
         }
     }
@@ -106,12 +102,10 @@ class HomeViewModel @Inject constructor(
         if (movieHBOState is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByCompany("HBO")
+            val res = getMoviesByCompany.execute("HBO")
 
             res.onSuccess {
-                movieHBOState = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieHBOState = MovieUIState.Success(it)
             }
         }
     }
@@ -120,12 +114,10 @@ class HomeViewModel @Inject constructor(
         if (movieNetflixState is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovie.getMoviesByCompany("Netflix")
+            val res = getMoviesByCompany.execute("Netflix")
 
             res.onSuccess {
-                movieNetflixState = MovieUIState.Success(it.docs)
-            }.onError {
-
+                movieNetflixState = MovieUIState.Success(it)
             }
         }
     }
@@ -134,12 +126,8 @@ class HomeViewModel @Inject constructor(
         if (collectionState is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            getCollection.getAll()
-                .onSuccess {
-                    collectionState = CollectionUIState.Success(it.docs)
-                }
-                .onError {
-
+            getCollectionAll.execute().onSuccess {
+                    collectionState = CollectionUIState.Success(it)
                 }
         }
     }

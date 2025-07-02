@@ -14,15 +14,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
-import com.example.movieapp.R
-import com.example.movieapp.app.navigation.CollectionListRoute
-import com.example.movieapp.app.navigation.HomeDetailListRoute
-import com.example.movieapp.app.navigation.MovieListRoute
-import com.example.movieapp.app.navigation.MovieRoute
-import com.example.movieapp.ui.widget.other.TopBarIconApp
-import com.example.movieapp.ui.widget.renderState.RenderCollectionStateRow
-import com.example.movieapp.ui.widget.renderState.RenderMovieStateRow
-import com.example.network.utils.Constants
+import com.example.common.Constants
+import com.example.home.R
+import com.example.navigationroute.CollectionListRoute
+import com.example.navigationroute.HomeDetailListRoute
+import com.example.navigationroute.MovieListRoute
+import com.example.navigationroute.MovieRoute
+import com.example.ui.widget.other.TopBarIconApp
+import com.example.ui.widget.renderState.RenderCollectionStateRow
+import com.example.ui.widget.renderState.RenderMovieStateRow
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

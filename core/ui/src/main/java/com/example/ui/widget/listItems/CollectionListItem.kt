@@ -41,7 +41,7 @@ fun CollectionListItem(
                         .data(collection.cover?.url)
                         .crossfade(true)
                         .build(),
-                    //error = painterResource(R.drawable.ic_image),
+                    error = painterResource(R.drawable.ic_image),
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier

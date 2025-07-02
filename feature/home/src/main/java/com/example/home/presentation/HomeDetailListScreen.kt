@@ -15,14 +15,14 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.app.navigation.MovieRoute
-import com.example.movieapp.ui.uiState.MovieUIState
-import com.example.movieapp.ui.widget.component.LoadingSearchContent
-import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyVerticalGrid
-import com.example.movieapp.ui.widget.listItems.MovieCard
-import com.example.movieapp.ui.widget.other.TitleTopBarText
-import com.example.movieapp.viewModels.MovieListViewModel
-import com.example.network.model.movie.Movie
+import com.example.model.movie.Movie
+import com.example.movielistviewmodel.MovieListViewModel
+import com.example.navigationroute.MovieRoute
+import com.example.ui.uiState.MovieUIState
+import com.example.ui.widget.component.LoadingSearchContent
+import com.example.ui.widget.lazyComponent.EndlessLazyVerticalGrid
+import com.example.ui.widget.listItems.MovieCard
+import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

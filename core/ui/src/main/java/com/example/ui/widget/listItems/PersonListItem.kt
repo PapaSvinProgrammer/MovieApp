@@ -55,7 +55,7 @@ fun PersonListItem(
                 .crossfade(true)
                 .build(),
             contentDescription = null,
-            //error = painterResource(R.drawable.ic_image),
+            error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(130.dp)

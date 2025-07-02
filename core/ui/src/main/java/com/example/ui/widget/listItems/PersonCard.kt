@@ -47,7 +47,7 @@ fun PersonCard(
                     .data(person.photo)
                     .crossfade(true)
                     .build(),
-                //error = painterResource(R.drawable.ic_face),
+                error = painterResource(R.drawable.ic_face),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier

@@ -21,6 +21,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
@@ -29,9 +30,12 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.model.category.ItemName
 import com.example.model.movie.Movie
+import com.example.ui.R
 import com.example.ui.widget.other.RatingText
 import com.example.utils.ConvertData
+import com.example.utils.PrettyData
 
 @Composable
 fun MovieDetailCard(
@@ -51,7 +55,7 @@ fun MovieDetailCard(
                 .crossfade(true)
                 .build(),
             contentDescription = null,
-            //error = painterResource(R.drawable.ic_image),
+            error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
                 .height(100.dp)
@@ -107,9 +111,9 @@ private fun BoxScope.DetailInfoContent(
 }
 
 @Composable
-private fun GenreContent(genre: List<Genre>) {
+private fun GenreContent(genre: List<ItemName>) {
     Text(
-        text = genre.map { it.name }.joinToString(", "),
+        text = genre.joinToString(", ") { it.name },
         fontWeight = FontWeight.Medium,
         fontSize = 14.sp,
         maxLines = 1,
@@ -123,7 +127,7 @@ private fun GenreContent(genre: List<Genre>) {
 private fun OtherInfoContent(
     rating: Float,
     votes: Int,
-    country: List<Country>
+    country: List<ItemName>
 ) {
     Row(
         modifier = Modifier.fillMaxWidth()
@@ -132,7 +136,7 @@ private fun OtherInfoContent(
             RatingText(rating)
             Spacer(modifier = Modifier.width(5.dp))
             Text(
-                text = ConvertData.getPrettyInt(votes),
+                text = PrettyData.getPrettyInt(votes),
                 fontWeight = FontWeight.Normal,
                 fontSize = 13.sp,
                 maxLines = 1,
@@ -142,7 +146,7 @@ private fun OtherInfoContent(
         }
 
         Text(
-            text = country.map { it.name }.joinToString(", "),
+            text = country.joinToString(", ") { it.name },
             fontWeight = FontWeight.Normal,
             fontSize = 14.sp,
             maxLines = 1,

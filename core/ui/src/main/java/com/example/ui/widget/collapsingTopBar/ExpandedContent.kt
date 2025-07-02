@@ -15,6 +15,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
@@ -23,6 +24,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.movie.Movie
+import com.example.ui.R
 import com.example.ui.widget.component.isCorrectUrl
 import com.example.utils.ConvertData
 import com.example.utils.PrettyData
@@ -115,7 +117,7 @@ private fun ContentWithoutBackdrop(
             .data(movie.poster?.url)
             .crossfade(true)
             .build(),
-        //error = painterResource(R.drawable.ic_movie),
+        error = painterResource(R.drawable.ic_movie),
         contentDescription = null,
         contentScale = ContentScale.Crop,
         modifier = Modifier.height(300.dp).width(200.dp).clip(RoundedCornerShape(10.dp))
@@ -149,7 +151,7 @@ internal fun MovieLogo(url: String?, name: String) {
                 .data(url)
                 .crossfade(true)
                 .build(),
-            //error = painterResource(R.drawable.ic_movie),
+            error = painterResource(R.drawable.ic_movie),
             contentDescription = null,
             modifier = Modifier.padding(horizontal = 55.dp)
         )

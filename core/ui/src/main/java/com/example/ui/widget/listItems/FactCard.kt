@@ -80,10 +80,10 @@ private fun SpoilerContent() {
             modifier = Modifier.align(Alignment.Center),
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-//            Icon(
-//                painter = painterResource(R.drawable.ic_visibility_off),
-//                contentDescription = null
-//            )
+            Icon(
+                painter = painterResource(R.drawable.ic_visibility_off),
+                contentDescription = null
+            )
 
             Spacer(modifier = Modifier.height(5.dp))
 

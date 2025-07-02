@@ -1,5 +1,6 @@
 package com.example.utils
 
+import com.example.model.History
 import com.example.model.SearchItem
 import com.example.model.movie.Movie
 import com.example.model.person.Person
@@ -26,7 +27,7 @@ fun Movie.toSearchItem(): SearchItem {
         name = this.name ?: "",
         alternativeName = ConvertData.getAlternativeNameForMovie(this),
         year = this.year ?: 0,
-        releaseYears = this.releaseYears.firstOrNull() ?: ReleaseYears(),
+        releaseYears = this.releaseYears.firstOrNull() ?: ReleaseYears(null, null),
         poster = this.poster?.url ?: "",
         rating = this.rating?.kp ?: 0f
     )
@@ -34,12 +35,12 @@ fun Movie.toSearchItem(): SearchItem {
 
 fun Person.toSearchItem(): SearchItem {
     return SearchItem(
-        id = this.id ?: 0,
+        id = this.id,
         isMovie = false,
         name = this.name ?: "",
         alternativeName = this.enName ?: "",
         year = this.age ?: 0,
-        releaseYears = ReleaseYears(),
+        releaseYears = ReleaseYears(null, null),
         poster = this.photo ?: "",
         rating = 0f
     )
@@ -67,7 +68,7 @@ fun List<Person>.toSearchItemList(): List<SearchItem> {
     return res
 }
 
-fun HistoryEntity.toSearchItem(): SearchItem {
+fun History.toSearchItem(): SearchItem {
     val releaseYears = ReleaseYears(
         start = this.start,
         end = this.end
