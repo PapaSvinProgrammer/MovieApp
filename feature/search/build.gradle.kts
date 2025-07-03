@@ -37,7 +37,16 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:navigationRoute"))
+    implementation(project(":domain:person"))
+    implementation(project(":domain:movie"))
+    implementation(project(":domain:searchHistory"))
     implementation(project(":core:ui"))
+    implementation(project(":domain:collectionUseCase"))
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.okhttp)
+    implementation(libs.dagger)
+    implementation(libs.haze)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
@@ -45,6 +54,8 @@ dependencies {
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+    implementation(libs.androidx.paging.runtime.ktx)
+    implementation(libs.androidx.paging.compose)
 
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

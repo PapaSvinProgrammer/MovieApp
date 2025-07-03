@@ -8,7 +8,7 @@ import com.example.room.external.toEntity
 import com.example.room.internal.HistoryEntity
 import javax.inject.Inject
 
-internal class HistoryRepositoryImpl @Inject constructor(
+class HistoryRepositoryImpl @Inject constructor(
     private val dao: HistoryDao
 ) : HistoryRepository {
     override suspend fun insert(history: History) {

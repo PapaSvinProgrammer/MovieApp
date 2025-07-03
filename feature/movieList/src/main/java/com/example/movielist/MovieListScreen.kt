@@ -1,10 +1,9 @@
-package com.example.movieapp.ui.screen
+package com.example.movielist
 
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.LargeTopAppBar
@@ -21,19 +20,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
-import com.example.movieapp.app.navigation.MovieRoute
-import com.example.movieapp.ui.uiState.MovieUIState
-import com.example.movieapp.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.movieapp.ui.widget.listItems.MovieListCard
-import com.example.movieapp.ui.widget.other.TitleTopBarText
-import com.example.movieapp.ui.widget.shimmer.ShimmerMovieDetailList
-import com.example.movieapp.viewModels.MovieListViewModel
-import com.example.network.model.movie.Movie
+import com.example.movielistviewmodel.MovieListViewModel
+import com.example.navigationroute.MovieRoute
+import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 
@@ -109,50 +102,5 @@ private fun TopBarText(
             fontWeight = FontWeight.Bold,
             overflow = TextOverflow.Ellipsis
         )
-    }
-}
-
-@Composable
-private fun RenderResult(
-    state: MovieUIState,
-    modifier: Modifier,
-    onClick: (Movie) -> Unit,
-    onSettingsClick: (Movie) -> Unit,
-    onLoadMore: () -> Unit
-) {
-    when (state) {
-        MovieUIState.Loading -> ShimmerMovieDetailList(modifier)
-        is MovieUIState.Success -> {
-            MainPersonContent(
-                modifier = modifier,
-                list = state.data,
-                onClick = onClick,
-                onLoadMore = onLoadMore,
-                onSettingsClick = onSettingsClick
-            )
-        }
-    }
-}
-
-@Composable
-private fun MainPersonContent(
-    modifier: Modifier = Modifier,
-    list: List<Movie>,
-    onClick: (Movie) -> Unit,
-    onLoadMore: () -> Unit,
-    onSettingsClick: (Movie) -> Unit
-) {
-    EndlessLazyColumn(
-        modifier = modifier,
-        items = list,
-        loadMore = onLoadMore
-    ) { _, item ->
-        MovieListCard(
-            movie = item,
-            onClick = { onClick(item) },
-            onSettingsClick = { onSettingsClick(item) }
-        )
-
-        HorizontalDivider(modifier = Modifier.padding(start = 15.dp))
     }
 }

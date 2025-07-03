@@ -309,7 +309,7 @@ fun MovieScreen(
                         ) {
                             items(data) {
                                 CollectionListItem(
-                                    collection = it,
+                                    collectionMovie = it,
                                     modifier = Modifier
                                         .width(300.dp)
                                         .clickable {

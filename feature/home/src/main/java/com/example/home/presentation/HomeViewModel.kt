@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.collection.GetCollectionAll
+import com.example.collectionusecase.GetCollectionAll
 import com.example.home.domain.GetMoviesByCollection
 import com.example.home.domain.GetMoviesByCompany
 import com.example.home.domain.GetMoviesByGenre
@@ -18,8 +18,8 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getMoviesByGenre: GetMoviesByGenre,
     private val getMoviesByCollection: GetMoviesByCollection,
-    private val getMoviesByCompany: GetMoviesByCompany,
-    private val getCollectionAll: GetCollectionAll
+    private val getCollectionAll: GetCollectionAll,
+    private val getMoviesByCompany: GetMoviesByCompany
 ): ViewModel() {
     var movieDramaState by mutableStateOf(MovieUIState.Loading as MovieUIState)
         private set
@@ -126,9 +126,9 @@ class HomeViewModel @Inject constructor(
         if (collectionState is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            getCollectionAll.execute().onSuccess {
-                    collectionState = CollectionUIState.Success(it)
-                }
+//            getCollectionAll.execute().onSuccess {
+//                    collectionState = CollectionUIState.Success(it)
+//                }
         }
     }
 }

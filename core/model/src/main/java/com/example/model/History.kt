@@ -1,7 +1,7 @@
 package com.example.model
 
 data class History(
-    val id: Int,
+    val id: Int = 0,
     val movieId: Int,
     val name: String,
     val alternativeName: String,

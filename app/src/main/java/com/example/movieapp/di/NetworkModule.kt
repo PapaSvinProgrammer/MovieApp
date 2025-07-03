@@ -1,6 +1,6 @@
 package com.example.movieapp.di
 
-import com.example.network.core.HttpClientFactory
+import com.example.network.internal.core.HttpClientFactory
 import dagger.Module
 import dagger.Provides
 import io.ktor.client.HttpClient

@@ -1,9 +1,9 @@
-package com.example.core.di
+package com.example.movieapp.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.core.data.room.AppDatabase
-import com.example.core.data.room.dao.HistoryDao
+import com.example.room.external.HistoryDao
+import com.example.room.internal.AppDatabase
 import dagger.Module
 import dagger.Provides
 import javax.inject.Singleton

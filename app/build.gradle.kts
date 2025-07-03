@@ -4,7 +4,6 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     id("com.google.devtools.ksp")
-    id("kotlin-kapt")
 }
 
 android {
@@ -43,8 +42,28 @@ android {
 }
 
 dependencies {
+    implementation(project(":feature:aboutApp"))
+    implementation(project(":feature:account"))
+//    implementation(project(":feature:awardList"))
+//    implementation(project(":feature:collectionList"))
+    implementation(project(":feature:favorite"))
+    implementation(project(":feature:home"))
+//    implementation(project(":feature:login"))
+//    implementation(project(":feature:movieList"))
+//    implementation(project(":feature:movieScreen"))
+//    implementation(project(":feature:personPodium"))
+//    implementation(project(":feature:personScreen"))
+    implementation(project(":feature:search"))
+    implementation(project(":feature:settings"))
+    implementation(project(":core:ui"))
+    implementation(project(":core:data"))
     implementation(project(":core:navigationRoute"))
-    implementation("androidx.datastore:datastore-preferences:1.1.7")
+    implementation(project(":core:room"))
+//    implementation(project(":feature:movieListViewModel"))
+//    implementation(project(":feature:personListViewModel"))
+
+    implementation(libs.androidx.datastore.preferences)
+    implementation(libs.androidx.room.runtime)
     implementation(libs.ktor.client.core)
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.compose)
@@ -53,7 +72,7 @@ dependencies {
     implementation(libs.androidx.navigation)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
+    ksp(libs.dagger.compiler)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.core.ktx)

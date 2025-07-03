@@ -5,7 +5,7 @@ import com.example.model.person.Person
 import com.example.network.external.PersonService
 import javax.inject.Inject
 
-internal class PersonRepositoryImpl @Inject constructor(
+class PersonRepositoryImpl @Inject constructor(
     private val service: PersonService
 ) : PersonRepository {
     override suspend fun getPersonById(personId: Int): Result<Person> {

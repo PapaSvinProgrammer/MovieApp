@@ -22,13 +22,13 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.example.model.image.Collection
+import com.example.model.image.CollectionMovie
 import com.example.ui.R
 
 @Composable
 fun CollectionListItem(
     modifier: Modifier = Modifier,
-    collection: Collection,
+    collectionMovie: CollectionMovie,
     leadingIcon: (@Composable () -> Unit)? = null
 ) {
     ListItem(
@@ -38,7 +38,7 @@ fun CollectionListItem(
             Row {
                 AsyncImage(
                     model = ImageRequest.Builder(LocalContext.current)
-                        .data(collection.cover?.url)
+                        .data(collectionMovie.cover?.url)
                         .crossfade(true)
                         .build(),
                     error = painterResource(R.drawable.ic_image),
@@ -54,7 +54,7 @@ fun CollectionListItem(
 
                 Text(
                     modifier = Modifier.align(Alignment.CenterVertically),
-                    text = collection.name.toString(),
+                    text = collectionMovie.name.toString(),
                     fontSize = 14.sp,
                     fontWeight = FontWeight.Medium,
                     maxLines = 2,

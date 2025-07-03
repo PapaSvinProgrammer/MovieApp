@@ -1,8 +1,6 @@
 package com.example.movieapp.di
 
 import android.content.Context
-import com.example.core.di.RepositoryModule
-import com.example.core.di.RoomModule
 import com.example.movieapp.MainActivity
 import com.example.movieapp.di.viewModel.ViewModelFactoryModule
 import com.example.movieapp.di.viewModel.ViewModelModule
@@ -17,7 +15,8 @@ import javax.inject.Singleton
         ViewModelModule::class,
         RepositoryModule::class,
         NetworkModule::class,
-        RoomModule::class
+        RoomModule::class,
+        ServiceModule::class
     ]
 )
 interface AppComponent {

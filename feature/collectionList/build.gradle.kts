@@ -37,7 +37,6 @@ android {
 }
 
 dependencies {
-    implementation(project(":domain:collection"))
     implementation(project(":core:navigationRoute"))
     implementation(project(":core:ui"))
     implementation(libs.dagger)

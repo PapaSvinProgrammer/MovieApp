@@ -7,7 +7,7 @@ import javax.inject.Inject
 class GetPersonById @Inject constructor(
     private val personRepository: PersonRepository
 ) {
-    suspend fun getPersonById(personId: Int): Result<Person> {
+    suspend fun execute(personId: Int): Result<Person> {
         return personRepository.getPersonById(personId)
     }
 }

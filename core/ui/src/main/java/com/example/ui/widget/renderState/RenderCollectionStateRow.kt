@@ -2,7 +2,7 @@ package com.example.ui.widget.renderState
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.unit.dp
-import com.example.model.image.Collection
+import com.example.model.image.CollectionMovie
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
@@ -14,13 +14,13 @@ import com.example.ui.widget.shimmer.ShimmerCollectionRow
 fun RenderCollectionStateRow(
     state: CollectionUIState,
     title: String,
-    onClick: (Collection) -> Unit,
+    onClick: (CollectionMovie) -> Unit,
     onShowAll: () -> Unit
 ) {
     when (state) {
         is CollectionUIState.Success -> {
             MainCollectionRow(
-                collections = state.data,
+                collectionMovies = state.data,
                 title = title,
                 onClick = onClick,
                 onShowAll = onShowAll
@@ -32,9 +32,9 @@ fun RenderCollectionStateRow(
 
 @Composable
 private fun MainCollectionRow(
-    collections: List<Collection>,
+    collectionMovies: List<CollectionMovie>,
     title: String,
-    onClick: (Collection) -> Unit,
+    onClick: (CollectionMovie) -> Unit,
     onShowAll: () -> Unit
 ) {
     TitleRow(
@@ -43,7 +43,7 @@ private fun MainCollectionRow(
     )
 
     DefaultLazyRow(
-        list = collections,
+        list = collectionMovies,
         lastItemCard = {
             LastItemCard(
                 width = 140.dp,

@@ -38,7 +38,6 @@ android {
 
 dependencies {
     implementation(project(":domain:movie"))
-    implementation(project(":domain:collection"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigationRoute"))
     implementation(libs.coil.compose)

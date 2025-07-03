@@ -5,7 +5,7 @@ import com.example.model.movie.Comment
 import com.example.network.external.CommentService
 import javax.inject.Inject
 
-internal class CommentRepositoryImpl @Inject constructor(
+class CommentRepositoryImpl @Inject constructor(
     private val service: CommentService
 ) : CommentRepository {
     override suspend fun getCommentsByFilter(

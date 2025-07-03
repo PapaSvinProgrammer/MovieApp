@@ -1,7 +1,7 @@
 package com.example.network.internal.service
 
 import com.example.common.Constants.LIMIT_FIELD
-import com.example.model.image.Collection
+import com.example.model.image.CollectionMovie
 import com.example.network.internal.model.image.CollectionDto
 import com.example.network.external.CollectionService
 import com.example.network.internal.core.LIMIT_API_COUNT
@@ -12,12 +12,12 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-internal class CollectionServiceImpl @Inject constructor(
+class CollectionServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : CollectionService {
     override suspend fun getCollectionByFilter(
         queryParameters: List<Pair<String, String>>
-    ): Result<List<Collection>> {
+    ): Result<List<CollectionMovie>> {
         return safeCall<Docs<CollectionDto>> {
             client.get("v1.4/list") {
                 url {
@@ -30,7 +30,7 @@ internal class CollectionServiceImpl @Inject constructor(
         }
     }
 
-    override suspend fun getCollectionBySlug(slug: String): Result<Collection> {
+    override suspend fun getCollectionBySlug(slug: String): Result<CollectionMovie> {
         return safeCall<CollectionDto> {
             client.get("v1.4/list/$slug")
         }.map { it.toDomain() }

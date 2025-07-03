@@ -38,6 +38,10 @@ android {
 
 dependencies {
     implementation(project(":core:ui"))
+    implementation(project(":core:navigationRoute"))
+    implementation(project(":feature:personListViewModel"))
+
+    implementation(libs.haze)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

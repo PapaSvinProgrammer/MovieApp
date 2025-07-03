@@ -5,10 +5,9 @@ import com.example.model.SearchItem
 import com.example.model.movie.Movie
 import com.example.model.person.Person
 import com.example.model.totalValue.ReleaseYears
-import com.example.room.internal.HistoryEntity
 
-fun SearchItem.toHistoryEntity(): HistoryEntity {
-    return HistoryEntity(
+fun SearchItem.toHistory(): History {
+    return History(
         movieId = this.id,
         name = this.name,
         alternativeName = this.alternativeName,

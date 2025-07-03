@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import com.example.settings.R
 import com.example.settings.widget.card.IconCard
 import com.example.settings.widget.iconsApplication
+import com.example.settings.widget.row.OnceTitleRow
 
 @Composable
 internal fun OtherIconAppContent(

@@ -6,15 +6,12 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.collection.GetCollectionBySlug
-import com.example.model.image.Collection
+import com.example.common.multiRequest
 import com.example.model.person.PersonMovie
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.ImageUIState
 import com.example.ui.uiState.MovieUIState
-import kotlinx.coroutines.Deferred
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.async
-import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -66,26 +63,16 @@ class MovieViewModel @Inject constructor(
         if (collectionState is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.Default) {
-            val tasks = mutableListOf<Deferred<Result<Collection>>>()
-
-            list.forEach {
-                val task = async(Dispatchers.IO) {
-                    getCollectionBySlug.execute(it)
-                }
-
-                tasks.add(task)
-            }
-
-            val temp = mutableListOf<Collection>()
-
-            tasks.awaitAll().forEach {
-                it.onSuccess { data ->
-                    if (data.slug != "hd") temp.add(data)
-                }
+            val temp = multiRequest(list) {
+                getCollectionBySlug.execute(it)
             }
 
             if (temp.isNotEmpty()) {
-                collectionState = CollectionUIState.Success(temp)
+                collectionState = CollectionUIState.Success(
+                    temp.filter {
+                        it.slug != "hd"
+                    }
+                )
             }
         }
     }

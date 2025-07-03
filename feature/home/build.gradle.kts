@@ -40,7 +40,7 @@ dependencies {
     implementation(project(":core:navigationRoute"))
     implementation(project(":feature:movieListViewModel"))
     implementation(project(":domain:movie"))
-    implementation(project(":domain:collection"))
+    implementation(project(":domain:collectionUseCase"))
     implementation(project(":core:ui"))
     implementation(libs.haze)
     implementation(libs.dagger)

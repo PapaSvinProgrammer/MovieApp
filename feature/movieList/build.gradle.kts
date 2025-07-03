@@ -37,7 +37,12 @@ android {
 }
 
 dependencies {
+    implementation(project(":core:navigationRoute"))
+    implementation(project(":feature:movieListViewModel"))
     implementation(project(":core:ui"))
+
+    implementation(libs.dagger)
+    implementation(libs.haze)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))

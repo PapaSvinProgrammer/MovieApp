@@ -19,7 +19,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.common.Constants
-import com.example.model.image.Collection
+import com.example.model.image.CollectionMovie
 import com.example.navigationroute.MovieListRoute
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.widget.lazyComponent.EndlessLazyColumn
@@ -92,7 +92,7 @@ fun CollectionListScreen(
 private fun RenderCollectionState(
     modifier: Modifier = Modifier,
     state: CollectionUIState,
-    onClick: (Collection) -> Unit,
+    onClick: (CollectionMovie) -> Unit,
     onLoadMore: () -> Unit
 ) {
     when (state) {
@@ -100,7 +100,7 @@ private fun RenderCollectionState(
         is CollectionUIState.Success -> {
             MainPersonContent(
                 modifier = modifier,
-                collections = state.data,
+                collectionMovies = state.data,
                 onClick = onClick,
                 onLoadMore = onLoadMore
             )
@@ -111,13 +111,13 @@ private fun RenderCollectionState(
 @Composable
 private fun MainPersonContent(
     modifier: Modifier,
-    collections: List<Collection>,
+    collectionMovies: List<CollectionMovie>,
     onLoadMore: () -> Unit,
-    onClick: (Collection) -> Unit
+    onClick: (CollectionMovie) -> Unit
 ) {
     EndlessLazyColumn(
         modifier = modifier,
-        items = collections,
+        items = collectionMovies,
         loadMore = onLoadMore
     ) { index, item ->
         CollectionListItem(
@@ -130,7 +130,7 @@ private fun MainPersonContent(
                     fontSize = 14.sp
                 )
             },
-            collection = item
+            collectionMovie = item
         )
     }
 }
