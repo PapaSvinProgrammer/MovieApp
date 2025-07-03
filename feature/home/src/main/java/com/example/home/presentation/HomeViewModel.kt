@@ -18,7 +18,7 @@ import javax.inject.Inject
 class HomeViewModel @Inject constructor(
     private val getMoviesByGenre: GetMoviesByGenre,
     private val getMoviesByCollection: GetMoviesByCollection,
-    private val getCollectionAll: GetCollectionAll,
+    //private val getCollectionAll: GetCollectionAll,
     private val getMoviesByCompany: GetMoviesByCompany
 ): ViewModel() {
     var movieDramaState by mutableStateOf(MovieUIState.Loading as MovieUIState)
