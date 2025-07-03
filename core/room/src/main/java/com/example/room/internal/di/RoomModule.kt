@@ -1,4 +1,4 @@
-package com.example.movieapp.di
+package com.example.room.internal.di
 
 import android.content.Context
 import androidx.room.Room
@@ -9,6 +9,7 @@ import dagger.Provides
 import javax.inject.Singleton
 
 private const val DATABASE_NAME = "movie_app_database"
+
 
 @Module
 interface RoomModule {

@@ -1,4 +1,4 @@
-package com.example.movieapp.di
+package com.example.data.internal.di
 
 import com.example.data.external.AwardRepository
 import com.example.data.external.CategoryRepository
@@ -25,7 +25,7 @@ import dagger.Module
 import javax.inject.Singleton
 
 @Module
-interface RepositoryModule {
+interface DataModule {
     @Binds
     @Singleton
     fun bindCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository

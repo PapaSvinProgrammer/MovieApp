@@ -1,4 +1,4 @@
-package com.example.movieapp.di
+package com.example.network.internal.di
 
 import com.example.network.external.AwardService
 import com.example.network.external.CategoryService
@@ -8,6 +8,7 @@ import com.example.network.external.MovieService
 import com.example.network.external.PersonService
 import com.example.network.external.SeasonService
 import com.example.network.external.StudiesService
+import com.example.network.internal.core.HttpClientFactory
 import com.example.network.internal.service.AwardServiceImpl
 import com.example.network.internal.service.CategoryServiceImpl
 import com.example.network.internal.service.CollectionServiceImpl
@@ -18,9 +19,32 @@ import com.example.network.internal.service.SeasonServiceImpl
 import com.example.network.internal.service.StudiesServiceImpl
 import dagger.Binds
 import dagger.Module
+import dagger.Provides
+import io.ktor.client.HttpClient
+import okhttp3.OkHttpClient
+import java.util.concurrent.TimeUnit
+import javax.inject.Singleton
 
 @Module
-interface ServiceModule {
+interface NetworkModule {
+    companion object {
+        @Provides
+        @Singleton
+        fun provideOkHttp(): OkHttpClient {
+            return OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build()
+        }
+
+        @Singleton
+        @Provides
+        fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
+            return HttpClientFactory.create(okHttpClient)
+        }
+    }
+    
     @Binds
     fun bindsAwardServiceImpl(service: AwardServiceImpl): AwardService
 
