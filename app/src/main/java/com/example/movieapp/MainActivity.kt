@@ -22,7 +22,7 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.di.viewModel.ViewModelFactory
+import com.example.viewmodelfactory.ViewModelFactory
 import com.example.movieapp.navigation.BottomBarItems
 import com.example.movieapp.navigation.HazeBottomBar
 import com.example.movieapp.navigation.NavigationGraph
@@ -33,7 +33,6 @@ import dev.chrisbanes.haze.rememberHazeState
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-    @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var viewModel: MainViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -61,7 +60,6 @@ class MainActivity : ComponentActivity() {
                 }
 
                 MainScreen(
-                    viewModelFactory = viewModelFactory,
                     startRoute = startRoute
                 )
             }
@@ -79,7 +77,6 @@ class MainActivity : ComponentActivity() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
-    viewModelFactory: ViewModelFactory,
     startRoute: NavRoute
 ) {
     var bottomBarVisible by remember { mutableStateOf(false) }
@@ -107,7 +104,6 @@ fun MainScreen(
     ) { _ ->
         NavigationGraph(
             navController = navController,
-            viewModelFactory = viewModelFactory,
             startRoute = startRoute,
             hazeState = hazeState
         )

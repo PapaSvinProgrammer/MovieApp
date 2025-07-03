@@ -12,7 +12,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import jakarta.inject.Inject
 
-class StudiesServiceImpl @Inject constructor(
+internal class StudiesServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : StudiesService {
     override suspend fun getStudies(

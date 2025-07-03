@@ -9,7 +9,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class CategoryServiceImpl @Inject constructor(
+internal class CategoryServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : CategoryService {
     override suspend fun getGenres(): Result<List<ItemName>> {

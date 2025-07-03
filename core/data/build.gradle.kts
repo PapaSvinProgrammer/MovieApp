@@ -44,7 +44,7 @@ dependencies {
     implementation(libs.androidx.paging.runtime.ktx)
     implementation(libs.androidx.paging.compose)
     implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+    //ksp(libs.dagger.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

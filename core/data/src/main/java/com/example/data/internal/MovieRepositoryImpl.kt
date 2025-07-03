@@ -6,7 +6,7 @@ import com.example.model.movie.Movie
 import com.example.network.external.MovieService
 import javax.inject.Inject
 
-class MovieRepositoryImpl @Inject constructor(
+internal class MovieRepositoryImpl @Inject constructor(
     private val service: MovieService
 ) : MovieRepository {
     override suspend fun getMovieByFilter(

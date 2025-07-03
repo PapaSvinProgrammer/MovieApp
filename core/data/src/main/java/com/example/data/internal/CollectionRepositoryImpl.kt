@@ -5,7 +5,7 @@ import com.example.model.image.CollectionMovie
 import com.example.network.external.CollectionService
 import javax.inject.Inject
 
-class CollectionRepositoryImpl @Inject constructor(
+internal class CollectionRepositoryImpl @Inject constructor(
     private val service: CollectionService
 ) : CollectionRepository {
     override suspend fun getCollections(

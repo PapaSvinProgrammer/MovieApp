@@ -19,7 +19,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class MovieServiceImpl @Inject constructor(
+internal class MovieServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : MovieService {
     override suspend fun getMovieById(movieId: Int): Result<Movie> {

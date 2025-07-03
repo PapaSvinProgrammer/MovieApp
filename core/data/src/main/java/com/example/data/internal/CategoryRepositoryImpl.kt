@@ -5,7 +5,7 @@ import com.example.model.category.ItemName
 import com.example.network.external.CategoryService
 import javax.inject.Inject
 
-class CategoryRepositoryImpl @Inject constructor(
+internal class CategoryRepositoryImpl @Inject constructor(
     private val service: CategoryService
 ) : CategoryRepository {
     override suspend fun getGenres(): Result<List<ItemName>> {

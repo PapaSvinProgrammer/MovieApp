@@ -12,7 +12,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class AwardServiceImpl @Inject constructor(
+internal class AwardServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : AwardService {
     override suspend fun getPersonAwardsByFilter(

@@ -15,7 +15,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class PersonServiceImpl @Inject constructor(
+internal class PersonServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : PersonService {
     override suspend fun getPersonById(personId: Int): Result<Person> {

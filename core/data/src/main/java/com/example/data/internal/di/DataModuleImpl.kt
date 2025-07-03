@@ -25,44 +25,34 @@ import dagger.Module
 import javax.inject.Singleton
 
 @Module
-interface DataModule {
+internal interface DataModuleImpl {
     @Binds
-    @Singleton
     fun bindCategoryRepository(repository: CategoryRepositoryImpl): CategoryRepository
 
     @Binds
-    @Singleton
     fun binCommentRepositoryImpl(repository: CommentRepositoryImpl): CommentRepository
 
     @Binds
-    @Singleton
     fun bindMovieRepositoryImpl(repository: MovieRepositoryImpl): MovieRepository
 
     @Binds
-    @Singleton
     fun bindSeasonRepository(repository: SeasonRepositoryImpl): SeasonRepository
 
     @Binds
-    @Singleton
     fun bindAwardRepositoryImpl(repository: AwardRepositoryImpl): AwardRepository
 
     @Binds
-    @Singleton
     fun bindCollectionRepositoryImpl(repository: CollectionRepositoryImpl): CollectionRepository
 
     @Binds
-    @Singleton
     fun bindPersonRepositoryImpl(repository: PersonRepositoryImpl): PersonRepository
 
     @Binds
-    @Singleton
     fun bindStudioRepositoryImpl(repository: StudioRepositoryImpl): StudioRepository
 
     @Binds
-    @Singleton
     fun bindPreferencesRepositoryImpl(repository: PreferencesRepositoryImpl): PreferencesRepository
 
     @Binds
-    @Singleton
     fun bindHistoryRepositoryImpl(repository: HistoryRepositoryImpl): HistoryRepository
 }

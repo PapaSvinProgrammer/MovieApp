@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
     id("com.google.devtools.ksp")
+    id("kotlin-kapt")
 }
 
 android {
@@ -60,6 +61,7 @@ dependencies {
     implementation(project(":core:network"))
     implementation(project(":core:navigationRoute"))
     implementation(project(":core:room"))
+    implementation(project(":core:viewModelFactory"))
 //    implementation(project(":feature:movieListViewModel"))
 //    implementation(project(":feature:personListViewModel"))
 
@@ -73,7 +75,7 @@ dependencies {
     implementation(libs.androidx.navigation)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+    kapt(libs.dagger.compiler)
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.androidx.core.ktx)

@@ -5,7 +5,7 @@ import com.example.model.season.Season
 import com.example.network.external.SeasonService
 import javax.inject.Inject
 
-class SeasonRepositoryImpl @Inject constructor(
+internal class SeasonRepositoryImpl @Inject constructor(
     private val service: SeasonService
 ): SeasonRepository {
     override suspend fun getSeasonsByMovie(movieId: Int): Result<List<Season>> {

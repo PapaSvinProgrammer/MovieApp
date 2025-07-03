@@ -5,7 +5,7 @@ import com.example.model.person.NominationAward
 import com.example.network.external.AwardService
 import javax.inject.Inject
 
-class AwardRepositoryImpl @Inject constructor(
+internal class AwardRepositoryImpl @Inject constructor(
     private val service: AwardService
 ) : AwardRepository {
     override suspend fun getMovieAwards(

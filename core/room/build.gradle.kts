@@ -1,7 +1,7 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    alias(libs.plugins.ksp)
+    //alias(libs.plugins.ksp)
 }
 
 android {
@@ -36,7 +36,7 @@ android {
 dependencies {
     implementation(project(":core:model"))
     implementation(libs.dagger)
-    ksp(libs.dagger.compiler)
+    //ksp(libs.dagger.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.core.ktx)

@@ -26,25 +26,7 @@ import java.util.concurrent.TimeUnit
 import javax.inject.Singleton
 
 @Module
-interface NetworkModule {
-    companion object {
-        @Provides
-        @Singleton
-        fun provideOkHttp(): OkHttpClient {
-            return OkHttpClient.Builder()
-                .connectTimeout(30, TimeUnit.SECONDS)
-                .readTimeout(30, TimeUnit.SECONDS)
-                .writeTimeout(30, TimeUnit.SECONDS)
-                .build()
-        }
-
-        @Singleton
-        @Provides
-        fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
-            return HttpClientFactory.create(okHttpClient)
-        }
-    }
-    
+internal interface NetworkModuleImpl {
     @Binds
     fun bindsAwardServiceImpl(service: AwardServiceImpl): AwardService
 
@@ -68,4 +50,20 @@ interface NetworkModule {
 
     @Binds
     fun bindsStudiesServiceImpl(service: StudiesServiceImpl): StudiesService
+
+    companion object {
+        @Provides
+        fun provideOkHttp(): OkHttpClient {
+            return OkHttpClient.Builder()
+                .connectTimeout(30, TimeUnit.SECONDS)
+                .readTimeout(30, TimeUnit.SECONDS)
+                .writeTimeout(30, TimeUnit.SECONDS)
+                .build()
+        }
+
+        @Provides
+        fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
+            return HttpClientFactory.create(okHttpClient)
+        }
+    }
 }

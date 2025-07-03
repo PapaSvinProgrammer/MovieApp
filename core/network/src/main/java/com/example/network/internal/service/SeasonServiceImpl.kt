@@ -15,7 +15,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class SeasonServiceImpl @Inject constructor(
+internal class SeasonServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : SeasonService {
     override suspend fun getSeasonsByMovie(movieId: Int): Result<List<Season>> {

@@ -12,7 +12,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class CommentServiceImpl @Inject constructor(
+internal class CommentServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : CommentService {
     override suspend fun getCommentsByFilter(

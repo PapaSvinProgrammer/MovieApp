@@ -17,7 +17,7 @@ private val DARK_THEME = booleanPreferencesKey("dark_theme")
 private val ENTRY_STATE = booleanPreferencesKey("entry_state")
 private val CURRENT_ICON = intPreferencesKey("current_icon")
 
-class PreferencesRepositoryImpl @Inject constructor(
+internal class PreferencesRepositoryImpl @Inject constructor(
     private val context: Context
 ) : PreferencesRepository {
     private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)

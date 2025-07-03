@@ -9,27 +9,24 @@ import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.toRoute
 import com.example.aboutapp.AboutAppScreen
+import com.example.home.di.DaggerHomeComponent
 import com.example.home.presentation.HomeScreen
 import com.example.home.presentation.HomeViewModel
-import com.example.movieapp.di.viewModel.ViewModelFactory
+import com.example.viewmodelfactory.ViewModelFactory
 import com.example.navigationroute.AboutAppRoute
 import com.example.navigationroute.HomeRoute
-import com.example.navigationroute.MovieRoute
 import com.example.navigationroute.NavRoute
 import com.example.navigationroute.SettingsRoute
 import com.example.settings.SettingsScreen
 import com.example.settings.SettingsViewModel
 import dev.chrisbanes.haze.HazeState
-import kotlin.reflect.typeOf
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun NavigationGraph(
     navController: NavHostController,
     hazeState: HazeState,
-    viewModelFactory: ViewModelFactory,
     startRoute: NavRoute
 ) {
     NavHost(
@@ -70,12 +67,12 @@ fun NavigationGraph(
 //        }
 
         composable<HomeRoute> {
-            val viewModel: HomeViewModel = viewModel(factory = viewModelFactory)
+            val component = DaggerHomeComponent.factory().create()
 
             HomeScreen(
                 navController = navController,
                 hazeState = hazeState,
-                viewModel = viewModel
+                viewModel = component.viewModel
             )
         }
 
@@ -101,14 +98,14 @@ fun NavigationGraph(
 //            )
 //        }
 
-        composable<SettingsRoute> {
-            val viewModel: SettingsViewModel = viewModel(factory = viewModelFactory)
-
-            SettingsScreen(
-                navController = navController,
-                viewModel = viewModel
-            )
-        }
+//        composable<SettingsRoute> {
+//            val viewModel: SettingsViewModel = viewModel(factory = viewModelFactory)
+//
+//            SettingsScreen(
+//                navController = navController,
+//                viewModel = viewModel
+//            )
+//        }
 
         composable<AboutAppRoute> {
             AboutAppScreen(

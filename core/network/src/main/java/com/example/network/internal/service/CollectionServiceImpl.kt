@@ -12,7 +12,7 @@ import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject
 
-class CollectionServiceImpl @Inject constructor(
+internal class CollectionServiceImpl @Inject constructor(
     private val client: HttpClient
 ) : CollectionService {
     override suspend fun getCollectionByFilter(
