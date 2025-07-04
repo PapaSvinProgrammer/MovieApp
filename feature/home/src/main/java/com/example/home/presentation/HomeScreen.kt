@@ -10,9 +10,11 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.common.Constants
 import com.example.home.R
@@ -33,6 +35,8 @@ fun HomeScreen(
     hazeState: HazeState,
     viewModel: HomeViewModel
 ) {
+    val movieDramaState by viewModel.movieDramaState.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             TopAppBar(
@@ -80,7 +84,7 @@ fun HomeScreen(
                 val title = "Драмы"
                 viewModel.getMoviesDrama()
                 RenderMovieStateRow(
-                    state = viewModel.movieDramaState,
+                    state = movieDramaState,
                     title = title,
                     onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {

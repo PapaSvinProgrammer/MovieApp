@@ -1,5 +1,7 @@
 package com.example.home.presentation
 
+import android.util.Log
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -12,6 +14,8 @@ import com.example.home.domain.GetMoviesByGenre
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,8 +25,9 @@ class HomeViewModel @Inject constructor(
     private val getCollectionAll: GetCollectionAll,
     private val getMoviesByCompany: GetMoviesByCompany
 ): ViewModel() {
-    var movieDramaState by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
+    private val _movieDramaState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    var movieDramaState: StateFlow<MovieUIState> = _movieDramaState
+
     var movieBoevikState by mutableStateOf(MovieUIState.Loading as MovieUIState)
         private set
     var movieBest250State by mutableStateOf(MovieUIState.Loading as MovieUIState)
@@ -38,14 +43,20 @@ class HomeViewModel @Inject constructor(
     var collectionState by mutableStateOf(CollectionUIState.Loading as CollectionUIState)
         private set
 
+    init {
+        Log.d("RRRR", this.toString())
+    }
+
     fun getMoviesDrama() {
-        if (movieDramaState is MovieUIState.Success) return
+        Log.d("RRRR", movieDramaState.value.toString())
+        if (movieDramaState.value is MovieUIState.Success) return
+        Log.d("RRRR", "GET")
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMoviesByGenre.execute("драма")
 
             res.onSuccess {
-                movieDramaState = MovieUIState.Success(it)
+                _movieDramaState.value = MovieUIState.Success(it)
             }
         }
     }

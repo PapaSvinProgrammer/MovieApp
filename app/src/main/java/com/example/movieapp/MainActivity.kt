@@ -33,6 +33,7 @@ import dev.chrisbanes.haze.rememberHazeState
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
+    @Inject lateinit var viewModelFactory: ViewModelFactory
     @Inject lateinit var viewModel: MainViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
@@ -60,7 +61,8 @@ class MainActivity : ComponentActivity() {
                 }
 
                 MainScreen(
-                    startRoute = startRoute
+                    startRoute = startRoute,
+                    rootViewModelFactory = viewModelFactory
                 )
             }
         }
@@ -77,7 +79,8 @@ class MainActivity : ComponentActivity() {
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun MainScreen(
-    startRoute: NavRoute
+    startRoute: NavRoute,
+    rootViewModelFactory: ViewModelFactory
 ) {
     var bottomBarVisible by remember { mutableStateOf(false) }
     val navController = rememberNavController()
@@ -105,7 +108,8 @@ fun MainScreen(
         NavigationGraph(
             navController = navController,
             startRoute = startRoute,
-            hazeState = hazeState
+            hazeState = hazeState,
+            rootViewModelFactory = rootViewModelFactory
         )
     }
 }

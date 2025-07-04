@@ -19,7 +19,6 @@ import com.example.awardlist.di.DaggerAwardListComponent
 import com.example.collectionlist.CollectionListScreen
 import com.example.collectionlist.di.DaggerCollectionComponent
 import com.example.favorite.FavoriteScreen
-import com.example.home.di.DaggerHomeComponent
 import com.example.home.presentation.HomeDetailListScreen
 import com.example.home.presentation.HomeScreen
 import com.example.home.presentation.HomeViewModel
@@ -53,7 +52,8 @@ import kotlin.reflect.typeOf
 fun NavigationGraph(
     navController: NavHostController,
     hazeState: HazeState,
-    startRoute: NavRoute
+    startRoute: NavRoute,
+    rootViewModelFactory: ViewModelFactory
 ) {
     NavHost(
         navController = navController,
@@ -93,12 +93,12 @@ fun NavigationGraph(
 //        }
 
         composable<HomeRoute> {
-            val component = DaggerHomeComponent.factory().create()
+            val viewModel: HomeViewModel = viewModel(factory = rootViewModelFactory)
 
             HomeScreen(
                 navController = navController,
                 hazeState = hazeState,
-                viewModel = remember { component.viewModel }
+                viewModel = viewModel
             )
         }
 
