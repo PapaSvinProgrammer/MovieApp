@@ -5,8 +5,8 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.collection.GetCollectionAll
-import com.example.collection.GetCollectionByCategory
+import com.example.collectionusecase.GetCollectionAll
+import com.example.collectionusecase.GetCollectionByCategory
 import com.example.ui.uiState.CollectionUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

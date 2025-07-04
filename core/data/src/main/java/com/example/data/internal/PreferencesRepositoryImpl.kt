@@ -20,7 +20,9 @@ private val CURRENT_ICON = intPreferencesKey("current_icon")
 internal class PreferencesRepositoryImpl @Inject constructor(
     private val context: Context
 ) : PreferencesRepository {
-    private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
+    companion object {
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
+    }
 
     override suspend fun setDarkTheme(state: Boolean) {
         context.dataStore.edit {

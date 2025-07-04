@@ -5,7 +5,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.collection.GetCollectionBySlug
+import com.example.collectionusecase.GetCollectionBySlug
 import com.example.common.multiRequest
 import com.example.model.person.PersonMovie
 import com.example.ui.uiState.CollectionUIState

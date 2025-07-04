@@ -120,7 +120,9 @@ fun HazeBottomBar(
                 currentRoute = currentRoute ?: "",
                 onTabSelected = {
                     navController.navigate(it.route) {
-                        popUpTo(navController.graph.findStartDestination().id) { saveState = true }
+                        popUpTo(navController.graph.findStartDestination().id) {
+                            saveState = true
+                        }
                         launchSingleTop = true
                         restoreState = true
                     }

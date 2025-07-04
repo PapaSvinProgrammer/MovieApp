@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -38,11 +39,16 @@ android {
 
 dependencies {
     implementation(project(":domain:movie"))
+    implementation(project(":domain:collectionUseCase"))
     implementation(project(":core:ui"))
     implementation(project(":core:navigationRoute"))
+    implementation(project(":core:viewModelFactory"))
+
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+    implementation(libs.bundles.ktor)
     implementation(libs.haze)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.activity.compose)

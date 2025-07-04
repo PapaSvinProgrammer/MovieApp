@@ -2,7 +2,6 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.serialization)
-    //alias(libs.plugins.ksp)
     id("kotlin-kapt")
 }
 
@@ -13,6 +12,7 @@ android {
     defaultConfig {
         minSdk = 24
 
+        buildConfigField("String", "MOVIE_API_KEY", "\"${rootProject.extra["movieApiKey"]}\"")
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
     }
@@ -43,7 +43,6 @@ dependencies {
     api(project(":core:common"))
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.dagger)
-    //ksp(libs.dagger.compiler)
     kapt(libs.dagger.compiler)
     implementation(libs.bundles.ktor)
     implementation(libs.androidx.core.ktx)

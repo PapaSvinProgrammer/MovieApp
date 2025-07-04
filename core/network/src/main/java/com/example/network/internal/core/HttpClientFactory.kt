@@ -1,5 +1,6 @@
 package com.example.network.internal.core
 
+import com.example.network.BuildConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation
@@ -26,7 +27,7 @@ object HttpClientFactory {
             defaultRequest {
                 url("https://api.kinopoisk.dev/")
                 header("accept", "application/json")
-                //header("X-API-KEY", BuildConfig.MOVIE_API_KEY)
+                header("X-API-KEY", BuildConfig.MOVIE_API_KEY)
             }
 
             install(Logging) {

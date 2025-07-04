@@ -2,6 +2,7 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("kotlin-kapt")
 }
 
 android {
@@ -43,9 +44,12 @@ dependencies {
     implementation(project(":domain:searchHistory"))
     implementation(project(":core:ui"))
     implementation(project(":domain:collectionUseCase"))
+
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
     implementation(libs.dagger)
+    kapt(libs.dagger.compiler)
+    implementation(libs.bundles.ktor)
     implementation(libs.haze)
     implementation(libs.androidx.navigation)
     implementation(libs.androidx.activity.compose)
