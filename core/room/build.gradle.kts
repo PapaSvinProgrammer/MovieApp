@@ -1,7 +1,8 @@
 plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    //alias(libs.plugins.ksp)
+    alias(libs.plugins.ksp)
+    id("kotlin-kapt")
 }
 
 android {
@@ -36,9 +37,10 @@ android {
 dependencies {
     implementation(project(":core:model"))
     implementation(libs.dagger)
-    //ksp(libs.dagger.compiler)
+    kapt(libs.dagger.compiler)
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.paging)
+    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

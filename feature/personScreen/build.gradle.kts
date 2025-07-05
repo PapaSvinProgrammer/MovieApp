@@ -43,6 +43,7 @@ dependencies {
     implementation(project(":domain:movie"))
     implementation(project(":domain:person"))
     implementation(project(":core:ui"))
+    implementation(project(":core:viewModelFactory"))
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

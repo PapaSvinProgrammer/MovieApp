@@ -23,11 +23,11 @@ import com.example.home.presentation.HomeDetailListScreen
 import com.example.home.presentation.HomeScreen
 import com.example.home.presentation.HomeViewModel
 import com.example.login.startScreen.StartScreen
+import com.example.login.startScreen.di.DaggerStartComponent
 import com.example.movieScreen.MovieScreen
 import com.example.movieScreen.di.DaggerMovieComponent
 import com.example.movielist.MovieListScreen
 import com.example.movielistviewmodel.di.DaggerMovieListComponent
-import com.example.viewmodelfactory.ViewModelFactory
 import com.example.navigationroute.AboutAppRoute
 import com.example.navigationroute.AccountRoute
 import com.example.navigationroute.AwardListRoute
@@ -38,12 +38,29 @@ import com.example.navigationroute.HomeRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute
 import com.example.navigationroute.NavRoute
+import com.example.navigationroute.PersonDetailRoute
+import com.example.navigationroute.PersonPodiumListRoute
+import com.example.navigationroute.PersonRoute
+import com.example.navigationroute.SearchResultRoute
+import com.example.navigationroute.SearchRoute
+import com.example.navigationroute.SearchSettingsRoute
 import com.example.navigationroute.SettingsRoute
 import com.example.navigationroute.StartRoute
+import com.example.personlistviewmodel.di.DaggerPersonListComponent
 import com.example.personpodium.PersonPodiumListScreen
+import com.example.personscreen.PersonDetailScreen
+import com.example.personscreen.PersonScreen
+import com.example.personscreen.di.DaggerPersonComponent
+import com.example.search.searchResult.SearchResultScreen
+import com.example.search.searchResult.di.DaggerSearchResultComponent
+import com.example.search.searchScreen.SearchScreen
+import com.example.search.searchScreen.SearchViewModel
+import com.example.search.searchSettings.SearchSettingsScreen
+import com.example.search.searchSettings.di.DaggerSearchSettingsComponent
 import com.example.settings.SettingsScreen
 import com.example.settings.SettingsViewModel
 import com.example.settings.di.DaggerSettingsComponent
+import com.example.viewmodelfactory.ViewModelFactory
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
@@ -83,14 +100,14 @@ fun NavigationGraph(
             )
         }
     ) {
-//        composable<StartRoute> {
-//            val viewModel: StartViewModel = viewModel(factory = viewModelFactory)
-//
-//            StartScreen(
-//                navController = navController,
-//                viewModel = viewModel
-//            )
-//        }
+        composable<StartRoute> {
+            val component = DaggerStartComponent.factory().create(LocalContext.current)
+
+            StartScreen(
+                navController = navController,
+                viewModel = remember { component.viewModel }
+            )
+        }
 
         composable<HomeRoute> {
             val viewModel: HomeViewModel = viewModel(factory = rootViewModelFactory)
@@ -102,15 +119,15 @@ fun NavigationGraph(
             )
         }
 
-//        composable<com.example.navigationroute.SearchRoute> {
-//            val viewModel: SearchViewModel = viewModel(factory = viewModelFactory)
-//
-//            SearchScreen(
-//                navController = navController,
-//                viewModel = viewModel,
-//                hazeState = hazeState
-//            )
-//        }
+        composable<SearchRoute> {
+            val viewModel: SearchViewModel = viewModel(factory = rootViewModelFactory)
+
+            SearchScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState
+            )
+        }
 
         composable<AccountRoute> {
             AccountScreen(
@@ -139,30 +156,30 @@ fun NavigationGraph(
             )
         }
 
-//        composable<com.example.navigationroute.SearchSettingsRoute> {
-//            val viewModel: SearchSettingsViewModel = viewModel(factory = viewModelFactory)
-//
-//            SearchSettingsScreen(
-//                navController = navController,
-//                viewModel = viewModel
-//            )
-//        }
+        composable<SearchSettingsRoute> {
+            val component = DaggerSearchSettingsComponent.factory().create()
 
-//        composable<com.example.navigationroute.SearchResultRoute>(
-//            typeMap = mapOf(
-//                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
-//            )
-//        ) {
-//            val data = it.toRoute<com.example.navigationroute.SearchResultRoute>()
-//            val viewModel: SearchResultViewModel = viewModel(factory = viewModelFactory)
-//
-//            SearchResultScreen(
-//                navController = navController,
-//                viewModel = viewModel,
-//                queryParameters = data.queryParameters,
-//                hazeState = hazeState
-//            )
-//        }
+            SearchSettingsScreen(
+                navController = navController,
+                viewModel = remember { component.viewModel }
+            )
+        }
+
+        composable<SearchResultRoute>(
+            typeMap = mapOf(
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
+            )
+        ) {
+            val data = it.toRoute<SearchResultRoute>()
+            val component = DaggerSearchResultComponent.factory().create()
+
+            SearchResultScreen(
+                navController = navController,
+                viewModel = remember { component.viewModel },
+                queryParameters = data.queryParameters,
+                hazeState = hazeState
+            )
+        }
 
         composable<CollectionListRoute> {
             val route = it.toRoute<CollectionListRoute>()
@@ -210,44 +227,45 @@ fun NavigationGraph(
             )
         }
 
-//        composable<com.example.navigationroute.PersonPodiumListRoute>(
-//            typeMap = mapOf(
-//                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
-//            )
-//        ) {
-//            val route = it.toRoute<com.example.navigationroute.PersonPodiumListRoute>()
-//
-//            PersonPodiumListScreen(
-//                navController = navController,
-//                viewModel = viewMode,
-//                hazeState = hazeState,
-//                title = route.title,
-//                queryParameters = route.queryParameters
-//            )
-//        }
+        composable<PersonPodiumListRoute>(
+            typeMap = mapOf(
+                typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
+            )
+        ) {
+            val route = it.toRoute<PersonPodiumListRoute>()
+            val component = DaggerPersonListComponent.factory().create()
 
-//        composable<com.example.navigationroute.PersonRoute> {
-//            val route = it.toRoute<com.example.navigationroute.PersonRoute>()
-//            val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
-//            Dagger
-//            PersonScreen(
-//                navController = navController,
-//                viewModel = viewModel,
-//                hazeState = hazeState,
-//                id = route.id
-//            )
-//        }
+            PersonPodiumListScreen(
+                navController = navController,
+                viewModel = remember { component.viewModel },
+                hazeState = hazeState,
+                title = route.title,
+                queryParameters = route.queryParameters
+            )
+        }
 
-//        composable<com.example.navigationroute.PersonDetailRoute> {
-//            val route = it.toRoute<com.example.navigationroute.PersonDetailRoute>()
-//            val viewModel: PersonViewModel = viewModel(factory = viewModelFactory)
-//
-//            PersonDetailScreen(
-//                navController = navController,
-//                viewModel = viewModel,
-//                id = route.id
-//            )
-//        }
+        composable<PersonRoute> {
+            val route = it.toRoute<PersonRoute>()
+            val component = DaggerPersonComponent.factory().create()
+
+            PersonScreen(
+                navController = navController,
+                viewModel = remember { component.viewModel },
+                hazeState = hazeState,
+                id = route.id
+            )
+        }
+
+        composable<PersonDetailRoute> {
+            val route = it.toRoute<PersonDetailRoute>()
+            val component = DaggerPersonComponent.factory().create()
+
+            PersonDetailScreen(
+                navController = navController,
+                viewModel = remember { component.viewModel },
+                id = route.id
+            )
+        }
 
         composable<AwardListRoute> {
             val route = it.toRoute<AwardListRoute>()

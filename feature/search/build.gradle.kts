@@ -39,11 +39,12 @@ android {
 
 dependencies {
     implementation(project(":core:navigationRoute"))
-    implementation(project(":domain:person"))
-    implementation(project(":domain:movie"))
-    implementation(project(":domain:searchHistory"))
+    api(project(":domain:person"))
+    api(project(":domain:movie"))
+    api(project(":domain:searchHistory"))
     implementation(project(":core:ui"))
     implementation(project(":domain:collectionUseCase"))
+    implementation(project(":core:viewModelFactory"))
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)

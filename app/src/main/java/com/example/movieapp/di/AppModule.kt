@@ -2,9 +2,10 @@ package com.example.movieapp.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.home.di.HomeModule
 import com.example.home.presentation.HomeViewModel
 import com.example.movieapp.MainViewModel
+import com.example.search.searchScreen.SearchViewModel
+import com.example.settings.SettingsViewModel
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import dagger.Binds
@@ -12,11 +13,7 @@ import dagger.Module
 import dagger.multibindings.IntoMap
 import javax.inject.Singleton
 
-@Module(
-    includes = [
-        //HomeModule::class
-    ]
-)
+@Module
 interface AppModule {
     @Binds
     @Singleton
@@ -33,4 +30,10 @@ interface AppModule {
     @Singleton
     @ViewModelKey(HomeViewModel::class)
     fun bindsHomeViewModel(viewModel: HomeViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @Singleton
+    @ViewModelKey(SearchViewModel::class)
+    fun bindsSearchViewModel(viewModel: SearchViewModel): ViewModel
 }

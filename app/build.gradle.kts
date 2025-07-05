@@ -59,6 +59,7 @@ dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:data"))
     implementation(project(":core:network"))
+    implementation(project(":core:room"))
     implementation(project(":core:navigationRoute"))
     implementation(project(":core:viewModelFactory"))
 

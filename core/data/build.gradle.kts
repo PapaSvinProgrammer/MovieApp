@@ -39,7 +39,6 @@ dependencies {
     api(project(":core:network"))
     api(project(":core:room"))
     implementation(libs.androidx.room.runtime)
-    ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.datastore.preferences)
     implementation(libs.androidx.room.paging)
     implementation(libs.androidx.paging.runtime.ktx)

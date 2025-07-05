@@ -40,6 +40,8 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":domain:person"))
+    implementation(project(":core:viewModelFactory"))
+
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     implementation(libs.bundles.ktor)
