@@ -1,11 +1,13 @@
 package com.example.movieapp.di
 
 import android.content.Context
-import com.example.core.di.RepositoryModule
-import com.example.core.di.RoomModule
+import androidx.lifecycle.ViewModelProvider
+import com.example.data.external.di.DataModule
+import com.example.home.presentation.HomeViewModel
 import com.example.movieapp.MainActivity
-import com.example.movieapp.di.viewModel.ViewModelFactoryModule
-import com.example.movieapp.di.viewModel.ViewModelModule
+import com.example.network.external.di.NetworkModule
+import com.example.room.internal.di.RoomModule
+import com.example.viewmodelfactory.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton
@@ -13,11 +15,8 @@ import javax.inject.Singleton
 @Singleton
 @Component(
     modules = [
-        ViewModelFactoryModule::class,
-        ViewModelModule::class,
-        RepositoryModule::class,
-        NetworkModule::class,
-        RoomModule::class
+        AppModule::class,
+        DataModule::class
     ]
 )
 interface AppComponent {
@@ -28,4 +27,6 @@ interface AppComponent {
     }
 
     fun inject(mainActivity: MainActivity)
+
+    val viewModelFactory: ViewModelProvider.Factory
 }

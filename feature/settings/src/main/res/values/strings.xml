@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Настройки\n</string>
+    <string name="parent_control">Родительский контроль</string>
+    <string name="enter_with_pin_code">Вход с паролем</string>
+    <string name="enter_with_pin_code_description">Будет запрашиваться пин-код при каждом входе в приложение</string>
+    <string name="icon_app">Иконка приложения</string>
+    <string name="theme">Тема</string>
+    <string name="other">Другое\n</string>
+    <string name="vibration">Вибрация</string>
+    <string name="vibration_description">Тактильные эфекты при использовании</string>
+    <string name="light">Светлая\n</string>
+    <string name="dark">Темная</string>
+    <string name="alternative_icon">Альтернативаня иконка</string>
+</resources>

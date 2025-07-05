@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Настройки</string>
+    <string name="chat_with_support">Поддержка</string>
+    <string name="about_app">О приложении</string>
+</resources>

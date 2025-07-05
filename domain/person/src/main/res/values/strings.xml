@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="birthday">Дата рождения</string>
+    <string name="death">Дата смерти</string>
+    <string name="spouse">Брак</string>
+    <string name="total_movies">Всего фильмов</string>
+    <string name="count_awards">Количество наград</string>
+    <string name="death_place">Место смерти</string>
+    <string name="birth_place">Место рождения</string>
+    <string name="growth">Рост\n</string>
+    <string name="professions">Роли</string>
+</resources>

@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="sort">Сортировка</string>
+    <string name="by_alphabet">По алфавиту</string>
+    <string name="by_date">По дате</string>
+    <string name="evaluate">Оценить</string>
+    <string name="will_watching">Буду смотреть</string>
+    <string name="share">Поделиться</string>
+    <string name="more">Еще</string>
+    <string name="award">Награда</string>
+    <string name="nomination">Номинация</string>
+    <string name="input_value">Введите название</string>
+    <string name="cancel">Отмена</string>
+    <string name="show_all">Показать все</string>
+    <string name="cinema">Кино</string>
+    <string name="persons">Персоны</string>
+    <string name="not_found">Ничего не найдено</string>
+    <string name="seasons_series">Сезоны и серии</string>
+    <string name="reset">Сбросить</string>
+    <string name="where_can_watch">Где можно посмотреть</string>
+    <string name="select_date">Выбор даты</string>
+    <string name="select">Выбрать</string>
+    <string name="spoilers_title">Здесь есть спойлер</string>
+    <string name="spoilers_description">Нажмите, чтобы показать</string>
+    <string name="app_name">MovieApp</string>
+    <string name="rating_imdb">Рейтинг IMDb</string>
+    <string name="rating_critics">Рейтинг критиков</string>
+    <string name="rating_russian_crtics">Рейтинг российских критиков</string>
+</resources>
