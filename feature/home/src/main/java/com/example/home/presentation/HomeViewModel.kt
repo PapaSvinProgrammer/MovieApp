@@ -1,7 +1,6 @@
 package com.example.home.presentation
 
 import android.util.Log
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -43,20 +42,15 @@ class HomeViewModel @Inject constructor(
     var collectionState by mutableStateOf(CollectionUIState.Loading as CollectionUIState)
         private set
 
-    init {
-        Log.d("RRRR", this.toString())
-    }
-
     fun getMoviesDrama() {
-        Log.d("RRRR", movieDramaState.value.toString())
         if (movieDramaState.value is MovieUIState.Success) return
-        Log.d("RRRR", "GET")
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMoviesByGenre.execute("драма")
 
             res.onSuccess {
                 _movieDramaState.value = MovieUIState.Success(it)
+                Log.d("RRRR", it.firstOrNull().toString())
             }
         }
     }

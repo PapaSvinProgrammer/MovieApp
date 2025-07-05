@@ -106,7 +106,7 @@ fun HomeScreen(
 
             item {
                 val title = "Собственные рекомендации"
-                viewModel.getMoviesBest250()
+//                viewModel.getMoviesBest250()
                 RenderMovieStateRow(
                     state = viewModel.movieBest250State,
                     title = title,
@@ -130,7 +130,7 @@ fun HomeScreen(
 
             item {
                 val title = "Боевики"
-                viewModel.getMoviesBoevik()
+//                viewModel.getMoviesBoevik()
                 RenderMovieStateRow(
                     state = viewModel.movieBoevikState,
                     title = title,
@@ -154,7 +154,7 @@ fun HomeScreen(
 
             item {
                 val title = "Научная фантастика"
-                viewModel.getMoviesBest100()
+//                viewModel.getMoviesBest100()
                 RenderMovieStateRow(
                     state =  viewModel.movieBest100State,
                     title = title,
@@ -178,7 +178,7 @@ fun HomeScreen(
 
             item {
                 val title = "Стоит посмотреть"
-                viewModel.getMoviesBest501()
+//                viewModel.getMoviesBest501()
                 RenderMovieStateRow(
                     state = viewModel.movieBest501State,
                     title = title,
@@ -202,7 +202,7 @@ fun HomeScreen(
 
             item {
                 val title = "Снято HBO"
-                viewModel.getMoviesHBO()
+//                viewModel.getMoviesHBO()
                 RenderMovieStateRow(
                     state = viewModel.movieHBOState,
                     title = title,
@@ -226,7 +226,7 @@ fun HomeScreen(
 
             item {
                 val title = "Снято Netflix"
-                viewModel.getMoviesNetflix()
+//                viewModel.getMoviesNetflix()
                 RenderMovieStateRow(
                     state = viewModel.movieNetflixState,
                     title = title,

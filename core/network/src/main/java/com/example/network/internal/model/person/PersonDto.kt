@@ -16,10 +16,10 @@ internal data class PersonDto(
     val death: String? = null,
     val age: Int? = null,
     val countAwards: Int? = null,
-    val spouseDto: List<SpouseDto> = listOf(),
-    val birthPlaceDto: List<PlaceDto> = listOf(),
-    val deathPlaceDto: List<PlaceDto> = listOf(),
-    val professionDto: List<ProfessionDto> = listOf(),
-    val factDto: List<FactDto> = listOf(),
+    val spouse: List<SpouseDto> = listOf(),
+    val birthPlace: List<PlaceDto> = listOf(),
+    val deathPlace: List<PlaceDto> = listOf(),
+    val profession: List<ProfessionDto> = listOf(),
+    val facts: List<FactDto> = listOf(),
     val movies: List<ShortMovieDto> = listOf()
 )

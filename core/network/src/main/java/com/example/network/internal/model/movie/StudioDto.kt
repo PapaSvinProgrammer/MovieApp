@@ -8,7 +8,7 @@ internal data class StudioDto(
     val subType: String?,
     val title: String?,
     val type: String?,
-    val movieDto: List<MovieDto>,
+    val movie: List<MovieDto>,
     val createdAt: String?,
     val updatedAt: String?
 )

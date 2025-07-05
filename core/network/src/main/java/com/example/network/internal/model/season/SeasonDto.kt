@@ -10,5 +10,5 @@ internal data class SeasonDto(
     val enName: String? = null,
     val episodesCount: Int? = null,
     val airDate: String? = null,
-    val episodeDto: List<EpisodeDto> = listOf()
+    val episodes: List<EpisodeDto> = listOf()
 )

@@ -12,7 +12,7 @@ internal fun EpisodeDto.toDomain(): Episode = Episode(
     airDate = this.airDate,
     description = this.description,
     enDescription = this.enDescription,
-    still = this.stillDto?.toDomain()
+    still = this.still?.toDomain()
 )
 
 internal fun SeasonDto.toDomain(): Season = Season(
@@ -22,5 +22,5 @@ internal fun SeasonDto.toDomain(): Season = Season(
     enName = this.enName,
     episodesCount = this.episodesCount,
     airDate = this.airDate,
-    episodes = this.episodeDto.map { it.toDomain() }
+    episodes = this.episodes.map { it.toDomain() }
 )

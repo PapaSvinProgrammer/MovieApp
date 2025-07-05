@@ -5,7 +5,7 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class NominationAwardDto(
-    val nominationDto: NominationDto?,
+    val nomination: NominationDto?,
     val winning: Boolean?,
     val personId: Int?,
     val movie: ShortMovieDto?

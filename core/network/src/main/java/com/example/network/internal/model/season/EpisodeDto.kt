@@ -11,5 +11,5 @@ internal data class EpisodeDto(
     val airDate: String?,
     val description: String?,
     val enDescription: String?,
-    val stillDto: PosterDto?,
+    val still: PosterDto?,
 )

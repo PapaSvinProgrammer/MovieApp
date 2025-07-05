@@ -23,14 +23,14 @@ internal fun AwardDto.toDomain(): Award = Award(
 )
 
 internal fun NominationAwardDto.toDomain(): NominationAward = NominationAward(
-    nomination = this.nominationDto?.toDomain(),
+    nomination = this.nomination?.toDomain(),
     winning = this.winning,
     personId = this.personId,
     movie = this.movie?.toDomain()
 )
 
 internal fun NominationDto.toDomain(): Nomination = Nomination(
-    award = this.awardDto?.toDomain(),
+    award = this.award?.toDomain(),
     title = this.title
 )
 
@@ -45,11 +45,11 @@ internal fun PersonDto.toDomain(): Person = Person(
     death = death,
     age = age,
     countAwards = countAwards,
-    spouses = spouseDto.map { it.toDomain() },
-    birthPlace = birthPlaceDto.map { it.toDomain() },
-    deathPlace = deathPlaceDto.map { it.toDomain() },
-    professions = professionDto.map { it.toDomain() },
-    facts = factDto.map { it.toDomain() },
+    spouses = spouse.map { it.toDomain() },
+    birthPlace = birthPlace.map { it.toDomain() },
+    deathPlace = deathPlace.map { it.toDomain() },
+    professions = profession.map { it.toDomain() },
+    facts = facts.map { it.toDomain() },
     movies = movies.map { it.toDomain() }
 )
 
