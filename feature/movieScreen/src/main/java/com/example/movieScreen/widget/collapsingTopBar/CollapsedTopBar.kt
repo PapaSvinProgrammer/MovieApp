@@ -1,4 +1,4 @@
-package com.example.ui.widget.collapsingTopBar
+package com.example.movieScreen.widget.collapsingTopBar
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateColorAsState

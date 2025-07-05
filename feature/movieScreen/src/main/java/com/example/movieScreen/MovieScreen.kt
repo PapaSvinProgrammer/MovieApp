@@ -47,8 +47,8 @@ import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.ImageUIState
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.chips.RatingCardLarge
-import com.example.ui.widget.collapsingTopBar.CollapsedTopBar
-import com.example.ui.widget.collapsingTopBar.ExpandedContent
+import com.example.movieScreen.widget.collapsingTopBar.CollapsedTopBar
+import com.example.movieScreen.widget.collapsingTopBar.ExpandedContent
 import com.example.ui.widget.component.BackdropContent
 import com.example.ui.widget.component.BasicLoadingBox
 import com.example.ui.widget.component.MovieDescription

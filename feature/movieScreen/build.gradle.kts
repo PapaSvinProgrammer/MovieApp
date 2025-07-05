@@ -46,6 +46,8 @@ dependencies {
 
     implementation(libs.coil.compose)
     implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.coil.svg)
+
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     implementation(libs.bundles.ktor)

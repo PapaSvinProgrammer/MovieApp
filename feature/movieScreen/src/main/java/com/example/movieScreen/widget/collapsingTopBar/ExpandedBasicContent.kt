@@ -1,4 +1,4 @@
-package com.example.ui.widget.collapsingTopBar
+package com.example.movieScreen.widget.collapsingTopBar
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -17,7 +17,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.ui.widget.other.RatingText
-import com.example.utils.ConvertData
 import com.example.utils.PrettyData
 
 @Composable

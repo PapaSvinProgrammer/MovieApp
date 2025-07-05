@@ -1,6 +1,5 @@
 package com.example.network.internal.service
 
-import android.util.Log
 import com.example.common.Constants.LIMIT_FIELD
 import com.example.common.Constants.MOVIE_ID_FIELD
 import com.example.common.Constants.NAME_FIELD
@@ -55,7 +54,6 @@ internal class MovieServiceImpl @Inject constructor(
                 }
             }
         }.map { doc ->
-            Log.d("RRRR", "---->" + doc.docs.firstOrNull().toString())
             doc.docs.map { it.toDomain() }
         }
     }

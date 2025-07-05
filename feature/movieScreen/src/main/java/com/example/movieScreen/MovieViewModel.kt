@@ -1,5 +1,6 @@
 package com.example.movieScreen
 
+import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -43,7 +44,11 @@ class MovieViewModel @Inject constructor(
             res.onSuccess {
                 movieState = MovieUIState.Success(listOf(it))
                 filterActors(it.persons)
+                Log.d("RRRR", it.toString())
             }
+                .onFailure {
+                    Log.d("RRRR", it.toString())
+                }
         }
     }
 
