@@ -26,7 +26,7 @@ internal data class MovieDto(
     val year: Int? = null,
     val budget: BudgetDto? = null,
     val poster: PosterDto? = null,
-    val facts: List<FactDto> = listOf(),
+    val facts: List<FactDto>? = null,
     val genres: List<ItemNameDto> = listOf(),
     val countries: List<ItemNameDto> = listOf(),
     val persons: List<PersonMovieDto> = listOf(),
