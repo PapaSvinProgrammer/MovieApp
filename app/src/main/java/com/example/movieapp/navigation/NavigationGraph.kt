@@ -15,18 +15,24 @@ import androidx.navigation.toRoute
 import com.example.aboutapp.AboutAppScreen
 import com.example.account.AccountScreen
 import com.example.awardlist.AwardListScreen
+import com.example.awardlist.AwardListViewModel
 import com.example.awardlist.di.DaggerAwardListComponent
 import com.example.collectionlist.CollectionListScreen
+import com.example.collectionlist.CollectionListViewModel
 import com.example.collectionlist.di.DaggerCollectionComponent
 import com.example.favorite.FavoriteScreen
+import com.example.home.di.DaggerHomeComponent
 import com.example.home.presentation.HomeDetailListScreen
 import com.example.home.presentation.HomeScreen
 import com.example.home.presentation.HomeViewModel
 import com.example.login.startScreen.StartScreen
+import com.example.login.startScreen.StartViewModel
 import com.example.login.startScreen.di.DaggerStartComponent
 import com.example.movieScreen.MovieScreen
+import com.example.movieScreen.MovieViewModel
 import com.example.movieScreen.di.DaggerMovieComponent
 import com.example.movielist.MovieListScreen
+import com.example.movielistviewmodel.MovieListViewModel
 import com.example.movielistviewmodel.di.DaggerMovieListComponent
 import com.example.navigationroute.AboutAppRoute
 import com.example.navigationroute.AccountRoute
@@ -46,16 +52,21 @@ import com.example.navigationroute.SearchRoute
 import com.example.navigationroute.SearchSettingsRoute
 import com.example.navigationroute.SettingsRoute
 import com.example.navigationroute.StartRoute
+import com.example.personlistviewmodel.PersonListViewModel
 import com.example.personlistviewmodel.di.DaggerPersonListComponent
 import com.example.personpodium.PersonPodiumListScreen
 import com.example.personscreen.PersonDetailScreen
 import com.example.personscreen.PersonScreen
+import com.example.personscreen.PersonViewModel
 import com.example.personscreen.di.DaggerPersonComponent
 import com.example.search.searchResult.SearchResultScreen
+import com.example.search.searchResult.SearchResultViewModel
 import com.example.search.searchResult.di.DaggerSearchResultComponent
 import com.example.search.searchScreen.SearchScreen
 import com.example.search.searchScreen.SearchViewModel
+import com.example.search.searchScreen.di.DaggerSearchComponent
 import com.example.search.searchSettings.SearchSettingsScreen
+import com.example.search.searchSettings.SearchSettingsViewModel
 import com.example.search.searchSettings.di.DaggerSearchSettingsComponent
 import com.example.settings.SettingsScreen
 import com.example.settings.SettingsViewModel
@@ -69,8 +80,7 @@ import kotlin.reflect.typeOf
 fun NavigationGraph(
     navController: NavHostController,
     hazeState: HazeState,
-    startRoute: NavRoute,
-    rootViewModelFactory: ViewModelFactory
+    startRoute: NavRoute
 ) {
     NavHost(
         navController = navController,
@@ -101,16 +111,28 @@ fun NavigationGraph(
         }
     ) {
         composable<StartRoute> {
-            val component = DaggerStartComponent.factory().create(LocalContext.current)
+            val component = DaggerStartComponent
+                .factory()
+                .create(LocalContext.current)
+
+            val viewModel: StartViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             StartScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel }
+                viewModel = viewModel
             )
         }
 
         composable<HomeRoute> {
-            val viewModel: HomeViewModel = viewModel(factory = rootViewModelFactory)
+            val component = DaggerHomeComponent
+                .factory()
+                .create()
+
+            val viewModel: HomeViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             HomeScreen(
                 navController = navController,
@@ -120,7 +142,13 @@ fun NavigationGraph(
         }
 
         composable<SearchRoute> {
-            val viewModel: SearchViewModel = viewModel(factory = rootViewModelFactory)
+            val component = DaggerSearchComponent
+                .factory()
+                .create(LocalContext.current)
+
+            val viewModel: SearchViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             SearchScreen(
                 navController = navController,
@@ -142,11 +170,17 @@ fun NavigationGraph(
         }
 
         composable<SettingsRoute> {
-            val component = DaggerSettingsComponent.factory().create(LocalContext.current)
+            val component = DaggerSettingsComponent
+                .factory()
+                .create(LocalContext.current)
+
+            val viewModel: SettingsViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             SettingsScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel }
+                viewModel = viewModel
             )
         }
 
@@ -157,11 +191,17 @@ fun NavigationGraph(
         }
 
         composable<SearchSettingsRoute> {
-            val component = DaggerSearchSettingsComponent.factory().create()
+            val component = DaggerSearchSettingsComponent
+                .factory()
+                .create()
+
+            val viewModel: SearchSettingsViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             SearchSettingsScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel }
+                viewModel = viewModel
             )
         }
 
@@ -171,11 +211,17 @@ fun NavigationGraph(
             )
         ) {
             val data = it.toRoute<SearchResultRoute>()
-            val component = DaggerSearchResultComponent.factory().create()
+            val component = DaggerSearchResultComponent
+                .factory()
+                .create()
+
+            val viewModel: SearchResultViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             SearchResultScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 queryParameters = data.queryParameters,
                 hazeState = hazeState
             )
@@ -183,11 +229,17 @@ fun NavigationGraph(
 
         composable<CollectionListRoute> {
             val route = it.toRoute<CollectionListRoute>()
-            val component = DaggerCollectionComponent.factory().create()
+            val component = DaggerCollectionComponent
+                .factory()
+                .create()
+
+            val viewModel: CollectionListViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             CollectionListScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 category = route.category
             )
@@ -199,11 +251,17 @@ fun NavigationGraph(
             )
         ) {
             val route = it.toRoute<MovieListRoute>()
-            val component = DaggerMovieListComponent.factory().create()
+            val component = DaggerMovieListComponent
+                .factory()
+                .create()
+
+            val viewModel: MovieListViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             MovieListScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 title = route.title,
                 queryParameters = route.queryParameters
@@ -216,11 +274,17 @@ fun NavigationGraph(
             )
         ) {
             val route = it.toRoute<HomeDetailListRoute>()
-            val component = DaggerMovieListComponent.factory().create()
+            val component = DaggerMovieListComponent
+                .factory()
+                .create()
+
+            val viewModel: MovieListViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             HomeDetailListScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 title = route.title,
                 queryParameters = route.queryParameters
@@ -233,11 +297,17 @@ fun NavigationGraph(
             )
         ) {
             val route = it.toRoute<PersonPodiumListRoute>()
-            val component = DaggerPersonListComponent.factory().create()
+            val component = DaggerPersonListComponent
+                .factory()
+                .create()
+
+            val viewModel: PersonListViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
 
             PersonPodiumListScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 title = route.title,
                 queryParameters = route.queryParameters
@@ -248,9 +318,13 @@ fun NavigationGraph(
             val route = it.toRoute<PersonRoute>()
             val component = DaggerPersonComponent.factory().create()
 
+            val viewModel: PersonViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
+
             PersonScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 id = route.id
             )
@@ -260,9 +334,13 @@ fun NavigationGraph(
             val route = it.toRoute<PersonDetailRoute>()
             val component = DaggerPersonComponent.factory().create()
 
+            val viewModel: PersonViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
+
             PersonDetailScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 id = route.id
             )
         }
@@ -271,9 +349,13 @@ fun NavigationGraph(
             val route = it.toRoute<AwardListRoute>()
             val component = DaggerAwardListComponent.factory().create()
 
+            val viewModel: AwardListViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
+
             AwardListScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 id = route.id,
                 isMovie = route.isMovie
@@ -284,9 +366,13 @@ fun NavigationGraph(
             val route = it.toRoute<MovieRoute>()
             val component = DaggerMovieComponent.factory().create()
 
+            val viewModel: MovieViewModel = viewModel(
+                factory = component.viewModelFactory
+            )
+
             MovieScreen(
                 navController = navController,
-                viewModel = remember { component.viewModel },
+                viewModel = viewModel,
                 hazeState = hazeState,
                 id = route.id
             )

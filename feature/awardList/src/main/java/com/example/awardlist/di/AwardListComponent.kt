@@ -1,5 +1,6 @@
 package com.example.awardlist.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.example.awardlist.AwardListViewModel
 import dagger.Component
 
@@ -15,5 +16,5 @@ interface AwardListComponent {
         fun create(): AwardListComponent
     }
 
-    val viewModel: AwardListViewModel
+    val viewModelFactory: ViewModelProvider.Factory
 }
