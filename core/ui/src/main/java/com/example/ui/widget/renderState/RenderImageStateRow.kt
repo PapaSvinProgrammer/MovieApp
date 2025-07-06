@@ -15,7 +15,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.image.Poster
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.ui.uiState.ImageUIState
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.lazyComponent.DefaultLazyRow

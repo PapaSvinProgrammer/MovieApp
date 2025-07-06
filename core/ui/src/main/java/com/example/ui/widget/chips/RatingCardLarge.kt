@@ -20,9 +20,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.movieapp.ui.R
 import com.example.ui.widget.other.RatingText
-import com.example.ui.R
-import com.example.utils.ConvertData
 import com.example.utils.PrettyData
 
 @Composable

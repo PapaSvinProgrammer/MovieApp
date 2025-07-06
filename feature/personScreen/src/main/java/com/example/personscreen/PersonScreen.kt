@@ -35,6 +35,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
 import com.example.common.Constants
+import com.example.movieapp.personScreen.R
 import com.example.navigationroute.AwardListRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute
@@ -50,7 +51,6 @@ import com.example.ui.widget.renderState.RenderMovieStateRow
 import com.example.ui.widget.shimmer.ShimmerPersonContent
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
-import com.example.personScreen.R
 import com.example.personscreen.widget.MainPersonContent
 
 @RequiresApi(Build.VERSION_CODES.O)

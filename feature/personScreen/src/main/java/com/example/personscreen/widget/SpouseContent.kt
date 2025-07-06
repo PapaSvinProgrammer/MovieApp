@@ -13,7 +13,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.model.person.Spouse
-import com.example.person.R
+import com.example.movieapp.personScreen.R
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.widget.listItems.SpouseCard
 

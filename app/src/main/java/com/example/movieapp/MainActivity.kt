@@ -22,7 +22,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.viewmodelfactory.ViewModelFactory
 import com.example.movieapp.navigation.BottomBarItems
 import com.example.movieapp.navigation.HazeBottomBar
 import com.example.movieapp.navigation.NavigationGraph

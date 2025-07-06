@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.ui.theme.Gold
 import com.example.ui.theme.Green
 import com.example.utils.ConvertData

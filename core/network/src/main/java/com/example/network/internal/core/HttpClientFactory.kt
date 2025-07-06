@@ -1,6 +1,6 @@
 package com.example.network.internal.core
 
-import com.example.network.BuildConfig
+import com.example.movieapp.network.BuildConfig
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.okhttp.OkHttp
 import io.ktor.client.plugins.contentnegotiation.ContentNegotiation

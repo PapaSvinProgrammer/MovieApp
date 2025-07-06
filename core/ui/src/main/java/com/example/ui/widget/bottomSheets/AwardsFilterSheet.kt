@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.sp
+import com.example.movieapp.ui.R
 import com.example.ui.widget.component.CheckRow
-import com.example.ui.R
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

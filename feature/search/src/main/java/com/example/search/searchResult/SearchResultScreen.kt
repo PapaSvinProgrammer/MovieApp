@@ -14,8 +14,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.movieapp.search.R
 import com.example.navigationroute.MovieRoute
-import com.example.search.R
 import com.example.search.widget.RenderMovieState
 import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState

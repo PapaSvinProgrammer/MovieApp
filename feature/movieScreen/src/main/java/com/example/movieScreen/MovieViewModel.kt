@@ -45,8 +45,7 @@ class MovieViewModel @Inject constructor(
                 movieState = MovieUIState.Success(listOf(it))
                 filterActors(it.persons)
                 Log.d("RRRR", it.toString())
-            }
-                .onFailure {
+            }.onFailure {
                     Log.d("RRRR", it.toString())
                 }
         }

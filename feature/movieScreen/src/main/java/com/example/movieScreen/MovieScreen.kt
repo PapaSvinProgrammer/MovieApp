@@ -49,6 +49,7 @@ import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.chips.RatingCardLarge
 import com.example.movieScreen.widget.collapsingTopBar.CollapsedTopBar
 import com.example.movieScreen.widget.collapsingTopBar.ExpandedContent
+import com.example.movieapp.movieScreen.R
 import com.example.ui.widget.component.BackdropContent
 import com.example.ui.widget.component.BasicLoadingBox
 import com.example.ui.widget.component.MovieDescription
@@ -64,7 +65,6 @@ import com.example.ui.widget.listItems.SupportPersonCard
 import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
-import com.example.moviescreen.R
 
 @Composable
 fun MovieScreen(

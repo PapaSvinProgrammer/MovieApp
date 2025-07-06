@@ -17,7 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.common.Constants
-import com.example.home.R
+import com.example.movieapp.home.R
 import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.HomeDetailListRoute
 import com.example.navigationroute.MovieListRoute

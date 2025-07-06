@@ -22,10 +22,10 @@ import androidx.paging.compose.itemContentType
 import androidx.paging.compose.itemKey
 import com.example.model.History
 import com.example.model.SearchItem
+import com.example.movieapp.ui.R
 import com.example.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.ui.widget.listItems.SearchHistoryMovieCard
 import com.example.ui.widget.listItems.SearchItemCard
-import com.example.ui.R
 import com.example.utils.toSearchItem
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource

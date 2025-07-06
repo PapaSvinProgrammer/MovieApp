@@ -1,7 +1,7 @@
 package com.example.movieapp.navigation
 
 import androidx.compose.ui.graphics.Color
-import com.example.movieapp.R
+import com.example.movieapp.app.R
 import com.example.ui.theme.ColorGradient1
 import com.example.ui.theme.ColorGradient2
 import com.example.ui.theme.ColorGradient3

@@ -29,9 +29,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.common.Constants.LAST_YEAR
+import com.example.movieapp.ui.R
 import com.example.ui.widget.lazyComponent.InfiniteCircularList
 import com.example.ui.widget.lazyComponent.calculateTargetIndex
-import com.example.ui.R
 import com.example.utils.FormatDate
 import kotlinx.coroutines.launch
 

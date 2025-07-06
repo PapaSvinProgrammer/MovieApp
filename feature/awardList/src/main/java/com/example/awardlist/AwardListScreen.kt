@@ -15,6 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.movieapp.awardList.R
 import com.example.ui.widget.bottomSheets.AwardsFilterSheet
 import com.example.ui.widget.other.TitleTopBarText
 import com.example.ui.widget.renderState.RenderAwardsContent

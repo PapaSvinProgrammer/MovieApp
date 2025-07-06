@@ -16,7 +16,7 @@ import androidx.compose.ui.unit.dp
 import androidx.paging.compose.LazyPagingItems
 import com.example.model.History
 import com.example.model.SearchItem
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.ui.uiState.SearchUIState
 import dev.chrisbanes.haze.HazeState
 

@@ -8,7 +8,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.model.totalValue.Rating
 import com.example.model.totalValue.Votes
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.ui.widget.chips.RatingCard
 
 @Composable

@@ -32,7 +32,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.category.ItemName
 import com.example.model.movie.Movie
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.ui.widget.other.RatingText
 import com.example.utils.ConvertData
 import com.example.utils.PrettyData

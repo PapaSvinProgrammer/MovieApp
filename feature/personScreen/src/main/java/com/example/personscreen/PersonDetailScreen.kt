@@ -67,6 +67,8 @@ fun PersonDetailScreen(
             RenderPersonDetailState(viewModel.personState)
 
             (viewModel.personState as? PersonUIState.Success)?.data?.let { data ->
+                if (data.first().spouses.isEmpty()) return@Scaffold
+
                 SpouseContent(
                     state = viewModel.personSpouseState,
                     spouses = data.first().spouses,

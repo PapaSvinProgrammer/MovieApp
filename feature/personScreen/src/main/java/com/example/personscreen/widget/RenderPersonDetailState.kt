@@ -5,7 +5,7 @@ import androidx.annotation.RequiresApi
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.model.person.Person
-import com.example.person.R
+import com.example.movieapp.personScreen.R
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.widget.listItems.DetailInfoListItem
 import com.example.ui.widget.shimmer.ShimmerPersonDetail

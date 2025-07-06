@@ -3,11 +3,7 @@ package com.example.movieapp.di
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.external.di.DataModule
-import com.example.home.presentation.HomeViewModel
 import com.example.movieapp.MainActivity
-import com.example.network.external.di.NetworkModule
-import com.example.room.internal.di.RoomModule
-import com.example.viewmodelfactory.ViewModelFactory
 import dagger.BindsInstance
 import dagger.Component
 import javax.inject.Singleton

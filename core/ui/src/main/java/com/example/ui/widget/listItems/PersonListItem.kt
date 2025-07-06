@@ -33,7 +33,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.person.Person
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.utils.FormatDate
 
 @RequiresApi(Build.VERSION_CODES.O)

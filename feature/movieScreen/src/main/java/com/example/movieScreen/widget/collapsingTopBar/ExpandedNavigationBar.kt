@@ -15,7 +15,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.ui.R
+import com.example.movieapp.ui.R
 
 @Composable
 fun ExpandedNavigationBar() {

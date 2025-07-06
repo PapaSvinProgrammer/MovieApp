@@ -24,6 +24,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.movieapp.account.R
 import com.example.navigationroute.AboutAppRoute
 import com.example.navigationroute.SettingsRoute
 import com.example.ui.theme.ColorGradient1
@@ -76,7 +77,6 @@ private fun ColumnScope.ProfileContent(
     name: String,
     email: String
 ) {
-
     Box(
         modifier = Modifier
             .align(Alignment.CenterHorizontally)

@@ -33,13 +33,13 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.common.Constants
 import com.example.model.image.CollectionMovie
+import com.example.movieapp.search.R
 import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute
 import com.example.navigationroute.PersonPodiumListRoute
 import com.example.navigationroute.PersonRoute
 import com.example.navigationroute.SearchSettingsRoute
-import com.example.search.R
 import com.example.search.widget.RenderPersonRowState
 import com.example.ui.widget.component.SearchBarContent
 import com.example.ui.widget.renderState.RenderCollectionStateRow

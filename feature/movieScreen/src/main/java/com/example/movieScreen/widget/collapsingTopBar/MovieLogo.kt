@@ -15,7 +15,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.svg.SvgDecoder
-import com.example.ui.R
+import com.example.movieapp.movieScreen.R
 
 @Composable
 internal fun MovieLogo(url: String?, name: String) {

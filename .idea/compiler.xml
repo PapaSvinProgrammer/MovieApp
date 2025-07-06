@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="CompilerConfiguration">
-    <bytecodeTargetLevel target="11">
-      <module name="MovieApp.build-logic" target="21" />
-      <module name="MovieApp.build-logic.main" target="21" />
-      <module name="MovieApp.build-logic.test" target="21" />
+    <bytecodeTargetLevel target="21">
+      <module name="MovieApp.build_core" target="21" />
+      <module name="MovieApp.build_core.main" target="21" />
+      <module name="MovieApp.build_core.test" target="21" />
       <module name="MovieApp.core.coreComponent" target="21" />
       <module name="MovieApp.domain.collection" target="21" />
       <module name="MovieApp.domain.personScreen" target="21" />

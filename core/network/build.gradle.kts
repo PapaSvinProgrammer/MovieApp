@@ -1,38 +1,18 @@
 plugins {
-    alias(libs.plugins.android.library)
-    alias(libs.plugins.kotlin.android)
+    id("android-core-module")
     alias(libs.plugins.kotlin.serialization)
     id("kotlin-kapt")
 }
 
 android {
-    namespace = "com.example.network"
-    compileSdk = 35
-
     defaultConfig {
-        minSdk = 24
-
-        buildConfigField("String", "MOVIE_API_KEY", "\"${rootProject.extra["movieApiKey"]}\"")
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
-        consumerProguardFiles("consumer-rules.pro")
+        buildConfigField(
+            type = "String",
+            name = "MOVIE_API_KEY",
+            value = "\"${rootProject.extra["movieApiKey"]}\""
+        )
     }
 
-    buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
-        }
-    }
-    compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_11
-        targetCompatibility = JavaVersion.VERSION_11
-    }
-    kotlinOptions {
-        jvmTarget = "11"
-    }
     buildFeatures {
         buildConfig = true
     }
@@ -41,14 +21,12 @@ android {
 dependencies {
     api(project(":core:model"))
     api(project(":core:common"))
+
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
-    implementation(libs.bundles.ktor)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
+    api(libs.bundles.ktor)
+
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
-    androidTestImplementation(libs.androidx.espresso.core)
 }

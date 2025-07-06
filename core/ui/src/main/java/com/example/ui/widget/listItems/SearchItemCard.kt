@@ -29,7 +29,7 @@ import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.SearchItem
-import com.example.ui.R
+import com.example.movieapp.ui.R
 import com.example.ui.widget.other.RatingText
 
 @Composable

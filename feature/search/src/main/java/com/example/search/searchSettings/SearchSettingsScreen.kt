@@ -37,8 +37,8 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.navigation.NavController
+import com.example.movieapp.search.R
 import com.example.navigationroute.SearchResultRoute
-import com.example.search.R
 import com.example.search.widget.DetailSettingsContent
 import com.example.search.widget.RatingRow
 import com.example.ui.widget.component.TextListLayout

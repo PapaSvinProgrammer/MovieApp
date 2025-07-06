@@ -1,6 +1,6 @@
 package com.example.settings.widget
 
-import com.example.settings.R
+import com.example.movieapp.settings.R
 
 internal data class ApplicationIcon(
     val index: Int,

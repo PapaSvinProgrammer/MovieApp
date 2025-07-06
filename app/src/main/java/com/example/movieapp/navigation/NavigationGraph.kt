@@ -5,7 +5,6 @@ import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.remember
 import androidx.compose.ui.platform.LocalContext
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -71,7 +70,6 @@ import com.example.search.searchSettings.di.DaggerSearchSettingsComponent
 import com.example.settings.SettingsScreen
 import com.example.settings.SettingsViewModel
 import com.example.settings.di.DaggerSettingsComponent
-import com.example.viewmodelfactory.ViewModelFactory
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
@@ -84,7 +82,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MovieRoute(8224),
+        startDestination = MovieRoute(540839),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
