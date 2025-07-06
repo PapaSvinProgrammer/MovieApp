@@ -147,6 +147,8 @@ fun MovieScreen(
                 }
 
                 item {
+                    if (movie.isSeries == false) return@item
+
                     movie.seasonsInfo?.let { seasonsInfo ->
                         SeasonDescription(
                             modifier = Modifier.clickable {  },
@@ -159,6 +161,8 @@ fun MovieScreen(
                 }
 
                 item {
+                    if (movie.watchability.items.isEmpty()) return@item
+
                     WatchabilityDescription(
                         modifier = Modifier.clickable {  },
                         count = movie.watchability.items.size
