@@ -1,6 +1,7 @@
 package com.example.login.startScreen.di
 
 import android.content.Context
+import androidx.lifecycle.ViewModelProvider
 import com.example.login.startScreen.StartViewModel
 import dagger.BindsInstance
 import dagger.Component
@@ -15,5 +16,5 @@ interface StartComponent {
         fun create(@BindsInstance context: Context): StartComponent
     }
 
-    val viewModel: StartViewModel
+    val viewModelFactory: ViewModelProvider.Factory
 }

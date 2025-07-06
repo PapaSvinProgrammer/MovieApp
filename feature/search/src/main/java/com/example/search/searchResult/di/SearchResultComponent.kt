@@ -1,5 +1,6 @@
 package com.example.search.searchResult.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.example.search.searchResult.SearchResultViewModel
 import dagger.Component
 
@@ -13,5 +14,5 @@ interface SearchResultComponent {
         fun create(): SearchResultComponent
     }
 
-    val viewModel: SearchResultViewModel
+    val viewModelFactory: ViewModelProvider.Factory
 }

@@ -1,5 +1,6 @@
 package com.example.personscreen.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.example.personscreen.PersonViewModel
 import dagger.Component
 
@@ -13,5 +14,5 @@ interface PersonComponent {
         fun create(): PersonComponent
     }
 
-    val viewModel: PersonViewModel
+    val viewModelFactory: ViewModelProvider.Factory
 }

@@ -1,19 +1,18 @@
-package com.example.settings.di
+package com.example.search.searchScreen.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import com.example.settings.SettingsViewModel
 import dagger.BindsInstance
 import dagger.Component
 
 @Component(
-    modules = [SettingsModule::class]
+    modules = [SearchModule::class]
 )
-@SettingsScope
-interface SettingsComponent {
+@SearchScope
+interface SearchComponent {
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): SettingsComponent
+        fun create(@BindsInstance context: Context): SearchComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

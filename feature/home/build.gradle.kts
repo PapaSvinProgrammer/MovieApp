@@ -39,6 +39,7 @@ android {
 
 dependencies {
     implementation(project(":core:navigationRoute"))
+    implementation(project(":core:viewModelFactory"))
     implementation(project(":feature:movieListViewModel"))
     implementation(project(":domain:movie"))
     api(project(":domain:collectionUseCase"))

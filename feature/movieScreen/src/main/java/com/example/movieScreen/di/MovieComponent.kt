@@ -1,5 +1,6 @@
 package com.example.movieScreen.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.example.movieScreen.MovieViewModel
 import dagger.Component
 
@@ -13,5 +14,5 @@ interface MovieComponent {
         fun create(): MovieComponent
     }
 
-    val viewModel: MovieViewModel
+    val viewModelFactory: ViewModelProvider.Factory
 }

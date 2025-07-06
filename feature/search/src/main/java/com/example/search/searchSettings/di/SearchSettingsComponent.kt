@@ -1,5 +1,6 @@
 package com.example.search.searchSettings.di
 
+import androidx.lifecycle.ViewModelProvider
 import com.example.search.searchSettings.SearchSettingsViewModel
 import dagger.Component
 
@@ -13,5 +14,5 @@ interface SearchSettingsComponent {
         fun create(): SearchSettingsComponent
     }
 
-    val viewModel: SearchSettingsViewModel
+    val viewModelFactory: ViewModelProvider.Factory
 }
