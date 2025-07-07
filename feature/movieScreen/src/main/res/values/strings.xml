@@ -6,4 +6,13 @@
     <string name="voice_actors">Актеры дубляжа</string>
     <string name="images">Фотографии</string>
     <string name="in_lists">Есть в коллекции</string>
+    <string name="review">Рецензии</string>
+    <string name="fact_title">Знаетели вы, что...</string>
+    <string name="similar_movies">Похожие фильмы</string>
+    <string name="release_blu_ray">Релиз на Blu-ray</string>
+    <string name="release_digital">Цифровой релиз</string>
+    <string name="release_dvd">Релиз на DVD</string>
+    <string name="release_russia">Премьера в России</string>
+    <string name="release_world">Премьера в мире</string>
+    <string name="rental">Прокат</string>
 </resources>

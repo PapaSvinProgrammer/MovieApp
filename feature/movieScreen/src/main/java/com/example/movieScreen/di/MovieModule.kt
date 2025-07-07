@@ -3,7 +3,9 @@ package com.example.movieScreen.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.collectionusecase.GetCollectionBySlug
+import com.example.comment.GetCommentByDate
 import com.example.data.external.CollectionRepository
+import com.example.data.external.CommentRepository
 import com.example.data.external.MovieRepository
 import com.example.data.external.di.DataModule
 import com.example.movieScreen.GetMovieById
@@ -47,6 +49,12 @@ interface MovieModule {
         @MovieScope
         fun providesGetCollectionBySlug(repository: CollectionRepository): GetCollectionBySlug {
             return GetCollectionBySlug(repository)
+        }
+
+        @Provides
+        @MovieScope
+        fun providesGetCommentByDate(repository: CommentRepository): GetCommentByDate {
+            return GetCommentByDate(repository)
         }
     }
 }

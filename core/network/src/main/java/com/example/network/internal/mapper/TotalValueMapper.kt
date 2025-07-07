@@ -24,8 +24,11 @@ internal fun BudgetDto.toDomain(): Budget = Budget(
 )
 
 internal fun PremiereDto.toDomain(): Premiere = Premiere(
-    world = this.world,
-    dvd = this.dvd
+    bluray = bluray,
+    digital = digital,
+    dvd = dvd,
+    russia = russia,
+    world = world,
 )
 
 internal fun RatingDto.toDomain(): Rating = Rating(

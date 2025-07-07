@@ -4,6 +4,9 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class PremiereDto(
-    val world: String?,
-    val dvd: String?
+    val bluray: String? = null,
+    val digital: String? = null,
+    val dvd: String? = null,
+    val russia: String? = null,
+    val world: String? = null,
 )

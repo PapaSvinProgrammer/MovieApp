@@ -230,7 +230,6 @@ fun PersonScreen(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun RenderPersonContent(
     state: PersonUIState,

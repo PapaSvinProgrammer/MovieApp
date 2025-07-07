@@ -13,8 +13,8 @@ internal data class CommentDto(
     val author: String,
     val userRating: Int,
     val authorId: Int,
-    val createdAt: String,
-    val updatedAt: String,
+    val createdAt: String = "",
+    val updatedAt: String = "",
     val reviewDislikes: Int,
     val reviewLikes: Int,
 )

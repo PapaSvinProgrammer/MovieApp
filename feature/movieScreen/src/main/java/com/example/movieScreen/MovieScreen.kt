@@ -18,6 +18,8 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
@@ -31,14 +33,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.common.Constants
+import com.example.model.movie.Movie
 import com.example.model.totalValue.Rating
 import com.example.model.totalValue.Votes
 import com.example.navigationroute.MovieListRoute
@@ -49,7 +55,12 @@ import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.chips.RatingCardLarge
 import com.example.movieScreen.widget.collapsingTopBar.CollapsedTopBar
 import com.example.movieScreen.widget.collapsingTopBar.ExpandedContent
+import com.example.movieScreen.widget.component.PersonGridHorizontalList
+import com.example.movieScreen.widget.component.PremierListContent
+import com.example.movieScreen.widget.listItem.CommentCard
 import com.example.movieapp.movieScreen.R
+import com.example.ui.uiState.CommentUIState
+import com.example.ui.widget.bottomSheets.FactSheet
 import com.example.ui.widget.component.BackdropContent
 import com.example.ui.widget.component.BasicLoadingBox
 import com.example.ui.widget.component.MovieDescription
@@ -58,9 +69,10 @@ import com.example.ui.widget.component.SeasonDescription
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.component.WatchabilityDescription
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
-import com.example.ui.widget.lazyComponent.PersonGridHorizontalList
 import com.example.ui.widget.listItems.CollectionListItem
+import com.example.ui.widget.listItems.FactCard
 import com.example.ui.widget.listItems.LastItemCard
+import com.example.ui.widget.listItems.MovieCard
 import com.example.ui.widget.listItems.SupportPersonCard
 import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
@@ -73,6 +85,15 @@ fun MovieScreen(
     hazeState: HazeState,
     id: Int
 ) {
+    val movieState by viewModel.movieState.collectAsStateWithLifecycle()
+    val imageState by viewModel.imagesState.collectAsStateWithLifecycle()
+    val collectionState by viewModel.collectionState.collectAsStateWithLifecycle()
+    val commentState by viewModel.commentState.collectAsStateWithLifecycle()
+    val actors by viewModel.actors.collectAsStateWithLifecycle()
+    val voiceActors by viewModel.voiceActors.collectAsStateWithLifecycle()
+    val supportPersonal by viewModel.supportPersonal.collectAsStateWithLifecycle()
+    val selectedFact by viewModel.selectedFact.collectAsStateWithLifecycle()
+
     val scrollState = rememberLazyListState()
     val firstOffset by remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
     val index by remember { derivedStateOf { scrollState.firstVisibleItemIndex } }
@@ -92,17 +113,18 @@ fun MovieScreen(
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getMovie(id)
         viewModel.getImages(id)
+        viewModel.getComments(id)
     }
 
     LaunchedEffect(viewModel.movieState) {
-        (viewModel.movieState as? MovieUIState.Success)?.data?.first()?.let {
+        movieState.body()?.let {
             viewModel.getCollections(it.lists)
         }
     }
 
-    RenderMovieContent(state = viewModel.movieState)
+    RenderMovieContent(state = movieState)
 
-    (viewModel.movieState as? MovieUIState.Success)?.data?.first()?.let { movie ->
+    movieState.body()?.let { movie ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -172,7 +194,7 @@ fun MovieScreen(
                 item {
                     RatingCardLarge(
                         modifier = Modifier.padding(horizontal = 15.dp),
-                        title = stringResource(R.string.actors),
+                        title = stringResource(R.string.rating_kinopoisk),
                         rating = movie.rating?.kp ?: 0f,
                         votes = movie.votes?.kp ?: 0,
                         onClick = {}
@@ -192,13 +214,13 @@ fun MovieScreen(
                 }
 
                 item {
-                    if (viewModel.actors.isNotEmpty()) {
+                    if (actors.isNotEmpty()) {
                         TitleRow(title = stringResource(R.string.actors)) {
 
                         }
 
                         PersonGridHorizontalList(
-                            list = viewModel.actors.take(9),
+                            list = actors.take(9),
                             onClick = {
                                 navController.navigate(PersonRoute(it.id)) {
                                     launchSingleTop = true
@@ -209,13 +231,13 @@ fun MovieScreen(
                 }
 
                 item {
-                    if (viewModel.supportPersonal.isNotEmpty()) {
+                    if (supportPersonal.isNotEmpty()) {
                         TitleRow(title = stringResource(R.string.support_personal)) {
 
                         }
 
                         DefaultLazyRow(
-                            list = viewModel.supportPersonal.take(10),
+                            list = supportPersonal.take(10),
                             key = { it.id },
                             lastItemCard = {
                                 LastItemCard(
@@ -237,13 +259,13 @@ fun MovieScreen(
                 }
 
                 item {
-                    if (viewModel.voiceActors.isNotEmpty()) {
+                    if (voiceActors.isNotEmpty()) {
                         TitleRow(title = stringResource(R.string.voice_actors)) {
 
                         }
 
                         DefaultLazyRow(
-                            list = viewModel.voiceActors.take(10),
+                            list = voiceActors.take(10),
                             key = { it.id },
                             lastItemCard = {
                                 LastItemCard(
@@ -267,7 +289,22 @@ fun MovieScreen(
                 }
 
                 item {
-                    (viewModel.imagesState as? ImageUIState.Success)?.data?.let {
+                    (commentState as? CommentUIState.Success)?.data?.let {
+                        TitleRow(title = stringResource(R.string.review)) {}
+
+                        DefaultLazyRow(
+                            list = it,
+                            lastItemCard = {}
+                        ) { comment ->
+                            CommentCard(comment)
+                        }
+
+                        Spacer(modifier = Modifier.height(20.dp))
+                    }
+                }
+
+                item {
+                    (imageState as? ImageUIState.Success)?.data?.let {
                         if (it.isNotEmpty()) {
                             TitleRow(title = stringResource(R.string.images)) {
 
@@ -300,7 +337,7 @@ fun MovieScreen(
                 }
 
                 item {
-                    (viewModel.collectionState as? CollectionUIState.Success)?.data?.let { data ->
+                    (collectionState as? CollectionUIState.Success)?.data?.let { data ->
                         Spacer(modifier = Modifier.height(30.dp))
 
                         TitleRow(title = stringResource(R.string.in_lists)) {
@@ -337,11 +374,88 @@ fun MovieScreen(
                 }
 
                 item {
+                    if (movie.facts.isEmpty()) return@item
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = stringResource(R.string.similar_movies),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(15.dp)
+                    )
+
+                    DefaultLazyRow(
+                        list = movie.facts,
+                        key = { it.value },
+                        lastItemCard = {}
+                    ) {
+                        FactCard(
+                            text = it.value,
+                            isSpoiler = it.spoiler ?: false,
+                            onClick = {  }
+                        )
+                    }
+                }
+
+                item {
+
+                }
+
+                item {
+                    movie.premiere?.let {
+                        Spacer(modifier = Modifier.height(20.dp))
+
+                        Text(
+                            text = stringResource(R.string.rental),
+                            fontSize = 18.sp,
+                            fontWeight = FontWeight.Bold,
+                            modifier = Modifier.padding(15.dp)
+                        )
+
+                        PremierListContent(it)
+                    }
+                }
+
+                item {
+                    if (movie.similarMovies.isEmpty()) return@item
+
+                    Spacer(modifier = Modifier.height(20.dp))
+
+                    Text(
+                        text = stringResource(R.string.similar_movies),
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        modifier = Modifier.padding(15.dp)
+                    )
+
+                    DefaultLazyRow(
+                        list = movie.similarMovies,
+                        lastItemCard = {},
+                    ) {
+                        MovieCard(it)
+                    }
+                }
+
+                item {
                     Spacer(modifier = Modifier.height(130.dp))
                 }
             }
         }
     }
+
+    if (selectedFact.isNotEmpty()) {
+        FactSheet(
+            text = selectedFact,
+            onDismissRequest = {
+                viewModel.updateSelectedFact("")
+            }
+        )
+    }
+}
+
+private fun MovieUIState.body(): Movie? {
+    return (this as? MovieUIState.Success)?.data?.first()
 }
 
 @Composable
