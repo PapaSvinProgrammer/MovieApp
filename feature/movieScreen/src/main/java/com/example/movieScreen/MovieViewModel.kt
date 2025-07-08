@@ -6,6 +6,10 @@ import com.example.collectionusecase.GetCollectionBySlug
 import com.example.comment.GetCommentByDate
 import com.example.common.multiRequest
 import com.example.model.person.PersonMovie
+import com.example.movieScreen.domain.FilterCollection
+import com.example.movieScreen.domain.FilterPersonsLikeActors
+import com.example.movieScreen.domain.FilterPersonsLikeSupport
+import com.example.movieScreen.domain.FilterPersonsLikeVoiceActors
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.CommentUIState
 import com.example.ui.uiState.ImageUIState
@@ -20,13 +24,17 @@ class MovieViewModel @Inject constructor(
     private val getMovieById: GetMovieById,
     private val getMovieImages: GetMovieImages,
     private val getCollectionBySlug: GetCollectionBySlug,
-    private val getCommentByDate: GetCommentByDate
+    private val getCommentByDate: GetCommentByDate,
+    private val filterCollection: FilterCollection,
+    private val filterPersonsLikeVoiceActors: FilterPersonsLikeVoiceActors,
+    private val filterPersonsLikeActors: FilterPersonsLikeActors,
+    private val filterPersonsLikeSupport: FilterPersonsLikeSupport
 ): ViewModel() {
-    private val _movieState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _movieUIState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
     private val _imageState = MutableStateFlow(ImageUIState.Loading as ImageUIState)
     private val _collectionState = MutableStateFlow(CollectionUIState.Loading as CollectionUIState)
     private val _commentState = MutableStateFlow(CommentUIState.Loading as CommentUIState)
-    val movieState: StateFlow<MovieUIState> = _movieState
+    val movieUIState: StateFlow<MovieUIState> = _movieUIState
     val imagesState: StateFlow<ImageUIState> = _imageState
     val collectionState: StateFlow<CollectionUIState> = _collectionState
     val commentState: StateFlow<CommentUIState> = _commentState
@@ -42,7 +50,7 @@ class MovieViewModel @Inject constructor(
     val selectedFact: StateFlow<String> = _selectedFact
 
     fun getComments(movieId: Int) {
-        if (movieState.value is MovieUIState.Success) return
+        if (movieUIState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
             getCommentByDate.execute(
@@ -55,13 +63,13 @@ class MovieViewModel @Inject constructor(
     }
 
     fun getMovie(id: Int) {
-        if (movieState.value is MovieUIState.Success) return
+        if (movieUIState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovieById.execute(id)
 
             res.onSuccess {
-                _movieState.value = MovieUIState.Success(listOf(it))
+                _movieUIState.value = MovieUIState.Success(listOf(it))
                 filterActors(it.persons)
             }
         }
@@ -88,11 +96,8 @@ class MovieViewModel @Inject constructor(
             }
 
             if (temp.isNotEmpty()) {
-                _collectionState.value = CollectionUIState.Success(
-                    temp.filter {
-                        it.slug != "hd"
-                    }
-                )
+                val res = filterCollection.execute(temp)
+                _collectionState.value = CollectionUIState.Success(res)
             }
         }
     }
@@ -103,11 +108,9 @@ class MovieViewModel @Inject constructor(
 
     private fun filterActors(list: List<PersonMovie>) {
         viewModelScope.launch(Dispatchers.Default) {
-            _actors.value = list.filter { it.enProfession == "actor" }
-            _voiceActors.value = list.filter { it.enProfession == "voice_actor" }
-            _supportPersonal.value = list.filter {
-                it.enProfession != "actor" &&  it.enProfession != "voice_actor"
-            }
+            _actors.value = filterPersonsLikeActors.execute(list)
+            _voiceActors.value = filterPersonsLikeVoiceActors.execute(list)
+            _supportPersonal.value = filterPersonsLikeSupport.execute(list)
         }
     }
 }

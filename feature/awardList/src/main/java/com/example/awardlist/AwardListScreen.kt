@@ -9,11 +9,13 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.awardList.R
 import com.example.ui.widget.bottomSheets.AwardsFilterSheet
@@ -31,6 +33,10 @@ fun AwardListScreen(
     id: Int,
     isMovie: Boolean
 ) {
+    val currentFilterType by viewModel.currentFilterType.collectAsStateWithLifecycle()
+    val visibleBottomSheet by viewModel.visibleBottomSheet.collectAsStateWithLifecycle()
+    val groupAwards by viewModel.groupAwards.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -57,7 +63,7 @@ fun AwardListScreen(
         }
     ) { innerPadding ->
         LifecycleEventEffect(Lifecycle.Event.ON_START) {
-            if (viewModel.groupAwards.isEmpty()) {
+            if (groupAwards.isEmpty()) {
                 viewModel.getAwards(id, isMovie)
             }
         }
@@ -66,14 +72,14 @@ fun AwardListScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .hazeSource(hazeState),
-            list = viewModel.groupAwards,
+            list = groupAwards,
             onClick = {},
             onLoadMore = { viewModel.loadMoreAwards(id, isMovie) }
         )
 
-        if (viewModel.visibleBottomSheet) {
+        if (visibleBottomSheet) {
             AwardsFilterSheet(
-                current = viewModel.currentFilterType,
+                current = currentFilterType,
                 onClick = {
                     viewModel.updateCurrentFilter(it)
                     viewModel.getAwards(id, isMovie)

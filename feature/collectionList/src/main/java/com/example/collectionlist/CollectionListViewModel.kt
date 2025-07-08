@@ -1,14 +1,13 @@
 package com.example.collectionlist
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionAll
 import com.example.collectionusecase.GetCollectionByCategory
 import com.example.ui.uiState.CollectionUIState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,11 +17,11 @@ class CollectionListViewModel @Inject constructor(
 ): ViewModel() {
     private var page = 1
 
-    var collectionState by mutableStateOf(CollectionUIState.Loading as CollectionUIState)
-        private set
+    private val _collectionState = MutableStateFlow(CollectionUIState.Loading as CollectionUIState)
+    val collectionState: StateFlow<CollectionUIState> = _collectionState
 
     fun getCollections(category: String?) {
-        if (collectionState is CollectionUIState.Success) return
+        if (collectionState.value is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (category == null)
@@ -31,7 +30,7 @@ class CollectionListViewModel @Inject constructor(
                 getCollectionByCategory.execute(category)
 
             res.onSuccess {
-                collectionState = CollectionUIState.Success(it)
+                _collectionState.value = CollectionUIState.Success(it)
             }
         }
     }
@@ -51,9 +50,12 @@ class CollectionListViewModel @Inject constructor(
             }
 
             res.onSuccess {
-                val temp = (collectionState as CollectionUIState.Success).data.toMutableList()
+                val temp = (collectionState.value as CollectionUIState.Success)
+                    .data
+                    .toMutableList()
+
                 temp.addAll(it)
-                collectionState = CollectionUIState.Success(temp)
+                _collectionState.value = CollectionUIState.Success(temp)
             }
         }
     }

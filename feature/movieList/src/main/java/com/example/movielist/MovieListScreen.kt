@@ -23,6 +23,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movielistviewmodel.MovieListViewModel
 import com.example.navigationroute.MovieRoute
@@ -43,6 +44,7 @@ fun MovieListScreen(
     val isCollapsed by remember {
         derivedStateOf { scrollBehavior.state.collapsedFraction > 0.5 }
     }
+    val moviesState by viewModel.moviesState.collectAsStateWithLifecycle()
 
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getMovies(queryParameters)
@@ -74,7 +76,7 @@ fun MovieListScreen(
         }
     ) { innerPadding ->
         RenderResult(
-            state = viewModel.moviesState,
+            state = moviesState,
             modifier = Modifier.hazeSource(hazeState).padding(innerPadding),
             onClick = {
                 navController.navigate(MovieRoute(it.id)) {

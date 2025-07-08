@@ -1,7 +1,5 @@
 package com.example.personscreen
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.animation.AnimatedContent
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +31,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.common.Constants
 import com.example.movieapp.personScreen.R
@@ -53,7 +52,6 @@ import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 import com.example.personscreen.widget.MainPersonContent
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonScreen(
@@ -62,6 +60,15 @@ fun PersonScreen(
     hazeState: HazeState,
     id: Int
 ) {
+    val personState by viewModel.personState.collectAsStateWithLifecycle()
+    val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
+    val factState by viewModel.factState.collectAsStateWithLifecycle()
+    val countAwards by viewModel.countAwards.collectAsStateWithLifecycle()
+    val groups by viewModel.groups.collectAsStateWithLifecycle()
+    val groupsKeys by viewModel.groupsKeys.collectAsStateWithLifecycle()
+    val selectedGroup by viewModel.selectedGroup.collectAsStateWithLifecycle()
+    val moviesFromGroup by viewModel.moviesFromGroup.collectAsStateWithLifecycle()
+
     val lazyState = rememberLazyListState()
     val firstOffset by remember { derivedStateOf { lazyState.firstVisibleItemScrollOffset } }
     val index by remember { derivedStateOf { lazyState.firstVisibleItemIndex } }
@@ -77,12 +84,11 @@ fun PersonScreen(
     LaunchedEffect(index, firstOffset) {
         if (index == 0) {
             if (firstOffset > 150) {
-                topBarTitle = (viewModel.personState as? PersonUIState.Success)
+                topBarTitle = (personState as? PersonUIState.Success)
                     ?.data
                     ?.first()
                     ?.name ?: ""
-            }
-            else {
+            } else {
                 topBarTitle = ""
             }
         }
@@ -110,12 +116,14 @@ fun PersonScreen(
         }
     ) { innerPadding ->
         LazyColumn(
-            modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
+            modifier = Modifier
+                .padding(innerPadding)
+                .hazeSource(hazeState),
             state = lazyState
         ) {
             item {
                 RenderPersonContent(
-                    state = viewModel.personState,
+                    state = personState,
                     onClickDetail = {
                         navController.navigate(PersonDetailRoute(id)) {
                             launchSingleTop = true
@@ -127,7 +135,7 @@ fun PersonScreen(
             }
 
             item {
-                viewModel.countAwards?.let {
+                countAwards?.let {
                     TotalListItem(
                         title = stringResource(R.string.awards),
                         value = it.toString(),
@@ -145,9 +153,9 @@ fun PersonScreen(
 
             item {
                 RenderMovieStateRow(
-                    state = viewModel.moviesState,
+                    state = movieState,
                     title = stringResource(R.string.best_movies_and_serials),
-                    onClick = {  },
+                    onClick = { },
                     onShowAll = {
                         val query = listOf(
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
@@ -159,7 +167,7 @@ fun PersonScreen(
                             MovieListRoute(
                                 queryParameters = query,
                                 title = "Фильмы: ${
-                                    (viewModel.personState as PersonUIState.Success)
+                                    (personState as PersonUIState.Success)
                                         .data
                                         .first()
                                         .name
@@ -174,7 +182,7 @@ fun PersonScreen(
 
             item {
                 RenderFactStateRow(
-                    state = viewModel.factState,
+                    state = factState,
                     title = stringResource(R.string.best_movies_and_serials),
                     onClick = { selectedFact = it.value }
                 )
@@ -193,15 +201,15 @@ fun PersonScreen(
 
             stickyHeader {
                 CategoriesHeader(
-                    groups = viewModel.groups,
-                    selected = viewModel.selectedGroup,
-                    keys = viewModel.groupsKeys,
+                    groups = groups,
+                    selected = selectedGroup,
+                    keys = groupsKeys,
                     onClick = { viewModel.updateSelectedGroup(it) }
                 )
             }
 
             items(
-                items = viewModel.moviesFromGroup,
+                items = moviesFromGroup,
                 key = { it.id }
             ) {
                 ShortMovieListItem(

@@ -18,7 +18,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -85,7 +84,7 @@ fun MovieScreen(
     hazeState: HazeState,
     id: Int
 ) {
-    val movieState by viewModel.movieState.collectAsStateWithLifecycle()
+    val movieState by viewModel.movieUIState.collectAsStateWithLifecycle()
     val imageState by viewModel.imagesState.collectAsStateWithLifecycle()
     val collectionState by viewModel.collectionState.collectAsStateWithLifecycle()
     val commentState by viewModel.commentState.collectAsStateWithLifecycle()
@@ -103,8 +102,7 @@ fun MovieScreen(
         if (index == 0) {
             if (firstOffset > 800) {
                 isCollapsed = true
-            }
-            else {
+            } else {
                 isCollapsed = false
             }
         }
@@ -116,7 +114,7 @@ fun MovieScreen(
         viewModel.getComments(id)
     }
 
-    LaunchedEffect(viewModel.movieState) {
+    LaunchedEffect(viewModel.movieUIState) {
         movieState.body()?.let {
             viewModel.getCollections(it.lists)
         }
@@ -146,7 +144,7 @@ fun MovieScreen(
                         )
                     }
                 },
-                actions = {  }
+                actions = { }
             )
 
             LazyColumn(
@@ -173,7 +171,7 @@ fun MovieScreen(
 
                     movie.seasonsInfo?.let { seasonsInfo ->
                         SeasonDescription(
-                            modifier = Modifier.clickable {  },
+                            modifier = Modifier.clickable { },
                             countSeasons = seasonsInfo.filter { it.number != 0 }.size,
                             countSeries = seasonsInfo
                                 .filter { it.number != 0 }
@@ -186,7 +184,7 @@ fun MovieScreen(
                     if (movie.watchability.items.isEmpty()) return@item
 
                     WatchabilityDescription(
-                        modifier = Modifier.clickable {  },
+                        modifier = Modifier.clickable { },
                         count = movie.watchability.items.size
                     )
                 }
@@ -393,7 +391,7 @@ fun MovieScreen(
                         FactCard(
                             text = it.value,
                             isSpoiler = it.spoiler ?: false,
-                            onClick = {  }
+                            onClick = { }
                         )
                     }
                 }

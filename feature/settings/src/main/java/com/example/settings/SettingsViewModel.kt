@@ -1,40 +1,39 @@
 package com.example.settings
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.external.PreferencesRepository
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class SettingsViewModel @Inject constructor(
     private val preferencesRepository: PreferencesRepository
 ): ViewModel() {
-    var pinCodeSwitch by mutableStateOf(false)
-        private set
-    var vibrationSwitch by mutableStateOf(false)
-        private set
-    var alternativeIconSwitch by mutableStateOf(false)
-        private set
-    var isDark by mutableStateOf(true)
-        private set
-    var currentIcon by mutableIntStateOf(1)
-        private set
+    private val _pinCodeSwitch = MutableStateFlow(false)
+    private val _vibrationSwitch = MutableStateFlow(false)
+    private val _alternativeIconSwitch = MutableStateFlow(false)
+    private val _isDark = MutableStateFlow(false)
+    private var _currentIcon = MutableStateFlow(1)
+
+    val pinCodeSwitch: StateFlow<Boolean> = _pinCodeSwitch
+    val vibrationSwitch: StateFlow<Boolean> = _vibrationSwitch
+    val alternativeIconSwitch: StateFlow<Boolean> = _alternativeIconSwitch
+    val isDark: StateFlow<Boolean> = _isDark
+    val currentIcon: StateFlow<Int> = _currentIcon
 
     fun updatePinSwitch(state: Boolean) {
-        pinCodeSwitch = state
+        _pinCodeSwitch.value = state
     }
 
     fun updateVibrationSwitch(state: Boolean) {
-        vibrationSwitch = state
+        _vibrationSwitch.value = state
     }
 
     fun updateAlternativeSwitch(state: Boolean) {
-        alternativeIconSwitch = state
+        _alternativeIconSwitch.value = state
     }
 
     fun setTheme(isDark: Boolean) {
@@ -46,7 +45,7 @@ class SettingsViewModel @Inject constructor(
     fun getTheme() {
         viewModelScope.launch(Dispatchers.IO) {
             preferencesRepository.getDarkTheme().collect {
-                isDark = it
+                _isDark.value = it
             }
         }
     }
@@ -54,7 +53,7 @@ class SettingsViewModel @Inject constructor(
     fun getCurrentIconIndex() {
         viewModelScope.launch(Dispatchers.IO) {
             preferencesRepository.getCurrentIcon().collect {
-                currentIcon = it
+                _currentIcon.value = it
             }
         }
     }

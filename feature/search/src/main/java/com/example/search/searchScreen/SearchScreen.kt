@@ -21,6 +21,7 @@ import androidx.compose.material3.SuggestionChip
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
@@ -29,6 +30,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.common.Constants
@@ -55,9 +57,16 @@ fun SearchScreen(
     hazeState: HazeState
 ) {
     val searchHistoryLazyPaging = viewModel.resultHistory.collectAsLazyPagingItems()
+    val query by viewModel.query.collectAsStateWithLifecycle()
+    val isExpanded by viewModel.isExpanded.collectAsStateWithLifecycle()
+    val collectionState by viewModel.collectionsState.collectAsStateWithLifecycle()
+    val personState by viewModel.personState.collectAsStateWithLifecycle()
+    val topSerialsState by viewModel.topSerialsState.collectAsStateWithLifecycle()
+    val selectedSearchIndex by viewModel.selectedSearchIndex.collectAsStateWithLifecycle()
+    val searchState by viewModel.searchState.collectAsStateWithLifecycle()
 
     LaunchedEffect(viewModel.isExpanded) {
-        if (!viewModel.isExpanded) {
+        if (!isExpanded) {
             viewModel.clearSearchResult()
         }
     }
@@ -65,11 +74,11 @@ fun SearchScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         SearchBar(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            expanded = viewModel.isExpanded,
+            expanded = isExpanded,
             onExpandedChange = { viewModel.updateExpanded(it) },
             inputField = {
                 SearchBarDefaults.InputField(
-                    query = viewModel.query,
+                    query = query,
                     onQueryChange = {
                         viewModel.updateQuery(it)
                         viewModel.search(it)
@@ -78,7 +87,7 @@ fun SearchScreen(
                         viewModel.updateExpanded(false)
                         viewModel.updateQuery("")
                     },
-                    expanded = viewModel.isExpanded,
+                    expanded = isExpanded,
                     onExpandedChange = { viewModel.updateExpanded(it) },
                     placeholder = {
                         Text(
@@ -89,7 +98,7 @@ fun SearchScreen(
                     },
                     leadingIcon = {
                         LeadingIcon(
-                            expanded = viewModel.isExpanded,
+                            expanded = isExpanded,
                             onOpen = { viewModel.updateExpanded(true) },
                             onClose = {
                                 viewModel.updateExpanded(false)
@@ -99,10 +108,10 @@ fun SearchScreen(
                     },
                     trailingIcon = {
                         TrailingIcon(
-                            expanded = viewModel.isExpanded,
+                            expanded = isExpanded,
                             onSettings = { navController.navigate(SearchSettingsRoute) },
                             onClear = {
-                                if (viewModel.query.isEmpty()) {
+                                if (query.isEmpty()) {
                                     viewModel.updateExpanded(false)
                                 }
                                 else {
@@ -115,11 +124,11 @@ fun SearchScreen(
             },
             content = {
                 SearchBarContent(
-                    query = viewModel.query,
+                    query = query,
                     hazeState = hazeState,
-                    movieSearchState = viewModel.searchState,
+                    movieSearchState = searchState,
                     searchHistoryLazyPaging = searchHistoryLazyPaging,
-                    selectedItem = viewModel.selectedSearchIndex,
+                    selectedItem = selectedSearchIndex,
                     onDeleteHistoryItem = {
                         viewModel.deleteSearchHistoryItem(it)
                     },
@@ -140,7 +149,7 @@ fun SearchScreen(
                     onLoadMore = { viewModel.loadMore() },
                     onSelectItem = {
                         viewModel.updateSelectedSearchIndex(it)
-                        viewModel.search(viewModel.query)
+                        viewModel.search(query)
                     }
                 )
             }
@@ -157,7 +166,7 @@ fun SearchScreen(
             item {
                 viewModel.getCollections()
                 RenderCollectionStateRow(
-                    state = viewModel.collectionsState,
+                    state = collectionState,
                     title = stringResource(R.string.advise_watch),
                     onClick = { navigateToMovieList(navController, it) },
                     onShowAll = {
@@ -199,7 +208,7 @@ fun SearchScreen(
                 val title = stringResource(R.string.popular_names)
                 viewModel.getActorByPopularityMovies()
                 RenderPersonRowState(
-                    state = viewModel.personState,
+                    state = personState,
                     title = title,
                     onClick = {
                         navController.navigate(PersonRoute(it.id))
@@ -225,11 +234,11 @@ fun SearchScreen(
                 viewModel.getTopSerials()
 
                 RenderMovieStateRow(
-                    state = viewModel.topSerialsState,
+                    state = topSerialsState,
                     title = title,
                     onClick = { navController.navigate(MovieRoute(it.id)) },
                     onShowAll = {
-                        val query = listOf(
+                        val queryParams = listOf(
                             Constants.IS_SERIES_FIELD to Constants.TRUE,
                             Constants.SORT_FIELD to Constants.RATING_KP_FIELD,
                             Constants.SORT_TYPE to Constants.SORT_DESC
@@ -238,7 +247,7 @@ fun SearchScreen(
                         navController.navigate(
                             MovieListRoute(
                                 title = title,
-                                queryParameters = query
+                                queryParameters = queryParams
                             )
                         )
                     }

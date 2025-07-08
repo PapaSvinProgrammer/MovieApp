@@ -1,14 +1,12 @@
 package com.example.home.presentation
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionAll
 import com.example.home.domain.GetMoviesByCollection
 import com.example.home.domain.GetMoviesByCompany
 import com.example.home.domain.GetMoviesByGenre
+import com.example.home.utils.NavigationUtils
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers
@@ -24,28 +22,28 @@ class HomeViewModel @Inject constructor(
     private val getMoviesByCompany: GetMoviesByCompany
 ): ViewModel() {
     private val _movieDramaState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
-    var movieDramaState: StateFlow<MovieUIState> = _movieDramaState
+    private val _movieBoevikState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _movieBest250State = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _movieBest501State = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _movieBest100State = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _movieHBOState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _movieNetflixState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    private val _collectionState = MutableStateFlow(CollectionUIState.Loading as CollectionUIState)
 
-    var movieBoevikState by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
-    var movieBest250State by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
-    var movieBest501State by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
-    var movieBest100State by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
-    var movieHBOState by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
-    var movieNetflixState by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
-    var collectionState by mutableStateOf(CollectionUIState.Loading as CollectionUIState)
-        private set
+    val movieDramaState: StateFlow<MovieUIState> = _movieDramaState
+    val movieBoevikState: StateFlow<MovieUIState> = _movieBoevikState
+    val movieBest250State: StateFlow<MovieUIState> = _movieBest250State
+    val movieBest501State: StateFlow<MovieUIState> = _movieBest501State
+    val movieBest100State: StateFlow<MovieUIState> = _movieBest100State
+    val movieHBOState: StateFlow<MovieUIState> = _movieHBOState
+    val movieNetflixState: StateFlow<MovieUIState> = _movieNetflixState
+    val collectionState: StateFlow<CollectionUIState> = _collectionState
 
     fun getMoviesDrama() {
         if (movieDramaState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByGenre.execute("драма")
+            val res = getMoviesByGenre.execute(NavigationUtils.DRAMA_GENRE)
 
             res.onSuccess {
                 _movieDramaState.value = MovieUIState.Success(it)
@@ -54,83 +52,83 @@ class HomeViewModel @Inject constructor(
     }
 
     fun getMoviesBoevik() {
-        if (movieBoevikState is MovieUIState.Success) return
+        if (movieBoevikState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByGenre.execute("боевик")
+            val res = getMoviesByGenre.execute(NavigationUtils.BOEVIK_GENRE)
 
             res.onSuccess {
-                movieBoevikState = MovieUIState.Success(it)
+                _movieBoevikState.value = MovieUIState.Success(it)
             }
         }
     }
 
     fun getMoviesBest250() {
-        if (movieBest250State is MovieUIState.Success) return
+        if (movieBest250State.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByCollection.execute("top250")
+            val res = getMoviesByCollection.execute(NavigationUtils.LIST250)
 
             res.onSuccess {
-                movieBest250State = MovieUIState.Success(it)
+               _movieBest250State.value = MovieUIState.Success(it)
             }
         }
     }
 
     fun getMoviesBest501() {
-        if (movieBest501State is MovieUIState.Success) return
+        if (movieBest501State.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByCollection.execute("best_501")
+            val res = getMoviesByCollection.execute(NavigationUtils.LIST501)
 
             res.onSuccess {
-                movieBest501State = MovieUIState.Success(it)
+                _movieBest501State.value = MovieUIState.Success(it)
             }
         }
     }
 
     fun getMoviesBest100() {
-        if (movieBest100State is MovieUIState.Success) return
+        if (movieBest100State.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByCollection.execute("top_100_scifi_by_total_scifi_online")
+            val res = getMoviesByCollection.execute(NavigationUtils.LIST_SCIFI)
 
             res.onSuccess {
-                movieBest100State = MovieUIState.Success(it)
+                _movieBest100State.value = MovieUIState.Success(it)
             }
         }
     }
 
     fun getMoviesHBO() {
-        if (movieHBOState is MovieUIState.Success) return
+        if (movieHBOState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByCompany.execute("HBO")
+            val res = getMoviesByCompany.execute(NavigationUtils.HBO)
 
             res.onSuccess {
-                movieHBOState = MovieUIState.Success(it)
+                _movieHBOState.value = MovieUIState.Success(it)
             }
         }
     }
 
     fun getMoviesNetflix() {
-        if (movieNetflixState is MovieUIState.Success) return
+        if (movieNetflixState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMoviesByCompany.execute("Netflix")
+            val res = getMoviesByCompany.execute(NavigationUtils.NETFLIX)
 
             res.onSuccess {
-                movieNetflixState = MovieUIState.Success(it)
+                _movieNetflixState.value = MovieUIState.Success(it)
             }
         }
     }
 
     fun getCollections() {
-        if (collectionState is CollectionUIState.Success) return
+        if (collectionState.value is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
             getCollectionAll.execute().onSuccess {
-                collectionState = CollectionUIState.Success(it)
+                _collectionState.value = CollectionUIState.Success(it)
             }
         }
     }

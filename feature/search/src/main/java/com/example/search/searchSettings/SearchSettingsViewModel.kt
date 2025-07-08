@@ -1,71 +1,67 @@
 package com.example.search.searchSettings
 
-import android.os.Build
-import androidx.annotation.RequiresApi
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateListOf
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.Constants
 import com.example.data.external.CategoryRepository
 import com.example.utils.FormatDate
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-@RequiresApi(Build.VERSION_CODES.O)
 class SearchSettingsViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ): ViewModel() {
-    var selectedCategoryIndex by mutableIntStateOf(0)
-        private set
-    var selectedSortTypeIndex by mutableIntStateOf(0)
-        private set
+    private val _selectedCategoryIndex = MutableStateFlow(0)
+    private val _selectedSortTypeIndex = MutableStateFlow(0)
+    val selectedCategoryIndex: StateFlow<Int> = _selectedCategoryIndex
+    val selectedSortTypeIndex: StateFlow<Int> = _selectedSortTypeIndex
 
     val resultGenres = mutableStateListOf<Pair<String, Boolean>>()
     val resultCountries = mutableStateListOf<Pair<String, Boolean>>()
-    var yearFilter by mutableStateOf(Constants.LAST_YEAR to FormatDate.getCurrentYear())
-        private set
 
-    var genreListVisible by mutableStateOf(false)
-        private set
-    var countryListVisible by mutableStateOf(false)
-        private set
-    var yearPickerVisible by mutableStateOf(false)
-        private set
+    private val _yearFilter = MutableStateFlow(Constants.LAST_YEAR to FormatDate.getCurrentYear())
+    var yearFilter: MutableStateFlow<Pair<Int, Int>> = _yearFilter
 
-    var ratingSliderPosition by mutableStateOf(6f..10f)
-        private set
+    private val _genreListVisible = MutableStateFlow(false)
+    private val _countryListVisible = MutableStateFlow(false)
+    private val _yearPickerVisible = MutableStateFlow(false)
+    val genreListVisible: StateFlow<Boolean> = _genreListVisible
+    val countryListVisible: StateFlow<Boolean> = _countryListVisible
+    val yearPickerVisible: StateFlow<Boolean> = _yearPickerVisible
+
+    private val _ratingSliderPosition = MutableStateFlow(6f..10f)
+    var ratingSliderPosition: StateFlow<ClosedFloatingPointRange<Float>> = _ratingSliderPosition
 
     fun updateYearFilter(start: Int, end: Int) {
-        yearFilter = start to end
+        _yearFilter.value = start to end
     }
 
     fun updateVisibleYearPicker(state: Boolean) {
-        yearPickerVisible = state
+        _yearPickerVisible.value = state
     }
 
     fun updateSelectedCategoryIndex(index: Int) {
-        selectedCategoryIndex = index
+        _selectedCategoryIndex.value = index
     }
 
     fun updateSelectedSortTypeIndex(index: Int) {
-        selectedSortTypeIndex = index
+        _selectedSortTypeIndex.value = index
     }
 
     fun updateGenreVisible(state: Boolean) {
-        genreListVisible = state
+        _genreListVisible.value = state
     }
 
     fun updateCountryVisible(state: Boolean) {
-        countryListVisible = state
+        _countryListVisible.value = state
     }
 
     fun updateRatingSliderPosition(position: ClosedFloatingPointRange<Float>) {
-        ratingSliderPosition = position
+        _ratingSliderPosition.value = position
     }
 
     fun getGenres() {
@@ -109,12 +105,12 @@ class SearchSettingsViewModel @Inject constructor(
     }
 
     fun resetAllSettings() {
-        selectedCategoryIndex = 0
-        selectedSortTypeIndex = 0
+        _selectedCategoryIndex.value = 0
+        _selectedSortTypeIndex.value = 0
         resetGenres()
         resetCountries()
-        ratingSliderPosition = 6f..10f
-        yearFilter = Constants.LAST_YEAR to FormatDate.getCurrentYear()
+        _ratingSliderPosition.value = 6f..10f
+        _yearFilter.value = Constants.LAST_YEAR to FormatDate.getCurrentYear()
     }
 
     fun resetGenres() {

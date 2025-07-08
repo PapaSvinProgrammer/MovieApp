@@ -9,10 +9,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.search.R
 import com.example.navigationroute.MovieRoute
@@ -29,6 +31,8 @@ fun SearchResultScreen(
     hazeState: HazeState,
     queryParameters: List<Pair<String, String>>
 ) {
+    val movieState by viewModel.movieUIState.collectAsStateWithLifecycle()
+
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
@@ -51,7 +55,7 @@ fun SearchResultScreen(
         }
 
         RenderMovieState(
-            state = viewModel.movieUIState,
+            state = movieState,
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             onClick = {
                 navController.navigate(MovieRoute(it.id)) {

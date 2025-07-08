@@ -13,10 +13,12 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.common.Constants
 import com.example.model.image.CollectionMovie
@@ -37,6 +39,8 @@ fun CollectionListScreen(
     hazeState: HazeState,
     category: String? = null
 ) {
+    val collectionState by viewModel.collectionState.collectAsStateWithLifecycle()
+
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getCollections(category)
     }
@@ -68,7 +72,7 @@ fun CollectionListScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .hazeSource(hazeState),
-            state = viewModel.collectionState,
+            state = collectionState,
             onClick = {
                 val query = arrayListOf(
                     Constants.LISTS_FIELD to it.slug.toString(),

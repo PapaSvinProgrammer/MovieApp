@@ -1,7 +1,5 @@
 package com.example.search.searchSettings
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
 import androidx.compose.foundation.layout.Column
@@ -28,6 +26,7 @@ import androidx.compose.material3.SingleChoiceSegmentedButtonRow
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -36,6 +35,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.search.R
 import com.example.navigationroute.SearchResultRoute
@@ -46,13 +46,20 @@ import com.example.ui.widget.dialogs.YearPickerDialog
 import com.example.ui.widget.other.TitleTopBarText
 import com.example.utils.ConvertData
 
-@RequiresApi(Build.VERSION_CODES.O)
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SearchSettingsScreen(
     navController: NavController,
     viewModel: SearchSettingsViewModel
 ) {
+    val selectedCategoryIndex by viewModel.selectedCategoryIndex.collectAsStateWithLifecycle()
+    val selectedSortTypeIndex by viewModel.selectedSortTypeIndex.collectAsStateWithLifecycle()
+    val yearFilter by viewModel.yearFilter.collectAsStateWithLifecycle()
+    val genreListVisible by viewModel.genreListVisible.collectAsStateWithLifecycle()
+    val countryListVisible by viewModel.countryListVisible.collectAsStateWithLifecycle()
+    val yearPickerVisible by viewModel.yearPickerVisible.collectAsStateWithLifecycle()
+    val ratingSliderPosition by viewModel.ratingSliderPosition.collectAsStateWithLifecycle()
+
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getGenres()
         viewModel.getCounties()
@@ -104,7 +111,7 @@ fun SearchSettingsScreen(
                 Spacer(modifier = Modifier.height(15.dp))
 
                 SegmentedButton(
-                    selectedIndex = viewModel.selectedCategoryIndex,
+                    selectedIndex = selectedCategoryIndex,
                     list = optionsCategory,
                     onClick = { viewModel.updateSelectedCategoryIndex(it) }
                 )
@@ -112,14 +119,14 @@ fun SearchSettingsScreen(
                 DetailSettingsContent(
                     genresResult = viewModel.resultGenres.filter { it.second }.map { it.first },
                     countriesResult = viewModel.resultCountries.filter { it.second }.map { it.first },
-                    yearResult = viewModel.yearFilter,
+                    yearResult = yearFilter,
                     onCountryClick = { viewModel.updateCountryVisible(true) },
                     onGenreClick = { viewModel.updateGenreVisible(true) },
                     onYearClick = { viewModel.updateVisibleYearPicker(true) }
                 )
 
                 RatingRow(
-                    sliderPosition = viewModel.ratingSliderPosition,
+                    sliderPosition = ratingSliderPosition,
                     onChange = { viewModel.updateRatingSliderPosition(it) }
                 )
 
@@ -133,7 +140,7 @@ fun SearchSettingsScreen(
                 )
 
                 SegmentedButton(
-                    selectedIndex = viewModel.selectedSortTypeIndex,
+                    selectedIndex = selectedSortTypeIndex,
                     list = optionsSortType,
                     onClick = { viewModel.updateSelectedSortTypeIndex(it) }
                 )
@@ -141,12 +148,12 @@ fun SearchSettingsScreen(
 
             SuccessButton {
                 val convertData = ConvertData.convertQueryParameters(
-                    category = optionsCategory[viewModel.selectedCategoryIndex],
-                    sortBy = optionsSortType[viewModel.selectedSortTypeIndex],
+                    category = optionsCategory[selectedCategoryIndex],
+                    sortBy = optionsSortType[selectedSortTypeIndex],
                     genres = viewModel.resultGenres.filter { it.second }.map { it.first },
                     counties = viewModel.resultCountries.filter { it.second }.map { it.first },
-                    rating = viewModel.ratingSliderPosition,
-                    year = viewModel.yearFilter
+                    rating = ratingSliderPosition,
+                    year = yearFilter
                 )
 
                 navController.navigate(SearchResultRoute(convertData)) {
@@ -157,7 +164,7 @@ fun SearchSettingsScreen(
     }
 
     TextListLayout(
-        visible = viewModel.genreListVisible,
+        visible = genreListVisible,
         title = stringResource(R.string.genres),
         onClose = { viewModel.updateGenreVisible(false)},
         list = viewModel.resultGenres,
@@ -166,7 +173,7 @@ fun SearchSettingsScreen(
     )
 
     TextListLayout(
-        visible = viewModel.countryListVisible,
+        visible = countryListVisible,
         title = stringResource(R.string.countries),
         onClose = { viewModel.updateCountryVisible(false) },
         list = viewModel.resultCountries,
@@ -174,7 +181,7 @@ fun SearchSettingsScreen(
         onReset = { viewModel.resetCountries() }
     )
 
-    if (viewModel.yearPickerVisible) {
+    if (yearPickerVisible) {
         YearPickerDialog(
             onDismiss = { viewModel.updateVisibleYearPicker(false) },
             onConfirm = { start, end ->

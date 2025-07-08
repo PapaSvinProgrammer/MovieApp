@@ -1,14 +1,13 @@
 package com.example.movielistviewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.Constants
 import com.example.movieScreen.GetMovieByFilter
 import com.example.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,17 +15,18 @@ class MovieListViewModel @Inject constructor(
     private val getMovieByFilter: GetMovieByFilter
 ): ViewModel() {
     private var page = 1
-    var moviesState by mutableStateOf(MovieUIState.Loading as MovieUIState)
-        private set
+
+    private val _movieUIState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
+    val moviesState: StateFlow<MovieUIState> = _movieUIState
 
     fun getMovies(queryParameters: List<Pair<String, String>>) {
-        if (moviesState is MovieUIState.Success) return
+        if (moviesState.value is MovieUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = getMovieByFilter.execute(queryParameters)
 
             res.onSuccess {
-                moviesState = MovieUIState.Success(it)
+                _movieUIState.value = MovieUIState.Success(it)
             }
         }
     }
@@ -41,9 +41,11 @@ class MovieListViewModel @Inject constructor(
             val res = getMovieByFilter.execute(query)
 
             res.onSuccess {
-                val temp = (moviesState as MovieUIState.Success).data.toMutableList()
+                val temp = (moviesState.value as MovieUIState.Success)
+                    .data
+                    .toMutableList()
                 temp.addAll(it)
-                moviesState = MovieUIState.Success(temp)
+                _movieUIState.value = MovieUIState.Success(temp)
             }
         }
     }

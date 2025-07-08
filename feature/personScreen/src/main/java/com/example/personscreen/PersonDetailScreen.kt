@@ -13,9 +13,11 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.navigationroute.PersonRoute
 import com.example.personscreen.widget.RenderPersonDetailState
@@ -31,12 +33,15 @@ fun PersonDetailScreen(
     viewModel: PersonViewModel,
     id: Int
 ) {
+    val personState by viewModel.personState.collectAsStateWithLifecycle()
+    val personSpouseState by viewModel.personSpouseState.collectAsStateWithLifecycle()
+
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getPerson(id)
     }
 
     LaunchedEffect(viewModel.personState) {
-        (viewModel.personState as? PersonUIState.Success)?.data?.let { persons ->
+        (personState as? PersonUIState.Success)?.data?.let { persons ->
             viewModel.getSpouses(persons.first().spouses.map { it.id })
         }
     }
@@ -46,7 +51,7 @@ fun PersonDetailScreen(
             CenterAlignedTopAppBar(
                 title = {
                     TitleTopBarText(
-                        text = (viewModel.personState as? PersonUIState.Success)
+                        text = (personState as? PersonUIState.Success)
                             ?.data
                             ?.first()
                             ?.name ?: ""
@@ -64,13 +69,13 @@ fun PersonDetailScreen(
         }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            RenderPersonDetailState(viewModel.personState)
+            RenderPersonDetailState(personState)
 
-            (viewModel.personState as? PersonUIState.Success)?.data?.let { data ->
+            (personState as? PersonUIState.Success)?.data?.let { data ->
                 if (data.first().spouses.isEmpty()) return@Scaffold
 
                 SpouseContent(
-                    state = viewModel.personSpouseState,
+                    state = personSpouseState,
                     spouses = data.first().spouses,
                     onClick = {
                         navController.navigate(PersonRoute(it)) {

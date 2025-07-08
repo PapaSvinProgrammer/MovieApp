@@ -11,6 +11,7 @@ import com.example.data.external.di.DataModule
 import com.example.movieScreen.GetMovieById
 import com.example.movieScreen.GetMovieImages
 import com.example.movieScreen.MovieViewModel
+import com.example.movieScreen.domain.FilterCollection
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import dagger.Binds

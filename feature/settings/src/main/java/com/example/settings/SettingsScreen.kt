@@ -17,6 +17,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
@@ -24,6 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.settings.R
 import com.example.settings.widget.content.OtherIconAppContent
@@ -37,13 +39,19 @@ fun SettingsScreen(
     navController: NavController,
     viewModel: SettingsViewModel
 ) {
+    val pinCodeSwitch by viewModel.pinCodeSwitch.collectAsStateWithLifecycle()
+    val vibrationSwitch by viewModel.vibrationSwitch.collectAsStateWithLifecycle()
+    val alternativeIconSwitch by viewModel.alternativeIconSwitch.collectAsStateWithLifecycle()
+    val isDark by viewModel.isDark.collectAsStateWithLifecycle()
+    val currentIcon by viewModel.currentIcon.collectAsStateWithLifecycle()
+
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getTheme()
         viewModel.getCurrentIconIndex()
     }
 
     LaunchedEffect(viewModel.currentIcon) {
-        if (viewModel.currentIcon != 1) {
+        if (currentIcon != 1) {
             viewModel.updateAlternativeSwitch(true)
         }
     }
@@ -83,7 +91,7 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(15.dp))
             TwinTitleRow(
-                checked = viewModel.pinCodeSwitch,
+                checked = pinCodeSwitch,
                 onClick = { viewModel.updatePinSwitch(it) },
                 title = stringResource(R.string.enter_with_pin_code),
                 description = stringResource(R.string.enter_with_pin_code_description)
@@ -97,7 +105,7 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(15.dp))
             OtherIconAppContent(
-                checked = viewModel.alternativeIconSwitch,
+                checked = alternativeIconSwitch,
                 onClick = {
                     viewModel.updateAlternativeSwitch(it)
 
@@ -105,7 +113,7 @@ fun SettingsScreen(
                         viewModel.setCurrentIconIndex(1)
                     }
                 },
-                currentIconIndex = viewModel.currentIcon,
+                currentIconIndex = currentIcon,
                 onChangeIcon = {
                     viewModel.setCurrentIconIndex(it)
                 }
@@ -119,7 +127,7 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(15.dp))
             ChangeThemeContent(
-                isDark = viewModel.isDark,
+                isDark = isDark,
                 onChangeTheme = { viewModel.setTheme(it) }
             )
             Spacer(modifier = Modifier.height(30.dp))
@@ -131,7 +139,7 @@ fun SettingsScreen(
             )
             Spacer(modifier = Modifier.height(15.dp))
             TwinTitleRow(
-                checked = viewModel.vibrationSwitch,
+                checked = vibrationSwitch,
                 onClick = { viewModel.updateVibrationSwitch(it) },
                 title = stringResource(R.string.vibration),
                 description = stringResource(R.string.vibration_description)

@@ -1,10 +1,8 @@
 package com.example.awardlist
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.awardlist.domain.FilterAwardsByGroup
 import com.example.awards.GetMovieAwardsByDate
 import com.example.awards.GetMovieAwardsByTitle
 import com.example.awards.GetPersonAwardsByDate
@@ -12,6 +10,8 @@ import com.example.awards.GetPersonAwardsByTitle
 import com.example.model.person.NominationAward
 import com.example.ui.widget.bottomSheets.AwardsFilterType
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -19,32 +19,33 @@ class AwardListViewModel @Inject constructor(
     private val getMovieAwardsByDate: GetMovieAwardsByDate,
     private val getMovieAwardsByTitle: GetMovieAwardsByTitle,
     private val getPersonAwardsByDate: GetPersonAwardsByDate,
-    private val getPersonAwardsByTitle: GetPersonAwardsByTitle
+    private val getPersonAwardsByTitle: GetPersonAwardsByTitle,
+    private val filterAwardsByGroup: FilterAwardsByGroup
 ): ViewModel() {
     private var page = 1
-    private var awards by mutableStateOf<List<NominationAward>>(listOf())
+    private val _awards = MutableStateFlow<List<NominationAward>>(listOf())
 
-    var currentFilterType by mutableStateOf(AwardsFilterType.BY_DATE)
-        private set
-    var visibleBottomSheet by mutableStateOf(false)
-        private set
+    private val _currentFilterType = MutableStateFlow(AwardsFilterType.BY_DATE)
+    private val _groupAwards = MutableStateFlow<List<Pair<String, List<NominationAward>>>>(listOf())
+    private val _visibleBottomSheet = MutableStateFlow(false)
 
-    var groupAwards by mutableStateOf<List<Pair<String, List<NominationAward>>>>(listOf())
-        private set
+    val currentFilterType: StateFlow<AwardsFilterType> = _currentFilterType
+    val visibleBottomSheet: StateFlow<Boolean> = _visibleBottomSheet
+    val groupAwards: StateFlow<List<Pair<String, List<NominationAward>>>> = _groupAwards
 
     fun updateVisibleBottomSheet(state: Boolean) {
-        visibleBottomSheet = state
+        _visibleBottomSheet.value = state
     }
 
     fun updateCurrentFilter(state: AwardsFilterType) {
-        currentFilterType = state
+        _currentFilterType.value = state
     }
 
     fun getAwards(id: Int, isMovie: Boolean) {
         page = 1
-        groupAwards = listOf()
+        _groupAwards.value = listOf()
 
-        when (currentFilterType) {
+        when (currentFilterType.value) {
             AwardsFilterType.BY_TITLE -> getAwardsByTitle(id, isMovie)
             AwardsFilterType.BY_DATE -> getAwardsByDate(id, isMovie)
         }
@@ -53,7 +54,7 @@ class AwardListViewModel @Inject constructor(
     fun loadMoreAwards(id: Int, isMovie: Boolean) {
         page++
 
-        when (currentFilterType) {
+        when (currentFilterType.value) {
             AwardsFilterType.BY_TITLE -> loadMoreByTitle(id, page, isMovie)
             AwardsFilterType.BY_DATE -> loadMoreByDate(id, page, isMovie)
         }
@@ -67,12 +68,8 @@ class AwardListViewModel @Inject constructor(
                     getPersonAwardsByTitle.execute(id)
 
             res.onSuccess {
-                awards = it
-                groupAwards = it.groupBy { award ->
-                    award.nomination?.award?.title + ", " + award.nomination?.award?.year
-                }.toList()
-            }.onFailure {
-
+                _awards.value = it
+                _groupAwards.value = filterAwardsByGroup.execute(it)
             }
         }
     }
@@ -85,10 +82,8 @@ class AwardListViewModel @Inject constructor(
                 getPersonAwardsByDate.execute(id)
 
             res.onSuccess { data ->
-                awards = data
-                groupAwards = data.groupBy {
-                    it.nomination?.award?.title + ", " + it.nomination?.award?.year
-                }.toList()
+                _awards.value = data
+                _groupAwards.value = filterAwardsByGroup.execute(data)
             }
         }
     }
@@ -101,13 +96,11 @@ class AwardListViewModel @Inject constructor(
                     getPersonAwardsByTitle.execute(id, page)
 
             res.onSuccess { data ->
-                val temp = awards.toMutableList()
+                val temp = _awards.value.toMutableList()
                 temp.addAll(data)
-                awards = temp
 
-                groupAwards = temp.groupBy {
-                    it.nomination?.award?.title + ", " + it.nomination?.award?.year
-                }.toList()
+                _awards.value= temp
+                _groupAwards.value = filterAwardsByGroup.execute(temp)
             }
         }
     }
@@ -120,13 +113,11 @@ class AwardListViewModel @Inject constructor(
                 getPersonAwardsByDate.execute(id, page)
 
             res.onSuccess { data ->
-                val temp = awards.toMutableList()
+                val temp = _awards.value.toMutableList()
                 temp.addAll(data)
-                awards = temp
+                _awards.value = temp
 
-                groupAwards = temp.groupBy {
-                    it.nomination?.award?.title + ", " + it.nomination?.award?.year
-                }.toList()
+                _groupAwards.value = filterAwardsByGroup.execute(temp)
             }
         }
     }

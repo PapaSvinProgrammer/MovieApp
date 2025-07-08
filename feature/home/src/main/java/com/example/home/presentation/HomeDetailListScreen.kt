@@ -10,10 +10,12 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.model.movie.Movie
 import com.example.movielistviewmodel.MovieListViewModel
@@ -35,6 +37,8 @@ fun HomeDetailListScreen(
     title: String,
     queryParameters: List<Pair<String, String>>
 ) {
+    val moviesState by viewModel.moviesState.collectAsStateWithLifecycle()
+
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getMovies(queryParameters)
     }
@@ -56,7 +60,7 @@ fun HomeDetailListScreen(
     ) { innerPadding ->
         RenderMovieState(
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
-            state = viewModel.moviesState,
+            state = moviesState,
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) },
             onClick = {
                 navController.navigate(MovieRoute(it.id)) { launchSingleTop = true }

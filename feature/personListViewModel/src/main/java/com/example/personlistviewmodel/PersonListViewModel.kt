@@ -1,14 +1,13 @@
 package com.example.personlistviewmodel
 
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.Constants
 import com.example.person.GetPersonByFilter
 import com.example.ui.uiState.PersonUIState
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -16,17 +15,18 @@ class PersonListViewModel @Inject constructor(
     private val getPersonByFilter: GetPersonByFilter
 ): ViewModel() {
     private var page = 1
-    var personState by mutableStateOf(PersonUIState.Loading as PersonUIState)
-        private set
+
+    private val _personState = MutableStateFlow(PersonUIState.Loading as PersonUIState)
+    val personState: StateFlow<PersonUIState> = _personState
 
     fun getPersons(queryParameters: List<Pair<String, String>>) {
-        if (personState is PersonUIState.Success) return
+        if (personState.value is PersonUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
             val res = getPersonByFilter.execute(queryParameters)
 
             res.onSuccess {
-                personState = PersonUIState.Success(it)
+                _personState.value = PersonUIState.Success(it)
             }
         }
     }
@@ -40,10 +40,12 @@ class PersonListViewModel @Inject constructor(
             val res = getPersonByFilter.execute(newQuery)
 
             res.onSuccess {
-                val newRes = (personState as PersonUIState.Success).data.toMutableList()
+                val newRes = (personState.value as PersonUIState.Success)
+                    .data
+                    .toMutableList()
                 newRes.addAll(it)
 
-                personState = PersonUIState.Success(newRes)
+                _personState.value = PersonUIState.Success(newRes)
             }
         }
     }
