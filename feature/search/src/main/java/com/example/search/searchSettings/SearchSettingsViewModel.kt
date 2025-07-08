@@ -1,10 +1,10 @@
 package com.example.search.searchSettings
 
-import androidx.compose.runtime.mutableStateListOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.common.Constants
 import com.example.data.external.CategoryRepository
+import com.example.search.widget.component.ListUIState
 import com.example.utils.FormatDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,17 +14,19 @@ import javax.inject.Inject
 
 class SearchSettingsViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
-): ViewModel() {
+) : ViewModel() {
     private val _selectedCategoryIndex = MutableStateFlow(0)
     private val _selectedSortTypeIndex = MutableStateFlow(0)
     val selectedCategoryIndex: StateFlow<Int> = _selectedCategoryIndex
     val selectedSortTypeIndex: StateFlow<Int> = _selectedSortTypeIndex
 
-    val resultGenres = mutableStateListOf<Pair<String, Boolean>>()
-    val resultCountries = mutableStateListOf<Pair<String, Boolean>>()
+    private val _resultGenres = MutableStateFlow<MutableList<ListUIState>>(mutableListOf())
+    private val _resultCountries = MutableStateFlow<MutableList<ListUIState>>(mutableListOf())
+    val resultGenres: StateFlow<List<ListUIState>> = _resultGenres
+    val resultCountries: StateFlow<List<ListUIState>> = _resultCountries
 
     private val _yearFilter = MutableStateFlow(Constants.LAST_YEAR to FormatDate.getCurrentYear())
-    var yearFilter: MutableStateFlow<Pair<Int, Int>> = _yearFilter
+    val yearFilter: MutableStateFlow<Pair<Int, Int>> = _yearFilter
 
     private val _genreListVisible = MutableStateFlow(false)
     private val _countryListVisible = MutableStateFlow(false)
@@ -34,7 +36,7 @@ class SearchSettingsViewModel @Inject constructor(
     val yearPickerVisible: StateFlow<Boolean> = _yearPickerVisible
 
     private val _ratingSliderPosition = MutableStateFlow(6f..10f)
-    var ratingSliderPosition: StateFlow<ClosedFloatingPointRange<Float>> = _ratingSliderPosition
+    val ratingSliderPosition: StateFlow<ClosedFloatingPointRange<Float>> = _ratingSliderPosition
 
     fun updateYearFilter(start: Int, end: Int) {
         _yearFilter.value = start to end
@@ -65,42 +67,52 @@ class SearchSettingsViewModel @Inject constructor(
     }
 
     fun getGenres() {
-        if (resultGenres.isNotEmpty()) return
+        if (resultGenres.value.isNotEmpty()) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getGenres()
-                .onSuccess { data ->
-                    data.map {
-                        val name = it.name
-                        resultGenres.add(name to false)
-                    }
-                }
+            categoryRepository.getGenres().onSuccess { data ->
+                val list = data.map {
+                    ListUIState(
+                        title = it.name,
+                        isChecked = false
+                    )
+                }.toMutableList()
+
+                _resultGenres.value = list
+            }
         }
     }
 
     fun getCounties() {
-        if (resultCountries.isNotEmpty()) return
+        if (resultCountries.value.isNotEmpty()) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getCounties()
-                .onSuccess { data ->
-                    data.map {
-                        val name = it.name
-                        resultCountries.add(name to false)
-                    }
-                }
+            categoryRepository.getCounties().onSuccess { data ->
+                val list = data.map {
+                    ListUIState(
+                        title = it.name,
+                        isChecked = false
+                    )
+                }.toMutableList()
+
+                _resultCountries.value = list
+            }
         }
     }
 
     fun updateResultGenres(index: Int) {
-        resultGenres[index] = resultGenres[index].copy(
-            second = !resultGenres[index].second
+        val data = resultGenres.value[index]
+
+        _resultGenres.value[index] = data.copy(
+            isChecked = !data.isChecked
         )
     }
 
     fun updateResultCountries(index: Int) {
-        resultCountries[index] = resultCountries[index].copy(
-            second = !resultCountries[index].second
+        val data = resultCountries.value[index]
+
+        _resultCountries.value[index] = data.copy(
+            isChecked = !data.isChecked
         )
     }
 
@@ -114,14 +126,21 @@ class SearchSettingsViewModel @Inject constructor(
     }
 
     fun resetGenres() {
-        repeat(resultGenres.size) { index ->
-            resultGenres[index] = resultGenres[index].copy(second = false)
+        repeat(resultGenres.value.size) { index ->
+            val data = resultGenres.value[index]
+
+            _resultGenres.value[index] = data.copy(
+                isChecked = false
+            )
         }
     }
 
     fun resetCountries() {
-        repeat(resultCountries.size) { index ->
-            resultCountries[index] = resultCountries[index].copy(second = false)
+        repeat(resultCountries.value.size) { index ->
+            val data = resultCountries.value[index]
+            _resultCountries.value[index] = data.copy(
+                isChecked = false
+            )
         }
     }
 }

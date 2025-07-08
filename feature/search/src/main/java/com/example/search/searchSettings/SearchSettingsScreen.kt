@@ -39,9 +39,9 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.search.R
 import com.example.navigationroute.SearchResultRoute
-import com.example.search.widget.DetailSettingsContent
-import com.example.search.widget.RatingRow
-import com.example.ui.widget.component.TextListLayout
+import com.example.search.widget.component.DetailSettingsContent
+import com.example.search.widget.component.SearchListLayout
+import com.example.search.widget.row.RatingRow
 import com.example.ui.widget.dialogs.YearPickerDialog
 import com.example.ui.widget.other.TitleTopBarText
 import com.example.utils.ConvertData
@@ -59,6 +59,8 @@ fun SearchSettingsScreen(
     val countryListVisible by viewModel.countryListVisible.collectAsStateWithLifecycle()
     val yearPickerVisible by viewModel.yearPickerVisible.collectAsStateWithLifecycle()
     val ratingSliderPosition by viewModel.ratingSliderPosition.collectAsStateWithLifecycle()
+    val resultGenres by viewModel.resultGenres.collectAsStateWithLifecycle()
+    val resultCountries by viewModel.resultCountries.collectAsStateWithLifecycle()
 
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getGenres()
@@ -117,8 +119,8 @@ fun SearchSettingsScreen(
                 )
 
                 DetailSettingsContent(
-                    genresResult = viewModel.resultGenres.filter { it.second }.map { it.first },
-                    countriesResult = viewModel.resultCountries.filter { it.second }.map { it.first },
+                    genresResult = resultGenres.filter { it.isChecked }.map { it.title },
+                    countriesResult = resultCountries.filter { it.isChecked }.map { it.title },
                     yearResult = yearFilter,
                     onCountryClick = { viewModel.updateCountryVisible(true) },
                     onGenreClick = { viewModel.updateGenreVisible(true) },
@@ -150,8 +152,8 @@ fun SearchSettingsScreen(
                 val convertData = ConvertData.convertQueryParameters(
                     category = optionsCategory[selectedCategoryIndex],
                     sortBy = optionsSortType[selectedSortTypeIndex],
-                    genres = viewModel.resultGenres.filter { it.second }.map { it.first },
-                    counties = viewModel.resultCountries.filter { it.second }.map { it.first },
+                    genres = resultGenres.filter { it.isChecked }.map { it.title },
+                    counties = resultCountries.filter { it.isChecked }.map { it.title },
                     rating = ratingSliderPosition,
                     year = yearFilter
                 )
@@ -163,20 +165,20 @@ fun SearchSettingsScreen(
         }
     }
 
-    TextListLayout(
+    SearchListLayout(
         visible = genreListVisible,
         title = stringResource(R.string.genres),
         onClose = { viewModel.updateGenreVisible(false)},
-        list = viewModel.resultGenres,
+        list = resultGenres,
         onClick = { viewModel.updateResultGenres(it) },
         onReset = { viewModel.resetGenres() }
     )
 
-    TextListLayout(
+    SearchListLayout(
         visible = countryListVisible,
         title = stringResource(R.string.countries),
         onClose = { viewModel.updateCountryVisible(false) },
-        list = viewModel.resultCountries,
+        list = resultCountries,
         onClick = { viewModel.updateResultCountries(it) },
         onReset = { viewModel.resetCountries() }
     )

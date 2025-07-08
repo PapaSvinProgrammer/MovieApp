@@ -1,4 +1,4 @@
-package com.example.ui.widget.component
+package com.example.search.widget.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.slideInHorizontally
@@ -39,10 +39,10 @@ import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun TextListLayout(
+fun SearchListLayout(
     visible: Boolean,
     title: String,
-    list: List<Pair<String, Boolean>>,
+    list: List<ListUIState>,
     onClose: () -> Unit,
     onReset: () -> Unit,
     onClick: (Int) -> Unit
@@ -91,7 +91,7 @@ fun TextListLayout(
 @Composable
 private fun MainContent(
     innerPadding: PaddingValues,
-    result: List<Pair<String, Boolean>>,
+    result: List<ListUIState>,
     onClick: (Int) -> Unit
 ) {
     var query by remember { mutableStateOf("") }
@@ -113,8 +113,7 @@ private fun MainContent(
                 result = result,
                 onClick = onClick
             )
-        }
-        else {
+        } else {
             SearchLazyColumn(
                 query = query,
                 result = result,
@@ -126,20 +125,25 @@ private fun MainContent(
 
 @Composable
 private fun MainLazyColumn(
-    result: List<Pair<String, Boolean>>,
+    result: List<ListUIState>,
     onClick: (Int) -> Unit
 ) {
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(result.size) { index ->
+            var clickable by remember { mutableStateOf(result[index].isChecked) }
+
             ListItem(
                 headlineContent = {
-                    Text(text = result[index].first)
+                    Text(text = result[index].title)
                 },
                 modifier = Modifier
                     .fillMaxSize()
-                    .clickable { onClick(index) },
+                    .clickable {
+                        clickable = !clickable
+                        onClick(index)
+                    },
                 trailingContent = {
-                    if (result[index].second) {
+                    if (clickable) {
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = null
@@ -156,27 +160,32 @@ private fun MainLazyColumn(
 @Composable
 private fun SearchLazyColumn(
     query: String,
-    result: List<Pair<String, Boolean>>,
+    result: List<ListUIState>,
     onClick: (Int) -> Unit
 ) {
-    val searchResult: List<Pair<String, Boolean>> = result
+    val searchResult: List<ListUIState> = result
         .filter {
-            it.first.lowercase().contains(
+            it.title.lowercase().contains(
                 query.lowercase()
             )
         }
 
     LazyColumn(modifier = Modifier.fillMaxWidth()) {
         items(searchResult) {
+            var clickable by remember { mutableStateOf(it.isChecked) }
+
             ListItem(
                 headlineContent = {
-                    Text(text = it.first)
+                    Text(text = it.title)
                 },
                 modifier = Modifier
                     .fillMaxSize()
-                    .clickable { onClick(result.indexOf(it)) },
+                    .clickable {
+                        clickable = !clickable
+                        onClick(result.indexOf(it))
+                    },
                 trailingContent = {
-                    if (it.second) {
+                    if (clickable) {
                         Icon(
                             imageVector = Icons.Default.Check,
                             contentDescription = null

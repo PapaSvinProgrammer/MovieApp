@@ -1,4 +1,4 @@
-package com.example.ui.widget.component
+package com.example.search.widget.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize

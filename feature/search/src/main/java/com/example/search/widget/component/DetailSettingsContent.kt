@@ -1,7 +1,5 @@
-package com.example.search.widget
+package com.example.search.widget.component
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.padding
@@ -14,9 +12,9 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.search.R
+import com.example.search.widget.row.CategoryRow
 import com.example.utils.ConvertData
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 fun DetailSettingsContent(
     genresResult: List<String>,
