@@ -39,10 +39,10 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.search.R
 import com.example.navigationroute.SearchResultRoute
+import com.example.search.searchScreen.widget.dialog.YearPickerDialog
 import com.example.search.widget.component.DetailSettingsContent
 import com.example.search.widget.component.SearchListLayout
 import com.example.search.widget.row.RatingRow
-import com.example.ui.widget.dialogs.YearPickerDialog
 import com.example.ui.widget.other.TitleTopBarText
 import com.example.utils.ConvertData
 

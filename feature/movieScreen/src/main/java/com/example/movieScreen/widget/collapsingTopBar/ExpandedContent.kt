@@ -9,7 +9,6 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.model.movie.Movie
-import com.example.ui.widget.component.isCorrectUrl
 import com.example.utils.ConvertData
 import com.example.utils.PrettyData
 

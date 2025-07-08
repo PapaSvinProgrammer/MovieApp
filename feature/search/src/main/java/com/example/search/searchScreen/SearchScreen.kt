@@ -42,8 +42,8 @@ import com.example.navigationroute.MovieRoute
 import com.example.navigationroute.PersonPodiumListRoute
 import com.example.navigationroute.PersonRoute
 import com.example.navigationroute.SearchSettingsRoute
-import com.example.search.widget.RenderPersonRowState
-import com.example.ui.widget.component.SearchBarContent
+import com.example.search.searchScreen.widget.component.SearchBarContent
+import com.example.ui.widget.renderState.RenderPersonRowState
 import com.example.ui.widget.renderState.RenderCollectionStateRow
 import com.example.ui.widget.renderState.RenderMovieStateRow
 import dev.chrisbanes.haze.HazeState

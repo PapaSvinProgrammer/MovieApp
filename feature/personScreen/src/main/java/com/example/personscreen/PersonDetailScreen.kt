@@ -20,12 +20,12 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.navigationroute.PersonRoute
-import com.example.personscreen.widget.RenderPersonDetailState
-import com.example.personscreen.widget.SpouseContent
+import com.example.personscreen.widget.render.RenderPersonDetailState
+import com.example.personscreen.widget.content.SpouseContent
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.widget.other.TitleTopBarText
 
-@RequiresApi(Build.VERSION_CODES.O)
+
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun PersonDetailScreen(

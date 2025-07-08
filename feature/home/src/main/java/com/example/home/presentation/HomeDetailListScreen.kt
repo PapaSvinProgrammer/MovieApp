@@ -21,7 +21,7 @@ import com.example.model.movie.Movie
 import com.example.movielistviewmodel.MovieListViewModel
 import com.example.navigationroute.MovieRoute
 import com.example.ui.uiState.MovieUIState
-import com.example.ui.widget.component.LoadingSearchContent
+import com.example.ui.widget.component.BasicLoadingBox
 import com.example.ui.widget.lazyComponent.EndlessLazyVerticalGrid
 import com.example.ui.widget.listItems.MovieCard
 import com.example.ui.widget.other.TitleTopBarText
@@ -77,7 +77,7 @@ private fun RenderMovieState(
     onClick: (Movie) -> Unit
 ) {
     when (state) {
-        MovieUIState.Loading -> LoadingSearchContent()
+        MovieUIState.Loading -> BasicLoadingBox()
         is MovieUIState.Success -> MainPersonContent(
             list = state.data,
             modifier = modifier,

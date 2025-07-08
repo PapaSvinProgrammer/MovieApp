@@ -17,10 +17,10 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.example.awardlist.widget.bottomSheet.AwardsFilterSheet
+import com.example.awardlist.widget.component.RenderAwardsContent
 import com.example.movieapp.awardList.R
-import com.example.ui.widget.bottomSheets.AwardsFilterSheet
 import com.example.ui.widget.other.TitleTopBarText
-import com.example.ui.widget.renderState.RenderAwardsContent
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

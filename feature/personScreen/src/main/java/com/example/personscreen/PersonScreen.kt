@@ -39,18 +39,18 @@ import com.example.navigationroute.AwardListRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute
 import com.example.navigationroute.PersonDetailRoute
+import com.example.personscreen.widget.content.CategoriesHeader
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.widget.bottomSheets.FactSheet
-import com.example.ui.widget.component.CategoriesHeader
 import com.example.ui.widget.listItems.ShortMovieListItem
-import com.example.ui.widget.listItems.TotalListItem
 import com.example.ui.widget.other.TitleTopBarText
 import com.example.ui.widget.renderState.RenderFactStateRow
 import com.example.ui.widget.renderState.RenderMovieStateRow
 import com.example.ui.widget.shimmer.ShimmerPersonContent
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
-import com.example.personscreen.widget.MainPersonContent
+import com.example.personscreen.widget.content.MainPersonContent
+import com.example.personscreen.widget.listItem.TotalListItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

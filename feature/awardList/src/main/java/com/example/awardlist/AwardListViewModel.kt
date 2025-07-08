@@ -3,12 +3,12 @@ package com.example.awardlist
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.awardlist.domain.FilterAwardsByGroup
+import com.example.awardlist.widget.bottomSheet.AwardsFilterType
 import com.example.awards.GetMovieAwardsByDate
 import com.example.awards.GetMovieAwardsByTitle
 import com.example.awards.GetPersonAwardsByDate
 import com.example.awards.GetPersonAwardsByTitle
 import com.example.model.person.NominationAward
-import com.example.ui.widget.bottomSheets.AwardsFilterType
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow

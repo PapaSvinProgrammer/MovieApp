@@ -1,7 +1,5 @@
 package com.example.personpodium
 
-import android.os.Build
-import androidx.annotation.RequiresApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -19,7 +17,6 @@ import com.example.ui.widget.lazyComponent.EndlessLazyColumn
 import com.example.ui.widget.listItems.PersonListItem
 import com.example.ui.widget.shimmer.ShimmerMovieDetailList
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 internal fun RenderPersonResult(
     modifier: Modifier,
@@ -40,7 +37,6 @@ internal fun RenderPersonResult(
     }
 }
 
-@RequiresApi(Build.VERSION_CODES.O)
 @Composable
 private fun MainPersonContent(
     modifier: Modifier,
