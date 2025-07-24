@@ -1,7 +1,6 @@
 package com.example.movieScreen.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.movieScreen.MovieViewModel
 import dagger.Component
 
 @Component(

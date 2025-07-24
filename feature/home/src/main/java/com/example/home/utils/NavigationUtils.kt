@@ -1,12 +1,12 @@
 package com.example.home.utils
 
 import androidx.navigation.NavController
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.model.image.CollectionMovie
 import com.example.navigationroute.HomeDetailListRoute
 import com.example.navigationroute.MovieListRoute
 
-object NavigationUtils {
+internal object NavigationUtils {
     const val DRAMA_GENRE = "драма"
     const val BOEVIK_GENRE = "боевик"
     const val LIST250 = "top250"

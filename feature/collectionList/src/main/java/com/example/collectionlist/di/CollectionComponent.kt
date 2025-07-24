@@ -1,7 +1,6 @@
 package com.example.collectionlist.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.collectionlist.CollectionListViewModel
 import dagger.Component
 
 @Component(

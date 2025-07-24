@@ -9,7 +9,7 @@ import com.example.data.external.PersonRepository
 import com.example.data.external.di.DataModule
 import com.example.movieScreen.GetMovieByFilter
 import com.example.person.GetPersonById
-import com.example.personscreen.PersonViewModel
+import com.example.personscreen.presentation.PersonViewModel
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import dagger.Binds

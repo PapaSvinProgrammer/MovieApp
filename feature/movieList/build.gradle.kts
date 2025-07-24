@@ -3,10 +3,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":feature:movieListViewModel"))
-    implementation(project(":core:navigationRoute"))
+    implementation(project(":feature:movieListViewModel"))
     implementation(project(":core:ui"))
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
 }

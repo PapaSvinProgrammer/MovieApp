@@ -23,7 +23,7 @@ import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun PersonPodiumListScreen(
+internal fun PersonPodiumListScreen(
     navController: NavController,
     viewModel: PersonListViewModel,
     hazeState: HazeState,

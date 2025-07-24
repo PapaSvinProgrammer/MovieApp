@@ -3,10 +3,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":core:data"))
+    implementation(project(":core:data"))
     implementation(project(":core:ui"))
-    implementation(project(":core:viewModelFactory"))
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
 }

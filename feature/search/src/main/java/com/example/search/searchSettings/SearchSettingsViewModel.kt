@@ -2,17 +2,17 @@ package com.example.search.searchSettings
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.data.external.CategoryRepository
 import com.example.search.widget.component.ListUIState
-import com.example.utils.FormatDate
+import com.example.utils.convert.FormatDate
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SearchSettingsViewModel @Inject constructor(
+internal class SearchSettingsViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
     private val _selectedCategoryIndex = MutableStateFlow(0)

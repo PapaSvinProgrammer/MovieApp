@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.collectionusecase.GetCollectionByCategory
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.model.SearchItem
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movieScreen.SearchMovie
@@ -17,15 +17,15 @@ import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.uiState.SearchUIState
-import com.example.utils.toHistory
-import com.example.utils.toSearchItemList
+import com.example.utils.convert.toHistory
+import com.example.utils.convert.toSearchItemList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+internal class SearchViewModel @Inject constructor(
     private val getCollectionByCategory: GetCollectionByCategory,
     private val getPersonByFilter: GetPersonByFilter,
     private val searchPerson: SearchPerson,

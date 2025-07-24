@@ -22,8 +22,8 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.navigation.BottomBarItems
-import com.example.movieapp.navigation.HazeBottomBar
+import com.example.ui.widget.navigation.BottomBarItems
+import com.example.ui.widget.navigation.HazeBottomBar
 import com.example.movieapp.navigation.NavigationGraph
 import com.example.navigationroute.NavRoute
 import com.example.navigationroute.SearchSettingsRoute
@@ -32,9 +32,8 @@ import dev.chrisbanes.haze.rememberHazeState
 import javax.inject.Inject
 
 class MainActivity : ComponentActivity() {
-    @Inject lateinit var viewModel: MainViewModel
+    @Inject lateinit var viewModel: AppViewModel
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ContextCastToActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         (applicationContext as App).appComponent.inject(this)
@@ -70,48 +69,5 @@ class MainActivity : ComponentActivity() {
             true -> SystemBarStyle.dark(Color.Transparent.toArgb())
             false -> SystemBarStyle.light(Color.Transparent.toArgb(), Color.White.toArgb())
         }
-    }
-}
-
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun MainScreen(
-    startRoute: NavRoute
-) {
-    var bottomBarVisible by remember { mutableStateOf(false) }
-    val navController = rememberNavController()
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = backStackEntry?.destination?.route
-
-    bottomBarIsVisibility(
-        route = currentRoute,
-        onResult = { bottomBarVisible = it }
-    )
-
-    val hazeState = rememberHazeState()
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            HazeBottomBar(
-                tabs = BottomBarItems.items,
-                hazeState = hazeState,
-                navController = navController,
-                visible = bottomBarVisible
-            )
-        }
-    ) { _ ->
-        NavigationGraph(
-            navController = navController,
-            startRoute = startRoute,
-            hazeState = hazeState
-        )
-    }
-}
-
-private fun bottomBarIsVisibility(route: String?, onResult: (Boolean) -> Unit) {
-    when (route) {
-        SearchSettingsRoute::class.java.canonicalName -> onResult(false)
-        else -> onResult(true)
     }
 }

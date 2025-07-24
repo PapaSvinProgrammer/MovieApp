@@ -15,7 +15,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class HomeViewModel @Inject constructor(
+internal class HomeViewModel @Inject constructor(
     private val getMoviesByGenre: GetMoviesByGenre,
     private val getMoviesByCollection: GetMoviesByCollection,
     private val getCollectionAll: GetCollectionAll,

@@ -3,10 +3,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":domain:awards"))
     implementation(project(":core:ui"))
     implementation(project(":core:viewModelFactory"))
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
 }

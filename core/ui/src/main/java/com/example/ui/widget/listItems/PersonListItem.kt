@@ -32,7 +32,7 @@ import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.model.person.Person
 import com.example.movieapp.ui.R
-import com.example.utils.FormatDate
+import com.example.utils.convert.FormatDate
 
 @Composable
 fun PersonListItem(

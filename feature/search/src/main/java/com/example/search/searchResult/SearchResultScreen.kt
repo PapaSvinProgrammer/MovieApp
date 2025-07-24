@@ -25,7 +25,7 @@ import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchResultScreen(
+internal fun SearchResultScreen(
     navController: NavController,
     viewModel: SearchResultViewModel,
     hazeState: HazeState,

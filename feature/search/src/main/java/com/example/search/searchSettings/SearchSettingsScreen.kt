@@ -44,11 +44,11 @@ import com.example.search.widget.component.DetailSettingsContent
 import com.example.search.widget.component.SearchListLayout
 import com.example.search.widget.row.RatingRow
 import com.example.ui.widget.other.TitleTopBarText
-import com.example.utils.ConvertData
+import com.example.utils.convert.ConvertData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchSettingsScreen(
+internal fun SearchSettingsScreen(
     navController: NavController,
     viewModel: SearchSettingsViewModel
 ) {

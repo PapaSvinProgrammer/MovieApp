@@ -12,6 +12,8 @@ android {
 dependencies {
     api(project(":core:model"))
     api(project(":core:utils"))
+    api(project(":core:navigationRoute"))
+    api(project(":core:viewModelFactory"))
 
     implementation(libs.haze)
     implementation(libs.haze.materials)

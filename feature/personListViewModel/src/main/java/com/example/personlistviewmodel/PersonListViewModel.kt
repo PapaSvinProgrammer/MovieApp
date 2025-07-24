@@ -2,7 +2,7 @@ package com.example.personlistviewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.person.GetPersonByFilter
 import com.example.ui.uiState.PersonUIState
 import kotlinx.coroutines.Dispatchers

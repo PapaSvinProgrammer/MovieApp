@@ -1,7 +1,6 @@
 package com.example.awardlist.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.awardlist.AwardListViewModel
 import dagger.Component
 
 @Component(

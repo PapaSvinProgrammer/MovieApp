@@ -35,7 +35,7 @@ import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.other.animatedBorder
 
 @Composable
-fun AccountScreen(
+internal fun AccountScreen(
     navController: NavController
 ) {
     Scaffold(

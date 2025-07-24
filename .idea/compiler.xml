@@ -5,7 +5,6 @@
       <module name="MovieApp.build_core" target="21" />
       <module name="MovieApp.build_core.main" target="21" />
       <module name="MovieApp.build_core.test" target="21" />
-      <module name="MovieApp.core.coreComponent" target="21" />
       <module name="MovieApp.domain.collection" target="21" />
       <module name="MovieApp.domain.personScreen" target="21" />
     </bytecodeTargetLevel>

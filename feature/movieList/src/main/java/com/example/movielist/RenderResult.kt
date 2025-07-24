@@ -12,7 +12,7 @@ import com.example.ui.widget.listItems.MovieListCard
 import com.example.ui.widget.shimmer.ShimmerMovieDetailList
 
 @Composable
-fun RenderResult(
+internal fun RenderResult(
     state: MovieUIState,
     modifier: Modifier,
     onClick: (Movie) -> Unit,

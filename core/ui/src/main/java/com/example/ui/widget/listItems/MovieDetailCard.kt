@@ -34,8 +34,8 @@ import com.example.model.category.ItemName
 import com.example.model.movie.Movie
 import com.example.movieapp.ui.R
 import com.example.ui.widget.other.RatingText
-import com.example.utils.ConvertData
-import com.example.utils.PrettyData
+import com.example.utils.convert.ConvertData
+import com.example.utils.convert.PrettyData
 
 @Composable
 fun MovieDetailCard(

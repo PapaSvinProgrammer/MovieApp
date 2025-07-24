@@ -15,7 +15,7 @@ import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun AboutAppScreen(
+internal fun AboutAppScreen(
     navController: NavController
 ) {
     Scaffold(

@@ -1,5 +1,11 @@
 @file:Suppress("UnstableApiUsage")
 
+include(":core:coreComponent")
+
+
+include(":core:navigation")
+
+
 includeBuild("build-logic")
 
 pluginManagement {
@@ -54,7 +60,6 @@ include(":feature:awardList")
 include(":feature:movieListViewModel")
 include(":feature:personListViewModel")
 include(":core:ui")
-include(":core:common")
 include(":core:room")
 include(":feature:personScreen")
 include(":domain:collectionUseCase")

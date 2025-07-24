@@ -1,7 +1,6 @@
 package com.example.personscreen.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.personscreen.PersonViewModel
 import dagger.Component
 
 @Component(

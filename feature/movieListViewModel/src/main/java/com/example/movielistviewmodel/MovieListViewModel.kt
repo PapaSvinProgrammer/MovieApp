@@ -2,7 +2,7 @@ package com.example.movielistviewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.movieScreen.GetMovieByFilter
 import com.example.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers

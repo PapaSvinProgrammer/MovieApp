@@ -2,7 +2,7 @@ package com.example.awardlist.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.awardlist.AwardListViewModel
+import com.example.awardlist.presentation.AwardListViewModel
 import com.example.awards.GetMovieAwardsByDate
 import com.example.awards.GetMovieAwardsByTitle
 import com.example.awards.GetPersonAwardsByDate

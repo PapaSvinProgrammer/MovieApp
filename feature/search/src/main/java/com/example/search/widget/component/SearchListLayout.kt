@@ -39,7 +39,7 @@ import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchListLayout(
+internal fun SearchListLayout(
     visible: Boolean,
     title: String,
     list: List<ListUIState>,

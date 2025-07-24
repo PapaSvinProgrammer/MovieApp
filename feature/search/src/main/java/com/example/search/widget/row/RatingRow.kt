@@ -16,7 +16,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.search.R
-import com.example.utils.ConvertData
+import com.example.utils.convert.ConvertData
 
 @Composable
 internal fun RatingRow(

@@ -33,7 +33,7 @@ import androidx.compose.ui.unit.sp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.model.image.CollectionMovie
 import com.example.movieapp.search.R
 import com.example.navigationroute.CollectionListRoute
@@ -51,7 +51,7 @@ import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchScreen(
+internal fun SearchScreen(
     navController: NavController,
     viewModel: SearchViewModel,
     hazeState: HazeState

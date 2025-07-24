@@ -3,15 +3,10 @@ plugins {
 }
 
 dependencies {
-    api(project(":domain:person"))
-    api(project(":domain:movie"))
-    api(project(":domain:searchHistory"))
-    api(project(":domain:collectionUseCase"))
-    implementation(project(":core:navigationRoute"))
+    implementation(project(":domain:person"))
+    implementation(project(":domain:movie"))
+    implementation(project(":domain:searchHistory"))
+    implementation(project(":domain:collectionUseCase"))
     implementation(project(":core:ui"))
-    implementation(project(":core:viewModelFactory"))
-
     implementation(libs.androidx.paging.compose)
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
 }

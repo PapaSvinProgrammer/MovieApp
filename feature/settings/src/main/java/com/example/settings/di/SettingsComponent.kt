@@ -2,7 +2,6 @@ package com.example.settings.di
 
 import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import com.example.settings.SettingsViewModel
 import dagger.BindsInstance
 import dagger.Component
 

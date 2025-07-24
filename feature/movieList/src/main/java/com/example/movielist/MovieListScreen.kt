@@ -33,7 +33,7 @@ import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun MovieListScreen(
+internal fun MovieListScreen(
     navController: NavController,
     viewModel: MovieListViewModel,
     hazeState: HazeState,
@@ -77,7 +77,9 @@ fun MovieListScreen(
     ) { innerPadding ->
         RenderResult(
             state = moviesState,
-            modifier = Modifier.hazeSource(hazeState).padding(innerPadding),
+            modifier = Modifier
+                .hazeSource(hazeState)
+                .padding(innerPadding),
             onClick = {
                 navController.navigate(MovieRoute(it.id)) {
                     launchSingleTop = true
@@ -96,8 +98,7 @@ private fun TopBarText(
 ) {
     if (isCollapsed) {
         TitleTopBarText(text)
-    }
-    else {
+    } else {
         Text(
             text = text,
             fontSize = 23.sp,
