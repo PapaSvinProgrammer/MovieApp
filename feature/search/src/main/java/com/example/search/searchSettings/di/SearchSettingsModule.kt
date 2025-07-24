@@ -2,7 +2,7 @@ package com.example.search.searchSettings.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.search.searchSettings.SearchSettingsViewModel
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey

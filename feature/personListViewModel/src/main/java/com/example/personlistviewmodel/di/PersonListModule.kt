@@ -3,7 +3,7 @@ package com.example.personlistviewmodel.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.external.PersonRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.person.GetPersonByFilter
 import com.example.personlistviewmodel.PersonListViewModel
 import com.example.viewmodelfactory.ViewModelFactory

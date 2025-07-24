@@ -1,28 +1,24 @@
 package com.example.corecomponent
 
 import android.content.Context
-import androidx.lifecycle.ViewModelProvider
-import com.example.data.external.di.DataModule
-import com.example.movieapp.MainActivity
+import com.example.data.internal.di.DataModule
+import com.example.network.internal.di.NetworkModule
+import com.example.room.internal.di.RoomModule
+import com.example.utils.ApplicationScope
 import dagger.BindsInstance
 import dagger.Component
-import javax.inject.Singleton
 
-@Singleton
 @Component(
     modules = [
-        AppModule::class,
-        DataModule::class
+        DataModule::class,
+        NetworkModule::class,
+        RoomModule::class
     ]
 )
-interface AppComponent {
-
+@ApplicationScope
+interface AppComponent : DataDependency {
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
-
-    fun inject(mainActivity: MainActivity)
-
-    val viewModelFactory: ViewModelProvider.Factory
 }

@@ -3,7 +3,7 @@ package com.example.movielistviewmodel.di
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
 import com.example.data.external.MovieRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movielistviewmodel.MovieListViewModel
 import com.example.viewmodelfactory.ViewModelFactory

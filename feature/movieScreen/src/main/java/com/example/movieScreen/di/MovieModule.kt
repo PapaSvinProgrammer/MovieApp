@@ -7,7 +7,7 @@ import com.example.comment.GetCommentByDate
 import com.example.data.external.CollectionRepository
 import com.example.data.external.CommentRepository
 import com.example.data.external.MovieRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.movieScreen.GetMovieById
 import com.example.movieScreen.GetMovieImages
 import com.example.movieScreen.presentation.MovieViewModel

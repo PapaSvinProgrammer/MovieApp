@@ -6,7 +6,7 @@ import com.example.collectionlist.presentation.CollectionListViewModel
 import com.example.collectionusecase.GetCollectionAll
 import com.example.collectionusecase.GetCollectionByCategory
 import com.example.data.external.CollectionRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import dagger.Binds

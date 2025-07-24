@@ -13,18 +13,9 @@ android {
 }
 
 dependencies {
-
-
-    implementation(project(":core:navigationRoute"))
-    implementation(project(":core:viewModelFactory"))
     implementation(project(":core:ui"))
-    implementation(project(":core:data"))
-    implementation(project(":core:network"))
-    implementation(project(":core:room"))
-
-    implementation(libs.dagger)
-    kapt(libs.dagger.compiler)
-
+    implementation(project(":core:navigation"))
+    implementation(project(":core:coreComponent"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
 }

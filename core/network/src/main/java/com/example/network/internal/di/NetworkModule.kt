@@ -1,6 +1,5 @@
-package com.example.network.external.di
+package com.example.network.internal.di
 
-import com.example.network.internal.di.NetworkModuleImpl
 import dagger.Module
 
 @Module(

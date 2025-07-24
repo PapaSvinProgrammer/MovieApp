@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.navigation.NavigationGraph
 import com.example.navigationroute.NavRoute
 import com.example.navigationroute.SearchSettingsRoute
 import com.example.ui.widget.navigation.BottomBarItems

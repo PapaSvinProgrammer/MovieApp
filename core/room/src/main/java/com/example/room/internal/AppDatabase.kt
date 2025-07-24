@@ -8,6 +8,6 @@ import com.example.room.external.HistoryDao
     entities = [HistoryEntity::class],
     version = 1
 )
-abstract class AppDatabase: RoomDatabase() {
+internal abstract class AppDatabase: RoomDatabase() {
     abstract fun getHistoryDao(): HistoryDao
 }

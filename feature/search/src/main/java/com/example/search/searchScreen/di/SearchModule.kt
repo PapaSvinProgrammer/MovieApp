@@ -7,7 +7,7 @@ import com.example.data.external.CollectionRepository
 import com.example.data.external.HistoryRepository
 import com.example.data.external.MovieRepository
 import com.example.data.external.PersonRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movieScreen.SearchMovie
 import com.example.person.GetPersonByFilter

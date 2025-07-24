@@ -1,6 +1,6 @@
 package com.example.login.presentation.loginScreen.di
 
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import dagger.Module
 
 @Module(

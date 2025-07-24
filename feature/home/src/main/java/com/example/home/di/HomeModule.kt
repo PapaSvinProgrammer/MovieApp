@@ -5,7 +5,7 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.collectionusecase.GetCollectionAll
 import com.example.data.external.CollectionRepository
 import com.example.data.external.MovieRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.home.domain.GetMoviesByCollection
 import com.example.home.domain.GetMoviesByCompany
 import com.example.home.domain.GetMoviesByGenre

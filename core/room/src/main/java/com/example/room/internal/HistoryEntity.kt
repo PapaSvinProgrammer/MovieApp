@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-data class HistoryEntity(
+interface data class HistoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "movie_id") val movieId: Int,
     @ColumnInfo(name = "name") val name: String,

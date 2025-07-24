@@ -6,7 +6,7 @@ import com.example.awards.GetPersonAwardsByDate
 import com.example.data.external.AwardRepository
 import com.example.data.external.MovieRepository
 import com.example.data.external.PersonRepository
-import com.example.data.external.di.DataModule
+import com.example.data.internal.di.DataModule
 import com.example.movieScreen.GetMovieByFilter
 import com.example.person.GetPersonById
 import com.example.personscreen.presentation.PersonViewModel

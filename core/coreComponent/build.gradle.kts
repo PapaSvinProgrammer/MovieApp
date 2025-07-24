@@ -4,6 +4,7 @@ plugins {
 }
 
 dependencies {
+    implementation(project(":core:data"))
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 }
