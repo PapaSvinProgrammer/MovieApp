@@ -7,4 +7,5 @@ dependencies {
     implementation(project(":domain:comment"))
     implementation(project(":domain:collectionUseCase"))
     implementation(project(":core:ui"))
+    api(project(":core:coreComponent"))
 }

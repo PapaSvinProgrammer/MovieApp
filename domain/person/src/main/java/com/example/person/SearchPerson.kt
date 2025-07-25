@@ -1,8 +1,8 @@
 package com.example.person
 
-import com.example.common.ClientException
 import com.example.data.external.PersonRepository
 import com.example.model.person.Person
+import com.example.utils.error.ClientException
 import javax.inject.Inject
 
 class SearchPerson @Inject constructor(

@@ -22,6 +22,7 @@ dependencies {
     implementation(libs.coil.network.okhttp)
     implementation(libs.bundles.compose)
     implementation(libs.androidx.paging.compose)
+    implementation(libs.androidx.navigation)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

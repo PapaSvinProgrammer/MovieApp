@@ -5,6 +5,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.corecomponent.AppComponent
 import com.example.home.di.DaggerHomeComponent
 import com.example.home.presentation.HomeDetailListScreen
 import com.example.home.presentation.HomeScreen
@@ -18,13 +19,14 @@ import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.homeDestination(
+    appComponent: AppComponent,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<HomeRoute> {
         val component = DaggerHomeComponent
             .factory()
-            .create()
+            .create(appComponent)
 
         val viewModel: HomeViewModel = viewModel(
             factory = component.viewModelFactory
@@ -45,7 +47,7 @@ fun NavGraphBuilder.homeDestination(
         val route = it.toRoute<HomeDetailListRoute>()
         val component = DaggerMovieListComponent
             .factory()
-            .create()
+            .create(appComponent)
 
         val viewModel: MovieListViewModel = viewModel(
             factory = component.viewModelFactory

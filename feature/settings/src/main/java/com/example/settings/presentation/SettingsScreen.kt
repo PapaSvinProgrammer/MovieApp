@@ -27,7 +27,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.movieapp.settings.R
+import com.example.movieapp.ui.R
 import com.example.settings.presentation.widget.content.ChangeThemeContent
 import com.example.settings.presentation.widget.content.OtherIconAppContent
 import com.example.settings.presentation.widget.row.TwinTitleRow

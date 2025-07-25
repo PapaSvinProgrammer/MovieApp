@@ -1,13 +1,13 @@
 package com.example.awards
 
-import com.example.common.Constants.NOM_AWARD_YEAR_FIELD
-import com.example.common.Constants.PAGE_FIELD
-import com.example.common.Constants.PERSON_ID_FIELD
-import com.example.common.Constants.SORT_DESC
-import com.example.common.Constants.SORT_FIELD
-import com.example.common.Constants.SORT_TYPE
 import com.example.data.external.AwardRepository
 import com.example.model.person.NominationAward
+import com.example.utils.Constants.NOM_AWARD_YEAR_FIELD
+import com.example.utils.Constants.PAGE_FIELD
+import com.example.utils.Constants.PERSON_ID_FIELD
+import com.example.utils.Constants.SORT_DESC
+import com.example.utils.Constants.SORT_FIELD
+import com.example.utils.Constants.SORT_TYPE
 import javax.inject.Inject
 
 class GetPersonAwardsByDate @Inject constructor(

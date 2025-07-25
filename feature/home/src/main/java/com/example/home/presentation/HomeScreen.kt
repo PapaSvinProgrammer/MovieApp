@@ -21,7 +21,7 @@ import com.example.home.utils.NavigationUtils.navigateToHomeDetailByGenre
 import com.example.home.utils.NavigationUtils.navigateToHomeDetailByLists
 import com.example.home.utils.NavigationUtils.navigateToHomeDetailByNetwork
 import com.example.home.utils.NavigationUtils.navigateToMovieFromCollection
-import com.example.movieapp.home.R
+import com.example.movieapp.ui.R
 import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.MovieRoute
 import com.example.ui.widget.other.TopBarIconApp

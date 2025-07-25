@@ -12,8 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.model.totalValue.Premiere
-import com.example.movieScreen.widget.listItem.PremiereCard
-import com.example.movieapp.movieScreen.R
+import com.example.movieScreen.presentation.widget.listItem.PremiereCard
+import com.example.movieapp.ui.R
 import com.example.utils.convert.FormatDate
 
 @Composable

@@ -1,9 +1,9 @@
 package com.example.collectionusecase
 
-import com.example.common.Constants.CATEGORY_FIELD
-import com.example.common.Constants.PAGE_FIELD
 import com.example.data.external.CollectionRepository
 import com.example.model.image.CollectionMovie
+import com.example.utils.Constants.CATEGORY_FIELD
+import com.example.utils.Constants.PAGE_FIELD
 import javax.inject.Inject
 
 class GetCollectionByCategory @Inject constructor(

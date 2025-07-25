@@ -1,13 +1,13 @@
 package com.example.comment
 
 import androidx.annotation.IntRange
-import com.example.common.Constants.MOVIE_ID_FIELD
-import com.example.common.Constants.PAGE_FIELD
-import com.example.common.Constants.SORT_FIELD
-import com.example.common.Constants.SORT_TYPE
-import com.example.common.Constants.TYPE_FIELD
 import com.example.data.external.CommentRepository
 import com.example.model.movie.Comment
+import com.example.utils.Constants.MOVIE_ID_FIELD
+import com.example.utils.Constants.PAGE_FIELD
+import com.example.utils.Constants.SORT_FIELD
+import com.example.utils.Constants.SORT_TYPE
+import com.example.utils.Constants.TYPE_FIELD
 import javax.inject.Inject
 
 class GetCommentByType @Inject constructor(

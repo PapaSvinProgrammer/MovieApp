@@ -8,7 +8,6 @@ import com.example.awards.GetMovieAwardsByTitle
 import com.example.awards.GetPersonAwardsByDate
 import com.example.awards.GetPersonAwardsByTitle
 import com.example.data.external.AwardRepository
-import com.example.data.external.di.DataModule
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import dagger.Binds
@@ -16,11 +15,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module(
-    includes = [
-        DataModule::class
-    ]
-)
+@Module
 internal interface AwardListModule {
     @Binds
     @AwardListScope

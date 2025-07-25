@@ -13,10 +13,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module(
-    includes = [DataModule::class]
-)
-interface PersonListModule {
+@Module
+internal interface PersonListModule {
     @Binds
     @PersonListScope
     fun bindsViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

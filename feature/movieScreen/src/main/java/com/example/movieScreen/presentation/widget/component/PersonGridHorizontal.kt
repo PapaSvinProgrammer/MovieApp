@@ -12,7 +12,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.example.model.person.PersonMovie
-import com.example.movieScreen.widget.listItem.PersonMovieListItem
+import com.example.movieScreen.presentation.widget.listItem.PersonMovieListItem
 
 @Composable
 internal fun PersonGridHorizontalList(

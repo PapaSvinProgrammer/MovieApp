@@ -6,6 +6,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.corecomponent.AppComponent
 import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.SearchResultRoute
 import com.example.navigationroute.SearchRoute
@@ -24,13 +25,14 @@ import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.searchDestination(
+    appComponent: AppComponent,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<SearchRoute> {
         val component = DaggerSearchComponent
             .factory()
-            .create(LocalContext.current)
+            .create(appComponent)
 
         val viewModel: SearchViewModel = viewModel(
             factory = component.viewModelFactory
@@ -46,7 +48,7 @@ fun NavGraphBuilder.searchDestination(
     composable<SearchSettingsRoute> {
         val component = DaggerSearchSettingsComponent
             .factory()
-            .create()
+            .create(appComponent)
 
         val viewModel: SearchSettingsViewModel = viewModel(
             factory = component.viewModelFactory
@@ -66,7 +68,7 @@ fun NavGraphBuilder.searchDestination(
         val data = it.toRoute<SearchResultRoute>()
         val component = DaggerSearchResultComponent
             .factory()
-            .create()
+            .create(appComponent)
 
         val viewModel: SearchResultViewModel = viewModel(
             factory = component.viewModelFactory

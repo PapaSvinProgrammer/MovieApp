@@ -12,18 +12,9 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-private const val NAME_DATA_STORE = "SettingsMovieApp"
-private val DARK_THEME = booleanPreferencesKey("dark_theme")
-private val ENTRY_STATE = booleanPreferencesKey("entry_state")
-private val CURRENT_ICON = intPreferencesKey("current_icon")
-
 internal class PreferencesRepositoryImpl @Inject constructor(
     private val context: Context
 ) : PreferencesRepository {
-    companion object {
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
-    }
-
     override suspend fun setDarkTheme(state: Boolean) {
         context.dataStore.edit {
             it[DARK_THEME] = state
@@ -58,5 +49,13 @@ internal class PreferencesRepositoryImpl @Inject constructor(
         return context.dataStore.data.map {
             it[CURRENT_ICON] ?: 1
         }
+    }
+
+    companion object {
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
+        private const val NAME_DATA_STORE = "SettingsMovieApp"
+        private val DARK_THEME = booleanPreferencesKey("dark_theme")
+        private val ENTRY_STATE = booleanPreferencesKey("entry_state")
+        private val CURRENT_ICON = intPreferencesKey("current_icon")
     }
 }

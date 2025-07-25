@@ -1,25 +1,24 @@
 package com.example.data.internal
 
-import androidx.paging.PagingSource
+import androidx.paging.PagingData
 import com.example.data.external.HistoryRepository
 import com.example.model.History
-import com.example.room.external.HistoryDao
-import com.example.room.external.toEntity
-import com.example.room.internal.HistoryEntity
+import com.example.room.external.HistoryService
+import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 internal class HistoryRepositoryImpl @Inject constructor(
-    private val dao: HistoryDao
+    private val service: HistoryService
 ) : HistoryRepository {
     override suspend fun insert(history: History) {
-        dao.insert(history.toEntity())
+        service.insert(history)
     }
 
     override suspend fun delete(id: Int) {
-        dao.delete(id)
+        service.delete(id)
     }
 
-    override fun getAll(): PagingSource<Int, HistoryEntity> {
-        return dao.getAll()
+    override fun getAll(): Flow<PagingData<History>> {
+        return service.getAll()
     }
 }

@@ -1,4 +1,4 @@
-package com.example.room.internal
+package com.example.room.internal.history
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -14,7 +14,7 @@ import androidx.room.PrimaryKey
         )
     ]
 )
-interface data class HistoryEntity(
+internal data class HistoryEntity(
     @PrimaryKey(autoGenerate = true) val id: Int = 0,
     @ColumnInfo(name = "movie_id") val movieId: Int,
     @ColumnInfo(name = "name") val name: String,

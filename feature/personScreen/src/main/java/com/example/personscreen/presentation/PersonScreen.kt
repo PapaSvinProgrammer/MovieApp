@@ -34,7 +34,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.utils.Constants
-import com.example.movieapp.personScreen.R
+import com.example.movieapp.ui.R
 import com.example.navigationroute.AwardListRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute

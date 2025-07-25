@@ -1,13 +1,11 @@
 package com.example.data.external
 
-import androidx.paging.PagingSource
+import androidx.paging.PagingData
 import com.example.model.History
-import com.example.room.internal.HistoryEntity
+import kotlinx.coroutines.flow.Flow
 
 interface HistoryRepository {
     suspend fun insert(history: History)
-
     suspend fun delete(id: Int)
-
-    fun getAll(): PagingSource<Int, HistoryEntity>
+    fun getAll(): Flow<PagingData<History>>
 }

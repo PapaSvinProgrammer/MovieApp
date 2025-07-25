@@ -1,9 +1,9 @@
-package com.example.room.external
+package com.example.room.internal.utils
 
 import com.example.model.History
-import com.example.room.internal.HistoryEntity
+import com.example.room.internal.history.HistoryEntity
 
-fun History.toEntity(): HistoryEntity = HistoryEntity(
+internal fun History.toEntity(): HistoryEntity = HistoryEntity(
     id = id,
     movieId = movieId,
     name = name,
@@ -15,7 +15,7 @@ fun History.toEntity(): HistoryEntity = HistoryEntity(
     isMovie = isMovie
 )
 
-fun HistoryEntity.toDomain(): History = History(
+internal fun HistoryEntity.toDomain(): History = History(
     id = id,
     movieId = movieId,
     name = name,

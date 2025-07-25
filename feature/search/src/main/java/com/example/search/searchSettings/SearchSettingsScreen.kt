@@ -37,7 +37,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.movieapp.search.R
+import com.example.movieapp.ui.R
 import com.example.navigationroute.SearchResultRoute
 import com.example.search.searchScreen.widget.dialog.YearPickerDialog
 import com.example.search.widget.component.DetailSettingsContent

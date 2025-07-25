@@ -35,7 +35,7 @@ import androidx.navigation.NavController
 import androidx.paging.compose.collectAsLazyPagingItems
 import com.example.utils.Constants
 import com.example.model.image.CollectionMovie
-import com.example.movieapp.search.R
+import com.example.movieapp.ui.R
 import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute

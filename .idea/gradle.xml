@@ -40,7 +40,6 @@
             <option value="$PROJECT_DIR$/domain/comment" />
             <option value="$PROJECT_DIR$/domain/movie" />
             <option value="$PROJECT_DIR$/domain/person" />
-            <option value="$PROJECT_DIR$/domain/searchHistory" />
             <option value="$PROJECT_DIR$/domain/studio" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/aboutApp" />

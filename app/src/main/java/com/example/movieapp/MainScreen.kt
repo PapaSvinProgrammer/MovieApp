@@ -10,6 +10,7 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.corecomponent.AppComponent
 import com.example.navigation.NavigationGraph
 import com.example.navigationroute.NavRoute
 import com.example.navigationroute.SearchSettingsRoute
@@ -19,7 +20,8 @@ import dev.chrisbanes.haze.rememberHazeState
 
 @Composable
 fun MainScreen(
-    startRoute: NavRoute
+    startRoute: NavRoute,
+    appComponent: AppComponent
 ) {
     var bottomBarVisible by remember { mutableStateOf(false) }
     val navController = rememberNavController()
@@ -47,7 +49,8 @@ fun MainScreen(
         NavigationGraph(
             navController = navController,
             startRoute = startRoute,
-            hazeState = hazeState
+            hazeState = hazeState,
+            appComponent = appComponent
         )
     }
 }

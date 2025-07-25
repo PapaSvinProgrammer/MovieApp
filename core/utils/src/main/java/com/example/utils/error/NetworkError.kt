@@ -1,4 +1,4 @@
-package com.example.utils
+package com.example.utils.error
 
 sealed class NetworkErrorException: Exception()
 

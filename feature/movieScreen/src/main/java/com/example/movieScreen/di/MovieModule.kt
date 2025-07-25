@@ -18,10 +18,8 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module(
-    includes = [DataModule::class]
-)
-interface MovieModule {
+@Module
+internal interface MovieModule {
     @Binds
     @MovieScope
     fun bindsViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

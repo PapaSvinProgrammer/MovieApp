@@ -2,7 +2,8 @@ package com.example.room.internal
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
-import com.example.room.external.HistoryDao
+import com.example.room.internal.history.HistoryDao
+import com.example.room.internal.history.HistoryEntity
 
 @Database(
     entities = [HistoryEntity::class],

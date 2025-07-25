@@ -3,7 +3,7 @@ package com.example.personscreen.presentation.widget.render
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.res.stringResource
 import com.example.model.person.Person
-import com.example.movieapp.personScreen.R
+import com.example.movieapp.ui.R
 import com.example.personscreen.presentation.widget.content.BirthdayDeathContent
 import com.example.personscreen.presentation.widget.listItem.DetailInfoListItem
 import com.example.ui.uiState.PersonUIState

@@ -28,7 +28,10 @@ class MainActivity : ComponentActivity() {
 //                    onDispose {  }
 //                }
 
-                MainScreen(startRoute = StartRoute)
+                MainScreen(
+                    startRoute = StartRoute,
+                    appComponent = appComponent
+                )
             }
         }
     }

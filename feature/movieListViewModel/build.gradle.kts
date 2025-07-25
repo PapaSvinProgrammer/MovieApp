@@ -3,6 +3,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":domain:movie"))
-    implementation(project(":core:ui"))
+    api(project(":core:coreComponent"))
+    api(project(":domain:movie"))
+    api(project(":core:ui"))
 }

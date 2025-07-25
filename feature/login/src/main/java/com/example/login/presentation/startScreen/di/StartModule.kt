@@ -10,10 +10,8 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-@Module(
-    includes = [DataModule::class]
-)
-interface StartModule {
+@Module
+internal interface StartModule {
     @Binds
     @StartScope
     fun bindsViewModelFactory(factory: ViewModelFactory): ViewModelProvider.Factory

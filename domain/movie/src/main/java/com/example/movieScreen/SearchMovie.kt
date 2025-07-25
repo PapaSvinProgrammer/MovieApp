@@ -1,8 +1,8 @@
 package com.example.movieScreen
 
-import com.example.common.ClientException
 import com.example.data.external.MovieRepository
 import com.example.model.movie.Movie
+import com.example.utils.error.ClientException
 import javax.inject.Inject
 
 class SearchMovie @Inject constructor(

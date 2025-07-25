@@ -8,16 +8,18 @@ import androidx.navigation.toRoute
 import com.example.awardlist.di.DaggerAwardListComponent
 import com.example.awardlist.presentation.AwardListScreen
 import com.example.awardlist.presentation.AwardListViewModel
+import com.example.corecomponent.AppComponent
 import com.example.navigationroute.AwardListRoute
 import dev.chrisbanes.haze.HazeState
 
 fun NavGraphBuilder.awardListDestination(
+    appComponent: AppComponent,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<AwardListRoute> {
         val route = it.toRoute<AwardListRoute>()
-        val component = DaggerAwardListComponent.factory().create()
+        val component = DaggerAwardListComponent.factory().create(appComponent)
 
         val viewModel: AwardListViewModel = viewModel(
             factory = component.viewModelFactory

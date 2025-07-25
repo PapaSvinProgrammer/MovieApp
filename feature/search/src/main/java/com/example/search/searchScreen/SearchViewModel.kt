@@ -4,15 +4,13 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.collectionusecase.GetCollectionByCategory
+import com.example.data.external.HistoryRepository
 import com.example.utils.Constants
 import com.example.model.SearchItem
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movieScreen.SearchMovie
 import com.example.person.GetPersonByFilter
 import com.example.person.SearchPerson
-import com.example.searchhistory.DeleteSearchHistory
-import com.example.searchhistory.GetSearchHistory
-import com.example.searchhistory.InsertSearchHistory
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.uiState.PersonUIState
@@ -31,9 +29,7 @@ internal class SearchViewModel @Inject constructor(
     private val searchPerson: SearchPerson,
     private val getMovieByFilter: GetMovieByFilter,
     private val searchMovie: SearchMovie,
-    private val insertSearchHistory: InsertSearchHistory,
-    private val deleteSearchHistory: DeleteSearchHistory,
-    getSearchHistory: GetSearchHistory
+    private val historyRepository: HistoryRepository
 ): ViewModel() {
     private val _query = MutableStateFlow("")
     private val _isExpanded = MutableStateFlow(false)
@@ -51,7 +47,7 @@ internal class SearchViewModel @Inject constructor(
     private val _searchState = MutableStateFlow(SearchUIState.Error as SearchUIState)
     val selectedSearchIndex: StateFlow<Int> = _selectedSearchIndex
     val searchState: StateFlow<SearchUIState> = _searchState
-    val resultHistory = getSearchHistory.execute().cachedIn(viewModelScope)
+    val resultHistory = historyRepository.getAll().cachedIn(viewModelScope)
 
     fun updateQuery(text: String) {
         _query.value = text
@@ -196,13 +192,13 @@ internal class SearchViewModel @Inject constructor(
 
     fun insertSearchHistoryItem(searchItem: SearchItem) {
         viewModelScope.launch(Dispatchers.IO) {
-           insertSearchHistory.execute(searchItem.toHistory())
+           historyRepository.insert(searchItem.toHistory())
         }
     }
 
     fun deleteSearchHistoryItem(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteSearchHistory.execute(id)
+            historyRepository.delete(id)
         }
     }
 }

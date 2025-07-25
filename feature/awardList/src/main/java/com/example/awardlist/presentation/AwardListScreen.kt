@@ -19,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.awardlist.presentation.widget.bottomSheet.AwardsFilterSheet
 import com.example.awardlist.presentation.widget.component.RenderAwardsContent
-import com.example.movieapp.awardList.R
+import com.example.movieapp.ui.R
 import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource

@@ -10,9 +10,7 @@ import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
 
-@Module(
-    includes = [DataModule::class]
-)
+@Module
 internal interface SettingsModule {
     @Binds
     @SettingsScope
