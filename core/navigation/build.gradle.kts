@@ -15,6 +15,6 @@ dependencies {
     implementation(project(":feature:personPodium"))
     implementation(project(":feature:personScreen"))
     implementation(project(":feature:search"))
-    implementation(project(":feature:settings"))
+    api(project(":feature:settings"))
     implementation(project(":core:navigationRoute"))
 }

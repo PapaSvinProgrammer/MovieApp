@@ -15,9 +15,9 @@ import javax.inject.Inject
 internal class PreferencesRepositoryImpl @Inject constructor(
     private val context: Context
 ) : PreferencesRepository {
-    override suspend fun setDarkTheme(state: Boolean) {
+    override suspend fun setThemeState(state: Int) {
         context.dataStore.edit {
-            it[DARK_THEME] = state
+            it[THEME_STATE] = state
         }
     }
 
@@ -33,9 +33,9 @@ internal class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getDarkTheme(): Flow<Boolean> {
+    override suspend fun getThemeState(): Flow<Int> {
         return context.dataStore.data.map {
-            it[DARK_THEME] ?: true
+            it[THEME_STATE] ?: 1
         }
     }
 
@@ -54,7 +54,7 @@ internal class PreferencesRepositoryImpl @Inject constructor(
     companion object {
         private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
         private const val NAME_DATA_STORE = "SettingsMovieApp"
-        private val DARK_THEME = booleanPreferencesKey("dark_theme")
+        private val THEME_STATE = intPreferencesKey("theme_state")
         private val ENTRY_STATE = booleanPreferencesKey("entry_state")
         private val CURRENT_ICON = intPreferencesKey("current_icon")
     }

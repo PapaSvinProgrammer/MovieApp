@@ -20,6 +20,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 
@@ -28,7 +29,8 @@ internal fun ThemeCard(
     text: String,
     icon: Painter,
     onClick: () -> Unit,
-    isFocus: Boolean
+    isFocus: Boolean,
+    width: Dp = 110.dp
 ) {
     val borderColor = if (isFocus) MaterialTheme.colorScheme.primary else Color.Transparent
 
@@ -46,7 +48,7 @@ internal fun ThemeCard(
             )
             .clickable(onClick = onClick)
             .height(130.dp)
-            .width(110.dp)
+            .width(width)
             .padding(15.dp)
     ) {
         Column(

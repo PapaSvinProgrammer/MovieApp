@@ -95,4 +95,5 @@
     <string name="rating_imdb">Рейтинг IMDB</string>
     <string name="rating_critics">Рейтинг критиков</string>
     <string name="rating_russian_crtics">Рейтинг российских критиков</string>
+    <string name="system_theme">Как в системе</string>
 </resources>
