@@ -1,14 +1,11 @@
 package com.example.ui.theme
 
 
-import androidx.activity.SystemBarStyle
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.toArgb
 
 private val LightColorScheme = lightColorScheme(
     primary = primaryLight,
@@ -92,14 +89,8 @@ fun MovieAppTheme(
     content: @Composable () -> Unit
 ) {
     val colorScheme = when {
-        darkTheme -> {
-            getSystemBarStyle(true)
-            DarkColorScheme
-        }
-        else -> {
-            getSystemBarStyle(false)
-            LightColorScheme
-        }
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
     }
 
     MaterialTheme(
@@ -107,11 +98,4 @@ fun MovieAppTheme(
         typography = Typography,
         content = content
     )
-}
-
-private fun getSystemBarStyle(isDark: Boolean): SystemBarStyle {
-    return when (isDark) {
-        true -> SystemBarStyle.dark(Color.Transparent.toArgb())
-        false -> SystemBarStyle.light(Color.Transparent.toArgb(), Color.White.toArgb())
-    }
 }
