@@ -33,21 +33,33 @@ internal class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getThemeState(): Flow<Int> {
+    override suspend fun setAuthorizationState(state: Boolean) {
+        context.dataStore.edit {
+            it[AUTH_STATE] = state
+        }
+    }
+
+    override fun getThemeState(): Flow<Int> {
         return context.dataStore.data.map {
             it[THEME_STATE] ?: 1
         }
     }
 
-    override suspend fun getEntryState(): Flow<Boolean> {
+    override fun getEntryState(): Flow<Boolean> {
         return context.dataStore.data.map {
             it[ENTRY_STATE] ?: false
         }
     }
 
-    override suspend fun getCurrentIcon(): Flow<Int> {
+    override fun getCurrentIcon(): Flow<Int> {
         return context.dataStore.data.map {
             it[CURRENT_ICON] ?: 1
+        }
+    }
+
+    override fun getAuthorizationState(): Flow<Boolean> {
+        return context.dataStore.data.map {
+            it[AUTH_STATE] ?: false
         }
     }
 
@@ -57,5 +69,6 @@ internal class PreferencesRepositoryImpl @Inject constructor(
         private val THEME_STATE = intPreferencesKey("theme_state")
         private val ENTRY_STATE = booleanPreferencesKey("entry_state")
         private val CURRENT_ICON = intPreferencesKey("current_icon")
+        private val AUTH_STATE = booleanPreferencesKey("auth_state")
     }
 }

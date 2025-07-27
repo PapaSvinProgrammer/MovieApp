@@ -1,7 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
-include(":core:coreComponent")
+include(":feature:otpScreen")
 
+
+include(":core:coreComponent")
+include(":core:security")
 
 include(":core:navigation")
 

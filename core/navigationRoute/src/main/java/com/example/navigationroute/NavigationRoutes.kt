@@ -76,3 +76,9 @@ data class AwardListRoute(
 data class MovieRoute(
     val id: Int
 ): NavRoute
+
+@Serializable
+data class OtpRoute(
+    val isCreate: Boolean,
+    val isDisable: Boolean
+) : NavRoute

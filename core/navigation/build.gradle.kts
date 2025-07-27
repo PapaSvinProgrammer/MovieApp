@@ -17,4 +17,5 @@ dependencies {
     implementation(project(":feature:search"))
     api(project(":feature:settings"))
     implementation(project(":core:navigationRoute"))
+    implementation(project(":feature:otpScreen"))
 }

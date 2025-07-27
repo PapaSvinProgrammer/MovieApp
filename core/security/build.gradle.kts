@@ -1,12 +1,12 @@
 plugins {
     id("android-core-module")
+    id("kotlin-kapt")
 }
 
 dependencies {
-    api(project(":core:model"))
+    implementation(project(":core:utils"))
     implementation(libs.dagger)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
+    kapt(libs.dagger.compiler)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 }

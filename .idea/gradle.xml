@@ -31,6 +31,7 @@
             <option value="$PROJECT_DIR$/core/navigationRoute" />
             <option value="$PROJECT_DIR$/core/network" />
             <option value="$PROJECT_DIR$/core/room" />
+            <option value="$PROJECT_DIR$/core/security" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/utils" />
             <option value="$PROJECT_DIR$/core/viewModelFactory" />
@@ -52,6 +53,7 @@
             <option value="$PROJECT_DIR$/feature/movieList" />
             <option value="$PROJECT_DIR$/feature/movieListViewModel" />
             <option value="$PROJECT_DIR$/feature/movieScreen" />
+            <option value="$PROJECT_DIR$/feature/otpScreen" />
             <option value="$PROJECT_DIR$/feature/personListViewModel" />
             <option value="$PROJECT_DIR$/feature/personPodium" />
             <option value="$PROJECT_DIR$/feature/personScreen" />

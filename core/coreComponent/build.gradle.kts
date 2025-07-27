@@ -5,6 +5,7 @@ plugins {
 
 dependencies {
     api(project(":core:data"))
+    api(project(":core:security"))
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
 }

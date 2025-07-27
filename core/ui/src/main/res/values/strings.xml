@@ -96,4 +96,9 @@
     <string name="rating_critics">Рейтинг критиков</string>
     <string name="rating_russian_crtics">Рейтинг российских критиков</string>
     <string name="system_theme">Как в системе</string>
+    <string name="code_password">Код-пароль</string>
+    <string name="repeat_password">Повторите пароль</string>
+    <string name="reset_pin_code">Сброситть пин-код</string>
+    <string name="input_pin_code">Введите пин-код</string>
+    <string name="codes_dont_match">Коды не совпадают</string>
 </resources>
