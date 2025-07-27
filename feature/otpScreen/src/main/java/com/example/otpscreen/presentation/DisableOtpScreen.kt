@@ -108,7 +108,8 @@ internal fun DisableOtpScreen(
             },
             modifier = modifier
                 .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
+                .consumeWindowInsets(innerPadding),
+            isError = false
         )
     }
 }

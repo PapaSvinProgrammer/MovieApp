@@ -22,6 +22,7 @@ internal fun MainOtpContent(
     focusRequesters: List<FocusRequester>,
     onAction: (OtpAction) -> Unit,
     modifier: Modifier = Modifier,
+    isError: Boolean,
     hint: String = stringResource(R.string.input_pin_code)
 ) {
     Column(
@@ -40,7 +41,8 @@ internal fun MainOtpContent(
         MainPinCodeContent(
             state = state,
             focusRequesters = focusRequesters,
-            onAction = onAction
+            onAction = onAction,
+            isError = isError
         )
     }
 }

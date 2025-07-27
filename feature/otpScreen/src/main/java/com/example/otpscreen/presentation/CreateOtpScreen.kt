@@ -135,7 +135,8 @@ internal fun CreateOtpScreen(
                     },
                     modifier = modifier
                         .padding(innerPadding)
-                        .consumeWindowInsets(innerPadding)
+                        .consumeWindowInsets(innerPadding),
+                    isError = false
                 )
             }
 
@@ -161,7 +162,8 @@ internal fun CreateOtpScreen(
                     },
                     modifier = modifier
                         .padding(innerPadding)
-                        .consumeWindowInsets(innerPadding)
+                        .consumeWindowInsets(innerPadding),
+                    isError = false
                 )
             }
         }

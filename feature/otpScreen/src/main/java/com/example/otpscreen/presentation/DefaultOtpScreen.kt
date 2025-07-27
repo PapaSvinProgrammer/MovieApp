@@ -75,6 +75,7 @@ internal fun DefaultOtpScreen(
     ) { innerPadding ->
         MainOtpContent(
             state = state,
+            isError = !(state.isValid ?: true),
             focusRequesters = focusRequesters,
             onAction = { action ->
                 if (state.isValid == false) {
