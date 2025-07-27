@@ -15,7 +15,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -27,13 +26,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.focus.FocusRequester
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
-import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
 import com.example.otpscreen.presentation.widget.content.MainOtpContent
 import com.example.otpscreen.utils.actionHandler
+import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -54,10 +52,6 @@ internal fun CreateOtpScreen(
     var isRepeatInput by remember { mutableStateOf(false) }
     var localCode: List<Int?> by remember {
         mutableStateOf((1..OtpViewModel.Companion.DEFAULT_LENGTH).map { null })
-    }
-
-    LifecycleEventEffect(Lifecycle.Event.ON_CREATE) {
-        focusRequesters[0].requestFocus()
     }
 
     LaunchedEffect(focusRequesters) {
@@ -104,7 +98,7 @@ internal fun CreateOtpScreen(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    Text(text = stringResource(R.string.code_password))
+                    TitleTopBarText(text = stringResource(R.string.code_password))
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -136,7 +130,7 @@ internal fun CreateOtpScreen(
                     modifier = modifier
                         .padding(innerPadding)
                         .consumeWindowInsets(innerPadding),
-                    isError = false
+                    isError = !(state.isValid ?: true)
                 )
             }
 
@@ -163,7 +157,7 @@ internal fun CreateOtpScreen(
                     modifier = modifier
                         .padding(innerPadding)
                         .consumeWindowInsets(innerPadding),
-                    isError = false
+                    isError = !(state.isValid ?: true)
                 )
             }
         }

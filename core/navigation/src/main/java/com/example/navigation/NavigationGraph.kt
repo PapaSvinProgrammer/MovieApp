@@ -34,7 +34,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = OtpRoute(isCreate = false, isDisable = false),
+        startDestination = OtpRoute(isCreate = true, isDisable = true),
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,

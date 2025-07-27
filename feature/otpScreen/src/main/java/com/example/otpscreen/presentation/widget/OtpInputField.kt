@@ -82,7 +82,7 @@ internal fun OtpInputField(
                 if (number == null) {
                     Box(
                         modifier = Modifier
-                            .size(12.dp)
+                            .size(11.dp)
                             .border(
                                 width = 1.dp,
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
@@ -93,7 +93,7 @@ internal fun OtpInputField(
                 else {
                     Box(
                         modifier = Modifier
-                            .size(12.dp)
+                            .size(11.dp)
                             .background(
                                 color = MaterialTheme.colorScheme.onSecondaryContainer,
                                 shape = CircleShape

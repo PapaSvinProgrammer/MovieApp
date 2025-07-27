@@ -9,7 +9,6 @@ import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -25,6 +24,7 @@ import androidx.navigation.NavController
 import com.example.movieapp.ui.R
 import com.example.otpscreen.presentation.widget.content.MainOtpContent
 import com.example.otpscreen.utils.actionHandler
+import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -40,7 +40,6 @@ internal fun DisableOtpScreen(
     val keyboardManager = LocalSoftwareKeyboardController.current
 
     LifecycleEventEffect(Lifecycle.Event.ON_CREATE) {
-        focusRequesters[0].requestFocus()
         viewModel.getDefaultPinCode()
     }
 
@@ -80,7 +79,9 @@ internal fun DisableOtpScreen(
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
-                title = { Text(stringResource(R.string.reset_pin_code)) },
+                title = {
+                    TitleTopBarText(text = stringResource(R.string.reset_pin_code))
+                },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
                         Icon(
@@ -109,7 +110,7 @@ internal fun DisableOtpScreen(
             modifier = modifier
                 .padding(innerPadding)
                 .consumeWindowInsets(innerPadding),
-            isError = false
+            isError = !(state.isValid ?: true)
         )
     }
 }
