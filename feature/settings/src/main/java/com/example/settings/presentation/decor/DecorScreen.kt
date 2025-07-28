@@ -1,4 +1,4 @@
-package com.example.settings.presentation
+package com.example.settings.presentation.decor
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -15,7 +15,6 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -25,14 +24,14 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
+import com.example.settings.presentation.SettingsViewModel
 import com.example.settings.presentation.widget.content.ChangeThemeContent
 import com.example.settings.presentation.widget.content.OtherIconAppContent
-import com.example.settings.presentation.widget.row.TwinTitleRow
 import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-internal fun SettingsScreen(
+internal fun DecorScreen(
     navController: NavController,
     viewModel: SettingsViewModel
 ) {
@@ -43,17 +42,11 @@ internal fun SettingsScreen(
         viewModel.getCurrentIconIndex()
     }
 
-    LaunchedEffect(uiState.currentIcon) {
-        if (uiState.currentIcon != 1) {
-            viewModel.updateAlternativeSwitch(true)
-        }
-    }
-
     Scaffold(
         topBar = {
             CenterAlignedTopAppBar(
                 title = {
-                    TitleTopBarText(text = stringResource(R.string.settings))
+                    TitleTopBarText(text = stringResource(R.string.decor))
                 },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -77,27 +70,26 @@ internal fun SettingsScreen(
                     end = 15.dp
                 )
         ) {
-            TwinTitleRow(
-                checked = uiState.pinCodeSwitch,
-                onClick = { viewModel.updatePinSwitch(it) },
-                title = stringResource(R.string.parent_control),
-                subtitle = stringResource(R.string.enter_with_pin_code),
-                description = stringResource(R.string.enter_with_pin_code_description)
-            )
-            Spacer(modifier = Modifier.height(30.dp))
-
             ChangeThemeContent(
                 themeState = uiState.themeState,
                 onChangeTheme = { viewModel.setTheme(it) }
             )
+
             Spacer(modifier = Modifier.height(30.dp))
 
-            TwinTitleRow(
-                checked = uiState.vibrationSwitch,
-                onClick = { viewModel.updateVibrationSwitch(it) },
-                title = stringResource(R.string.other),
-                subtitle = stringResource(R.string.vibration),
-                description = stringResource(R.string.vibration_description)
+            OtherIconAppContent(
+                checked = uiState.alternativeSwitch,
+                onClick = {
+                    viewModel.updateAlternativeSwitch(it)
+
+                    if (!it) {
+                        viewModel.setCurrentIconIndex(1)
+                    }
+                },
+                currentIconIndex = uiState.currentIcon,
+                onChangeIcon = {
+                    viewModel.setCurrentIconIndex(it)
+                }
             )
         }
     }

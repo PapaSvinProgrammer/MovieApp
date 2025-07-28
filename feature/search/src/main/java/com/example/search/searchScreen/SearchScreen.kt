@@ -41,7 +41,7 @@ import com.example.navigationroute.MovieListRoute
 import com.example.navigationroute.MovieRoute
 import com.example.navigationroute.PersonPodiumListRoute
 import com.example.navigationroute.PersonRoute
-import com.example.navigationroute.SearchSettingsRoute
+import com.example.navigationroute.SearchRoutes
 import com.example.search.searchScreen.widget.component.SearchBarContent
 import com.example.ui.widget.renderState.RenderPersonRowState
 import com.example.ui.widget.renderState.RenderCollectionStateRow
@@ -109,12 +109,13 @@ internal fun SearchScreen(
                     trailingIcon = {
                         TrailingIcon(
                             expanded = isExpanded,
-                            onSettings = { navController.navigate(SearchSettingsRoute) },
+                            onSettings = {
+                                navController.navigate(SearchRoutes.SearchSettingsRoute)
+                            },
                             onClear = {
                                 if (query.isEmpty()) {
                                     viewModel.updateExpanded(false)
-                                }
-                                else {
+                                } else {
                                     viewModel.updateQuery("")
                                 }
                             }
@@ -137,8 +138,7 @@ internal fun SearchScreen(
                             navController.navigate(MovieRoute(it.id)) {
                                 launchSingleTop = true
                             }
-                        }
-                        else {
+                        } else {
                             navController.navigate(PersonRoute(it.id)) {
                                 launchSingleTop = true
                             }
@@ -290,7 +290,7 @@ private fun TrailingIcon(
     else
         painterResource(R.drawable.ic_tune)
 
-    IconButton(onClick = { if (expanded) onClear() else onSettings()}) {
+    IconButton(onClick = { if (expanded) onClear() else onSettings() }) {
         Icon(
             painter = icon,
             contentDescription = null

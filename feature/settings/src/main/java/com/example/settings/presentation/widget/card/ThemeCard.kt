@@ -49,7 +49,7 @@ internal fun ThemeCard(
             .clickable(onClick = onClick)
             .height(130.dp)
             .width(width)
-            .padding(15.dp)
+            .padding(10.dp)
     ) {
         Column(
             modifier = Modifier.align(Alignment.Center),

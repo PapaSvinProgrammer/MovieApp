@@ -13,7 +13,7 @@ dependencies {
     api(project(":core:model"))
     api(project(":core:utils"))
     api(project(":core:navigationRoute"))
-    api(project(":core:viewModelFactory"))
+    api(project(":core:viewmodelfactory"))
     api(project(":core:coreComponent"))
 
     implementation(libs.haze)

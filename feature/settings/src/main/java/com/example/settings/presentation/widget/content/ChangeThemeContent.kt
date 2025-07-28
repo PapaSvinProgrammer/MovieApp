@@ -39,7 +39,7 @@ internal fun ChangeThemeContent(
         ThemeCard(
             text = stringResource(R.string.system_theme),
             icon = painterResource(R.drawable.ic_brightness),
-            width = 150.dp,
+            width = 130.dp,
             onClick = { onChangeTheme(1) },
             isFocus = themeState == 1
         )

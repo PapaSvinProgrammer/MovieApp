@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
-import com.example.navigationroute.HomeRoute
+import com.example.navigationroute.MainRoutes
 
 @Composable
 internal fun StartScreen(
@@ -35,7 +35,7 @@ internal fun StartScreen(
                     shape = RoundedCornerShape(10.dp),
                     onClick = {
                         viewModel.setEntryState(true)
-                        navController.navigate(HomeRoute)
+                        navController.navigate(MainRoutes.HomeRoute)
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.onBackground
@@ -53,7 +53,7 @@ internal fun StartScreen(
                     shape = RoundedCornerShape(10.dp),
                     onClick = {
                         viewModel.setEntryState(true)
-                        navController.navigate(HomeRoute)
+                        navController.navigate(MainRoutes.HomeRoute)
                     },
                     colors = ButtonDefaults.buttonColors(
                         containerColor = MaterialTheme.colorScheme.onBackground

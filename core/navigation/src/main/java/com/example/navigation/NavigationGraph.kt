@@ -15,10 +15,8 @@ import com.example.home.presentation.navigation.homeDestination
 import com.example.login.presentation.navigation.loginDestination
 import com.example.movieScreen.presentation.navigation.movieDestination
 import com.example.movielist.movieListDestination
-import com.example.navigationroute.AccountRoute
 import com.example.navigationroute.NavRoute
-import com.example.navigationroute.OtpRoute
-import com.example.navigationroute.SettingsRoute
+import com.example.navigationroute.SettingsRoutes
 import com.example.otpscreen.presentation.navigatoin.otpDestination
 import com.example.personpodium.personPodiumListDestination
 import com.example.personscreen.presentation.navigation.personDestination
@@ -35,7 +33,7 @@ fun NavigationGraph(
 ) {
     NavHost(
         navController = navController,
-        startDestination = AccountRoute,
+        startDestination = SettingsRoutes.DecorRoute,
         enterTransition = {
             slideIntoContainer(
                 towards = AnimatedContentTransitionScope.SlideDirection.Start,
@@ -66,7 +64,8 @@ fun NavigationGraph(
         )
 
         accountDestination(
-            navController = navController
+            navController = navController,
+            hazeState = hazeState
         )
 
         awardListDestination(

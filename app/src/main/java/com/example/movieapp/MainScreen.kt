@@ -13,7 +13,7 @@ import androidx.navigation.compose.rememberNavController
 import com.example.corecomponent.AppComponent
 import com.example.navigation.NavigationGraph
 import com.example.navigationroute.NavRoute
-import com.example.navigationroute.SearchSettingsRoute
+import com.example.navigationroute.SearchRoutes
 import com.example.ui.widget.navigation.BottomBarItems
 import com.example.ui.widget.navigation.HazeBottomBar
 import dev.chrisbanes.haze.rememberHazeState
@@ -57,7 +57,7 @@ fun MainScreen(
 
 private fun bottomBarIsVisibility(route: String?, onResult: (Boolean) -> Unit) {
     when (route) {
-        SearchSettingsRoute::class.java.canonicalName -> onResult(false)
+        SearchRoutes.SearchSettingsRoute::class.java.canonicalName -> onResult(false)
         else -> onResult(true)
     }
 }

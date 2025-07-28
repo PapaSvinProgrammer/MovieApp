@@ -3,9 +3,6 @@ plugins {
 }
 
 dependencies {
-    api(project(":core:coreComponent"))
     implementation(project(":feature:movie-list-view-model"))
-    implementation(project(":domain:collection-use-case"))
-    implementation(project(":domain:movie"))
     implementation(project(":core:ui"))
 }

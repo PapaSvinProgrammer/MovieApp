@@ -14,7 +14,7 @@ import com.example.movielistviewmodel.MovieListViewModel
 import com.example.movielistviewmodel.di.DaggerMovieListComponent
 import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.HomeDetailListRoute
-import com.example.navigationroute.HomeRoute
+import com.example.navigationroute.MainRoutes
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
@@ -23,7 +23,7 @@ fun NavGraphBuilder.homeDestination(
     navController: NavController,
     hazeState: HazeState
 ) {
-    composable<HomeRoute> {
+    composable<MainRoutes.HomeRoute> {
         val component = DaggerHomeComponent
             .factory()
             .create(appComponent)

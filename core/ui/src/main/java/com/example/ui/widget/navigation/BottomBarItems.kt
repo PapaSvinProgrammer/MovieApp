@@ -2,6 +2,7 @@ package com.example.ui.widget.navigation
 
 import androidx.compose.ui.graphics.Color
 import com.example.movieapp.ui.R
+import com.example.navigationroute.MainRoutes
 import com.example.ui.theme.ColorGradient1
 import com.example.ui.theme.ColorGradient2
 import com.example.ui.theme.ColorGradient3
@@ -17,28 +18,28 @@ sealed class BottomBarTab(
         title = "Профиль",
         icon = R.drawable.ic_person_fill,
         color = ColorGradient1,
-        route = com.example.navigationroute.AccountRoute
+        route = MainRoutes.AccountRoute
     )
 
     data object Home: BottomBarTab(
         title = "Главная",
         icon = R.drawable.ic_home_fill,
         color = ColorGradient2,
-        route = com.example.navigationroute.HomeRoute
+        route = MainRoutes.HomeRoute
     )
 
     data object Search: BottomBarTab(
         title = "Поиск",
         icon = R.drawable.ic_search,
         color = ColorGradient3,
-        route = com.example.navigationroute.SearchRoute
+        route = MainRoutes.SearchRoute
     )
 
     data object Favorite: BottomBarTab(
         title = "Избранное",
         icon = R.drawable.ic_bookmark_fill,
         color = ColorGradient4,
-        route = com.example.navigationroute.FavoriteRoute
+        route = MainRoutes.FavoriteRoute
     )
 }
 

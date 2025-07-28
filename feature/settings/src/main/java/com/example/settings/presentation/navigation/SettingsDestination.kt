@@ -5,16 +5,17 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import com.example.corecomponent.AppComponent
-import com.example.navigationroute.SettingsRoute
+import com.example.navigationroute.SettingsRoutes
 import com.example.settings.di.DaggerSettingsComponent
 import com.example.settings.presentation.SettingsScreen
 import com.example.settings.presentation.SettingsViewModel
+import com.example.settings.presentation.decor.DecorScreen
 
 fun NavGraphBuilder.settingsDestination(
     appComponent: AppComponent,
     navController: NavController
 ) {
-    composable<SettingsRoute> {
+    composable<SettingsRoutes.DecorRoute> {
         val component = DaggerSettingsComponent
             .factory()
             .create(appComponent)
@@ -23,7 +24,7 @@ fun NavGraphBuilder.settingsDestination(
             factory = component.viewModelFactory
         )
 
-        SettingsScreen(
+        DecorScreen(
             navController = navController,
             viewModel = viewModel
         )

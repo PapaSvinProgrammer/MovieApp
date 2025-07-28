@@ -38,7 +38,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
-import com.example.navigationroute.SearchResultRoute
+import com.example.navigationroute.SearchRoutes
 import com.example.search.searchScreen.widget.dialog.YearPickerDialog
 import com.example.search.widget.component.DetailSettingsContent
 import com.example.search.widget.component.SearchListLayout
@@ -158,7 +158,7 @@ internal fun SearchSettingsScreen(
                     year = yearFilter
                 )
 
-                navController.navigate(SearchResultRoute(convertData)) {
+                navController.navigate(SearchRoutes.SearchResultRoute(convertData)) {
                     launchSingleTop = true
                 }
             }

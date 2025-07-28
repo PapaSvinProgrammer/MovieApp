@@ -27,7 +27,7 @@ internal fun SettingsList(
     onConf: () -> Unit,
     onData: () -> Unit,
     onLanguage: () -> Unit,
-    onTheme: () -> Unit,
+    onDecor: () -> Unit,
     onSupport: () -> Unit,
     onAbout: () -> Unit
 ) {
@@ -41,7 +41,7 @@ internal fun SettingsList(
             onConf = onConf,
             onData = onData,
             onLanguage = onLanguage,
-            onTheme = onTheme
+            onTheme = onDecor
         )
 
         SupportContent(
