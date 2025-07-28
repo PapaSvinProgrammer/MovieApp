@@ -63,7 +63,11 @@ internal fun AccountScreen(
                         launchSingleTop = true
                     }
                 },
-                onSound = {},
+                onSound = {
+                    navController.navigate(SettingsRoutes.SoundRoute) {
+                        launchSingleTop = true
+                    }
+                },
                 onConf = {},
                 onLanguage = {},
                 onData = {},

@@ -5,5 +5,5 @@ plugins {
 dependencies {
     implementation(project(":core:data"))
     implementation(project(":core:ui"))
-    api(project(":core:coreComponent"))
+    api(project(":core:core-component"))
 }

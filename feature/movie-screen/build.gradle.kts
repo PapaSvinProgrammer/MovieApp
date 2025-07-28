@@ -7,5 +7,5 @@ dependencies {
     implementation(project(":domain:comment"))
     implementation(project(":domain:collection-use-case"))
     implementation(project(":core:ui"))
-    api(project(":core:coreComponent"))
+    api(project(":core:core-component"))
 }

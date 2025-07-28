@@ -16,6 +16,6 @@ dependencies {
     implementation(project(":feature:person-screen"))
     implementation(project(":feature:search"))
     api(project(":feature:settings"))
-    implementation(project(":core:navigationRoute"))
+    implementation(project(":core:navigation-route"))
     implementation(project(":feature:otp-screen"))
 }

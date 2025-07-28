@@ -15,7 +15,7 @@ android {
 dependencies {
     implementation(project(":core:ui"))
     implementation(project(":core:navigation"))
-    implementation(project(":core:coreComponent"))
+    implementation(project(":core:core-component"))
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.ui.test.junit4)
 }

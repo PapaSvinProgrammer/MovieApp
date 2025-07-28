@@ -3,6 +3,6 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:coreComponent"))
+    implementation(project(":core:core-component"))
     implementation(project(":core:ui"))
 }

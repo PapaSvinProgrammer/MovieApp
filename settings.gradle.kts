@@ -3,7 +3,7 @@
 include(":feature:otp-screen")
 
 
-include(":core:coreComponent")
+include(":core:core-component")
 include(":core:security")
 
 include(":core:navigation")
@@ -46,7 +46,7 @@ include(":domain:person")
 include(":domain:awards")
 include(":domain:studio")
 include(":feature")
-include(":core:navigationRoute")
+include(":core:navigation-route")
 include(":feature:about-app")
 include(":feature:account")
 include(":feature:collection-list")
@@ -65,4 +65,4 @@ include(":core:ui")
 include(":core:room")
 include(":feature:person-screen")
 include(":domain:collection-use-case")
-include(":core:viewmodelfactory")
+include(":core:view-model-factory")

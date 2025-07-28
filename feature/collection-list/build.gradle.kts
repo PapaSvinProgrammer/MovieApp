@@ -3,7 +3,7 @@ plugins {
 }
 
 dependencies {
-    api(project(":core:coreComponent"))
+    api(project(":core:core-component"))
     implementation(project(":core:ui"))
     implementation(project(":domain:collection-use-case"))
 }
