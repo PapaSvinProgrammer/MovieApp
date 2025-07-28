@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionAll
 import com.example.collectionusecase.GetCollectionByCategory
+import com.example.collectionusecase.model.CollectionParams
 import com.example.ui.uiState.CollectionUIState
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -23,11 +24,16 @@ internal class CollectionListViewModel @Inject constructor(
     fun getCollections(category: String?) {
         if (collectionState.value is CollectionUIState.Success) return
 
+        val params = CollectionParams(
+            page = page,
+            category = category ?: ""
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (category == null)
-                getCollectionAll.execute()
+                getCollectionAll.execute(page)
             else
-                getCollectionByCategory.execute(category)
+                getCollectionByCategory.execute(params)
 
             res.onSuccess {
                 _collectionState.value = CollectionUIState.Success(it)
@@ -38,15 +44,17 @@ internal class CollectionListViewModel @Inject constructor(
     fun loadMoreCollections(category: String?) {
         page++
 
+        val params = CollectionParams(
+            category = category ?: "",
+            page = page
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
             val res = if (category == null) {
                 getCollectionAll.execute(page)
             }
             else {
-                getCollectionByCategory.execute(
-                    category = category,
-                    page = page
-                )
+                getCollectionByCategory.execute(params)
             }
 
             res.onSuccess {

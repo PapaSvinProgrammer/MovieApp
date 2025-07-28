@@ -4,6 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionBySlug
 import com.example.comment.GetCommentByDate
+import com.example.comment.model.CommentParams
 import com.example.utils.multiRequest
 import com.example.model.person.PersonMovie
 import com.example.movieScreen.GetMovieById
@@ -12,6 +13,7 @@ import com.example.movieScreen.domain.FilterCollection
 import com.example.movieScreen.domain.FilterPersonsLikeActors
 import com.example.movieScreen.domain.FilterPersonsLikeSupport
 import com.example.movieScreen.domain.FilterPersonsLikeVoiceActors
+import com.example.movieScreen.model.MovieParams
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.CommentUIState
 import com.example.ui.uiState.ImageUIState
@@ -54,11 +56,13 @@ internal class MovieViewModel @Inject constructor(
     fun getComments(movieId: Int) {
         if (movieUIState.value is MovieUIState.Success) return
 
+        val params = CommentParams(
+            movieId = movieId,
+            sort = -1
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            getCommentByDate.execute(
-                movieId = movieId,
-                sort = -1
-            ).onSuccess {
+            getCommentByDate.execute(params).onSuccess {
                 _commentState.value = CommentUIState.Success(it)
             }
         }
@@ -80,8 +84,12 @@ internal class MovieViewModel @Inject constructor(
     fun getImages(movieId: Int) {
         if (imagesState.value is ImageUIState.Success) return
 
+        val params = MovieParams(
+            movieId = movieId
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovieImages.execute(movieId)
+            val res = getMovieImages.execute(params)
 
             res.onSuccess {
                 _imageState.value = ImageUIState.Success(it)

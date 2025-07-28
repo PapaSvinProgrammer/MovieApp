@@ -1,18 +1,18 @@
 package com.example.awardlist.presentation
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.awardlist.domain.FilterAwardsByGroup
 import com.example.awardlist.presentation.widget.bottomSheet.AwardsFilterType
 import com.example.awards.GetMovieAwardsByDate
 import com.example.awards.GetMovieAwardsByTitle
 import com.example.awards.GetPersonAwardsByDate
 import com.example.awards.GetPersonAwardsByTitle
+import com.example.awards.model.AwardParams
 import com.example.model.person.NominationAward
-import kotlinx.coroutines.Dispatchers
+import com.example.utils.cancelAllJobs
+import com.example.utils.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class AwardListViewModel @Inject constructor(
@@ -21,7 +21,7 @@ internal class AwardListViewModel @Inject constructor(
     private val getPersonAwardsByDate: GetPersonAwardsByDate,
     private val getPersonAwardsByTitle: GetPersonAwardsByTitle,
     private val filterAwardsByGroup: FilterAwardsByGroup
-): ViewModel() {
+) : ViewModel() {
     private var page = 1
     private val _awards = MutableStateFlow<List<NominationAward>>(listOf())
 
@@ -60,65 +60,91 @@ internal class AwardListViewModel @Inject constructor(
         }
     }
 
-    private fun getAwardsByTitle(id: Int, isMovie: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = if (isMovie)
-                    getMovieAwardsByTitle.execute(id)
-                else
-                    getPersonAwardsByTitle.execute(id)
+    private fun getAwardsByTitle(id: Int, isMovie: Boolean) = launchWithoutOld(GET_BY_TITLE_JOB) {
+        val params = AwardParams(id = id)
 
-            res.onSuccess {
-                _awards.value = it
-                _groupAwards.value = filterAwardsByGroup.execute(it)
-            }
+        val res = if (isMovie)
+            getMovieAwardsByTitle.execute(params)
+        else
+            getPersonAwardsByTitle.execute(params)
+
+        res.onSuccess {
+            _awards.value = it
+            _groupAwards.value = filterAwardsByGroup.execute(it)
         }
     }
 
-    private fun getAwardsByDate(id: Int, isMovie: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = if (isMovie)
-                getMovieAwardsByDate.execute(id)
-            else
-                getPersonAwardsByDate.execute(id)
+    private fun getAwardsByDate(id: Int, isMovie: Boolean) = launchWithoutOld(GET_BY_DATE_JOB) {
+        val params = AwardParams(id = id)
 
-            res.onSuccess { data ->
-                _awards.value = data
-                _groupAwards.value = filterAwardsByGroup.execute(data)
-            }
+        val res = if (isMovie)
+            getMovieAwardsByDate.execute(params)
+        else
+            getPersonAwardsByDate.execute(params)
+
+        res.onSuccess { data ->
+            _awards.value = data
+            _groupAwards.value = filterAwardsByGroup.execute(data)
         }
     }
 
-    private fun loadMoreByTitle(id: Int, page: Int, isMovie: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = if (isMovie)
-                    getMovieAwardsByTitle.execute(id, page)
-                else
-                    getPersonAwardsByTitle.execute(id, page)
+    private fun loadMoreByTitle(
+        id: Int,
+        page: Int,
+        isMovie: Boolean
+    ) = launchWithoutOld(MORE_BY_TITLE_JOB) {
+        val params = AwardParams(
+            id = id,
+            page = page
+        )
 
-            res.onSuccess { data ->
-                val temp = _awards.value.toMutableList()
-                temp.addAll(data)
+        val res = if (isMovie)
+            getMovieAwardsByTitle.execute(params)
+        else
+            getPersonAwardsByTitle.execute(params)
 
-                _awards.value= temp
-                _groupAwards.value = filterAwardsByGroup.execute(temp)
-            }
+        res.onSuccess { data ->
+            val temp = _awards.value.toMutableList()
+            temp.addAll(data)
+
+            _awards.value = temp
+            _groupAwards.value = filterAwardsByGroup.execute(temp)
         }
     }
 
-    private fun loadMoreByDate(id: Int, page: Int, isMovie: Boolean) {
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = if (isMovie)
-                getMovieAwardsByDate.execute(id, page)
-            else
-                getPersonAwardsByDate.execute(id, page)
+    private fun loadMoreByDate(
+        id: Int,
+        page: Int,
+        isMovie: Boolean
+    ) = launchWithoutOld(MORE_BY_DATE_JOB) {
+        val params = AwardParams(
+            id = id,
+            page = page
+        )
 
-            res.onSuccess { data ->
-                val temp = _awards.value.toMutableList()
-                temp.addAll(data)
-                _awards.value = temp
+        val res = if (isMovie)
+            getMovieAwardsByDate.execute(params)
+        else
+            getPersonAwardsByDate.execute(params)
 
-                _groupAwards.value = filterAwardsByGroup.execute(temp)
-            }
+        res.onSuccess { data ->
+            val temp = _awards.value.toMutableList()
+            temp.addAll(data)
+            _awards.value = temp
+
+            _groupAwards.value = filterAwardsByGroup.execute(temp)
         }
+    }
+
+    override fun onCleared() {
+        cancelAllJobs()
+        super.onCleared()
+    }
+
+    private companion object {
+        const val MORE_BY_DATE_JOB = "load_more_awards_by_date"
+        const val MORE_BY_TITLE_JOB = "load_more_awards_by_title"
+        const val GET_BY_DATE_JOB = "get_awards_by_date"
+        const val GET_BY_TITLE_JOB = "get_awards_by_title"
     }
 }

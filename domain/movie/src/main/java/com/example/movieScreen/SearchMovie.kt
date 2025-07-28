@@ -2,23 +2,23 @@ package com.example.movieScreen
 
 import com.example.data.external.MovieRepository
 import com.example.model.movie.Movie
+import com.example.movieScreen.model.MovieParams
+import com.example.utils.UseCase
 import com.example.utils.error.ClientException
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class SearchMovie @Inject constructor(
     private val movieRepository: MovieRepository
-) {
-    suspend fun search(
-        q: String,
-        page: Int = 1
-    ): Result<List<Movie>> {
-        if (q.length < 3 || page <= 0) {
+) : UseCase<MovieParams, Result<List<Movie>>>(Dispatchers.IO) {
+    override suspend fun run(params: MovieParams): Result<List<Movie>> {
+        if (params.q.length < 3 || params.page <= 0) {
             return Result.failure(ClientException())
         }
 
         return movieRepository.search(
-            q = q,
-            page = page
+            q = params.q,
+            page = params.page
         )
     }
 }

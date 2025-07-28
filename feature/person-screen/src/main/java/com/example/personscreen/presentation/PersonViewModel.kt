@@ -3,6 +3,7 @@ package com.example.personscreen.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.awards.GetPersonAwardsByDate
+import com.example.awards.model.AwardParams
 import com.example.utils.Constants
 import com.example.utils.multiRequest
 import com.example.model.movie.ShortMovie
@@ -85,8 +86,10 @@ internal class PersonViewModel @Inject constructor(
     fun getCountAwards(personId: Int) {
         if (countAwards.value == null) return
 
+        val params = AwardParams(id = personId)
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getPersonAwardsByDate.execute(personId)
+            val res = getPersonAwardsByDate.execute(params)
 
             res.onSuccess {
                 if (it.isNotEmpty()) {

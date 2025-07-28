@@ -3,6 +3,7 @@ package com.example.home.presentation
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionAll
+import com.example.collectionusecase.model.CollectionParams
 import com.example.home.domain.GetMoviesByCollection
 import com.example.home.domain.GetMoviesByCompany
 import com.example.home.domain.GetMoviesByGenre
@@ -127,7 +128,7 @@ internal class HomeViewModel @Inject constructor(
         if (collectionState.value is CollectionUIState.Success) return
 
         viewModelScope.launch(Dispatchers.IO) {
-            getCollectionAll.execute().onSuccess {
+            getCollectionAll.execute(1).onSuccess {
                 _collectionState.value = CollectionUIState.Success(it)
             }
         }

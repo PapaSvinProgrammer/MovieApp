@@ -4,13 +4,16 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.collectionusecase.GetCollectionByCategory
+import com.example.collectionusecase.model.CollectionParams
 import com.example.data.external.HistoryRepository
 import com.example.utils.Constants
 import com.example.model.SearchItem
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movieScreen.SearchMovie
+import com.example.movieScreen.model.MovieParams
 import com.example.person.GetPersonByFilter
 import com.example.person.SearchPerson
+import com.example.person.model.PersonParams
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.uiState.PersonUIState
@@ -64,8 +67,10 @@ internal class SearchViewModel @Inject constructor(
     fun getCollections() {
         if (collectionsState.value is CollectionUIState.Success) return
 
+        val params = CollectionParams(category = "Фильмы")
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getCollectionByCategory.execute("Фильмы")
+            val res = getCollectionByCategory.execute(params)
 
             res.onSuccess {
                 _collectionsState.value = CollectionUIState.Success(it)
@@ -126,8 +131,10 @@ internal class SearchViewModel @Inject constructor(
         searchPage = 1
         _searchState.value = SearchUIState.Loading
 
+        val params = MovieParams(q = q)
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchMovie.search(q)
+            val res = searchMovie.execute(params)
 
             res.onSuccess {
                 _searchState.value = SearchUIState.Success(it.toSearchItemList())
@@ -138,11 +145,13 @@ internal class SearchViewModel @Inject constructor(
     private fun loadMoreMovieByName() {
         searchPage++
 
+        val params = MovieParams(
+            q = query.value,
+            page = searchPage
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchMovie.search(
-                q = query.value,
-                page = searchPage
-            )
+            val res = searchMovie.execute(params)
 
             res.onSuccess {
                 val temp = (searchState.value as SearchUIState.Success)
@@ -158,8 +167,13 @@ internal class SearchViewModel @Inject constructor(
         searchPage = 1
         _searchState.value = SearchUIState.Loading
 
+        val params = PersonParams(
+            q = q,
+            page = searchPage
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchPerson.search(q)
+            val res = searchPerson.execute(params)
 
             res.onSuccess {
                 _searchState.value = SearchUIState.Success(it.toSearchItemList())
@@ -170,11 +184,13 @@ internal class SearchViewModel @Inject constructor(
     private fun loadMorePersonByName() {
         searchPage++
 
+        val params = PersonParams(
+            q = query.value,
+            page = searchPage
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchPerson.search(
-                q = query.value,
-                page = searchPage
-            )
+            val res = searchPerson.execute(params)
 
             res.onSuccess {
                 val temp = (searchState.value as SearchUIState.Success)

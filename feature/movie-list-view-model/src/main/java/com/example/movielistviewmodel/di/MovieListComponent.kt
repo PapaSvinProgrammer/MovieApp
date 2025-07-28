@@ -2,7 +2,6 @@ package com.example.movielistviewmodel.di
 
 import androidx.lifecycle.ViewModelProvider
 import com.example.corecomponent.AppComponent
-import com.example.movielistviewmodel.MovieListViewModel
 import dagger.Component
 
 @Component(
