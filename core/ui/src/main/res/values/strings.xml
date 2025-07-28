@@ -101,4 +101,9 @@
     <string name="reset_pin_code">Сбросить пин-код</string>
     <string name="input_pin_code">Введите пин-код</string>
     <string name="codes_dont_match">Коды не совпадают</string>
+    <string name="language">Язык</string>
+    <string name="decor">Оформление</string>
+    <string name="data_and_memory">Данные и память</string>
+    <string name="confidentiality">Конфиденциальность</string>
+    <string name="notifications_and_sounds">Уведомления и звуки</string>
 </resources>

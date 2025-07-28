@@ -26,7 +26,6 @@ import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
 import com.example.navigationroute.AboutAppRoute
-import com.example.navigationroute.SettingsRoute
 import com.example.ui.theme.ColorGradient1
 import com.example.ui.theme.ColorGradient2
 import com.example.ui.theme.ColorGradient3
@@ -46,7 +45,6 @@ internal fun AccountScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
         ) {
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -57,16 +55,17 @@ internal fun AccountScreen(
 
             Spacer(modifier = Modifier.height(30.dp))
             HorizontalDivider()
-            Spacer(modifier = Modifier.height(30.dp))
 
-            SettingsContent(
-                onSettings = {
-                    navController.navigate(SettingsRoute) { launchSingleTop = true }
-                },
+            SettingsList(
                 onSupport = {},
                 onAbout = {
                     navController.navigate(AboutAppRoute) { launchSingleTop = true }
-                }
+                },
+                onSound = {},
+                onConf = {},
+                onLanguage = {},
+                onData = {},
+                onTheme = {}
             )
         }
     }
@@ -114,30 +113,5 @@ private fun ColumnScope.ProfileContent(
         text = email,
         fontSize = 14.sp,
         modifier = Modifier.align(Alignment.CenterHorizontally)
-    )
-}
-
-@Composable
-private fun SettingsContent(
-    onSettings: () -> Unit,
-    onSupport: () -> Unit,
-    onAbout: () -> Unit
-) {
-    TitleRow(
-        title = stringResource(R.string.settings),
-        fontSize = 15.sp,
-        onClick = onSettings
-    )
-
-    TitleRow(
-        title = stringResource(R.string.chat_with_support),
-        fontSize = 15.sp,
-        onClick = onSupport
-    )
-
-    TitleRow(
-        title = stringResource(R.string.about_app),
-        fontSize = 15.sp,
-        onClick = onAbout
     )
 }
