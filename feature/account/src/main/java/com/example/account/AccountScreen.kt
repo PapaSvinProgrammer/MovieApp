@@ -73,7 +73,11 @@ internal fun AccountScreen(
                         launchSingleTop = true
                     }
                 },
-                onLanguage = {},
+                onLanguage = {
+                    navController.navigate(SettingsRoutes.LanguageRoute) {
+                        launchSingleTop = true
+                    }
+                },
                 onData = {},
                 onDecor = {
                     navController.navigate(SettingsRoutes.DecorRoute) {

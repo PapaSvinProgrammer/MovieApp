@@ -1,18 +1,24 @@
-package com.example.search.widget.component
+package com.example.ui.widget.component
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.animateContentSize
 import androidx.compose.foundation.background
 import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.interaction.collectIsFocusedAsState
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Search
+import androidx.compose.material3.Icon
 import androidx.compose.material3.LocalTextStyle
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -25,12 +31,14 @@ import androidx.compose.ui.focus.focusRequester
 import androidx.compose.ui.graphics.SolidColor
 import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
 
 @Composable
-internal fun CustomSearchBar(
+fun CustomSearchBar(
     query: String,
     onValueChange: (String) -> Unit
 ) {
@@ -51,7 +59,7 @@ internal fun CustomSearchBar(
                 .fillMaxWidth()
                 .padding(searchBarPadding)
                 .background(
-                    color = MaterialTheme.colorScheme.surfaceContainerHighest,
+                    color = MaterialTheme.colorScheme.surfaceContainer,
                     shape = RoundedCornerShape(15.dp)
                 )
                 .padding(10.dp)
@@ -62,14 +70,37 @@ internal fun CustomSearchBar(
             singleLine = true,
             onValueChange = onValueChange,
             interactionSource = interaction,
-            textStyle = LocalTextStyle.current.copy(color = MaterialTheme.colorScheme.onSurface),
+            textStyle = LocalTextStyle
+                .current
+                .copy(
+                    color = MaterialTheme.colorScheme.onSurface,
+                    fontSize = 14.sp,
+                    fontWeight = FontWeight.Normal
+                ),
             cursorBrush = SolidColor(MaterialTheme.colorScheme.onSurface),
             decorationBox = { innerTextField ->
-                if (query.isEmpty()) {
-                    Text(stringResource(R.string.input_value))
-                }
+                Row {
+                    Icon(
+                        imageVector = Icons.Rounded.Search,
+                        contentDescription = null,
+                        tint = MaterialTheme.colorScheme.onSurfaceVariant
+                    )
 
-                innerTextField()
+                    Spacer(modifier = Modifier.width(5.dp))
+
+                    Box {
+                        innerTextField()
+
+                        if (query.isEmpty()) {
+                            Text(
+                                text = stringResource(R.string.input_value),
+                                fontSize = 14.sp,
+                                color = MaterialTheme.colorScheme.onSurfaceVariant,
+                                fontWeight = FontWeight.Normal
+                            )
+                        }
+                    }
+                }
             },
             keyboardOptions = KeyboardOptions(
                 imeAction = ImeAction.Done

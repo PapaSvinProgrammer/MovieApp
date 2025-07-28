@@ -11,6 +11,8 @@ import com.example.settings.presentation.confidential.ConfidentialScreen
 import com.example.settings.presentation.confidential.ConfidentialViewModel
 import com.example.settings.presentation.decor.DecorScreen
 import com.example.settings.presentation.decor.DecorViewModel
+import com.example.settings.presentation.language.LanguageScreen
+import com.example.settings.presentation.language.LanguageViewModel
 import com.example.settings.presentation.sound.SoundScreen
 import com.example.settings.presentation.sound.SoundViewModel
 
@@ -58,6 +60,21 @@ fun NavGraphBuilder.settingsDestination(
         )
 
         ConfidentialScreen(
+            navController = navController,
+            viewModel = viewModel
+        )
+    }
+
+    composable<SettingsRoutes.LanguageRoute> {
+        val component = DaggerSettingsComponent
+            .factory()
+            .create(appComponent)
+
+        val viewModel: LanguageViewModel= viewModel(
+            factory = component.viewModelFactory
+        )
+
+        LanguageScreen(
             navController = navController,
             viewModel = viewModel
         )
