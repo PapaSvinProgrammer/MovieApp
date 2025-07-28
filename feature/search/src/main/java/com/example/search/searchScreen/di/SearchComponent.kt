@@ -1,18 +1,18 @@
 package com.example.search.searchScreen.di
 
-import android.content.Context
 import androidx.lifecycle.ViewModelProvider
-import dagger.BindsInstance
+import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
-    modules = [SearchModule::class]
+    modules = [SearchModule::class],
+    dependencies = [AppComponent::class]
 )
 @SearchScope
 interface SearchComponent {
     @Component.Factory
     interface Factory {
-        fun create(@BindsInstance context: Context): SearchComponent
+        fun create(appComponent: AppComponent): SearchComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

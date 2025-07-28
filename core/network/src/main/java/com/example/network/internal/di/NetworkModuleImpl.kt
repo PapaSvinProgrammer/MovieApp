@@ -17,6 +17,7 @@ import com.example.network.internal.service.MovieServiceImpl
 import com.example.network.internal.service.PersonServiceImpl
 import com.example.network.internal.service.SeasonServiceImpl
 import com.example.network.internal.service.StudiesServiceImpl
+import com.example.utils.ApplicationScope
 import dagger.Binds
 import dagger.Module
 import dagger.Provides
@@ -28,31 +29,40 @@ import javax.inject.Singleton
 @Module
 internal interface NetworkModuleImpl {
     @Binds
+    @ApplicationScope
     fun bindsAwardServiceImpl(service: AwardServiceImpl): AwardService
 
     @Binds
+    @ApplicationScope
     fun bindsCategoryServiceImpl(service: CategoryServiceImpl): CategoryService
 
     @Binds
+    @ApplicationScope
     fun bindsCollectionServiceImpl(service: CollectionServiceImpl): CollectionService
 
     @Binds
+    @ApplicationScope
     fun bindsCommentServiceImpl(service: CommentServiceImpl): CommentService
 
     @Binds
+    @ApplicationScope
     fun bindsMovieServiceImpl(service: MovieServiceImpl): MovieService
 
     @Binds
+    @ApplicationScope
     fun bindsPersonServiceImpl(service: PersonServiceImpl): PersonService
 
     @Binds
+    @ApplicationScope
     fun bindsSeasonServiceImpl(service: SeasonServiceImpl): SeasonService
 
     @Binds
+    @ApplicationScope
     fun bindsStudiesServiceImpl(service: StudiesServiceImpl): StudiesService
 
     companion object {
         @Provides
+        @ApplicationScope
         fun provideOkHttp(): OkHttpClient {
             return OkHttpClient.Builder()
                 .connectTimeout(30, TimeUnit.SECONDS)
@@ -62,6 +72,7 @@ internal interface NetworkModuleImpl {
         }
 
         @Provides
+        @ApplicationScope
         fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
             return HttpClientFactory.create(okHttpClient)
         }

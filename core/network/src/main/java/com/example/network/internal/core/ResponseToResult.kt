@@ -1,10 +1,9 @@
 package com.example.network.internal.core
 
-import android.util.Log
-import com.example.common.ClientException
-import com.example.common.ModelSerializationException
-import com.example.common.ServerException
-import com.example.common.UnknownException
+import com.example.utils.error.ClientException
+import com.example.utils.error.ModelSerializationException
+import com.example.utils.error.ServerException
+import com.example.utils.error.UnknownException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 
@@ -16,7 +15,6 @@ internal suspend inline fun <reified T> responseToResult(
             try {
                 Result.success(response.body<T>())
             } catch (e: Exception) {
-                Log.d("RRRR", e.toString())
                 Result.failure(ModelSerializationException())
             }
         }

@@ -34,7 +34,7 @@ import coil3.request.crossfade
 import com.example.model.movie.Movie
 import com.example.movieapp.ui.R
 import com.example.ui.widget.chips.RatingChip
-import com.example.utils.ConvertData
+import com.example.utils.convert.ConvertData
 
 @Composable
 fun MovieListCard(

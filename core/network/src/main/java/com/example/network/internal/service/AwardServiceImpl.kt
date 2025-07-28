@@ -1,6 +1,5 @@
 package com.example.network.internal.service
 
-import com.example.common.Constants.LIMIT_FIELD
 import com.example.network.internal.model.image.Docs
 import com.example.model.person.NominationAward
 import com.example.network.internal.model.person.NominationAwardDto
@@ -8,6 +7,7 @@ import com.example.network.external.AwardService
 import com.example.network.internal.core.LIMIT_API_COUNT
 import com.example.network.internal.core.safeCall
 import com.example.network.internal.mapper.toDomain
+import com.example.utils.Constants.LIMIT_FIELD
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject

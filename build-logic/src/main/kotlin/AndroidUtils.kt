@@ -13,7 +13,8 @@ object Const {
 }
 
 fun BaseExtension.baseAndroidConfig(project: Project) {
-    namespace = "${Const.NAMESPACE}.${project.name}"
+    val safeProjectName = project.name.replace("-", "_")
+    namespace = "${Const.NAMESPACE}.$safeProjectName"
     setCompileSdkVersion(Const.COMPILE_SKD)
     defaultConfig {
         minSdk = Const.MIN_SKD

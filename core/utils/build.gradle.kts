@@ -4,8 +4,9 @@ plugins {
 
 dependencies {
     api(project(":core:model"))
-    api(project(":core:common"))
-
+    implementation(libs.dagger)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.lifecycle.runtime.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
 }

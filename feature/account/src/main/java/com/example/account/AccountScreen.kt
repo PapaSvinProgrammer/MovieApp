@@ -9,8 +9,6 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.rememberScrollState
-import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
@@ -19,24 +17,24 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
-import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.movieapp.account.R
-import com.example.navigationroute.AboutAppRoute
-import com.example.navigationroute.SettingsRoute
+import com.example.movieapp.ui.R
+import com.example.navigationroute.SettingsRoutes
 import com.example.ui.theme.ColorGradient1
 import com.example.ui.theme.ColorGradient2
 import com.example.ui.theme.ColorGradient3
 import com.example.ui.theme.ColorGradient4
-import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.other.animatedBorder
+import dev.chrisbanes.haze.HazeState
+import dev.chrisbanes.haze.hazeSource
 
 @Composable
-fun AccountScreen(
-    navController: NavController
+internal fun AccountScreen(
+    navController: NavController,
+    hazeState: HazeState
 ) {
     Scaffold(
         topBar = {
@@ -46,7 +44,7 @@ fun AccountScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(innerPadding)
-                .verticalScroll(rememberScrollState())
+                .hazeSource(hazeState)
         ) {
             Spacer(modifier = Modifier.height(40.dp))
 
@@ -57,15 +55,30 @@ fun AccountScreen(
 
             Spacer(modifier = Modifier.height(30.dp))
             HorizontalDivider()
-            Spacer(modifier = Modifier.height(30.dp))
 
-            SettingsContent(
-                onSettings = {
-                    navController.navigate(SettingsRoute) { launchSingleTop = true }
-                },
+            SettingsList(
                 onSupport = {},
                 onAbout = {
-                    navController.navigate(AboutAppRoute) { launchSingleTop = true }
+                    navController.navigate(SettingsRoutes.AboutAppRoute) {
+                        launchSingleTop = true
+                    }
+                },
+                onSound = {
+                    navController.navigate(SettingsRoutes.SoundRoute) {
+                        launchSingleTop = true
+                    }
+                },
+                onConf = {
+                    navController.navigate(SettingsRoutes.ConfidentialRoute) {
+                        launchSingleTop = true
+                    }
+                },
+                onLanguage = {},
+                onData = {},
+                onDecor = {
+                    navController.navigate(SettingsRoutes.DecorRoute) {
+                        launchSingleTop = true
+                    }
                 }
             )
         }
@@ -114,30 +127,5 @@ private fun ColumnScope.ProfileContent(
         text = email,
         fontSize = 14.sp,
         modifier = Modifier.align(Alignment.CenterHorizontally)
-    )
-}
-
-@Composable
-private fun SettingsContent(
-    onSettings: () -> Unit,
-    onSupport: () -> Unit,
-    onAbout: () -> Unit
-) {
-    TitleRow(
-        title = stringResource(R.string.settings),
-        fontSize = 15.sp,
-        onClick = onSettings
-    )
-
-    TitleRow(
-        title = stringResource(R.string.chat_with_support),
-        fontSize = 15.sp,
-        onClick = onSupport
-    )
-
-    TitleRow(
-        title = stringResource(R.string.about_app),
-        fontSize = 15.sp,
-        onClick = onAbout
     )
 }

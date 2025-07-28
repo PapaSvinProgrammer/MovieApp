@@ -11,7 +11,7 @@ import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.sp
 import com.example.ui.theme.Gold
 import com.example.ui.theme.Green
-import com.example.utils.ConvertData
+import com.example.utils.convert.ConvertData
 
 @Composable
 fun RatingText(

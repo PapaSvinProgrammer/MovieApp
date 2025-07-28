@@ -1,11 +1,5 @@
 package com.example.network.internal.service
 
-import com.example.common.Constants.LIMIT_FIELD
-import com.example.common.Constants.MOVIE_ID_FIELD
-import com.example.common.Constants.NAME_FIELD
-import com.example.common.Constants.NOT_NULL_FIELD
-import com.example.common.Constants.PAGE_FIELD
-import com.example.common.Constants.QUERY_FIELD
 import com.example.model.image.Poster
 import com.example.model.movie.Movie
 import com.example.network.internal.model.image.PosterDto
@@ -15,6 +9,12 @@ import com.example.network.internal.core.LIMIT_API_COUNT
 import com.example.network.internal.core.safeCall
 import com.example.network.internal.mapper.toDomain
 import com.example.network.internal.model.image.Docs
+import com.example.utils.Constants.LIMIT_FIELD
+import com.example.utils.Constants.MOVIE_ID_FIELD
+import com.example.utils.Constants.NAME_FIELD
+import com.example.utils.Constants.NOT_NULL_FIELD
+import com.example.utils.Constants.PAGE_FIELD
+import com.example.utils.Constants.QUERY_FIELD
 import io.ktor.client.HttpClient
 import io.ktor.client.request.get
 import javax.inject.Inject

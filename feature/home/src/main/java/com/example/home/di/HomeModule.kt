@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.collectionusecase.GetCollectionAll
 import com.example.data.external.CollectionRepository
 import com.example.data.external.MovieRepository
-import com.example.data.external.di.DataModule
 import com.example.home.domain.GetMoviesByCollection
 import com.example.home.domain.GetMoviesByCompany
 import com.example.home.domain.GetMoviesByGenre
@@ -17,9 +16,7 @@ import dagger.Module
 import dagger.Provides
 import dagger.multibindings.IntoMap
 
-@Module(
-    includes = [DataModule::class]
-)
+@Module
 internal interface HomeModule {
     @Binds
     @HomeScope

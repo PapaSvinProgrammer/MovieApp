@@ -1,117 +1,89 @@
 package com.example.movieapp
 
 import android.annotation.SuppressLint
-import android.os.Build
 import android.os.Bundle
-import androidx.activity.ComponentActivity
 import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.annotation.RequiresApi
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material3.Scaffold
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.DisposableEffect
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
-import androidx.compose.ui.Modifier
+import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.compose.foundation.isSystemInDarkTheme
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.compose.ui.platform.LocalContext
-import androidx.navigation.compose.currentBackStackEntryAsState
-import androidx.navigation.compose.rememberNavController
-import com.example.movieapp.navigation.BottomBarItems
-import com.example.movieapp.navigation.HazeBottomBar
-import com.example.movieapp.navigation.NavigationGraph
-import com.example.navigationroute.NavRoute
-import com.example.navigationroute.SearchSettingsRoute
+import androidx.lifecycle.lifecycleScope
+import com.example.navigationroute.StartRoute
+import com.example.settings.utils.AppTheme
+import com.example.settings.utils.ThemeObservable
+import com.example.settings.utils.ThemeObserver
+import com.example.settings.utils.toAppTheme
 import com.example.ui.theme.MovieAppTheme
-import dev.chrisbanes.haze.rememberHazeState
-import javax.inject.Inject
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
-class MainActivity : ComponentActivity() {
-    @Inject lateinit var viewModel: MainViewModel
+class MainActivity : AppCompatActivity(), ThemeObserver {
+    private var currentTheme: AppTheme = AppTheme.SYSTEM
 
-    @RequiresApi(Build.VERSION_CODES.O)
     @SuppressLint("ContextCastToActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
-        (applicationContext as App).appComponent.inject(this)
-
-        viewModel.getDarkThemeState()
-        viewModel.getEntryState()
-
         super.onCreate(savedInstanceState)
+        ThemeObservable.subscribe(this)
 
+        lifecycleScope.launch {
+            val theme = appComponent.preferencesRepository.getThemeState().first()
+            onThemeChanged(theme.toAppTheme())
+            setComposeContent()
+        }
+    }
+
+    private fun setComposeContent() {
         setContent {
-            MovieAppTheme(darkTheme = viewModel.darkTheme) {
-                val startRoute = if (viewModel.isEntry) com.example.navigationroute.HomeRoute else com.example.navigationroute.StartRoute
-                val context = LocalContext.current as ComponentActivity
+            val isSystemDark = isSystemInDarkTheme()
 
-                DisposableEffect(viewModel.darkTheme) {
-                    context.enableEdgeToEdge(
-                        statusBarStyle = getSystemBarStyle(viewModel.darkTheme),
-                        navigationBarStyle = getSystemBarStyle(viewModel.darkTheme)
-                    )
+            val isDarkTheme = when (currentTheme) {
+                AppTheme.LIGHT -> false
+                AppTheme.DARK -> true
+                AppTheme.SYSTEM -> isSystemDark
+            }
 
-                    onDispose {  }
-                }
+            LaunchedEffect(isDarkTheme) {
+                changeSystemBarStyle(isDarkTheme)
+            }
 
+            MovieAppTheme {
                 MainScreen(
-                    startRoute = startRoute
+                    startRoute = StartRoute,
+                    appComponent = appComponent
                 )
             }
         }
     }
 
-    private fun getSystemBarStyle(isDark: Boolean): SystemBarStyle {
-        return when (isDark) {
-            true -> SystemBarStyle.dark(Color.Transparent.toArgb())
-            false -> SystemBarStyle.light(Color.Transparent.toArgb(), Color.White.toArgb())
+    override fun onThemeChanged(theme: AppTheme) {
+        currentTheme = theme
+        when (theme) {
+            AppTheme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
+            AppTheme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
+            AppTheme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
         }
     }
-}
 
-@RequiresApi(Build.VERSION_CODES.O)
-@Composable
-fun MainScreen(
-    startRoute: NavRoute
-) {
-    var bottomBarVisible by remember { mutableStateOf(false) }
-    val navController = rememberNavController()
-    val backStackEntry by navController.currentBackStackEntryAsState()
-    val currentRoute = backStackEntry?.destination?.route
-
-    bottomBarIsVisibility(
-        route = currentRoute,
-        onResult = { bottomBarVisible = it }
-    )
-
-    val hazeState = rememberHazeState()
-
-    Scaffold(
-        modifier = Modifier.fillMaxSize(),
-        bottomBar = {
-            HazeBottomBar(
-                tabs = BottomBarItems.items,
-                hazeState = hazeState,
-                navController = navController,
-                visible = bottomBarVisible
-            )
-        }
-    ) { _ ->
-        NavigationGraph(
-            navController = navController,
-            startRoute = startRoute,
-            hazeState = hazeState
+    private fun changeSystemBarStyle(isDark: Boolean) {
+        enableEdgeToEdge(
+            statusBarStyle = getSystemBarStyle(isDark),
+            navigationBarStyle = getSystemBarStyle(isDark)
         )
     }
+
+    override fun onDestroy() {
+        ThemeObservable.unsubscribe(this)
+        super.onDestroy()
+    }
 }
 
-private fun bottomBarIsVisibility(route: String?, onResult: (Boolean) -> Unit) {
-    when (route) {
-        SearchSettingsRoute::class.java.canonicalName -> onResult(false)
-        else -> onResult(true)
+private fun getSystemBarStyle(isDark: Boolean): SystemBarStyle {
+    return when (isDark) {
+        true -> SystemBarStyle.dark(Color.Transparent.toArgb())
+        false -> SystemBarStyle.light(Color.Transparent.toArgb(), Color.White.toArgb())
     }
 }

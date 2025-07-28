@@ -7,7 +7,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.sp
-import com.example.utils.FormatDate
+import com.example.utils.convert.FormatDate
 
 @RequiresApi(Build.VERSION_CODES.O)
 @Composable

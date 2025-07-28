@@ -3,13 +3,9 @@ plugins {
 }
 
 dependencies {
-    api(project(":domain:collectionUseCase"))
-    implementation(project(":core:navigationRoute"))
-    implementation(project(":core:viewModelFactory"))
-    implementation(project(":feature:movieListViewModel"))
+    api(project(":core:core-component"))
+    implementation(project(":feature:movie-list-view-model"))
+    implementation(project(":domain:collection-use-case"))
     implementation(project(":domain:movie"))
     implementation(project(":core:ui"))
-
-    testImplementation(libs.junit)
-    androidTestImplementation(libs.androidx.junit)
 }

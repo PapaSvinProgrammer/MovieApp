@@ -1,20 +1,22 @@
 package com.example.studio
 
-import com.example.common.Constants.PAGE_FIELD
-import com.example.common.Constants.SORT_DESC
-import com.example.common.Constants.SORT_FIELD
-import com.example.common.Constants.SORT_TYPE
-import com.example.common.Constants.TITLE_FIELD
 import com.example.data.external.StudioRepository
 import com.example.model.movie.Studio
+import com.example.utils.Constants.PAGE_FIELD
+import com.example.utils.Constants.SORT_DESC
+import com.example.utils.Constants.SORT_FIELD
+import com.example.utils.Constants.SORT_TYPE
+import com.example.utils.Constants.TITLE_FIELD
+import com.example.utils.UseCase
+import kotlinx.coroutines.Dispatchers
 import javax.inject.Inject
 
 class GetStudiesByTitle @Inject constructor(
     private val studioRepository: StudioRepository
-) {
-    suspend fun execute(page: Int = 1): Result<List<Studio>> {
+) : UseCase<Int, Result<List<Studio>>>(Dispatchers.IO) {
+    override suspend fun run(params: Int): Result<List<Studio>> {
         val queryParameters = listOf(
-            PAGE_FIELD to page.toString(),
+            PAGE_FIELD to params.toString(),
             SORT_FIELD to TITLE_FIELD,
             SORT_TYPE to SORT_DESC
         )

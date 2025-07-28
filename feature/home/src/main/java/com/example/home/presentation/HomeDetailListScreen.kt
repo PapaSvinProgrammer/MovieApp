@@ -30,7 +30,7 @@ import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun HomeDetailListScreen(
+internal fun HomeDetailListScreen(
     navController: NavController,
     viewModel: MovieListViewModel,
     hazeState: HazeState,

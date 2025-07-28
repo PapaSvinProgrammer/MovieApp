@@ -26,11 +26,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.common.Constants.LAST_YEAR
+import com.example.utils.Constants.LAST_YEAR
 import com.example.movieapp.ui.R
 import com.example.search.searchScreen.widget.lazyComponent.InfiniteCircularList
 import com.example.search.searchScreen.widget.lazyComponent.calculateTargetIndex
-import com.example.utils.FormatDate
+import com.example.utils.convert.FormatDate
 import kotlinx.coroutines.launch
 
 @Composable

@@ -37,18 +37,18 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.movieapp.search.R
-import com.example.navigationroute.SearchResultRoute
+import com.example.movieapp.ui.R
+import com.example.navigationroute.SearchRoutes
 import com.example.search.searchScreen.widget.dialog.YearPickerDialog
 import com.example.search.widget.component.DetailSettingsContent
 import com.example.search.widget.component.SearchListLayout
 import com.example.search.widget.row.RatingRow
 import com.example.ui.widget.other.TitleTopBarText
-import com.example.utils.ConvertData
+import com.example.utils.convert.ConvertData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchSettingsScreen(
+internal fun SearchSettingsScreen(
     navController: NavController,
     viewModel: SearchSettingsViewModel
 ) {
@@ -158,7 +158,7 @@ fun SearchSettingsScreen(
                     year = yearFilter
                 )
 
-                navController.navigate(SearchResultRoute(convertData)) {
+                navController.navigate(SearchRoutes.SearchResultRoute(convertData)) {
                     launchSingleTop = true
                 }
             }

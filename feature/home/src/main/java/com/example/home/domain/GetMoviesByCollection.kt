@@ -1,12 +1,12 @@
 package com.example.home.domain
 
 
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.data.external.MovieRepository
 import com.example.model.movie.Movie
 import javax.inject.Inject
 
-class GetMoviesByCollection @Inject constructor(
+internal class GetMoviesByCollection @Inject constructor(
     private val movieRepository: MovieRepository
 ) {
     suspend fun execute(

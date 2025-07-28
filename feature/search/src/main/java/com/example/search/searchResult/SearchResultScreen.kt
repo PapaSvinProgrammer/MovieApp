@@ -16,7 +16,7 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.movieapp.search.R
+import com.example.movieapp.ui.R
 import com.example.navigationroute.MovieRoute
 import com.example.search.widget.RenderMovieState
 import com.example.ui.widget.other.TitleTopBarText
@@ -25,7 +25,7 @@ import dev.chrisbanes.haze.hazeSource
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun SearchResultScreen(
+internal fun SearchResultScreen(
     navController: NavController,
     viewModel: SearchResultViewModel,
     hazeState: HazeState,

@@ -9,7 +9,7 @@ import com.example.ui.widget.other.TitleTopBarText
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun FavoriteScreen(
+internal fun FavoriteScreen(
     navController: NavController
 ) {
     Scaffold(

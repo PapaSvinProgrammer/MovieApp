@@ -21,6 +21,7 @@ fun TitleRow(
     modifier: Modifier = Modifier,
     title: String,
     fontSize: TextUnit = 18.sp,
+    fontWeight: FontWeight = FontWeight.Medium,
     onClick: () -> Unit
 ) {
     Box(
@@ -31,7 +32,7 @@ fun TitleRow(
         Text(
             text = title,
             fontSize = fontSize,
-            fontWeight = FontWeight.Bold,
+            fontWeight = fontWeight,
             modifier = Modifier.align(Alignment.CenterStart).padding(15.dp)
         )
 

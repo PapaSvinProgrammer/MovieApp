@@ -1,14 +1,23 @@
 package com.example.movieapp
 
 import android.app.Application
-import com.example.movieapp.di.AppComponent
-import com.example.movieapp.di.DaggerAppComponent
+import android.content.Context
+import com.example.corecomponent.AppComponent
+import com.example.corecomponent.DaggerAppComponent
 
 class App: Application() {
     lateinit var appComponent: AppComponent
 
     override fun onCreate() {
         super.onCreate()
-        appComponent = DaggerAppComponent.factory().create(applicationContext)
+        appComponent = DaggerAppComponent
+            .factory()
+            .create(applicationContext)
     }
 }
+
+val Context.appComponent: AppComponent
+    get() = when (this) {
+        is App -> appComponent
+        else -> applicationContext.appComponent
+    }

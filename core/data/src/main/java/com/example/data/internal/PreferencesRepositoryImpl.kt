@@ -12,21 +12,12 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-private const val NAME_DATA_STORE = "SettingsMovieApp"
-private val DARK_THEME = booleanPreferencesKey("dark_theme")
-private val ENTRY_STATE = booleanPreferencesKey("entry_state")
-private val CURRENT_ICON = intPreferencesKey("current_icon")
-
 internal class PreferencesRepositoryImpl @Inject constructor(
     private val context: Context
 ) : PreferencesRepository {
-    companion object {
-        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
-    }
-
-    override suspend fun setDarkTheme(state: Boolean) {
+    override suspend fun setThemeState(state: Int) {
         context.dataStore.edit {
-            it[DARK_THEME] = state
+            it[THEME_STATE] = state
         }
     }
 
@@ -42,21 +33,42 @@ internal class PreferencesRepositoryImpl @Inject constructor(
         }
     }
 
-    override suspend fun getDarkTheme(): Flow<Boolean> {
-        return context.dataStore.data.map {
-            it[DARK_THEME] ?: true
+    override suspend fun setAuthorizationState(state: Boolean) {
+        context.dataStore.edit {
+            it[AUTH_STATE] = state
         }
     }
 
-    override suspend fun getEntryState(): Flow<Boolean> {
+    override fun getThemeState(): Flow<Int> {
+        return context.dataStore.data.map {
+            it[THEME_STATE] ?: 1
+        }
+    }
+
+    override fun getEntryState(): Flow<Boolean> {
         return context.dataStore.data.map {
             it[ENTRY_STATE] ?: false
         }
     }
 
-    override suspend fun getCurrentIcon(): Flow<Int> {
+    override fun getCurrentIcon(): Flow<Int> {
         return context.dataStore.data.map {
             it[CURRENT_ICON] ?: 1
         }
+    }
+
+    override fun getAuthorizationState(): Flow<Boolean> {
+        return context.dataStore.data.map {
+            it[AUTH_STATE] ?: false
+        }
+    }
+
+    companion object {
+        private val Context.dataStore: DataStore<Preferences> by preferencesDataStore(name = NAME_DATA_STORE)
+        private const val NAME_DATA_STORE = "SettingsMovieApp"
+        private val THEME_STATE = intPreferencesKey("theme_state")
+        private val ENTRY_STATE = booleanPreferencesKey("entry_state")
+        private val CURRENT_ICON = intPreferencesKey("current_icon")
+        private val AUTH_STATE = booleanPreferencesKey("auth_state")
     }
 }

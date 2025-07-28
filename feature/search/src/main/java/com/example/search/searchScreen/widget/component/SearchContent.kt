@@ -26,7 +26,7 @@ import com.example.movieapp.ui.R
 import com.example.search.searchScreen.widget.listItem.SearchHistoryMovieCard
 import com.example.search.searchScreen.widget.listItem.SearchItemCard
 import com.example.ui.widget.lazyComponent.EndlessLazyColumn
-import com.example.utils.toSearchItem
+import com.example.utils.convert.toSearchItem
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

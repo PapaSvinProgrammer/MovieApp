@@ -15,7 +15,7 @@ import okhttp3.OkHttpClient
 
 const val LIMIT_API_COUNT = "20"
 
-object HttpClientFactory {
+internal object HttpClientFactory {
     fun create(okHttpClient: OkHttpClient): HttpClient {
         return HttpClient(OkHttp) {
             engine {

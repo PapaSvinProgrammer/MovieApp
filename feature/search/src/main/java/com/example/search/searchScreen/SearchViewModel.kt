@@ -4,36 +4,35 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.cachedIn
 import com.example.collectionusecase.GetCollectionByCategory
-import com.example.common.Constants
+import com.example.collectionusecase.model.CollectionParams
+import com.example.data.external.HistoryRepository
+import com.example.utils.Constants
 import com.example.model.SearchItem
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movieScreen.SearchMovie
+import com.example.movieScreen.model.MovieParams
 import com.example.person.GetPersonByFilter
 import com.example.person.SearchPerson
-import com.example.searchhistory.DeleteSearchHistory
-import com.example.searchhistory.GetSearchHistory
-import com.example.searchhistory.InsertSearchHistory
+import com.example.person.model.PersonParams
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.uiState.SearchUIState
-import com.example.utils.toHistory
-import com.example.utils.toSearchItemList
+import com.example.utils.convert.toHistory
+import com.example.utils.convert.toSearchItemList
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SearchViewModel @Inject constructor(
+internal class SearchViewModel @Inject constructor(
     private val getCollectionByCategory: GetCollectionByCategory,
     private val getPersonByFilter: GetPersonByFilter,
     private val searchPerson: SearchPerson,
     private val getMovieByFilter: GetMovieByFilter,
     private val searchMovie: SearchMovie,
-    private val insertSearchHistory: InsertSearchHistory,
-    private val deleteSearchHistory: DeleteSearchHistory,
-    getSearchHistory: GetSearchHistory
+    private val historyRepository: HistoryRepository
 ): ViewModel() {
     private val _query = MutableStateFlow("")
     private val _isExpanded = MutableStateFlow(false)
@@ -51,7 +50,7 @@ class SearchViewModel @Inject constructor(
     private val _searchState = MutableStateFlow(SearchUIState.Error as SearchUIState)
     val selectedSearchIndex: StateFlow<Int> = _selectedSearchIndex
     val searchState: StateFlow<SearchUIState> = _searchState
-    val resultHistory = getSearchHistory.execute().cachedIn(viewModelScope)
+    val resultHistory = historyRepository.getAll().cachedIn(viewModelScope)
 
     fun updateQuery(text: String) {
         _query.value = text
@@ -68,8 +67,10 @@ class SearchViewModel @Inject constructor(
     fun getCollections() {
         if (collectionsState.value is CollectionUIState.Success) return
 
+        val params = CollectionParams(category = "Фильмы")
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = getCollectionByCategory.execute("Фильмы")
+            val res = getCollectionByCategory.execute(params)
 
             res.onSuccess {
                 _collectionsState.value = CollectionUIState.Success(it)
@@ -130,8 +131,10 @@ class SearchViewModel @Inject constructor(
         searchPage = 1
         _searchState.value = SearchUIState.Loading
 
+        val params = MovieParams(q = q)
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchMovie.search(q)
+            val res = searchMovie.execute(params)
 
             res.onSuccess {
                 _searchState.value = SearchUIState.Success(it.toSearchItemList())
@@ -142,11 +145,13 @@ class SearchViewModel @Inject constructor(
     private fun loadMoreMovieByName() {
         searchPage++
 
+        val params = MovieParams(
+            q = query.value,
+            page = searchPage
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchMovie.search(
-                q = query.value,
-                page = searchPage
-            )
+            val res = searchMovie.execute(params)
 
             res.onSuccess {
                 val temp = (searchState.value as SearchUIState.Success)
@@ -162,8 +167,13 @@ class SearchViewModel @Inject constructor(
         searchPage = 1
         _searchState.value = SearchUIState.Loading
 
+        val params = PersonParams(
+            q = q,
+            page = searchPage
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchPerson.search(q)
+            val res = searchPerson.execute(params)
 
             res.onSuccess {
                 _searchState.value = SearchUIState.Success(it.toSearchItemList())
@@ -174,11 +184,13 @@ class SearchViewModel @Inject constructor(
     private fun loadMorePersonByName() {
         searchPage++
 
+        val params = PersonParams(
+            q = query.value,
+            page = searchPage
+        )
+
         viewModelScope.launch(Dispatchers.IO) {
-            val res = searchPerson.search(
-                q = query.value,
-                page = searchPage
-            )
+            val res = searchPerson.execute(params)
 
             res.onSuccess {
                 val temp = (searchState.value as SearchUIState.Success)
@@ -196,13 +208,13 @@ class SearchViewModel @Inject constructor(
 
     fun insertSearchHistoryItem(searchItem: SearchItem) {
         viewModelScope.launch(Dispatchers.IO) {
-           insertSearchHistory.execute(searchItem.toHistory())
+           historyRepository.insert(searchItem.toHistory())
         }
     }
 
     fun deleteSearchHistoryItem(id: Int) {
         viewModelScope.launch(Dispatchers.IO) {
-            deleteSearchHistory.execute(id)
+            historyRepository.delete(id)
         }
     }
 }

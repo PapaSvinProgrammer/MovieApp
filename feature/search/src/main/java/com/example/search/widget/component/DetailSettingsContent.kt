@@ -11,12 +11,12 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import com.example.movieapp.search.R
+import com.example.movieapp.ui.R
 import com.example.search.widget.row.CategoryRow
-import com.example.utils.ConvertData
+import com.example.utils.convert.ConvertData
 
 @Composable
-fun DetailSettingsContent(
+internal fun DetailSettingsContent(
     genresResult: List<String>,
     countriesResult: List<String>,
     yearResult: Pair<Int, Int>,

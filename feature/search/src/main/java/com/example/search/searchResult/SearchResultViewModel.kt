@@ -2,7 +2,7 @@ package com.example.search.searchResult
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.example.common.Constants
+import com.example.utils.Constants
 import com.example.movieScreen.GetMovieByFilter
 import com.example.ui.uiState.MovieUIState
 import kotlinx.coroutines.Dispatchers
@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
-class SearchResultViewModel @Inject constructor(
+internal class SearchResultViewModel @Inject constructor(
     private val getMovieByFilter: GetMovieByFilter
 ): ViewModel() {
     private var page = 1
