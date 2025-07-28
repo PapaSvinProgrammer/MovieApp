@@ -11,11 +11,15 @@ import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
+import androidx.lifecycle.lifecycleScope
 import com.example.navigationroute.StartRoute
 import com.example.settings.utils.AppTheme
 import com.example.settings.utils.ThemeObservable
 import com.example.settings.utils.ThemeObserver
+import com.example.settings.utils.toAppTheme
 import com.example.ui.theme.MovieAppTheme
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class MainActivity : AppCompatActivity(), ThemeObserver {
     private var currentTheme: AppTheme = AppTheme.SYSTEM
@@ -25,6 +29,14 @@ class MainActivity : AppCompatActivity(), ThemeObserver {
         super.onCreate(savedInstanceState)
         ThemeObservable.subscribe(this)
 
+        lifecycleScope.launch {
+            val theme = appComponent.preferencesRepository.getThemeState().first()
+            onThemeChanged(theme.toAppTheme())
+            setComposeContent()
+        }
+    }
+
+    private fun setComposeContent() {
         setContent {
             val isSystemDark = isSystemInDarkTheme()
 
