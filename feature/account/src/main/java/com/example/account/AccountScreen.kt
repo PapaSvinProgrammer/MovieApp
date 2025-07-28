@@ -68,7 +68,11 @@ internal fun AccountScreen(
                         launchSingleTop = true
                     }
                 },
-                onConf = {},
+                onConf = {
+                    navController.navigate(SettingsRoutes.ConfidentialRoute) {
+                        launchSingleTop = true
+                    }
+                },
                 onLanguage = {},
                 onData = {},
                 onDecor = {

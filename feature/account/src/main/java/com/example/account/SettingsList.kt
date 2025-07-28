@@ -78,7 +78,8 @@ private fun SettingsContent(
     ) {
         TitleRow(
             title = stringResource(R.string.notifications_and_sounds),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onSound,
             modifier = Modifier.clip(
                 RoundedCornerShape(
@@ -90,26 +91,30 @@ private fun SettingsContent(
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.confidentiality),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onConf
 
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.data_and_memory),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onData
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.decor),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onTheme
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.language),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onLanguage,
             modifier = Modifier.clip(
                 RoundedCornerShape(
@@ -127,7 +132,7 @@ private fun SupportContent(
     onAbout: () -> Unit
 ) {
     Text(
-        text = "Прочее",
+        text = stringResource(R.string.other),
         fontWeight = FontWeight.Bold,
         fontSize = 17.sp,
         modifier = Modifier
@@ -147,13 +152,15 @@ private fun SupportContent(
     ) {
         TitleRow(
             title = stringResource(R.string.chat_with_support),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onSupport
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.about_app),
-            fontSize = 15.sp,
+            fontSize = 14.sp,
+            fontWeight = FontWeight.Normal,
             onClick = onAbout
         )
     }

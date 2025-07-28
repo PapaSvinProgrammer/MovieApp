@@ -50,6 +50,7 @@ internal fun TwinTitleRow(
             Text(
                 text = description,
                 fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

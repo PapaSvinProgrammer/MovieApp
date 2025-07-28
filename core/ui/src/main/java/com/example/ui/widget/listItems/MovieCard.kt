@@ -58,8 +58,8 @@ fun MovieCard(
 
             Text(
                 text = movie.name ?: "",
-                fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                fontSize = 13.sp,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(vertical = 10.dp).weight(1f)
             )
