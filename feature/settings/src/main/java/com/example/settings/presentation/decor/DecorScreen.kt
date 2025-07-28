@@ -24,7 +24,6 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
-import com.example.settings.presentation.SettingsViewModel
 import com.example.settings.presentation.widget.content.ChangeThemeContent
 import com.example.settings.presentation.widget.content.OtherIconAppContent
 import com.example.ui.widget.other.TitleTopBarText
@@ -33,7 +32,7 @@ import com.example.ui.widget.other.TitleTopBarText
 @Composable
 internal fun DecorScreen(
     navController: NavController,
-    viewModel: SettingsViewModel
+    viewModel: DecorViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 

@@ -20,7 +20,6 @@ import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
-import com.example.settings.presentation.SettingsViewModel
 import com.example.settings.presentation.widget.row.TwinTitleRow
 import com.example.ui.widget.other.TitleTopBarText
 
@@ -28,7 +27,7 @@ import com.example.ui.widget.other.TitleTopBarText
 @Composable
 internal fun SoundScreen(
     navController: NavController,
-    viewModel: SettingsViewModel
+    viewModel: SoundViewModel
 ) {
     val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
@@ -63,7 +62,6 @@ internal fun SoundScreen(
             TwinTitleRow(
                 checked = uiState.vibrationSwitch,
                 onClick = { viewModel.updateVibrationSwitch(it) },
-                title = stringResource(R.string.other),
                 subtitle = stringResource(R.string.vibration),
                 description = stringResource(R.string.vibration_description)
             )

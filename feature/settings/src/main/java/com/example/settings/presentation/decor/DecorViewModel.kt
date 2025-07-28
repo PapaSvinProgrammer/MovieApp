@@ -1,9 +1,9 @@
-package com.example.settings.presentation
+package com.example.settings.presentation.decor
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.external.PreferencesRepository
-import com.example.settings.presentation.widget.UiState
+import com.example.settings.presentation.widget.state.DecorUiState
 import com.example.settings.utils.AppTheme
 import com.example.settings.utils.ThemeObservable
 import kotlinx.coroutines.Dispatchers
@@ -14,27 +14,11 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
-internal class SettingsViewModel @Inject constructor(
+internal class DecorViewModel @Inject constructor(
     private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
-    private val _uiState = MutableStateFlow(UiState())
+    private val _uiState = MutableStateFlow(DecorUiState())
     val uiState = _uiState.asStateFlow()
-
-    fun updatePinSwitch(state: Boolean) {
-        _uiState.update {
-            it.copy(
-                pinCodeSwitch = state
-            )
-        }
-    }
-
-    fun updateVibrationSwitch(state: Boolean) {
-        _uiState.update {
-            it.copy(
-                vibrationSwitch = state
-            )
-        }
-    }
 
     fun updateAlternativeSwitch(state: Boolean) {
         _uiState.update {
@@ -56,7 +40,6 @@ internal class SettingsViewModel @Inject constructor(
         viewModelScope.launch(Dispatchers.IO) {
             preferencesRepository.getThemeState().collect {
                 _uiState.value = _uiState.value.copy(themeState = it)
-                withContext(Dispatchers.Main) { notifyThemeChanged(it) }
             }
         }
     }

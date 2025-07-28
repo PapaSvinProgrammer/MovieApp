@@ -1,4 +1,4 @@
-package com.example.settings.presentation.widget
+package com.example.settings.presentation.widget.state
 
 import com.example.movieapp.ui.R
 

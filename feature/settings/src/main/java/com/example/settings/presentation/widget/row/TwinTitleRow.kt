@@ -25,17 +25,9 @@ import com.example.movieapp.ui.R
 internal fun TwinTitleRow(
     checked: Boolean,
     onClick: (Boolean) -> Unit,
-    title: String,
     subtitle: String,
     description: String
 ) {
-    Text(
-        text = title,
-        fontWeight = FontWeight.Bold,
-        fontSize = 17.sp
-    )
-    Spacer(modifier = Modifier.height(15.dp))
-
     Row(
         modifier = Modifier
             .fillMaxWidth()

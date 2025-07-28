@@ -23,7 +23,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
 import com.example.settings.presentation.widget.card.IconCard
-import com.example.settings.presentation.widget.iconsApplication
+import com.example.settings.presentation.widget.state.iconsApplication
 import com.example.settings.presentation.widget.row.OnceTitleRow
 
 @Composable
