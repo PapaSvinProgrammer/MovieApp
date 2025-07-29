@@ -4,7 +4,9 @@ import androidx.compose.foundation.gestures.snapping.SnapPosition
 import androidx.compose.foundation.gestures.snapping.rememberSnapFlingBehavior
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyRow
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.Composable
@@ -23,7 +25,6 @@ internal fun PremierListContent(premiere: Premiere) {
 
     LazyRow(
         modifier = Modifier.fillMaxWidth(),
-        horizontalArrangement = Arrangement.spacedBy(10.dp),
         contentPadding = PaddingValues(horizontal = 15.dp),
         state = state,
         flingBehavior = flingBehavior
@@ -34,6 +35,8 @@ internal fun PremierListContent(premiere: Premiere) {
                     title = FormatDate.formatDate(it),
                     description = stringResource(R.string.release_russia)
                 )
+
+                Spacer(modifier = Modifier.width(10.dp))
             }
         }
 
@@ -43,6 +46,8 @@ internal fun PremierListContent(premiere: Premiere) {
                     title = FormatDate.formatDate(it),
                     description = stringResource(R.string.release_world)
                 )
+
+                Spacer(modifier = Modifier.width(10.dp))
             }
         }
 
@@ -52,6 +57,8 @@ internal fun PremierListContent(premiere: Premiere) {
                     title = FormatDate.formatDate(it),
                     description = stringResource(R.string.release_blu_ray)
                 )
+
+                Spacer(modifier = Modifier.width(10.dp))
             }
         }
 
@@ -62,6 +69,8 @@ internal fun PremierListContent(premiere: Premiere) {
                     description = stringResource(R.string.release_digital)
                 )
             }
+
+            Spacer(modifier = Modifier.width(10.dp))
         }
 
         item {

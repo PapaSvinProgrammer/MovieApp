@@ -51,7 +51,7 @@ internal fun MovieDescription(
         Text(
             text = stringResource(R.string.show_all),
             fontSize = 14.sp,
-            fontWeight = FontWeight.Bold,
+            fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.primary
         )
     }

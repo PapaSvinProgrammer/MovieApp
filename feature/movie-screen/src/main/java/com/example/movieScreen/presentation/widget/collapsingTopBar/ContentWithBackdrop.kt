@@ -19,6 +19,7 @@ internal fun ContentWithBackdrop(
     Spacer(modifier = Modifier.height(360.dp))
 
     ExpandedBasicContent(
+        titleEn = movie.alternativeName ?: "",
         rating = movie.rating?.kp ?: 0f,
         votes = movie.votes?.kp ?: 0,
         top250 = movie.top250,

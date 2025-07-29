@@ -5,7 +5,6 @@ import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionBySlug
 import com.example.comment.GetCommentByDate
 import com.example.comment.model.CommentParams
-import com.example.utils.multiRequest
 import com.example.model.person.PersonMovie
 import com.example.movieScreen.GetMovieById
 import com.example.movieScreen.GetMovieImages
@@ -14,13 +13,15 @@ import com.example.movieScreen.domain.FilterPersonsLikeActors
 import com.example.movieScreen.domain.FilterPersonsLikeSupport
 import com.example.movieScreen.domain.FilterPersonsLikeVoiceActors
 import com.example.movieScreen.model.MovieParams
-import com.example.ui.uiState.CollectionUIState
-import com.example.ui.uiState.CommentUIState
-import com.example.ui.uiState.ImageUIState
+import com.example.movieScreen.presentation.widget.UIState
 import com.example.ui.uiState.MovieUIState
+import com.example.utils.cancelAllJobs
+import com.example.utils.launchWithoutOld
+import com.example.utils.multiRequest
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -33,94 +34,94 @@ internal class MovieViewModel @Inject constructor(
     private val filterPersonsLikeVoiceActors: FilterPersonsLikeVoiceActors,
     private val filterPersonsLikeActors: FilterPersonsLikeActors,
     private val filterPersonsLikeSupport: FilterPersonsLikeSupport
-): ViewModel() {
-    private val _movieUIState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
-    private val _imageState = MutableStateFlow(ImageUIState.Loading as ImageUIState)
-    private val _collectionState = MutableStateFlow(CollectionUIState.Loading as CollectionUIState)
-    private val _commentState = MutableStateFlow(CommentUIState.Loading as CommentUIState)
-    val movieUIState: StateFlow<MovieUIState> = _movieUIState
-    val imagesState: StateFlow<ImageUIState> = _imageState
-    val collectionState: StateFlow<CollectionUIState> = _collectionState
-    val commentState: StateFlow<CommentUIState> = _commentState
+) : ViewModel() {
+    private val _uiState = MutableStateFlow(UIState())
+    val uiState = _uiState.asStateFlow()
 
-    private val _actors = MutableStateFlow<List<PersonMovie>>(listOf())
-    private val _voiceActors = MutableStateFlow<List<PersonMovie>>(listOf())
-    private val _supportPersonal = MutableStateFlow<List<PersonMovie>>(listOf())
-    val actors: StateFlow<List<PersonMovie>> = _actors
-    val voiceActors: StateFlow<List<PersonMovie>> = _voiceActors
-    val supportPersonal: StateFlow<List<PersonMovie>> = _supportPersonal
+    fun updateSelectedFact(text: String) {
+        _uiState.update {
+            it.copy(selectedFact = text)
+        }
+    }
 
-    private val _selectedFact = MutableStateFlow("")
-    val selectedFact: StateFlow<String> = _selectedFact
-
-    fun getComments(movieId: Int) {
-        if (movieUIState.value is MovieUIState.Success) return
-
+    fun getComments(movieId: Int) = launchWithoutOld(GET_COMMENTS_JOB) {
         val params = CommentParams(
             movieId = movieId,
             sort = -1
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            getCommentByDate.execute(params).onSuccess {
-                _commentState.value = CommentUIState.Success(it)
+        getCommentByDate.execute(params).onSuccess { comments ->
+            _uiState.update {
+                it.copy(comments = comments)
             }
         }
     }
 
-    fun getMovie(id: Int) {
-        if (movieUIState.value is MovieUIState.Success) return
+    fun getMovie(id: Int) = launchWithoutOld(GET_MOVIE_JOB) {
+        val res = getMovieById.execute(id)
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovieById.execute(id)
+        res.onSuccess { movie ->
+            val state = MovieUIState.Success(listOf(movie))
 
-            res.onSuccess {
-                _movieUIState.value = MovieUIState.Success(listOf(it))
-                filterActors(it.persons)
+            _uiState.update {
+                it.copy(movieState = state)
             }
+
+            filterActors(movie.persons)
         }
     }
 
-    fun getImages(movieId: Int) {
-        if (imagesState.value is ImageUIState.Success) return
-
+    fun getImages(movieId: Int) = launchWithoutOld(GET_IMAGES_JOB) {
         val params = MovieParams(
             movieId = movieId
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovieImages.execute(params)
+        val res = getMovieImages.execute(params)
 
-            res.onSuccess {
-                _imageState.value = ImageUIState.Success(it)
+        res.onSuccess { images ->
+            _uiState.update {
+                it.copy(images = images)
             }
         }
     }
 
-    fun getCollections(list: List<String>) {
-        if (collectionState.value is CollectionUIState.Success) return
+    fun getCollections(list: List<String>) = launchWithoutOld(GET_COLLECTIONS) {
+        if (uiState.value.collections.isNotEmpty()) {
+            return@launchWithoutOld
+        }
 
-        viewModelScope.launch(Dispatchers.Default) {
-            val temp = multiRequest(list) {
-                getCollectionBySlug.execute(it)
-            }
+        val temp = multiRequest(list) {
+            getCollectionBySlug.execute(it)
+        }
 
-            if (temp.isNotEmpty()) {
-                val res = filterCollection.execute(temp)
-                _collectionState.value = CollectionUIState.Success(res)
+        if (temp.isNotEmpty()) {
+            val res = filterCollection.execute(temp)
+
+            _uiState.update {
+                it.copy(collections = res)
             }
         }
-    }
-
-    fun updateSelectedFact(text: String) {
-        _selectedFact.value = text
     }
 
     private fun filterActors(list: List<PersonMovie>) {
         viewModelScope.launch(Dispatchers.Default) {
-            _actors.value = filterPersonsLikeActors.execute(list)
-            _voiceActors.value = filterPersonsLikeVoiceActors.execute(list)
-            _supportPersonal.value = filterPersonsLikeSupport.execute(list)
+            _uiState.update {
+                it.copy(actors = filterPersonsLikeActors.execute(list))
+                it.copy(voiceActors = filterPersonsLikeVoiceActors.execute(list))
+                it.copy(supportPersonal = filterPersonsLikeSupport.execute(list))
+            }
         }
+    }
+
+    override fun onCleared() {
+        cancelAllJobs()
+        super.onCleared()
+    }
+
+    private companion object {
+        const val GET_COMMENTS_JOB = "get_comments"
+        const val GET_MOVIE_JOB = "get_movie"
+        const val GET_IMAGES_JOB = "get_images"
+        const val GET_COLLECTIONS = "get_collections"
     }
 }

@@ -34,7 +34,10 @@ internal fun PersonMovieListItem(
     Row(
         modifier = modifier
             .width(290.dp)
-            .padding(15.dp),
+            .padding(
+                horizontal = 15.dp,
+                vertical = 10.dp
+            ),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
@@ -46,8 +49,8 @@ internal fun PersonMovieListItem(
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(80.dp)
-                .width(60.dp)
+                .height(70.dp)
+                .width(50.dp)
                 .clip(RoundedCornerShape(10.dp))
         )
 
@@ -59,7 +62,7 @@ internal fun PersonMovieListItem(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 fontWeight = FontWeight.Bold,
-                fontSize = 15.sp
+                fontSize = 14.sp
             )
 
             Text(

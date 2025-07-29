@@ -26,6 +26,6 @@ suspend fun <T> multiRequest(
             result.add(data)
         }
     }
-    
+
     return result
 }

@@ -20,8 +20,8 @@ import androidx.compose.ui.unit.sp
 fun TitleRow(
     modifier: Modifier = Modifier,
     title: String,
-    fontSize: TextUnit = 18.sp,
-    fontWeight: FontWeight = FontWeight.Medium,
+    fontSize: TextUnit = 16.sp,
+    fontWeight: FontWeight = FontWeight.Bold,
     onClick: () -> Unit
 ) {
     Box(

@@ -35,13 +35,13 @@ internal fun WatchabilityDescription(
             Text(
                 text = stringResource(R.string.where_can_watch),
                 fontWeight = FontWeight.Bold,
-                fontSize = 18.sp
+                fontSize = 16.sp
             )
 
             Text(
                 text = "Доступно в $count кинотеатрах",
-                fontSize = 15.sp,
-                color = MaterialTheme.colorScheme.onSurfaceVariant
+                fontSize = 14.sp,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 

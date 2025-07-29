@@ -4,14 +4,11 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.data.external.PreferencesRepository
 import com.example.settings.presentation.widget.state.DecorUiState
-import com.example.settings.utils.AppTheme
-import com.example.settings.utils.ThemeObservable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 internal class DecorViewModel @Inject constructor(
@@ -29,8 +26,6 @@ internal class DecorViewModel @Inject constructor(
     }
 
     fun setTheme(state: Int) {
-        notifyThemeChanged(state)
-
         viewModelScope.launch(Dispatchers.IO) {
             preferencesRepository.setThemeState(state)
         }
@@ -55,14 +50,6 @@ internal class DecorViewModel @Inject constructor(
     fun setCurrentIconIndex(index: Int) {
         viewModelScope.launch(Dispatchers.IO) {
             preferencesRepository.setCurrentIcon(index)
-        }
-    }
-
-    private fun notifyThemeChanged(state: Int) {
-        when (state) {
-            1 -> ThemeObservable.notify(AppTheme.SYSTEM)
-            2 -> ThemeObservable.notify(AppTheme.DARK)
-            else -> ThemeObservable.notify(AppTheme.LIGHT)
         }
     }
 }

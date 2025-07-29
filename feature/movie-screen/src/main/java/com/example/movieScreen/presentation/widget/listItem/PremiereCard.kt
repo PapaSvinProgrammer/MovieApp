@@ -27,14 +27,14 @@ internal fun PremiereCard(
     ) {
         Text(
             text = title,
-            fontSize = 16.sp,
+            fontSize = 14.sp,
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = description,
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )
     }

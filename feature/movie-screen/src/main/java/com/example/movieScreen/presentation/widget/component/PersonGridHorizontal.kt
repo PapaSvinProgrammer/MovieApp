@@ -24,7 +24,7 @@ internal fun PersonGridHorizontalList(
     val flingBehavior = rememberSnapFlingBehavior(lazyState, SnapPosition.Start)
 
     LazyHorizontalGrid(
-        modifier = modifier.height(350.dp),
+        modifier = modifier.height(300.dp),
         rows = GridCells.Fixed(3),
         state = lazyState,
         flingBehavior = flingBehavior

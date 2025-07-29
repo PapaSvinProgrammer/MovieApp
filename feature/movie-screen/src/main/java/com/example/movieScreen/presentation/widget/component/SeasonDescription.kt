@@ -38,13 +38,13 @@ internal fun SeasonDescription(
         Column {
             Text(
                 text = stringResource(R.string.seasons_series),
-                fontSize = 18.sp,
+                fontSize = 16.sp,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = "$prettySeasons, $prettySeries",
-                fontSize = 15.sp
+                fontSize = 14.sp
             )
         }
 

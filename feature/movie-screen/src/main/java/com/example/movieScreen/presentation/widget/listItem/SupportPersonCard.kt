@@ -43,7 +43,7 @@ internal fun SupportPersonCard(
             )
             .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick)
-            .padding(15.dp),
+            .padding(10.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
@@ -68,7 +68,7 @@ internal fun SupportPersonCard(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 fontWeight = FontWeight.Bold,
-                fontSize = 15.sp
+                fontSize = 14.sp
             )
 
             Text(

@@ -21,6 +21,7 @@ import com.example.utils.convert.PrettyData
 
 @Composable
 internal fun ExpandedBasicContent(
+    titleEn: String,
     rating: Float,
     votes: Int,
     date: String,
@@ -43,7 +44,7 @@ internal fun ExpandedBasicContent(
             RatingText(
                 rating = rating,
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 isTop = top250
             )
 
@@ -52,15 +53,24 @@ internal fun ExpandedBasicContent(
             Text(
                 text = PrettyData.getPrettyVotes(votes),
                 fontSize = 14.sp,
-                fontWeight = FontWeight.Medium,
+                fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
+            )
+
+            Spacer(modifier = Modifier.width(6.dp))
+
+            Text(
+                text = titleEn,
+                fontSize = 14.sp,
+                fontWeight = FontWeight.Normal,
+                color = MaterialTheme.colorScheme.onSurface
             )
         }
 
         Text(
             text = "$date, $genres",
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
@@ -70,7 +80,7 @@ internal fun ExpandedBasicContent(
         Text(
             text = "$countries, $length, $age",
             fontSize = 14.sp,
-            fontWeight = FontWeight.Medium,
+            fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
