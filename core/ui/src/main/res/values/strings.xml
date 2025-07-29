@@ -2,7 +2,7 @@
 <resources>
     <string name="app_name">MovieApp</string>
     <string name="entry">Войти</string>
-    <string name="registration">Регитсрация</string>
+    <string name="registration">Регистрация</string>
     <string name="show_all">Показать все</string>
     <string name="collections">Коллекции</string>
     <string name="settings">Настройки</string>
@@ -66,7 +66,7 @@
     <string name="death">Дата смерти</string>
     <string name="spouse">Брак</string>
     <string name="award">Награда</string>
-    <string name="nomination">Номинаиця</string>
+    <string name="nomination">Номинация</string>
     <string name="sort">Сортировка</string>
     <string name="by_alphabet">По алфавиту</string>
     <string name="by_date">По дате</string>
@@ -79,7 +79,7 @@
     <string name="seasons_series">Сезоны и серии</string>
     <string name="rating_kinopoisk">Рейтинг Кинопоиска</string>
     <string name="actors">Актеры</string>
-    <string name="images">Изоброжения</string>
+    <string name="images">Изображения</string>
     <string name="voice_actors">Актеры дубляжа</string>
     <string name="support_personal">Съемочная группа</string>
     <string name="in_lists">Входит в списки</string>

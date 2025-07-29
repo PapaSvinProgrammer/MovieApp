@@ -1,7 +1,6 @@
 package com.example.settings.presentation.language
 
 import androidx.lifecycle.ViewModel
-import com.example.data.external.PreferencesRepository
 import com.example.settings.domain.SearchLanguage
 import com.example.settings.presentation.widget.state.LanguageUiState
 import com.example.settings.utils.languagesList
@@ -13,7 +12,6 @@ import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 internal class LanguageViewModel @Inject constructor(
-    private val preferencesRepository: PreferencesRepository,
     private val searchLanguage: SearchLanguage
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(LanguageUiState())
@@ -22,6 +20,12 @@ internal class LanguageViewModel @Inject constructor(
     fun updateQuery(q: String) {
         _uiState.update {
             it.copy(query = q)
+        }
+    }
+
+    fun updateDefaultLanguage(slug: String) {
+        _uiState.update {
+            it.copy(defaultLanguageSlug = slug)
         }
     }
 
