@@ -23,7 +23,7 @@ import com.example.home.utils.NavigationUtils.navigateToHomeDetailByNetwork
 import com.example.home.utils.NavigationUtils.navigateToMovieFromCollection
 import com.example.movieapp.ui.R
 import com.example.navigationroute.CollectionListRoute
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.ui.widget.other.TopBarIconApp
 import com.example.ui.widget.renderState.RenderCollectionStateRow
 import com.example.ui.widget.renderState.RenderMovieStateRow
@@ -84,7 +84,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieDramaState,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByGenre(
                             title = title,
@@ -100,7 +100,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieBest250State,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByLists(
                             title = title,
@@ -116,7 +116,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieBoevikState,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByGenre(
                             title = title,
@@ -132,7 +132,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieBest100State,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByLists(
                             title = title,
@@ -148,7 +148,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieBest501State,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByLists(
                             title = title,
@@ -164,7 +164,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieHBOState,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByNetwork(
                             title = title,
@@ -180,7 +180,7 @@ internal fun HomeScreen(
                 RenderMovieStateRow(
                     state = movieNetflixState,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         navController.navigateToHomeDetailByNetwork(
                             title = title,

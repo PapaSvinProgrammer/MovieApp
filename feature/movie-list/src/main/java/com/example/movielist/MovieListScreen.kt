@@ -26,7 +26,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movielistviewmodel.MovieListViewModel
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -81,7 +81,7 @@ internal fun MovieListScreen(
                 .hazeSource(hazeState)
                 .padding(innerPadding),
             onClick = {
-                navController.navigate(MovieRoute(it.id)) {
+                navController.navigate(MovieRoutes.MovieRoute(it.id)) {
                     launchSingleTop = true
                 }
             },

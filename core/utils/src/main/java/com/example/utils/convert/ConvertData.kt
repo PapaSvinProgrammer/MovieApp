@@ -64,6 +64,10 @@ object ConvertData {
             val start = releaseYears[0].start
             val end = releaseYears[0].end
 
+            if (start == end) {
+                return start.toString()
+            }
+
             start?.let {
                 if (end == null) {
                     return "$start-..."

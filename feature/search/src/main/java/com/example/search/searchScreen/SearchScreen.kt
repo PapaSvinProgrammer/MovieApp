@@ -38,7 +38,7 @@ import com.example.model.image.CollectionMovie
 import com.example.movieapp.ui.R
 import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.MovieListRoute
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.navigationroute.PersonPodiumListRoute
 import com.example.navigationroute.PersonRoute
 import com.example.navigationroute.SearchRoutes
@@ -135,7 +135,7 @@ internal fun SearchScreen(
                     },
                     onClick = {
                         if (it.isMovie) {
-                            navController.navigate(MovieRoute(it.id)) {
+                            navController.navigate(MovieRoutes.MovieRoute(it.id)) {
                                 launchSingleTop = true
                             }
                         } else {
@@ -236,7 +236,7 @@ internal fun SearchScreen(
                 RenderMovieStateRow(
                     state = topSerialsState,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParams = listOf(
                             Constants.IS_SERIES_FIELD to Constants.TRUE,

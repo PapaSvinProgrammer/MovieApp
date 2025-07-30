@@ -37,7 +37,7 @@ import com.example.utils.Constants
 import com.example.movieapp.ui.R
 import com.example.navigationroute.AwardListRoute
 import com.example.navigationroute.MovieListRoute
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.navigationroute.PersonDetailRoute
 import com.example.personscreen.presentation.widget.content.CategoriesHeader
 import com.example.personscreen.presentation.widget.content.MainPersonContent
@@ -215,7 +215,7 @@ internal fun PersonScreen(
                 ShortMovieListItem(
                     shortMovie = it,
                     onClick = {
-                        navController.navigate(MovieRoute(it.id)) {
+                        navController.navigate(MovieRoutes.MovieRoute(it.id)) {
                             launchSingleTop = true
                         }
                     }

@@ -9,7 +9,7 @@ import com.example.data.external.CommentRepository
 import com.example.data.external.MovieRepository
 import com.example.movieScreen.GetMovieById
 import com.example.movieScreen.GetMovieImages
-import com.example.movieScreen.presentation.MovieViewModel
+import com.example.movieScreen.presentation.movie.MovieViewModel
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import dagger.Binds

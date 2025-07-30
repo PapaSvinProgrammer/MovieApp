@@ -45,8 +45,8 @@ fun CollectionListItem(
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
-                        .width(75.dp)
-                        .height(75.dp)
+                        .width(55.dp)
+                        .height(55.dp)
                         .clip(RoundedCornerShape(5.dp))
                 )
 
