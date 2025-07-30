@@ -130,7 +130,11 @@ internal fun MovieScreen(
 
                 imagesItem(uiState.images)
 
-                collectionsItem(uiState.collections, navController)
+                collectionsItem(
+                    data = uiState.collections,
+                    navController = navController,
+                    listId = movie.lists
+                )
 
                 factsItem(movie.facts)
 

@@ -17,8 +17,7 @@ internal fun LazyListScope.personGridHorizontalItem(
 
     item {
         TitleRow(
-            title = stringResource(R.string.actors),
-
+            title = stringResource(R.string.actors)
         ) {}
 
         PersonGridHorizontalList(

@@ -7,7 +7,7 @@ import com.example.navigationroute.model.WatchabilityScreenObject
 import kotlinx.serialization.json.Json
 
 object CustomNavType {
-    val ListType = object : NavType<List<Pair<String, String>>>(
+    val ListTypePair = object : NavType<List<Pair<String, String>>>(
         isNullableAllowed = false
     ) {
         override fun put(bundle: SavedState, key: String, value: List<Pair<String, String>>) {

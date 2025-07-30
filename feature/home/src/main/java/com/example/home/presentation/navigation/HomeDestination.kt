@@ -41,7 +41,7 @@ fun NavGraphBuilder.homeDestination(
 
     composable<HomeDetailListRoute>(
         typeMap = mapOf(
-            typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
+            typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListTypePair
         )
     ) {
         val route = it.toRoute<HomeDetailListRoute>()

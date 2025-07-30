@@ -1,7 +1,6 @@
 package com.example.movieScreen.presentation.movie
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.example.collectionusecase.GetCollectionBySlug
 import com.example.comment.GetCommentByDate
 import com.example.comment.model.CommentParams
@@ -18,11 +17,9 @@ import com.example.ui.uiState.MovieUIState
 import com.example.utils.cancelAllJobs
 import com.example.utils.launchWithoutOld
 import com.example.utils.multiRequest
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 internal class MovieViewModel @Inject constructor(
@@ -103,13 +100,17 @@ internal class MovieViewModel @Inject constructor(
         }
     }
 
-    private fun filterActors(list: List<PersonMovie>) {
-        viewModelScope.launch(Dispatchers.Default) {
-            _uiState.update {
-                it.copy(actors = filterPersonsLikeActors.execute(list))
-                it.copy(voiceActors = filterPersonsLikeVoiceActors.execute(list))
-                it.copy(supportPersonal = filterPersonsLikeSupport.execute(list))
-            }
+    private fun filterActors(list: List<PersonMovie>) = launchWithoutOld(FILTER_ACTORS_JOB) {
+        _uiState.update {
+            it.copy(actors = filterPersonsLikeActors.execute(list))
+        }
+
+        _uiState.update {
+            it.copy(voiceActors = filterPersonsLikeVoiceActors.execute(list))
+        }
+
+        _uiState.update {
+            it.copy(supportPersonal = filterPersonsLikeSupport.execute(list))
         }
     }
 
@@ -123,5 +124,6 @@ internal class MovieViewModel @Inject constructor(
         const val GET_MOVIE_JOB = "get_movie"
         const val GET_IMAGES_JOB = "get_images"
         const val GET_COLLECTIONS = "get_collections"
+        const val FILTER_ACTORS_JOB = "filter_actors"
     }
 }

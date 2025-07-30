@@ -109,4 +109,6 @@
     <string name="enable_pin_code">Включить пин-код</string>
     <string name="disable_pin_code">Выключить пин-код</string>
     <string name="unknown">Неизвестно</string>
+    <string name="all_collections">Все коллекции</string>
+    <string name="collection">Коллекции: %1$s</string>
 </resources>

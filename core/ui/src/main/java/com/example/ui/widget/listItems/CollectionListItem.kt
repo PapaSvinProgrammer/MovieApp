@@ -2,7 +2,7 @@ package com.example.ui.widget.listItems
 
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.ListItem
@@ -17,6 +17,7 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
@@ -29,6 +30,7 @@ import com.example.movieapp.ui.R
 fun CollectionListItem(
     modifier: Modifier = Modifier,
     collectionMovie: CollectionMovie,
+    size: Dp = 55.dp,
     leadingIcon: (@Composable () -> Unit)? = null
 ) {
     ListItem(
@@ -45,8 +47,7 @@ fun CollectionListItem(
                     contentDescription = null,
                     contentScale = ContentScale.FillBounds,
                     modifier = Modifier
-                        .width(55.dp)
-                        .height(55.dp)
+                        .size(size)
                         .clip(RoundedCornerShape(5.dp))
                 )
 

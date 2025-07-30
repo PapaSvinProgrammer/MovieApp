@@ -69,7 +69,8 @@ data object StartRoute : NavRoute
 
 @Serializable
 data class CollectionListRoute(
-    val category: String? = null
+    val category: String? = null,
+    val listId: List<String> = listOf()
 ) : NavRoute
 
 @Serializable

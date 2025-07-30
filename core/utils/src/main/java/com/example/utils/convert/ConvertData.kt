@@ -36,7 +36,6 @@ object ConvertData {
         return startStr + endStr
     }
 
-    @RequiresApi(Build.VERSION_CODES.O)
     fun convertYearRange(start: Int, end: Int): String {
         if (start == end) {
             return start.toString()
@@ -131,7 +130,7 @@ object ConvertData {
         }
 
         if (movie.genres.isNotEmpty()) {
-            return movie.genres.map { it.name }.joinToString(", ")
+            return movie.genres.joinToString(", ") { it.name }
         }
 
         return ""

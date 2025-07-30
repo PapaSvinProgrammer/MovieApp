@@ -14,6 +14,7 @@ import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.example.model.image.CollectionMovie
 import com.example.movieapp.ui.R
+import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.MovieListRoute
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.listItems.CollectionListItem
@@ -21,6 +22,7 @@ import com.example.utils.Constants
 
 internal fun LazyListScope.collectionsItem(
     data: List<CollectionMovie>,
+    listId: List<String>,
     navController: NavController
 ) {
     if (data.isEmpty()) return
@@ -29,7 +31,9 @@ internal fun LazyListScope.collectionsItem(
         Spacer(modifier = Modifier.height(30.dp))
 
         TitleRow(title = stringResource(R.string.in_lists)) {
-
+            navController.navigate(CollectionListRoute(listId = listId)) {
+                launchSingleTop = true
+            }
         }
 
         LazyHorizontalGrid(
