@@ -6,7 +6,6 @@ import androidx.paging.cachedIn
 import com.example.collectionusecase.GetCollectionByCategory
 import com.example.collectionusecase.model.CollectionParams
 import com.example.data.external.HistoryRepository
-import com.example.utils.Constants
 import com.example.model.SearchItem
 import com.example.movieScreen.GetMovieByFilter
 import com.example.movieScreen.SearchMovie
@@ -14,16 +13,19 @@ import com.example.movieScreen.model.MovieParams
 import com.example.person.GetPersonByFilter
 import com.example.person.SearchPerson
 import com.example.person.model.PersonParams
+import com.example.search.searchScreen.widget.UiState
 import com.example.ui.uiState.CollectionUIState
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.uiState.PersonUIState
 import com.example.ui.uiState.SearchUIState
+import com.example.utils.Constants
+import com.example.utils.cancelAllJobs
 import com.example.utils.convert.toHistory
 import com.example.utils.convert.toSearchItemList
-import kotlinx.coroutines.Dispatchers
+import com.example.utils.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 internal class SearchViewModel @Inject constructor(
@@ -33,70 +35,63 @@ internal class SearchViewModel @Inject constructor(
     private val getMovieByFilter: GetMovieByFilter,
     private val searchMovie: SearchMovie,
     private val historyRepository: HistoryRepository
-): ViewModel() {
-    private val _query = MutableStateFlow("")
-    private val _isExpanded = MutableStateFlow(false)
-    private val _collectionsState = MutableStateFlow(CollectionUIState.Loading as CollectionUIState)
-    private val _personState = MutableStateFlow(PersonUIState.Loading as PersonUIState)
-    private val _topSerialsState = MutableStateFlow(MovieUIState.Loading as MovieUIState)
-    val query: StateFlow<String> = _query
-    val isExpanded: StateFlow<Boolean> = _isExpanded
-    val collectionsState: StateFlow<CollectionUIState> = _collectionsState
-    val personState: StateFlow<PersonUIState> = _personState
-    val topSerialsState: StateFlow<MovieUIState> = _topSerialsState
-
+) : ViewModel() {
     private var searchPage = 1
-    private val _selectedSearchIndex = MutableStateFlow(0)
-    private val _searchState = MutableStateFlow(SearchUIState.Error as SearchUIState)
-    val selectedSearchIndex: StateFlow<Int> = _selectedSearchIndex
-    val searchState: StateFlow<SearchUIState> = _searchState
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
     val resultHistory = historyRepository.getAll().cachedIn(viewModelScope)
 
     fun updateQuery(text: String) {
-        _query.value = text
+        _uiState.update {
+            it.copy(query = text)
+        }
     }
 
     fun updateExpanded(state: Boolean) {
-        _isExpanded.value = state
+        _uiState.update {
+            it.copy(isExpanded = state)
+        }
     }
 
     fun updateSelectedSearchIndex(index: Int) {
-        _selectedSearchIndex.value = index
+        _uiState.update {
+            it.copy(selectedSearchIndex = index)
+        }
     }
 
-    fun getCollections() {
-        if (collectionsState.value is CollectionUIState.Success) return
+    fun getCollections() = launchWithoutOld(GET_COLLECTIONS_JOB) {
+        if (uiState.value.collectionsState is CollectionUIState.Success) return@launchWithoutOld
 
         val params = CollectionParams(category = "Фильмы")
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = getCollectionByCategory.execute(params)
+        val res = getCollectionByCategory.execute(params)
 
-            res.onSuccess {
-                _collectionsState.value = CollectionUIState.Success(it)
+        res.onSuccess { collections ->
+            _uiState.update {
+                it.copy(collectionsState = CollectionUIState.Success(collections))
             }
         }
     }
 
-    fun getActorByPopularityMovies() {
-        if (personState.value is PersonUIState.Success) return
+    fun getActorByPopularityMovies() = launchWithoutOld(GET_ACTORS_JOB) {
+        if (uiState.value.personState is PersonUIState.Success) return@launchWithoutOld
 
         val queryParameters = listOf(
             Constants.SORT_FIELD to Constants.MOVIES_RATING_FIELD,
             Constants.SORT_TYPE to Constants.SORT_DESC
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = getPersonByFilter.execute(queryParameters)
+        val res = getPersonByFilter.execute(queryParameters)
 
-            res.onSuccess {
-                _personState.value = PersonUIState.Success(it)
+        res.onSuccess { actors ->
+            _uiState.update {
+                it.copy(personState = PersonUIState.Success(actors))
             }
         }
     }
 
-    fun getTopSerials() {
-        if (topSerialsState.value is MovieUIState.Success) return
+    fun getTopSerials() = launchWithoutOld(GET_SERIALS_JOB) {
+        if (uiState.value.topSerialsState is MovieUIState.Success) return@launchWithoutOld
 
         val queryParameters = listOf(
             Constants.IS_SERIES_FIELD to Constants.TRUE,
@@ -104,117 +99,140 @@ internal class SearchViewModel @Inject constructor(
             Constants.SORT_TYPE to Constants.SORT_DESC
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = getMovieByFilter.execute(queryParameters)
+        val res = getMovieByFilter.execute(queryParameters)
 
-            res.onSuccess {
-                _topSerialsState.value = MovieUIState.Success(it)
+        res.onSuccess { serials ->
+            _uiState.update {
+                it.copy(topSerialsState = MovieUIState.Success(serials))
             }
         }
     }
 
     fun search(q: String) {
-        when (selectedSearchIndex.value) {
+        when (uiState.value.selectedSearchIndex) {
             0 -> getMovieByName(q)
             1 -> getPersonByName(q)
         }
     }
 
     fun loadMore() {
-        when (selectedSearchIndex.value) {
+        when (uiState.value.selectedSearchIndex) {
             0 -> loadMoreMovieByName()
             1 -> loadMorePersonByName()
         }
     }
 
-    private fun getMovieByName(q: String) {
+    fun clearSearchResult() {
+        _uiState.update {
+            it.copy(searchState = SearchUIState.Error)
+        }
+    }
+
+    fun insertSearchHistoryItem(searchItem: SearchItem) = launchWithoutOld(INSERT_HISTORY_JOB) {
+        historyRepository.insert(searchItem.toHistory())
+    }
+
+    fun deleteSearchHistoryItem(id: Int) = launchWithoutOld(DELETE_HISTORY_JOB) {
+        historyRepository.delete(id)
+    }
+
+    private fun getMovieByName(q: String) = launchWithoutOld(GET_MOVIES_BY_NAME_JOB) {
         searchPage = 1
-        _searchState.value = SearchUIState.Loading
+        _uiState.update {
+            it.copy(searchState = SearchUIState.Loading)
+        }
 
         val params = MovieParams(q = q)
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = searchMovie.execute(params)
+        val res = searchMovie.execute(params)
 
-            res.onSuccess {
-                _searchState.value = SearchUIState.Success(it.toSearchItemList())
+        res.onSuccess { movies ->
+            _uiState.update {
+                it.copy(searchState = SearchUIState.Success(movies.toSearchItemList()))
             }
         }
     }
 
-    private fun loadMoreMovieByName() {
+    private fun loadMoreMovieByName() = launchWithoutOld(LOAD_MOVIES_BY_NAME_JOB) {
         searchPage++
 
         val params = MovieParams(
-            q = query.value,
+            q = _uiState.value.query,
             page = searchPage
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = searchMovie.execute(params)
+        val res = searchMovie.execute(params)
 
-            res.onSuccess {
-                val temp = (searchState.value as SearchUIState.Success)
-                    .data
-                    .toMutableList()
-                temp.addAll(it.toSearchItemList())
-                _searchState.value = SearchUIState.Success(temp)
+        res.onSuccess { movies ->
+            val temp = (uiState.value.searchState as SearchUIState.Success)
+                .data
+                .toMutableList()
+
+            temp.addAll(movies.toSearchItemList())
+
+            _uiState.update {
+                it.copy(searchState = SearchUIState.Success(temp))
             }
         }
     }
 
-    private fun getPersonByName(q: String) {
+    private fun getPersonByName(q: String) = launchWithoutOld(GET_PERSONS_BY_NAME_JOB) {
         searchPage = 1
-        _searchState.value = SearchUIState.Loading
+        _uiState.update {
+            it.copy(searchState = SearchUIState.Loading)
+        }
 
         val params = PersonParams(
             q = q,
             page = searchPage
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = searchPerson.execute(params)
+        val res = searchPerson.execute(params)
 
-            res.onSuccess {
-                _searchState.value = SearchUIState.Success(it.toSearchItemList())
+        res.onSuccess { persons ->
+            _uiState.update {
+                it.copy(searchState = SearchUIState.Success(persons.toSearchItemList()))
             }
         }
     }
 
-    private fun loadMorePersonByName() {
+    private fun loadMorePersonByName() = launchWithoutOld(LOAD_PERSONS_BY_NAME_JOB) {
         searchPage++
 
         val params = PersonParams(
-            q = query.value,
+            q = uiState.value.query,
             page = searchPage
         )
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = searchPerson.execute(params)
+        val res = searchPerson.execute(params)
 
-            res.onSuccess {
-                val temp = (searchState.value as SearchUIState.Success)
-                    .data
-                    .toMutableList()
-                temp.addAll(it.toSearchItemList())
-                _searchState.value = SearchUIState.Success(temp)
+        res.onSuccess { persons ->
+            val temp = (uiState.value.searchState as SearchUIState.Success)
+                .data
+                .toMutableList()
+
+            temp.addAll(persons.toSearchItemList())
+
+            _uiState.update {
+                it.copy(searchState = SearchUIState.Success(temp))
             }
         }
     }
 
-    fun clearSearchResult() {
-        _searchState.value = SearchUIState.Error
+    override fun onCleared() {
+        cancelAllJobs()
+        super.onCleared()
     }
 
-    fun insertSearchHistoryItem(searchItem: SearchItem) {
-        viewModelScope.launch(Dispatchers.IO) {
-           historyRepository.insert(searchItem.toHistory())
-        }
-    }
-
-    fun deleteSearchHistoryItem(id: Int) {
-        viewModelScope.launch(Dispatchers.IO) {
-            historyRepository.delete(id)
-        }
+    private companion object {
+        const val GET_COLLECTIONS_JOB = "get_collections"
+        const val GET_ACTORS_JOB = "get_actors_by_popularity"
+        const val GET_SERIALS_JOB = "get_top_serials"
+        const val INSERT_HISTORY_JOB = "insert_search_history"
+        const val DELETE_HISTORY_JOB = "delete_search_history"
+        const val GET_MOVIES_BY_NAME_JOB = "get_movies_by_name"
+        const val LOAD_MOVIES_BY_NAME_JOB = "load_more_movies_by_name"
+        const val GET_PERSONS_BY_NAME_JOB = "get_persons_by_name"
+        const val LOAD_PERSONS_BY_NAME_JOB = "load_more_persons_by_name"
     }
 }

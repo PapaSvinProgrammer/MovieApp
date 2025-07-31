@@ -17,7 +17,7 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.search.widget.RenderMovieState
 import com.example.ui.widget.other.TitleTopBarText
 import dev.chrisbanes.haze.HazeState
@@ -58,7 +58,7 @@ internal fun SearchResultScreen(
             state = movieState,
             modifier = Modifier.padding(innerPadding).hazeSource(hazeState),
             onClick = {
-                navController.navigate(MovieRoute(it.id)) {
+                navController.navigate(MovieRoutes.MovieRoute(it.id)) {
                     launchSingleTop = true
                 }
             },

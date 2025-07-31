@@ -1,14 +1,13 @@
 package com.example.personlistviewmodel
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.utils.Constants
 import com.example.person.GetPersonByFilter
 import com.example.ui.uiState.PersonUIState
-import kotlinx.coroutines.Dispatchers
+import com.example.utils.Constants
+import com.example.utils.cancelAllJobs
+import com.example.utils.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class PersonListViewModel @Inject constructor(
@@ -19,34 +18,41 @@ class PersonListViewModel @Inject constructor(
     private val _personState = MutableStateFlow(PersonUIState.Loading as PersonUIState)
     val personState: StateFlow<PersonUIState> = _personState
 
-    fun getPersons(queryParameters: List<Pair<String, String>>) {
-        if (personState.value is PersonUIState.Success) return
+    fun getPersons(queryParameters: List<Pair<String, String>>) = launchWithoutOld(GET_PERSONS_JOB) {
+        if (personState.value is PersonUIState.Success) return@launchWithoutOld
 
-        viewModelScope.launch(Dispatchers.IO) {
-            val res = getPersonByFilter.execute(queryParameters)
+        val res = getPersonByFilter.execute(queryParameters)
 
-            res.onSuccess {
-                _personState.value = PersonUIState.Success(it)
-            }
+        res.onSuccess {
+            _personState.value = PersonUIState.Success(it)
         }
     }
 
-    fun loadMorePersons(queryParameters: List<Pair<String, String>>) {
+    fun loadMorePersons(queryParameters: List<Pair<String, String>>) = launchWithoutOld(LOAD_PERSONS_JOB) {
         page++
-        viewModelScope.launch(Dispatchers.IO) {
-            val newQuery = queryParameters.toMutableList()
-            newQuery.add(Constants.PAGE_FIELD to page.toString())
 
-            val res = getPersonByFilter.execute(newQuery)
+        val newQuery = queryParameters.toMutableList()
+        newQuery.add(Constants.PAGE_FIELD to page.toString())
 
-            res.onSuccess {
-                val newRes = (personState.value as PersonUIState.Success)
-                    .data
-                    .toMutableList()
-                newRes.addAll(it)
+        val res = getPersonByFilter.execute(newQuery)
 
-                _personState.value = PersonUIState.Success(newRes)
-            }
+        res.onSuccess {
+            val newRes = (personState.value as PersonUIState.Success)
+                .data
+                .toMutableList()
+            newRes.addAll(it)
+
+            _personState.value = PersonUIState.Success(newRes)
         }
+    }
+
+    override fun onCleared() {
+        cancelAllJobs()
+        super.onCleared()
+    }
+
+    private companion object {
+        const val GET_PERSONS_JOB = "get_persons"
+        const val LOAD_PERSONS_JOB = "load_more_persons"
     }
 }

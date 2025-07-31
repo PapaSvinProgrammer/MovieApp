@@ -1,5 +1,6 @@
 package com.example.navigationroute
 
+import com.example.navigationroute.model.WatchabilityScreenObject
 import kotlinx.serialization.Serializable
 
 sealed interface NavRoute
@@ -17,7 +18,6 @@ sealed interface MainRoutes {
     @Serializable
     data object FavoriteRoute : NavRoute
 }
-
 
 sealed interface SearchRoutes {
     @Serializable
@@ -52,12 +52,25 @@ sealed interface SettingsRoutes {
     data object SupportRoute : NavRoute
 }
 
+sealed interface MovieRoutes {
+    @Serializable
+    data class MovieRoute(
+        val id: Int
+    ) : NavRoute
+
+    @Serializable
+    data class WatchabilityListRoute(
+        val watchability: WatchabilityScreenObject
+    )
+}
+
 @Serializable
 data object StartRoute : NavRoute
 
 @Serializable
 data class CollectionListRoute(
-    val category: String? = null
+    val category: String? = null,
+    val listId: List<String> = listOf()
 ) : NavRoute
 
 @Serializable
@@ -94,10 +107,6 @@ data class AwardListRoute(
     val isMovie: Boolean
 ) : NavRoute
 
-@Serializable
-data class MovieRoute(
-    val id: Int
-) : NavRoute
 
 @Serializable
 data class OtpRoute(

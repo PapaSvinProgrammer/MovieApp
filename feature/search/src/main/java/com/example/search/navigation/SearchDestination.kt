@@ -59,7 +59,7 @@ fun NavGraphBuilder.searchDestination(
 
     composable<SearchRoutes.SearchResultRoute>(
         typeMap = mapOf(
-            typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListType
+            typeOf<ArrayList<Pair<String, String>>>() to CustomNavType.ListTypePair
         )
     ) {
         val data = it.toRoute<SearchRoutes.SearchResultRoute>()

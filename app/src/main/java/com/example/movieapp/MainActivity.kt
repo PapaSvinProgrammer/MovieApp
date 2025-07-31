@@ -6,41 +6,32 @@ import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
-import androidx.lifecycle.lifecycleScope
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.example.navigationroute.StartRoute
 import com.example.settings.utils.AppTheme
-import com.example.settings.utils.ThemeObservable
-import com.example.settings.utils.ThemeObserver
 import com.example.settings.utils.toAppTheme
 import com.example.ui.theme.MovieAppTheme
-import kotlinx.coroutines.flow.first
-import kotlinx.coroutines.launch
 
-class MainActivity : AppCompatActivity(), ThemeObserver {
-    private var currentTheme: AppTheme = AppTheme.SYSTEM
-
+class MainActivity : AppCompatActivity() {
     @SuppressLint("ContextCastToActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        ThemeObservable.subscribe(this)
-
-        lifecycleScope.launch {
-            val theme = appComponent.preferencesRepository.getThemeState().first()
-            onThemeChanged(theme.toAppTheme())
-            setComposeContent()
-        }
+        setComposeContent()
     }
 
     private fun setComposeContent() {
         setContent {
+            val theme = appComponent
+                .preferencesRepository
+                .getThemeState()
+                .collectAsStateWithLifecycle(1)
             val isSystemDark = isSystemInDarkTheme()
 
-            val isDarkTheme = when (currentTheme) {
+            val isDarkTheme = when (theme.value.toAppTheme()) {
                 AppTheme.LIGHT -> false
                 AppTheme.DARK -> true
                 AppTheme.SYSTEM -> isSystemDark
@@ -50,7 +41,9 @@ class MainActivity : AppCompatActivity(), ThemeObserver {
                 changeSystemBarStyle(isDarkTheme)
             }
 
-            MovieAppTheme {
+            MovieAppTheme(
+                darkTheme = isDarkTheme
+            ) {
                 MainScreen(
                     startRoute = StartRoute,
                     appComponent = appComponent
@@ -59,25 +52,11 @@ class MainActivity : AppCompatActivity(), ThemeObserver {
         }
     }
 
-    override fun onThemeChanged(theme: AppTheme) {
-        currentTheme = theme
-        when (theme) {
-            AppTheme.LIGHT -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_NO)
-            AppTheme.DARK -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_YES)
-            AppTheme.SYSTEM -> AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM)
-        }
-    }
-
     private fun changeSystemBarStyle(isDark: Boolean) {
         enableEdgeToEdge(
             statusBarStyle = getSystemBarStyle(isDark),
             navigationBarStyle = getSystemBarStyle(isDark)
         )
-    }
-
-    override fun onDestroy() {
-        ThemeObservable.unsubscribe(this)
-        super.onDestroy()
     }
 }
 

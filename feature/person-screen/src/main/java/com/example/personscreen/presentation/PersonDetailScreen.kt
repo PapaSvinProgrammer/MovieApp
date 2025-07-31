@@ -31,15 +31,14 @@ internal fun PersonDetailScreen(
     viewModel: PersonViewModel,
     id: Int
 ) {
-    val personState by viewModel.personState.collectAsStateWithLifecycle()
-    val personSpouseState by viewModel.personSpouseState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     LifecycleEventEffect(Lifecycle.Event.ON_START) {
         viewModel.getPerson(id)
     }
 
-    LaunchedEffect(viewModel.personState) {
-        (personState as? PersonUIState.Success)?.data?.let { persons ->
+    LaunchedEffect(uiState.personState) {
+        (uiState.personState as? PersonUIState.Success)?.data?.let { persons ->
             viewModel.getSpouses(persons.first().spouses.map { it.id })
         }
     }
@@ -49,7 +48,7 @@ internal fun PersonDetailScreen(
             CenterAlignedTopAppBar(
                 title = {
                     TitleTopBarText(
-                        text = (personState as? PersonUIState.Success)
+                        text = (uiState.personState as? PersonUIState.Success)
                             ?.data
                             ?.first()
                             ?.name ?: ""
@@ -67,13 +66,13 @@ internal fun PersonDetailScreen(
         }
     ) { innerPadding ->
         Column(modifier = Modifier.padding(innerPadding)) {
-            RenderPersonDetailState(personState)
+            RenderPersonDetailState(uiState.personState)
 
-            (personState as? PersonUIState.Success)?.data?.let { data ->
+            (uiState.personState as? PersonUIState.Success)?.data?.let { data ->
                 if (data.first().spouses.isEmpty()) return@Scaffold
 
                 SpouseContent(
-                    state = personSpouseState,
+                    state = uiState.personSpouseState,
                     spouses = data.first().spouses,
                     onClick = {
                         navController.navigate(PersonRoute(it)) {

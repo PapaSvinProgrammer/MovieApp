@@ -38,7 +38,7 @@ import com.example.model.image.CollectionMovie
 import com.example.movieapp.ui.R
 import com.example.navigationroute.CollectionListRoute
 import com.example.navigationroute.MovieListRoute
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.navigationroute.PersonPodiumListRoute
 import com.example.navigationroute.PersonRoute
 import com.example.navigationroute.SearchRoutes
@@ -57,16 +57,10 @@ internal fun SearchScreen(
     hazeState: HazeState
 ) {
     val searchHistoryLazyPaging = viewModel.resultHistory.collectAsLazyPagingItems()
-    val query by viewModel.query.collectAsStateWithLifecycle()
-    val isExpanded by viewModel.isExpanded.collectAsStateWithLifecycle()
-    val collectionState by viewModel.collectionsState.collectAsStateWithLifecycle()
-    val personState by viewModel.personState.collectAsStateWithLifecycle()
-    val topSerialsState by viewModel.topSerialsState.collectAsStateWithLifecycle()
-    val selectedSearchIndex by viewModel.selectedSearchIndex.collectAsStateWithLifecycle()
-    val searchState by viewModel.searchState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    LaunchedEffect(viewModel.isExpanded) {
-        if (!isExpanded) {
+    LaunchedEffect(uiState.isExpanded) {
+        if (!uiState.isExpanded) {
             viewModel.clearSearchResult()
         }
     }
@@ -74,11 +68,11 @@ internal fun SearchScreen(
     Column(modifier = Modifier.fillMaxSize()) {
         SearchBar(
             modifier = Modifier.align(Alignment.CenterHorizontally),
-            expanded = isExpanded,
+            expanded = uiState.isExpanded,
             onExpandedChange = { viewModel.updateExpanded(it) },
             inputField = {
                 SearchBarDefaults.InputField(
-                    query = query,
+                    query = uiState.query,
                     onQueryChange = {
                         viewModel.updateQuery(it)
                         viewModel.search(it)
@@ -87,7 +81,7 @@ internal fun SearchScreen(
                         viewModel.updateExpanded(false)
                         viewModel.updateQuery("")
                     },
-                    expanded = isExpanded,
+                    expanded = uiState.isExpanded,
                     onExpandedChange = { viewModel.updateExpanded(it) },
                     placeholder = {
                         Text(
@@ -98,7 +92,7 @@ internal fun SearchScreen(
                     },
                     leadingIcon = {
                         LeadingIcon(
-                            expanded = isExpanded,
+                            expanded = uiState.isExpanded,
                             onOpen = { viewModel.updateExpanded(true) },
                             onClose = {
                                 viewModel.updateExpanded(false)
@@ -108,12 +102,12 @@ internal fun SearchScreen(
                     },
                     trailingIcon = {
                         TrailingIcon(
-                            expanded = isExpanded,
+                            expanded = uiState.isExpanded,
                             onSettings = {
                                 navController.navigate(SearchRoutes.SearchSettingsRoute)
                             },
                             onClear = {
-                                if (query.isEmpty()) {
+                                if (uiState.query.isEmpty()) {
                                     viewModel.updateExpanded(false)
                                 } else {
                                     viewModel.updateQuery("")
@@ -125,17 +119,17 @@ internal fun SearchScreen(
             },
             content = {
                 SearchBarContent(
-                    query = query,
+                    query = uiState.query,
                     hazeState = hazeState,
-                    movieSearchState = searchState,
+                    movieSearchState = uiState.searchState,
                     searchHistoryLazyPaging = searchHistoryLazyPaging,
-                    selectedItem = selectedSearchIndex,
+                    selectedItem = uiState.selectedSearchIndex,
                     onDeleteHistoryItem = {
                         viewModel.deleteSearchHistoryItem(it)
                     },
                     onClick = {
                         if (it.isMovie) {
-                            navController.navigate(MovieRoute(it.id)) {
+                            navController.navigate(MovieRoutes.MovieRoute(it.id)) {
                                 launchSingleTop = true
                             }
                         } else {
@@ -149,7 +143,7 @@ internal fun SearchScreen(
                     onLoadMore = { viewModel.loadMore() },
                     onSelectItem = {
                         viewModel.updateSelectedSearchIndex(it)
-                        viewModel.search(query)
+                        viewModel.search(uiState.query)
                     }
                 )
             }
@@ -166,7 +160,7 @@ internal fun SearchScreen(
             item {
                 viewModel.getCollections()
                 RenderCollectionStateRow(
-                    state = collectionState,
+                    state = uiState.collectionsState,
                     title = stringResource(R.string.advise_watch),
                     onClick = { navigateToMovieList(navController, it) },
                     onShowAll = {
@@ -208,7 +202,7 @@ internal fun SearchScreen(
                 val title = stringResource(R.string.popular_names)
                 viewModel.getActorByPopularityMovies()
                 RenderPersonRowState(
-                    state = personState,
+                    state = uiState.personState,
                     title = title,
                     onClick = {
                         navController.navigate(PersonRoute(it.id))
@@ -234,9 +228,9 @@ internal fun SearchScreen(
                 viewModel.getTopSerials()
 
                 RenderMovieStateRow(
-                    state = topSerialsState,
+                    state = uiState.topSerialsState,
                     title = title,
-                    onClick = { navController.navigate(MovieRoute(it.id)) },
+                    onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
                         val queryParams = listOf(
                             Constants.IS_SERIES_FIELD to Constants.TRUE,

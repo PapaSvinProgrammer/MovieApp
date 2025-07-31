@@ -25,8 +25,7 @@ internal fun DefaultOtpScreen(
     navController: NavController,
     viewModel: OtpViewModel
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
-    val defaultCode by viewModel.defaultCode.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val focusRequesters = remember { List(4) { FocusRequester() } }
     val keyboardManager = LocalSoftwareKeyboardController.current
@@ -60,7 +59,7 @@ internal fun DefaultOtpScreen(
             focusRequesters.forEach { it.freeFocus() }
             focusRequesters[0].requestFocus()
 
-            if (state.code.joinToString("") != defaultCode) {
+            if (state.code.joinToString("") != state.defaultCode) {
                 viewModel.updateValidState(false)
                 viewModel.resetCode()
             }

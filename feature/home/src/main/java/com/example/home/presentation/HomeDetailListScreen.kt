@@ -19,7 +19,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import com.example.model.movie.Movie
 import com.example.movielistviewmodel.MovieListViewModel
-import com.example.navigationroute.MovieRoute
+import com.example.navigationroute.MovieRoutes
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.component.BasicLoadingBox
 import com.example.ui.widget.lazyComponent.EndlessLazyVerticalGrid
@@ -63,7 +63,7 @@ internal fun HomeDetailListScreen(
             state = moviesState,
             onLoadMore = { viewModel.loadMoreMovies(queryParameters) },
             onClick = {
-                navController.navigate(MovieRoute(it.id)) { launchSingleTop = true }
+                navController.navigate(MovieRoutes.MovieRoute(it.id)) { launchSingleTop = true }
             }
         )
     }

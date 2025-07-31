@@ -40,7 +40,7 @@ internal fun CreateOtpScreen(
     navController: NavController,
     viewModel: OtpViewModel
 ) {
-    val state by viewModel.state.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val focusRequesters = remember {
         List(OtpViewModel.Companion.DEFAULT_LENGTH) {

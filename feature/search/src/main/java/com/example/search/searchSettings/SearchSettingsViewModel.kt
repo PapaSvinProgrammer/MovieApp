@@ -1,146 +1,152 @@
 package com.example.search.searchSettings
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.utils.Constants
 import com.example.data.external.CategoryRepository
+import com.example.search.searchSettings.widget.SettingsUiState
 import com.example.search.widget.component.ListUIState
+import com.example.utils.Constants
+import com.example.utils.cancelAllJobs
 import com.example.utils.convert.FormatDate
-import kotlinx.coroutines.Dispatchers
+import com.example.utils.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 internal class SearchSettingsViewModel @Inject constructor(
     private val categoryRepository: CategoryRepository
 ) : ViewModel() {
-    private val _selectedCategoryIndex = MutableStateFlow(0)
-    private val _selectedSortTypeIndex = MutableStateFlow(0)
-    val selectedCategoryIndex: StateFlow<Int> = _selectedCategoryIndex
-    val selectedSortTypeIndex: StateFlow<Int> = _selectedSortTypeIndex
-
-    private val _resultGenres = MutableStateFlow<MutableList<ListUIState>>(mutableListOf())
-    private val _resultCountries = MutableStateFlow<MutableList<ListUIState>>(mutableListOf())
-    val resultGenres: StateFlow<List<ListUIState>> = _resultGenres
-    val resultCountries: StateFlow<List<ListUIState>> = _resultCountries
-
-    private val _yearFilter = MutableStateFlow(Constants.LAST_YEAR to FormatDate.getCurrentYear())
-    val yearFilter: MutableStateFlow<Pair<Int, Int>> = _yearFilter
-
-    private val _genreListVisible = MutableStateFlow(false)
-    private val _countryListVisible = MutableStateFlow(false)
-    private val _yearPickerVisible = MutableStateFlow(false)
-    val genreListVisible: StateFlow<Boolean> = _genreListVisible
-    val countryListVisible: StateFlow<Boolean> = _countryListVisible
-    val yearPickerVisible: StateFlow<Boolean> = _yearPickerVisible
-
-    private val _ratingSliderPosition = MutableStateFlow(6f..10f)
-    val ratingSliderPosition: StateFlow<ClosedFloatingPointRange<Float>> = _ratingSliderPosition
+    private val _uiState = MutableStateFlow(SettingsUiState())
+    val uiState = _uiState.asStateFlow()
 
     fun updateYearFilter(start: Int, end: Int) {
-        _yearFilter.value = start to end
+        _uiState.update {
+            it.copy(yearFilter = start to end)
+        }
     }
 
     fun updateVisibleYearPicker(state: Boolean) {
-        _yearPickerVisible.value = state
+        _uiState.update {
+            it.copy(yearPickerVisible = state)
+        }
     }
 
     fun updateSelectedCategoryIndex(index: Int) {
-        _selectedCategoryIndex.value = index
+        _uiState.update {
+            it.copy(selectedCategoryIndex = index)
+        }
     }
 
     fun updateSelectedSortTypeIndex(index: Int) {
-        _selectedSortTypeIndex.value = index
+        _uiState.update {
+            it.copy(selectedSortTypeIndex = index)
+        }
     }
 
     fun updateGenreVisible(state: Boolean) {
-        _genreListVisible.value = state
+        _uiState.update {
+            it.copy(genreListVisible = state)
+        }
     }
 
     fun updateCountryVisible(state: Boolean) {
-        _countryListVisible.value = state
+        _uiState.update {
+            it.copy(countryListVisible = state)
+        }
     }
 
     fun updateRatingSliderPosition(position: ClosedFloatingPointRange<Float>) {
-        _ratingSliderPosition.value = position
+        _uiState.update {
+            it.copy(ratingSliderPosition = position)
+        }
     }
 
-    fun getGenres() {
-        if (resultGenres.value.isNotEmpty()) return
+    fun getGenres() = launchWithoutOld(GET_GENRES_JOB) {
+        if (uiState.value.resultGenres.isNotEmpty()) return@launchWithoutOld
 
-        viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getGenres().onSuccess { data ->
-                val list = data.map {
-                    ListUIState(
-                        title = it.name,
-                        isChecked = false
-                    )
-                }.toMutableList()
+        categoryRepository.getGenres().onSuccess { data ->
+            val list = data.map {
+                ListUIState(
+                    title = it.name,
+                    isChecked = false
+                )
+            }.toMutableList()
 
-                _resultGenres.value = list
+            _uiState.update {
+                it.copy(resultGenres = list)
             }
         }
     }
 
-    fun getCounties() {
-        if (resultCountries.value.isNotEmpty()) return
+    fun getCounties() = launchWithoutOld(GET_COUNTRIES_JOB) {
+        if (uiState.value.resultCountries.isNotEmpty()) return@launchWithoutOld
 
-        viewModelScope.launch(Dispatchers.IO) {
-            categoryRepository.getCounties().onSuccess { data ->
-                val list = data.map {
-                    ListUIState(
-                        title = it.name,
-                        isChecked = false
-                    )
-                }.toMutableList()
+        categoryRepository.getCounties().onSuccess { data ->
+            val list = data.map {
+                ListUIState(
+                    title = it.name,
+                    isChecked = false
+                )
+            }.toMutableList()
 
-                _resultCountries.value = list
+            _uiState.update {
+                it.copy(resultCountries = list)
             }
         }
     }
 
     fun updateResultGenres(index: Int) {
-        val data = resultGenres.value[index]
+        val data = uiState.value.resultGenres[index]
 
-        _resultGenres.value[index] = data.copy(
+        _uiState.value.resultGenres[index] = data.copy(
             isChecked = !data.isChecked
         )
     }
 
     fun updateResultCountries(index: Int) {
-        val data = resultCountries.value[index]
+        val data = uiState.value.resultCountries[index]
 
-        _resultCountries.value[index] = data.copy(
+        _uiState.value.resultCountries[index] = data.copy(
             isChecked = !data.isChecked
         )
     }
 
     fun resetAllSettings() {
-        _selectedCategoryIndex.value = 0
-        _selectedSortTypeIndex.value = 0
+        _uiState.update { it.copy(selectedCategoryIndex = 0) }
+        _uiState.update { it.copy(selectedSortTypeIndex = 0) }
         resetGenres()
         resetCountries()
-        _ratingSliderPosition.value = 6f..10f
-        _yearFilter.value = Constants.LAST_YEAR to FormatDate.getCurrentYear()
+        _uiState.update { it.copy(ratingSliderPosition = 6f..10f) }
+        _uiState.update { it.copy(yearFilter = Constants.LAST_YEAR to FormatDate.getCurrentYear()) }
     }
 
     fun resetGenres() {
-        repeat(resultGenres.value.size) { index ->
-            val data = resultGenres.value[index]
+        repeat(uiState.value.resultGenres.size) { index ->
+            val data = uiState.value.resultGenres[index]
 
-            _resultGenres.value[index] = data.copy(
+            uiState.value.resultGenres[index] = data.copy(
                 isChecked = false
             )
         }
     }
 
     fun resetCountries() {
-        repeat(resultCountries.value.size) { index ->
-            val data = resultCountries.value[index]
-            _resultCountries.value[index] = data.copy(
+        repeat(uiState.value.resultCountries.size) { index ->
+            val data = uiState.value.resultCountries[index]
+
+            uiState.value.resultCountries[index] = data.copy(
                 isChecked = false
             )
         }
+    }
+
+    override fun onCleared() {
+        cancelAllJobs()
+        super.onCleared()
+    }
+
+    private companion object {
+        const val GET_GENRES_JOB = "get_genres"
+        const val GET_COUNTRIES_JOB = "get_countries"
     }
 }

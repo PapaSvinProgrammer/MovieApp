@@ -19,6 +19,7 @@ fun NavGraphBuilder.collectionListDestination(
 ) {
     composable<CollectionListRoute> {
         val route = it.toRoute<CollectionListRoute>()
+
         val component = DaggerCollectionComponent
             .factory()
             .create(appComponent)
@@ -27,11 +28,28 @@ fun NavGraphBuilder.collectionListDestination(
             factory = component.viewModelFactory
         )
 
-        CollectionListScreen(
-            navController = navController,
-            viewModel = viewModel,
-            hazeState = hazeState,
-            category = route.category
-        )
+        if (route.category != null) {
+            CollectionListScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState,
+                category = route.category ?: ""
+            )
+        }
+        else if (route.listId.isNotEmpty()) {
+            CollectionListScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState,
+                listId = route.listId
+            )
+        }
+        else {
+            CollectionListScreen(
+                navController = navController,
+                viewModel = viewModel,
+                hazeState = hazeState
+            )
+        }
     }
 }
