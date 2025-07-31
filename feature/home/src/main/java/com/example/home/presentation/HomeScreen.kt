@@ -37,14 +37,7 @@ internal fun HomeScreen(
     hazeState: HazeState,
     viewModel: HomeViewModel
 ) {
-    val movieDramaState by viewModel.movieDramaState.collectAsStateWithLifecycle()
-    val movieBoevikState by viewModel.movieBoevikState.collectAsStateWithLifecycle()
-    val movieBest250State by viewModel.movieBest250State.collectAsStateWithLifecycle()
-    val movieBest501State by viewModel.movieBest501State.collectAsStateWithLifecycle()
-    val movieBest100State by viewModel.movieBest100State.collectAsStateWithLifecycle()
-    val movieHBOState by viewModel.movieHBOState.collectAsStateWithLifecycle()
-    val movieNetflixState by viewModel.movieNetflixState.collectAsStateWithLifecycle()
-    val collectionState by viewModel.collectionState.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -65,7 +58,7 @@ internal fun HomeScreen(
             item {
                 viewModel.getCollections()
                 RenderCollectionStateRow(
-                    state = collectionState,
+                    state = uiState.collectionState,
                     title = stringResource(R.string.collections),
                     onClick = {
                         navController.navigateToMovieFromCollection(it)
@@ -82,7 +75,7 @@ internal fun HomeScreen(
                 val title = "Драмы"
                 viewModel.getMoviesDrama()
                 RenderMovieStateRow(
-                    state = movieDramaState,
+                    state = uiState.movieDramaState,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
@@ -98,7 +91,7 @@ internal fun HomeScreen(
                 val title = "Собственные рекомендации"
                 viewModel.getMoviesBest250()
                 RenderMovieStateRow(
-                    state = movieBest250State,
+                    state = uiState.movieBest250State,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
@@ -114,7 +107,7 @@ internal fun HomeScreen(
                 val title = "Боевики"
                 viewModel.getMoviesBoevik()
                 RenderMovieStateRow(
-                    state = movieBoevikState,
+                    state = uiState.movieBoevikState,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
@@ -130,7 +123,7 @@ internal fun HomeScreen(
                 val title = "Научная фантастика"
                 viewModel.getMoviesBest100()
                 RenderMovieStateRow(
-                    state = movieBest100State,
+                    state = uiState.movieBest100State,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
@@ -146,7 +139,7 @@ internal fun HomeScreen(
                 val title = "Стоит посмотреть"
                 viewModel.getMoviesBest501()
                 RenderMovieStateRow(
-                    state = movieBest501State,
+                    state = uiState.movieBest501State,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
@@ -162,7 +155,7 @@ internal fun HomeScreen(
                 val title = "Снято HBO"
                 viewModel.getMoviesHBO()
                 RenderMovieStateRow(
-                    state = movieHBOState,
+                    state = uiState.movieHBOState,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {
@@ -178,7 +171,7 @@ internal fun HomeScreen(
                 val title = "Снято Netflix"
                 viewModel.getMoviesNetflix()
                 RenderMovieStateRow(
-                    state = movieNetflixState,
+                    state = uiState.movieNetflixState,
                     title = title,
                     onClick = { navController.navigate(MovieRoutes.MovieRoute(it.id)) },
                     onShowAll = {

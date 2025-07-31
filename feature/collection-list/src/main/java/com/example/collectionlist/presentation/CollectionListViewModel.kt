@@ -11,7 +11,6 @@ import com.example.utils.launchWithoutOld
 import com.example.utils.multiRequest
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 internal class CollectionListViewModel @Inject constructor(
