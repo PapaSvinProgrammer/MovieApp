@@ -36,6 +36,7 @@ import com.example.movieScreen.presentation.movie.widget.itemContent.personGridH
 import com.example.movieScreen.presentation.movie.widget.itemContent.premierItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.ratingCardLargeItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.seasonDescriptionItem
+import com.example.movieScreen.presentation.movie.widget.itemContent.sequelsAndPrequelsItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.similarMoviesItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.supportPersonalItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.voiceActorsItem
@@ -140,7 +141,9 @@ internal fun MovieScreen(
 
                 premierItem(movie.premiere)
 
-                similarMoviesItem(movie.similarMovies)
+                sequelsAndPrequelsItem(movie.sequelsAndPrequels, navController)
+
+                similarMoviesItem(movie.similarMovies, navController)
 
                 item { Spacer(modifier = Modifier.height(130.dp)) }
             }

@@ -5,5 +5,5 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 internal data class WatchabilityDto(
-    val items: List<WatchabilityItemDto> = listOf()
+    val items: List<WatchabilityItemDto>? = null
 )

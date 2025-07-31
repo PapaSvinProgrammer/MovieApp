@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,7 +41,9 @@ internal fun ExpandedBasicContent(
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        Row {
+        Row(
+            modifier = Modifier.padding(horizontal = 40.dp)
+        ) {
             RatingText(
                 rating = rating,
                 fontSize = 14.sp,
@@ -63,7 +66,8 @@ internal fun ExpandedBasicContent(
                 text = titleEn,
                 fontSize = 14.sp,
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Center
             )
         }
 

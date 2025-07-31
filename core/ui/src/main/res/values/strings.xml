@@ -111,4 +111,5 @@
     <string name="unknown">Неизвестно</string>
     <string name="all_collections">Все коллекции</string>
     <string name="collection">Коллекции: %1$s</string>
+    <string name="sequals_and_prequals">Сиквелы и приквелы</string>
 </resources>

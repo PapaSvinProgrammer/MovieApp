@@ -17,24 +17,24 @@ import com.example.navigationroute.MovieRoutes
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.MovieCard
 
-internal fun LazyListScope.similarMoviesItem(
-    similarMovies: List<Movie>,
+internal fun LazyListScope.sequelsAndPrequelsItem(
+    list: List<Movie>,
     navController: NavController
 ) {
     item {
-        if (similarMovies.isEmpty()) return@item
+        if (list.isEmpty()) return@item
 
         Spacer(modifier = Modifier.height(20.dp))
 
         Text(
-            text = stringResource(R.string.similar_movies),
+            text = stringResource(R.string.sequals_and_prequals),
             fontSize = 18.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier.padding(15.dp)
         )
 
         DefaultLazyRow(
-            list = similarMovies,
+            list = list,
             lastItemCard = {},
         ) {
             MovieCard(
