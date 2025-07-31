@@ -2,6 +2,7 @@ package com.example.awardlist.presentation
 
 import androidx.lifecycle.ViewModel
 import com.example.awardlist.domain.FilterAwardsByGroup
+import com.example.awardlist.presentation.widget.UiState
 import com.example.awardlist.presentation.widget.bottomSheet.AwardsFilterType
 import com.example.awards.GetMovieAwardsByDate
 import com.example.awards.GetMovieAwardsByTitle
@@ -12,7 +13,8 @@ import com.example.model.person.NominationAward
 import com.example.utils.cancelAllJobs
 import com.example.utils.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
-import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.update
 import javax.inject.Inject
 
 internal class AwardListViewModel @Inject constructor(
@@ -24,28 +26,28 @@ internal class AwardListViewModel @Inject constructor(
 ) : ViewModel() {
     private var page = 1
     private val _awards = MutableStateFlow<List<NominationAward>>(listOf())
-
-    private val _currentFilterType = MutableStateFlow(AwardsFilterType.BY_DATE)
-    private val _groupAwards = MutableStateFlow<List<Pair<String, List<NominationAward>>>>(listOf())
-    private val _visibleBottomSheet = MutableStateFlow(false)
-
-    val currentFilterType: StateFlow<AwardsFilterType> = _currentFilterType
-    val visibleBottomSheet: StateFlow<Boolean> = _visibleBottomSheet
-    val groupAwards: StateFlow<List<Pair<String, List<NominationAward>>>> = _groupAwards
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
 
     fun updateVisibleBottomSheet(state: Boolean) {
-        _visibleBottomSheet.value = state
+        _uiState.update {
+            it.copy(visibleBottomSheet = state)
+        }
     }
 
     fun updateCurrentFilter(state: AwardsFilterType) {
-        _currentFilterType.value = state
+        _uiState.update {
+            it.copy(currentFilterType = state)
+        }
     }
 
     fun getAwards(id: Int, isMovie: Boolean) {
         page = 1
-        _groupAwards.value = listOf()
+        _uiState.update {
+            it.copy(groupAwards = listOf())
+        }
 
-        when (currentFilterType.value) {
+        when (uiState.value.currentFilterType) {
             AwardsFilterType.BY_TITLE -> getAwardsByTitle(id, isMovie)
             AwardsFilterType.BY_DATE -> getAwardsByDate(id, isMovie)
         }
@@ -54,7 +56,7 @@ internal class AwardListViewModel @Inject constructor(
     fun loadMoreAwards(id: Int, isMovie: Boolean) {
         page++
 
-        when (currentFilterType.value) {
+        when (uiState.value.currentFilterType) {
             AwardsFilterType.BY_TITLE -> loadMoreByTitle(id, page, isMovie)
             AwardsFilterType.BY_DATE -> loadMoreByDate(id, page, isMovie)
         }
@@ -68,9 +70,12 @@ internal class AwardListViewModel @Inject constructor(
         else
             getPersonAwardsByTitle.execute(params)
 
-        res.onSuccess {
-            _awards.value = it
-            _groupAwards.value = filterAwardsByGroup.execute(it)
+        res.onSuccess { awards ->
+            _awards.value = awards
+
+            _uiState.update {
+                it.copy(groupAwards = filterAwardsByGroup.execute(awards))
+            }
         }
     }
 
@@ -82,9 +87,12 @@ internal class AwardListViewModel @Inject constructor(
         else
             getPersonAwardsByDate.execute(params)
 
-        res.onSuccess { data ->
-            _awards.value = data
-            _groupAwards.value = filterAwardsByGroup.execute(data)
+        res.onSuccess { awards ->
+            _awards.value = awards
+
+            _uiState.update {
+                it.copy(groupAwards = filterAwardsByGroup.execute(awards))
+            }
         }
     }
 
@@ -108,7 +116,9 @@ internal class AwardListViewModel @Inject constructor(
             temp.addAll(data)
 
             _awards.value = temp
-            _groupAwards.value = filterAwardsByGroup.execute(temp)
+            _uiState.update {
+                it.copy(groupAwards = filterAwardsByGroup.execute(data))
+            }
         }
     }
 
@@ -132,7 +142,9 @@ internal class AwardListViewModel @Inject constructor(
             temp.addAll(data)
             _awards.value = temp
 
-            _groupAwards.value = filterAwardsByGroup.execute(temp)
+            _uiState.update {
+                it.copy(groupAwards = filterAwardsByGroup.execute(data))
+            }
         }
     }
 

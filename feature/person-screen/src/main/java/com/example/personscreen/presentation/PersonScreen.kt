@@ -60,14 +60,7 @@ internal fun PersonScreen(
     hazeState: HazeState,
     id: Int
 ) {
-    val personState by viewModel.personState.collectAsStateWithLifecycle()
-    val movieState by viewModel.moviesState.collectAsStateWithLifecycle()
-    val factState by viewModel.factState.collectAsStateWithLifecycle()
-    val countAwards by viewModel.countAwards.collectAsStateWithLifecycle()
-    val groups by viewModel.groups.collectAsStateWithLifecycle()
-    val groupsKeys by viewModel.groupsKeys.collectAsStateWithLifecycle()
-    val selectedGroup by viewModel.selectedGroup.collectAsStateWithLifecycle()
-    val moviesFromGroup by viewModel.moviesFromGroup.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     val lazyState = rememberLazyListState()
     val firstOffset by remember { derivedStateOf { lazyState.firstVisibleItemScrollOffset } }
@@ -84,7 +77,7 @@ internal fun PersonScreen(
     LaunchedEffect(index, firstOffset) {
         if (index == 0) {
             if (firstOffset > 150) {
-                topBarTitle = (personState as? PersonUIState.Success)
+                topBarTitle = (uiState.personState as? PersonUIState.Success)
                     ?.data
                     ?.first()
                     ?.name ?: ""
@@ -123,7 +116,7 @@ internal fun PersonScreen(
         ) {
             item {
                 RenderPersonContent(
-                    state = personState,
+                    state = uiState.personState,
                     onClickDetail = {
                         navController.navigate(PersonDetailRoute(id)) {
                             launchSingleTop = true
@@ -135,7 +128,7 @@ internal fun PersonScreen(
             }
 
             item {
-                countAwards?.let {
+                uiState.countAwards?.let {
                     TotalListItem(
                         title = stringResource(R.string.awards),
                         value = it.toString(),
@@ -153,7 +146,7 @@ internal fun PersonScreen(
 
             item {
                 RenderMovieStateRow(
-                    state = movieState,
+                    state = uiState.moviesState,
                     title = stringResource(R.string.best_movies_and_serials),
                     onClick = { },
                     onShowAll = {
@@ -167,7 +160,7 @@ internal fun PersonScreen(
                             MovieListRoute(
                                 queryParameters = query,
                                 title = "Фильмы: ${
-                                    (personState as PersonUIState.Success)
+                                    (uiState.personState as PersonUIState.Success)
                                         .data
                                         .first()
                                         .name
@@ -182,7 +175,7 @@ internal fun PersonScreen(
 
             item {
                 RenderFactStateRow(
-                    state = factState,
+                    state = uiState.factState,
                     title = stringResource(R.string.best_movies_and_serials),
                     onClick = { selectedFact = it.value }
                 )
@@ -201,15 +194,15 @@ internal fun PersonScreen(
 
             stickyHeader {
                 CategoriesHeader(
-                    groups = groups,
-                    selected = selectedGroup,
-                    keys = groupsKeys,
+                    groups = uiState.groups,
+                    selected = uiState.selectedGroup,
+                    keys = uiState.groupsKeys,
                     onClick = { viewModel.updateSelectedGroup(it) }
                 )
             }
 
             items(
-                items = moviesFromGroup,
+                items = uiState.moviesFromGroup,
                 key = { it.id }
             ) {
                 ShortMovieListItem(

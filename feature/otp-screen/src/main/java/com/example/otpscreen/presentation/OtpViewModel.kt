@@ -22,25 +22,25 @@ internal class OtpViewModel @Inject constructor(
     private val keyStoreRepository: KeyStoreRepository,
     private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
-    private val _state = MutableStateFlow(UiState())
-    private val _defaultCode = MutableStateFlow("")
-    val state = _state.asStateFlow()
-    val defaultCode = _defaultCode.asStateFlow()
+    private val _uiState = MutableStateFlow(UiState())
+    val uiState = _uiState.asStateFlow()
 
     fun setDefaultPinCode() = launchWithoutOld(SET_PIN_CODE_JOB) {
         preferencesRepository.setAuthorizationState(true)
-        val res = keyStoreRepository.encrypt(state.value.code.joinToString(""))
+        val res = keyStoreRepository.encrypt(uiState.value.code.joinToString(""))
 
         res.onSuccess {
-            _state.value = _state.value.copy(
+            _uiState.value = _uiState.value.copy(
                 isValid = true
             )
         }
     }
 
     fun getDefaultPinCode() = launchWithoutOld(GET_PIN_CODE_JOB) {
-        keyStoreRepository.decrypt().onSuccess {
-            _defaultCode.value = it
+        keyStoreRepository.decrypt().onSuccess { pinCode ->
+            _uiState.update {
+                it.copy(defaultCode = pinCode)
+            }
         }
     }
 
@@ -54,7 +54,7 @@ internal class OtpViewModel @Inject constructor(
     fun onAction(action: OtpAction) {
         when (action) {
             is OtpAction.OnChangeFieldFocused -> {
-                _state.update {
+                _uiState.update {
                     it.copy(focusedIndex = action.index)
                 }
             }
@@ -64,9 +64,9 @@ internal class OtpViewModel @Inject constructor(
             }
 
             OtpAction.OnKeyboardBack -> {
-                val previousIndex = getPreviousFocusedIndex.execute(state.value.focusedIndex)
+                val previousIndex = getPreviousFocusedIndex.execute(uiState.value.focusedIndex)
 
-                _state.update {
+                _uiState.update {
                     it.copy(
                         code = it.code.mapIndexed { index, number ->
                             if (index == previousIndex) {
@@ -83,7 +83,7 @@ internal class OtpViewModel @Inject constructor(
     }
 
     fun resetCode() {
-        _state.update {
+        _uiState.update {
             it.copy(
                 code = (1..DEFAULT_LENGTH).map { null }
             )
@@ -91,7 +91,7 @@ internal class OtpViewModel @Inject constructor(
     }
 
     fun updateValidState(state: Boolean?) {
-        _state.update {
+        _uiState.update {
             it.copy(
                 isValid = state
             )
@@ -100,14 +100,14 @@ internal class OtpViewModel @Inject constructor(
 
     private fun enterNumber(number: Int?, index: Int) {
         val newCode = createNewCode.execute(
-            code = state.value.code,
+            code = uiState.value.code,
             number = number,
             index = index
         )
 
         val wasNumberRemoved = number == null
 
-        _state.update {
+        _uiState.update {
             it.copy(
                 code = newCode,
                 focusedIndex = if (wasNumberRemoved || it.code.getOrNull(index) != null) {

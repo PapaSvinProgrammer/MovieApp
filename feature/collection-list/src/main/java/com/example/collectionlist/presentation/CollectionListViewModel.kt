@@ -6,6 +6,7 @@ import com.example.collectionusecase.GetCollectionByCategory
 import com.example.collectionusecase.GetCollectionBySlug
 import com.example.collectionusecase.model.CollectionParams
 import com.example.ui.uiState.CollectionUIState
+import com.example.utils.cancelAllJobs
 import com.example.utils.launchWithoutOld
 import com.example.utils.multiRequest
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -73,6 +74,11 @@ internal class CollectionListViewModel @Inject constructor(
         }
 
         _collectionState.value = CollectionUIState.Success(temp)
+    }
+
+    override fun onCleared() {
+        cancelAllJobs()
+        super.onCleared()
     }
 
     private companion object {

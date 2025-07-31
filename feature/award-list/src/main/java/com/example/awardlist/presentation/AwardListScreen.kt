@@ -33,9 +33,7 @@ internal fun AwardListScreen(
     id: Int,
     isMovie: Boolean
 ) {
-    val currentFilterType by viewModel.currentFilterType.collectAsStateWithLifecycle()
-    val visibleBottomSheet by viewModel.visibleBottomSheet.collectAsStateWithLifecycle()
-    val groupAwards by viewModel.groupAwards.collectAsStateWithLifecycle()
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
     Scaffold(
         topBar = {
@@ -63,7 +61,7 @@ internal fun AwardListScreen(
         }
     ) { innerPadding ->
         LifecycleEventEffect(Lifecycle.Event.ON_START) {
-            if (groupAwards.isEmpty()) {
+            if (uiState.groupAwards.isEmpty()) {
                 viewModel.getAwards(id, isMovie)
             }
         }
@@ -72,14 +70,14 @@ internal fun AwardListScreen(
             modifier = Modifier
                 .padding(innerPadding)
                 .hazeSource(hazeState),
-            list = groupAwards,
+            list = uiState.groupAwards,
             onClick = {},
             onLoadMore = { viewModel.loadMoreAwards(id, isMovie) }
         )
 
-        if (visibleBottomSheet) {
+        if (uiState.visibleBottomSheet) {
             AwardsFilterSheet(
-                current = currentFilterType,
+                current = uiState.currentFilterType,
                 onClick = {
                     viewModel.updateCurrentFilter(it)
                     viewModel.getAwards(id, isMovie)
