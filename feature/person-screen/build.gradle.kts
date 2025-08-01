@@ -7,5 +7,4 @@ dependencies {
     implementation(project(":domain:movie"))
     implementation(project(":domain:person"))
     implementation(project(":core:ui"))
-    api(project(":core:core-component"))
 }

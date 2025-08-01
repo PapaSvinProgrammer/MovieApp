@@ -10,12 +10,17 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.model.movie.Movie
 import com.example.movieapp.ui.R
+import com.example.navigationroute.MovieRoutes
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.MovieCard
 
-internal fun LazyListScope.similarMoviesItem(similarMovies: List<Movie>) {
+internal fun LazyListScope.similarMoviesItem(
+    similarMovies: List<Movie>,
+    navController: NavController
+) {
     item {
         if (similarMovies.isEmpty()) return@item
 
@@ -32,7 +37,12 @@ internal fun LazyListScope.similarMoviesItem(similarMovies: List<Movie>) {
             list = similarMovies,
             lastItemCard = {},
         ) {
-            MovieCard(it)
+            MovieCard(
+                movie = it,
+                onClick = {
+                    navController.navigate(MovieRoutes.MovieRoute(it.id))
+                }
+            )
         }
     }
 }

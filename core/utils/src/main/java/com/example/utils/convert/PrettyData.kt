@@ -71,4 +71,8 @@ object PrettyData {
             else -> "$value серий"
         }
     }
+
+    fun getPrettyString(value: String): String {
+        return value.lowercase().replaceFirstChar { it.uppercase() }
+    }
 }

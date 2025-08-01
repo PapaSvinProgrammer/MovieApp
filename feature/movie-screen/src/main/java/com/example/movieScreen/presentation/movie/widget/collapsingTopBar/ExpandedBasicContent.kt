@@ -7,12 +7,14 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -40,10 +42,14 @@ internal fun ExpandedBasicContent(
 
         Spacer(modifier = Modifier.height(15.dp))
 
-        Row {
+        Row(
+            modifier = Modifier
+                .wrapContentWidth()
+                .padding(horizontal = 20.dp)
+        ) {
             RatingText(
                 rating = rating,
-                fontSize = 14.sp,
+                fontSize = 13.sp,
                 fontWeight = FontWeight.Normal,
                 isTop = top250
             )
@@ -52,7 +58,7 @@ internal fun ExpandedBasicContent(
 
             Text(
                 text = PrettyData.getPrettyVotes(votes),
-                fontSize = 14.sp,
+                fontSize = 13.sp,
                 fontWeight = FontWeight.Normal,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
@@ -61,15 +67,16 @@ internal fun ExpandedBasicContent(
 
             Text(
                 text = titleEn,
-                fontSize = 14.sp,
+                fontSize = 13.sp,
                 fontWeight = FontWeight.Normal,
-                color = MaterialTheme.colorScheme.onSurface
+                color = MaterialTheme.colorScheme.onSurface,
+                textAlign = TextAlign.Center
             )
         }
 
         Text(
             text = "$date, $genres",
-            fontSize = 14.sp,
+            fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -79,7 +86,7 @@ internal fun ExpandedBasicContent(
 
         Text(
             text = "$countries, $length, $age",
-            fontSize = 14.sp,
+            fontSize = 13.sp,
             fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSurfaceVariant,
             maxLines = 1,

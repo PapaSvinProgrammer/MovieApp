@@ -1,5 +1,6 @@
 package com.example.ui.widget.listItems
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.BoxScope
@@ -9,7 +10,9 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
@@ -23,6 +26,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
@@ -30,13 +34,18 @@ import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.example.model.person.Person
 import com.example.movieapp.ui.R
 import com.example.utils.convert.FormatDate
+import com.example.utils.convert.PrettyData
 
 @Composable
 fun PersonListItem(
-    person: Person,
+    name: String?,
+    enName: String?,
+    age: Int?,
+    birthday: String?,
+    photo: String?,
+    sex: String? = null,
     professions: List<String> = listOf(),
     onClick: () -> Unit
 ) {
@@ -48,44 +57,59 @@ fun PersonListItem(
     ) {
         AsyncImage(
             model = ImageRequest.Builder(LocalContext.current)
-                .data(person.photo)
+                .data(photo)
                 .crossfade(true)
                 .build(),
             contentDescription = null,
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(130.dp)
-                .width(90.dp)
+                .height(110.dp)
+                .width(80.dp)
                 .clip(RoundedCornerShape(10.dp))
         )
 
         Spacer(modifier = Modifier.width(15.dp))
 
-        Box(modifier = Modifier
-            .fillMaxWidth()
-            .height(130.dp)) {
-            InfoColumn(person)
-            BottomContent(person, professions)
+        Box(modifier = Modifier.fillMaxWidth()) {
+            Column {
+                InfoColumn(
+                    name = name,
+                    enName = enName,
+                    birthday = birthday,
+                    age = age
+                )
+
+                BottomContent(
+                    sex = sex,
+                    professions = professions
+                )
+            }
+
             TrailingIcon()
         }
     }
 }
 
 @Composable
-private fun InfoColumn(person: Person) {
+private fun InfoColumn(
+    name: String?,
+    enName: String?,
+    birthday: String?,
+    age: Int?
+) {
     Column {
         Text(
-            text = person.name ?: "",
+            text = name ?: "",
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             fontWeight = FontWeight.Bold,
-            fontSize = 15.sp
+            fontSize = 14.sp
         )
 
-        person.enName?.let {
+        enName?.let {
             Text(
-                text = person.enName ?: "",
+                text = enName,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 fontSize = 14.sp
@@ -93,38 +117,67 @@ private fun InfoColumn(person: Person) {
         }
 
         Spacer(modifier = Modifier.height(5.dp))
-        AgeContent(person)
-    }
-}
-
-@Composable
-private fun AgeContent(person: Person) {
-    person.birthday?.let {
-        Text(
-            text = FormatDate.formatDate(it),
-            fontSize = 13.sp,
-            fontWeight = FontWeight.Medium,
-            color = MaterialTheme.colorScheme.onSurfaceVariant,
+        AgeContent(
+            birthday = birthday,
+            age = age
         )
     }
 }
 
 @Composable
-private fun BoxScope.BottomContent(person: Person, professions: List<String>) {
+private fun AgeContent(
+    birthday: String?,
+    age: Int?
+) {
+    Row(verticalAlignment = Alignment.CenterVertically) {
+        birthday?.let {
+            Text(
+                text = FormatDate.formatDate(it),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+
+        age?.let {
+            Box(
+                modifier = Modifier
+                    .padding(horizontal = 7.dp)
+                    .size(3.dp)
+                    .background(
+                        color = MaterialTheme.colorScheme.onSurfaceVariant,
+                        shape = CircleShape
+                    )
+            )
+
+            Text(
+                text = PrettyData.getPrettyAge(it),
+                fontSize = 12.sp,
+                fontWeight = FontWeight.Medium,
+                color = MaterialTheme.colorScheme.onSurfaceVariant,
+            )
+        }
+    }
+}
+
+@Composable
+private fun BottomContent(
+    sex: String?,
+    professions: List<String>
+) {
     var text = ""
 
     if (professions.isNotEmpty()) {
         text = professions.joinToString(", ")
     }
 
-    person.sex?.let {
-        text = "Пол: ${person.sex}"
+    sex?.let {
+        text = stringResource(R.string.sex, sex)
     }
 
     Text(
-        modifier = Modifier.align(Alignment.BottomStart),
         text = text,
-        fontSize = 13.sp,
+        fontSize = 12.sp,
         fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         maxLines = 1,

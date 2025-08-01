@@ -100,5 +100,5 @@ internal fun StudioDto.toDomain(): Studio = Studio(
 )
 
 internal fun WatchabilityDto.toDomain(): Watchability = Watchability(
-    items = this.items.map { it.toDomain() }
+    items = this.items?.map { it.toDomain() } ?: listOf()
 )

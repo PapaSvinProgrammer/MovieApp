@@ -5,21 +5,23 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.awardlist.di.AwardDependency
 import com.example.awardlist.di.DaggerAwardListComponent
 import com.example.awardlist.presentation.AwardListScreen
 import com.example.awardlist.presentation.AwardListViewModel
-import com.example.corecomponent.AppComponent
 import com.example.navigationroute.AwardListRoute
 import dev.chrisbanes.haze.HazeState
 
 fun NavGraphBuilder.awardListDestination(
-    appComponent: AppComponent,
+    dependency: AwardDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<AwardListRoute> {
         val route = it.toRoute<AwardListRoute>()
-        val component = DaggerAwardListComponent.factory().create(appComponent)
+        val component = DaggerAwardListComponent
+            .factory()
+            .create(dependency)
 
         val viewModel: AwardListViewModel = viewModel(
             factory = component.viewModelFactory

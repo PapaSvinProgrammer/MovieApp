@@ -44,7 +44,7 @@ internal class PersonServiceImpl @Inject constructor(
     override suspend fun getPersonByFilter(
         queryParameters: List<Pair<String, String>>
     ): Result<List<Person>> {
-        val selectsList = listOf("id", "name", "enName", "photo", "sex", "birthday", "age")
+        val selectsList = listOf("id", "name", "enName", "photo", "sex", "birthday", "age", "death")
 
         return safeCall<Docs<PersonDto>> {
             client.get("v1.4/person") {

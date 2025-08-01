@@ -5,13 +5,14 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.corecomponent.AppComponent
 import com.example.home.di.DaggerHomeComponent
+import com.example.home.di.HomeDependency
 import com.example.home.presentation.HomeDetailListScreen
 import com.example.home.presentation.HomeScreen
 import com.example.home.presentation.HomeViewModel
 import com.example.movielistviewmodel.MovieListViewModel
 import com.example.movielistviewmodel.di.DaggerMovieListComponent
+import com.example.movielistviewmodel.di.MovieListDependency
 import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.HomeDetailListRoute
 import com.example.navigationroute.MainRoutes
@@ -19,14 +20,15 @@ import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.homeDestination(
-    appComponent: AppComponent,
+    homeDependency: HomeDependency,
+    movieListDependency: MovieListDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<MainRoutes.HomeRoute> {
         val component = DaggerHomeComponent
             .factory()
-            .create(appComponent)
+            .create(homeDependency)
 
         val viewModel: HomeViewModel = viewModel(
             factory = component.viewModelFactory
@@ -47,7 +49,7 @@ fun NavGraphBuilder.homeDestination(
         val route = it.toRoute<HomeDetailListRoute>()
         val component = DaggerMovieListComponent
             .factory()
-            .create(appComponent)
+            .create(movieListDependency)
 
         val viewModel: MovieListViewModel = viewModel(
             factory = component.viewModelFactory

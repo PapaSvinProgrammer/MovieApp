@@ -6,4 +6,4 @@ import dagger.Component
     modules = [LoginModule::class]
 )
 @LoginScope
-interface LoginComponent
+internal interface LoginComponent

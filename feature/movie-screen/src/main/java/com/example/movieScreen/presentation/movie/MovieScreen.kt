@@ -36,10 +36,13 @@ import com.example.movieScreen.presentation.movie.widget.itemContent.personGridH
 import com.example.movieScreen.presentation.movie.widget.itemContent.premierItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.ratingCardLargeItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.seasonDescriptionItem
+import com.example.movieScreen.presentation.movie.widget.itemContent.sequelsAndPrequelsItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.similarMoviesItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.supportPersonalItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.voiceActorsItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.watchabilityItem
+import com.example.navigationroute.MovieRoutes
+import com.example.navigationroute.model.toScreenObject
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.bottomSheets.FactSheet
 import com.example.ui.widget.component.BasicLoadingBox
@@ -120,7 +123,15 @@ internal fun MovieScreen(
 
                 ratingCardLargeItem(movie)
 
-                personGridHorizontalItem(uiState.actors, navController)
+                personGridHorizontalItem(
+                    actors = uiState.actors,
+                    navController = navController,
+                    onClick = {
+                        navController.navigate(
+                            MovieRoutes.GroupPersonRoute(movie.persons.toScreenObject())
+                        ) { launchSingleTop = true }
+                    }
+                )
 
                 supportPersonalItem(uiState.supportPersonal, navController)
 
@@ -140,7 +151,9 @@ internal fun MovieScreen(
 
                 premierItem(movie.premiere)
 
-                similarMoviesItem(movie.similarMovies)
+                sequelsAndPrequelsItem(movie.sequelsAndPrequels, navController)
+
+                similarMoviesItem(movie.similarMovies, navController)
 
                 item { Spacer(modifier = Modifier.height(130.dp)) }
             }

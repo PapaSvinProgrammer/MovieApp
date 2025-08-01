@@ -6,9 +6,9 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.corecomponent.AppComponent
 import com.example.navigationroute.OtpRoute
 import com.example.otpscreen.di.DaggerOtpComponent
+import com.example.otpscreen.di.OtpDependency
 import com.example.otpscreen.presentation.CreateOtpScreen
 import com.example.otpscreen.presentation.DefaultOtpScreen
 import com.example.otpscreen.presentation.DisableOtpScreen
@@ -16,13 +16,13 @@ import com.example.otpscreen.presentation.OtpViewModel
 
 fun NavGraphBuilder.otpDestination(
     navController: NavController,
-    appComponent: AppComponent
+    dependency: OtpDependency
 ) {
     composable<OtpRoute> {
         val component = remember {
             DaggerOtpComponent
                 .factory()
-                .create(appComponent)
+                .create(dependency)
         }
 
         val route = it.toRoute<OtpRoute>()

@@ -1,18 +1,17 @@
 package com.example.awardlist.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
     modules = [AwardListModule::class],
-    dependencies = [AppComponent::class]
+    dependencies = [AwardDependency::class]
 )
 @AwardListScope
 interface AwardListComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): AwardListComponent
+        fun create(appComponent: AwardDependency): AwardListComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

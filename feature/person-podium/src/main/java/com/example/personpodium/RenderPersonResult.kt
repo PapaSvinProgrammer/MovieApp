@@ -64,7 +64,12 @@ private fun MainPersonContent(
         }
 
         PersonListItem(
-            person = item,
+            name = item.name,
+            enName = item.enName,
+            age = item.age,
+            birthday = item.birthday,
+            photo = item.photo,
+            sex = item.sex,
             onClick = { onClick(item) }
         )
     }

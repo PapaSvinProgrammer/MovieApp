@@ -10,7 +10,9 @@ import androidx.navigation.NavController
 import com.example.model.person.PersonMovie
 import com.example.movieScreen.presentation.movie.widget.listItem.SupportPersonCard
 import com.example.movieapp.ui.R
+import com.example.navigationroute.MovieRoutes
 import com.example.navigationroute.PersonRoute
+import com.example.navigationroute.model.toScreenObject
 import com.example.ui.widget.component.TitleRow
 import com.example.ui.widget.lazyComponent.DefaultLazyRow
 import com.example.ui.widget.listItems.LastItemCard
@@ -23,7 +25,9 @@ internal fun LazyListScope.voiceActorsItem(
 
     item {
         TitleRow(title = stringResource(R.string.voice_actors)) {
-
+            navController.navigate(
+                MovieRoutes.GroupPersonRoute(voiceActors.toScreenObject())
+            ) { launchSingleTop = true }
         }
 
         DefaultLazyRow(

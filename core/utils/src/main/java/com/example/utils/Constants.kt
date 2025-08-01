@@ -32,6 +32,11 @@ object Constants {
     const val VOTES_KP_FIELD = "votes.kp"
     const val YEAR_FIELD = "year"
     const val NETWORK_ITEMS_NAME = "networks.items.name"
+    const val ID_FIELD = "id"
+    const val AGE_FIELD = "age"
+    const val EN_NAME_FIELD = "enName"
+    const val BIRTHDAY = "birthday"
+    const val DEATH = "death"
 
     const val SORT_ASC = "1"
     const val SORT_DESC = "-1"

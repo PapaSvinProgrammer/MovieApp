@@ -2,7 +2,6 @@ package com.example.login.presentation.startScreen.di
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider
-import com.example.data.internal.di.DataModule
 import com.example.login.presentation.startScreen.StartViewModel
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey

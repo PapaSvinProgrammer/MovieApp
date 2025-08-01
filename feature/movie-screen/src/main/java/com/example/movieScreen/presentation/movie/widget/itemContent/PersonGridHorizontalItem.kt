@@ -11,14 +11,16 @@ import com.example.ui.widget.component.TitleRow
 
 internal fun LazyListScope.personGridHorizontalItem(
     actors: List<PersonMovie>,
-    navController: NavController
+    navController: NavController,
+    onClick: () -> Unit
 ) {
     if (actors.isEmpty()) return
 
     item {
         TitleRow(
-            title = stringResource(R.string.actors)
-        ) {}
+            title = stringResource(R.string.actors),
+            onClick = onClick
+        )
 
         PersonGridHorizontalList(
             list = actors.take(9),

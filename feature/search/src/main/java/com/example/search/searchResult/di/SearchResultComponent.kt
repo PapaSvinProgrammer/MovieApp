@@ -1,19 +1,18 @@
 package com.example.search.searchResult.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
-import com.example.search.searchResult.SearchResultViewModel
+import com.example.search.searchScreen.di.SearchDependency
 import dagger.Component
 
 @Component(
     modules = [SearchResultModule::class],
-    dependencies = [AppComponent::class]
+    dependencies = [SearchDependency::class]
 )
 @SearchResultScope
 interface SearchResultComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): SearchResultComponent
+        fun create(appComponent: SearchDependency): SearchResultComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

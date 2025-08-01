@@ -5,15 +5,15 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
+import com.example.collectionlist.di.CollectionDependency
 import com.example.collectionlist.di.DaggerCollectionComponent
 import com.example.collectionlist.presentation.CollectionListScreen
 import com.example.collectionlist.presentation.CollectionListViewModel
-import com.example.corecomponent.AppComponent
 import com.example.navigationroute.CollectionListRoute
 import dev.chrisbanes.haze.HazeState
 
 fun NavGraphBuilder.collectionListDestination(
-    appComponent: AppComponent,
+    dependency: CollectionDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
@@ -22,7 +22,7 @@ fun NavGraphBuilder.collectionListDestination(
 
         val component = DaggerCollectionComponent
             .factory()
-            .create(appComponent)
+            .create(dependency)
 
         val viewModel: CollectionListViewModel = viewModel(
             factory = component.viewModelFactory
