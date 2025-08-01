@@ -1,18 +1,17 @@
 package com.example.movieScreen.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
     modules = [MovieModule::class],
-    dependencies = [AppComponent::class]
+    dependencies = [MovieDependency::class]
 )
 @MovieScope
 interface MovieComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): MovieComponent
+        fun create(dependency: MovieDependency): MovieComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

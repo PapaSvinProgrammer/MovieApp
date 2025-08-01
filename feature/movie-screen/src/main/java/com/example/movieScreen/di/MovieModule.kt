@@ -9,6 +9,7 @@ import com.example.data.external.CommentRepository
 import com.example.data.external.MovieRepository
 import com.example.movieScreen.GetMovieById
 import com.example.movieScreen.GetMovieImages
+import com.example.movieScreen.presentation.groupPerson.GroupPersonViewModel
 import com.example.movieScreen.presentation.movie.MovieViewModel
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
@@ -28,6 +29,12 @@ internal interface MovieModule {
     @IntoMap
     @ViewModelKey(MovieViewModel::class)
     fun bindsMovieViewModel(viewModel: MovieViewModel): ViewModel
+
+    @Binds
+    @MovieScope
+    @IntoMap
+    @ViewModelKey(GroupPersonViewModel::class)
+    fun bindsGroupPersonViewModel(viewModel: GroupPersonViewModel): ViewModel
 
     companion object {
         @Provides

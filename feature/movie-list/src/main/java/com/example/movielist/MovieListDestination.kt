@@ -5,16 +5,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.corecomponent.AppComponent
 import com.example.movielistviewmodel.MovieListViewModel
 import com.example.movielistviewmodel.di.DaggerMovieListComponent
+import com.example.movielistviewmodel.di.MovieListDependency
 import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.MovieListRoute
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.movieListDestination(
-    appComponent: AppComponent,
+    dependency: MovieListDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
@@ -26,7 +26,7 @@ fun NavGraphBuilder.movieListDestination(
         val route = it.toRoute<MovieListRoute>()
         val component = DaggerMovieListComponent
             .factory()
-            .create(appComponent)
+            .create(dependency)
 
         val viewModel: MovieListViewModel = viewModel(
             factory = component.viewModelFactory

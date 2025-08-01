@@ -1,18 +1,17 @@
 package com.example.home.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
     modules = [HomeModule::class],
-    dependencies = [AppComponent::class]
+    dependencies = [HomeDependency::class]
 )
 @HomeScope
 interface HomeComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): HomeComponent
+        fun create(dependency: HomeDependency): HomeComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

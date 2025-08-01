@@ -14,7 +14,6 @@ dependencies {
     api(project(":core:utils"))
     api(project(":core:navigation-route"))
     api(project(":core:view-model-factory"))
-    api(project(":core:core-component"))
 
     implementation(libs.haze)
     implementation(libs.haze.materials)

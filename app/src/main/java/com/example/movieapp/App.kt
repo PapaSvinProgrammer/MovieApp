@@ -2,8 +2,6 @@ package com.example.movieapp
 
 import android.app.Application
 import android.content.Context
-import com.example.corecomponent.AppComponent
-import com.example.corecomponent.DaggerAppComponent
 
 class App: Application() {
     lateinit var appComponent: AppComponent

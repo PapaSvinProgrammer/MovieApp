@@ -1,5 +1,7 @@
 package com.example.navigationroute
 
+import com.example.model.person.PersonMovie
+import com.example.navigationroute.model.PersonMovieScreenObject
 import com.example.navigationroute.model.WatchabilityScreenObject
 import kotlinx.serialization.Serializable
 
@@ -61,6 +63,11 @@ sealed interface MovieRoutes {
     @Serializable
     data class WatchabilityListRoute(
         val watchability: WatchabilityScreenObject
+    )
+
+    @Serializable
+    data class GroupPersonRoute(
+        val persons: List<PersonMovieScreenObject>
     )
 }
 

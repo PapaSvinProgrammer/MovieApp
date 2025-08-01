@@ -41,6 +41,8 @@ import com.example.movieScreen.presentation.movie.widget.itemContent.similarMovi
 import com.example.movieScreen.presentation.movie.widget.itemContent.supportPersonalItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.voiceActorsItem
 import com.example.movieScreen.presentation.movie.widget.itemContent.watchabilityItem
+import com.example.navigationroute.MovieRoutes
+import com.example.navigationroute.model.toScreenObject
 import com.example.ui.uiState.MovieUIState
 import com.example.ui.widget.bottomSheets.FactSheet
 import com.example.ui.widget.component.BasicLoadingBox
@@ -121,7 +123,15 @@ internal fun MovieScreen(
 
                 ratingCardLargeItem(movie)
 
-                personGridHorizontalItem(uiState.actors, navController)
+                personGridHorizontalItem(
+                    actors = uiState.actors,
+                    navController = navController,
+                    onClick = {
+                        navController.navigate(
+                            MovieRoutes.GroupPersonRoute(movie.persons.toScreenObject())
+                        ) { launchSingleTop = true }
+                    }
+                )
 
                 supportPersonalItem(uiState.supportPersonal, navController)
 

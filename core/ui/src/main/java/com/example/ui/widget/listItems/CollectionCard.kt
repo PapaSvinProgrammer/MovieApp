@@ -57,8 +57,8 @@ fun CollectionCard(
 
             Text(
                 text = title,
-                fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
+                fontWeight = FontWeight.Medium,
+                fontSize = 12.sp,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
                 color = MaterialTheme.colorScheme.onSurface,

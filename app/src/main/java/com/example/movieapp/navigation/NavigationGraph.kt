@@ -1,4 +1,4 @@
-package com.example.navigation
+package com.example.movieapp.navigation
 
 import androidx.compose.animation.AnimatedContentTransitionScope
 import androidx.compose.animation.core.tween
@@ -9,11 +9,11 @@ import com.example.aboutapp.aboutAppDestination
 import com.example.account.accountDestination
 import com.example.awardlist.presentation.navigation.awardListDestination
 import com.example.collectionlist.presentation.navigation.collectionListDestination
-import com.example.corecomponent.AppComponent
 import com.example.favorite.favoriteDestination
 import com.example.home.presentation.navigation.homeDestination
 import com.example.login.presentation.navigation.loginDestination
 import com.example.movieScreen.presentation.navigation.movieDestination
+import com.example.movieapp.AppComponent
 import com.example.movielist.movieListDestination
 import com.example.navigationroute.MovieRoutes
 import com.example.navigationroute.NavRoute
@@ -69,14 +69,14 @@ fun NavigationGraph(
         )
 
         awardListDestination(
-            appComponent = appComponent,
+            dependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
         collectionListDestination(
             navController = navController,
-            appComponent = appComponent,
+            dependency = appComponent,
             hazeState = hazeState
         )
 
@@ -85,55 +85,55 @@ fun NavigationGraph(
         )
 
         homeDestination(
-            appComponent = appComponent,
+            homeDependency = appComponent,
+            movieListDependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
 
         loginDestination(
-            appComponent = appComponent,
             navController = navController
         )
 
         movieDestination(
-            appComponent = appComponent,
+            movieDependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
         movieListDestination(
-            appComponent = appComponent,
+            dependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
         personDestination(
-            appComponent = appComponent,
+            dependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
         personPodiumListDestination(
-            appComponent = appComponent,
+            dependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
         searchDestination(
-            appComponent = appComponent,
+            dependency = appComponent,
             navController = navController,
             hazeState = hazeState
         )
 
         settingsDestination(
-            appComponent = appComponent,
+            dependency = appComponent,
             navController = navController
         )
 
         otpDestination(
             navController = navController,
-            appComponent = appComponent
+            dependency = appComponent
         )
     }
 }

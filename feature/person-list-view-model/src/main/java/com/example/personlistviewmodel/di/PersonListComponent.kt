@@ -1,18 +1,17 @@
 package com.example.personlistviewmodel.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
     modules = [PersonListModule::class],
-    dependencies = [AppComponent::class]
+    dependencies = [PersonListDependency::class]
 )
 @PersonListScope
 interface PersonListComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): PersonListComponent
+        fun create(appComponent: PersonListDependency): PersonListComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

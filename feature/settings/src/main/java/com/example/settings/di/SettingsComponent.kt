@@ -1,18 +1,17 @@
 package com.example.settings.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
     modules = [SettingsModule::class],
-    dependencies = [AppComponent::class]
+    dependencies = [SettingsDependency::class]
 )
 @SettingsScope
 interface SettingsComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): SettingsComponent
+        fun create(dependency: SettingsDependency): SettingsComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

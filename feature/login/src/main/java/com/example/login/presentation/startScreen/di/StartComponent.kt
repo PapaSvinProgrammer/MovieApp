@@ -1,18 +1,16 @@
 package com.example.login.presentation.startScreen.di
 
 import androidx.lifecycle.ViewModelProvider
-import com.example.corecomponent.AppComponent
 import dagger.Component
 
 @Component(
-    modules = [StartModule::class],
-    dependencies = [AppComponent::class]
+    modules = [StartModule::class]
 )
 @StartScope
-interface StartComponent {
+internal interface StartComponent {
     @Component.Factory
     interface Factory {
-        fun create(appComponent: AppComponent): StartComponent
+        fun create(): StartComponent
     }
 
     val viewModelFactory: ViewModelProvider.Factory

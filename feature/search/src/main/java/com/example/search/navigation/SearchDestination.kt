@@ -5,7 +5,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.corecomponent.AppComponent
 import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.MainRoutes
 import com.example.navigationroute.SearchRoutes
@@ -15,6 +14,7 @@ import com.example.search.searchResult.di.DaggerSearchResultComponent
 import com.example.search.searchScreen.SearchScreen
 import com.example.search.searchScreen.SearchViewModel
 import com.example.search.searchScreen.di.DaggerSearchComponent
+import com.example.search.searchScreen.di.SearchDependency
 import com.example.search.searchSettings.SearchSettingsScreen
 import com.example.search.searchSettings.SearchSettingsViewModel
 import com.example.search.searchSettings.di.DaggerSearchSettingsComponent
@@ -22,14 +22,14 @@ import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.searchDestination(
-    appComponent: AppComponent,
+    dependency: SearchDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<MainRoutes.SearchRoute> {
         val component = DaggerSearchComponent
             .factory()
-            .create(appComponent)
+            .create(dependency)
 
         val viewModel: SearchViewModel = viewModel(
             factory = component.viewModelFactory
@@ -45,7 +45,7 @@ fun NavGraphBuilder.searchDestination(
     composable<SearchRoutes.SearchSettingsRoute> {
         val component = DaggerSearchSettingsComponent
             .factory()
-            .create(appComponent)
+            .create(dependency)
 
         val viewModel: SearchSettingsViewModel = viewModel(
             factory = component.viewModelFactory
@@ -65,7 +65,7 @@ fun NavGraphBuilder.searchDestination(
         val data = it.toRoute<SearchRoutes.SearchResultRoute>()
         val component = DaggerSearchResultComponent
             .factory()
-            .create(appComponent)
+            .create(dependency)
 
         val viewModel: SearchResultViewModel = viewModel(
             factory = component.viewModelFactory

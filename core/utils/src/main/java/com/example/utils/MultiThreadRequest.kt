@@ -6,11 +6,11 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.async
 import kotlinx.coroutines.awaitAll
 
-suspend fun <T> multiRequest(
-    list: List<String>,
-    execute: suspend (String) -> Result<T>
-): List<T> {
-    val tasks = mutableListOf<Deferred<Result<T>>>()
+suspend fun <ResponseParams, RequestParams> multiRequest(
+    list: List<RequestParams>,
+    execute: suspend (RequestParams) -> Result<ResponseParams>
+): List<ResponseParams> {
+    val tasks = mutableListOf<Deferred<Result<ResponseParams>>>()
 
     list.forEach { id ->
         val task = CoroutineScope(Dispatchers.IO).async {
@@ -20,7 +20,7 @@ suspend fun <T> multiRequest(
         tasks.add(task)
     }
 
-    val result = mutableListOf<T>()
+    val result = mutableListOf<ResponseParams>()
 
     tasks.awaitAll().forEach {
         it.onSuccess { data ->

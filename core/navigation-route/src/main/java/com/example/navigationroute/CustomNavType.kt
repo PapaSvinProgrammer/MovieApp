@@ -3,7 +3,6 @@ package com.example.navigationroute
 import android.net.Uri
 import androidx.navigation.NavType
 import androidx.savedstate.SavedState
-import com.example.navigationroute.model.WatchabilityScreenObject
 import kotlinx.serialization.json.Json
 
 object CustomNavType {
@@ -26,30 +25,25 @@ object CustomNavType {
             return Uri.encode(Json.encodeToString(value))
         }
     }
+}
 
-    val WatchabilityType = object : NavType<WatchabilityScreenObject>(
+inline fun <reified T> customType() : NavType<T> {
+    return object : NavType<T>(
         isNullableAllowed = false
     ) {
-        override fun put(
-            bundle: SavedState,
-            key: String,
-            value: WatchabilityScreenObject
-        ) {
+        override fun put(bundle: SavedState, key: String, value: T) {
             bundle.putString(key, Json.encodeToString(value))
         }
 
-        override fun get(
-            bundle: SavedState,
-            key: String
-        ): WatchabilityScreenObject? {
+        override fun get(bundle: SavedState, key: String): T? {
             return Json.decodeFromString(bundle.getString(key) ?: return null)
         }
 
-        override fun parseValue(value: String): WatchabilityScreenObject {
+        override fun parseValue(value: String): T {
             return Json.decodeFromString(Uri.decode(value))
         }
 
-        override fun serializeAsValue(value: WatchabilityScreenObject): String {
+        override fun serializeAsValue(value: T): String {
             return Uri.encode(Json.encodeToString(value))
         }
     }

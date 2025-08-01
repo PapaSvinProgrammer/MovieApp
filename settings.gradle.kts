@@ -3,10 +3,7 @@
 include(":feature:otp-screen")
 
 
-include(":core:core-component")
 include(":core:security")
-
-include(":core:navigation")
 
 
 includeBuild("build-logic")

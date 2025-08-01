@@ -5,25 +5,30 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.corecomponent.AppComponent
 import com.example.movieScreen.di.DaggerMovieComponent
+import com.example.movieScreen.di.MovieDependency
+import com.example.movieScreen.presentation.groupPerson.GroupPersonViewModel
+import com.example.movieScreen.presentation.groupPerson.GroupPersonsScreen
 import com.example.movieScreen.presentation.movie.MovieScreen
 import com.example.movieScreen.presentation.movie.MovieViewModel
 import com.example.movieScreen.presentation.watchability.WatchabilityListScreen
-import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.MovieRoutes
+import com.example.navigationroute.customType
+import com.example.navigationroute.model.PersonMovieScreenObject
 import com.example.navigationroute.model.WatchabilityScreenObject
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.movieDestination(
-    appComponent: AppComponent,
+    movieDependency: MovieDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
     composable<MovieRoutes.MovieRoute> {
         val route = it.toRoute<MovieRoutes.MovieRoute>()
-        val component = DaggerMovieComponent.factory().create(appComponent)
+        val component = DaggerMovieComponent
+            .factory()
+            .create(movieDependency)
 
         val viewModel: MovieViewModel = viewModel(
             factory = component.viewModelFactory
@@ -39,7 +44,7 @@ fun NavGraphBuilder.movieDestination(
 
     composable<MovieRoutes.WatchabilityListRoute>(
         typeMap = mapOf(
-            typeOf<WatchabilityScreenObject>() to CustomNavType.WatchabilityType
+            typeOf<WatchabilityScreenObject>() to customType<WatchabilityScreenObject>()
         )
     ) {
         val route = it.toRoute<MovieRoutes.WatchabilityListRoute>()
@@ -47,6 +52,26 @@ fun NavGraphBuilder.movieDestination(
         WatchabilityListScreen(
             navController = navController,
             watchability = route.watchability
+        )
+    }
+
+    composable<MovieRoutes.GroupPersonRoute>(
+        typeMap = mapOf(
+            typeOf<List<PersonMovieScreenObject>>() to customType<List<PersonMovieScreenObject>>()
+        )
+    ) {
+        val component = DaggerMovieComponent
+            .factory()
+            .create(movieDependency)
+        val route = it.toRoute<MovieRoutes.GroupPersonRoute>()
+        val viewModel: GroupPersonViewModel = viewModel(
+            factory = component.viewModelFactory
+        )
+
+        GroupPersonsScreen(
+            navController = navController,
+            viewModel = viewModel,
+            list = route.persons
         )
     }
 }

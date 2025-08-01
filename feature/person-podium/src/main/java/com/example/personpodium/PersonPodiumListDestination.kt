@@ -5,16 +5,16 @@ import androidx.navigation.NavController
 import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.composable
 import androidx.navigation.toRoute
-import com.example.corecomponent.AppComponent
 import com.example.navigationroute.CustomNavType
 import com.example.navigationroute.PersonPodiumListRoute
 import com.example.personlistviewmodel.PersonListViewModel
 import com.example.personlistviewmodel.di.DaggerPersonListComponent
+import com.example.personlistviewmodel.di.PersonListDependency
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
 fun NavGraphBuilder.personPodiumListDestination(
-    appComponent: AppComponent,
+    dependency: PersonListDependency,
     navController: NavController,
     hazeState: HazeState
 ) {
@@ -26,7 +26,7 @@ fun NavGraphBuilder.personPodiumListDestination(
         val route = it.toRoute<PersonPodiumListRoute>()
         val component = DaggerPersonListComponent
             .factory()
-            .create(appComponent)
+            .create(dependency)
 
         val viewModel: PersonListViewModel = viewModel(
             factory = component.viewModelFactory
