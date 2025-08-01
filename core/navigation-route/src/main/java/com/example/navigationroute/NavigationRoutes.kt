@@ -1,6 +1,5 @@
 package com.example.navigationroute
 
-import com.example.model.person.PersonMovie
 import com.example.navigationroute.model.PersonMovieScreenObject
 import com.example.navigationroute.model.WatchabilityScreenObject
 import kotlinx.serialization.Serializable

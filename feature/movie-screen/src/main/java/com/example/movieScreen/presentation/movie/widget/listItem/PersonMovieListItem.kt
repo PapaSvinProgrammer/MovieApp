@@ -49,8 +49,8 @@ internal fun PersonMovieListItem(
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(70.dp)
-                .width(50.dp)
+                .height(80.dp)
+                .width(60.dp)
                 .clip(RoundedCornerShape(10.dp))
         )
 

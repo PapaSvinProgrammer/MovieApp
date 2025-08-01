@@ -31,6 +31,7 @@ import androidx.navigation.NavController
 import com.example.movieScreen.domain.model.PersonMovieExtended
 import com.example.movieScreen.presentation.groupPerson.widget.GroupUiState
 import com.example.movieapp.ui.R
+import com.example.navigationroute.PersonRoute
 import com.example.navigationroute.model.PersonMovieScreenObject
 import com.example.ui.widget.component.BasicLoadingBox
 import com.example.ui.widget.listItems.PersonListItem
@@ -73,7 +74,11 @@ internal fun GroupPersonsScreen(
                 MainContent(
                     modifier = Modifier.padding(top = innerPadding.calculateTopPadding()),
                     map = state.data,
-                    onClick = {  }
+                    onClick = { person ->
+                        navController.navigate(PersonRoute(person.id)) {
+                            launchSingleTop = true
+                        }
+                    }
                 )
             }
         }
@@ -93,6 +98,7 @@ private fun MainContent(
                     text = PrettyData.getPrettyString(value.first().profession.toString()),
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Medium,
+                    color = MaterialTheme.colorScheme.onSurfaceVariant,
                     modifier = Modifier
                         .fillMaxWidth()
                         .background(MaterialTheme.colorScheme.background)

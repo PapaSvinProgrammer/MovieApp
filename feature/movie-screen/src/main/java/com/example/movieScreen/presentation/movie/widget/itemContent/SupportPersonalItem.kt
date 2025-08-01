@@ -33,7 +33,7 @@ internal fun LazyListScope.supportPersonalItem(
             lastItemCard = {
                 LastItemCard(
                     width = 180.dp,
-                    height = 110.dp
+                    height = 100.dp
                 )
             }
         ) {

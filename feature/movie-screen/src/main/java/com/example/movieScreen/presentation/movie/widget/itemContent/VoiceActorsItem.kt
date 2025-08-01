@@ -36,7 +36,7 @@ internal fun LazyListScope.voiceActorsItem(
             lastItemCard = {
                 LastItemCard(
                     width = 180.dp,
-                    height = 110.dp
+                    height = 100.dp
                 )
             }
         ) {
