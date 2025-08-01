@@ -21,6 +21,7 @@ internal class UnionPersonsAndPersonMovie @Inject constructor(
                     birthday = person.birthday,
                     death = person.death,
                     age = person.age,
+                    description = screenObject.description,
                     enProfession = screenObject.enProfession,
                     profession = screenObject.profession
                 )

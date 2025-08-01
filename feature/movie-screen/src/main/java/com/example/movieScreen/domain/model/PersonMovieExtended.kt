@@ -8,6 +8,7 @@ internal data class PersonMovieExtended(
     val birthday: String?,
     val death: String?,
     val age: Int?,
+    val description: String?,
     val enProfession: String?,
     val profession: String?
 )
