@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:utils"))
+    implementation(project(":core:util"))
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     testImplementation(libs.junit)

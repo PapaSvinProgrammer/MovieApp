@@ -10,10 +10,10 @@ android {
 }
 
 dependencies {
-    api(project(":core:model"))
-    api(project(":core:utils"))
-    api(project(":core:navigation-route"))
-    api(project(":core:view-model-factory"))
+    api(projects.core.model)
+    api(projects.core.util)
+    api(projects.core.navigation)
+    api(projects.core.viewModelFactory)
 
     implementation(libs.haze)
     implementation(libs.haze.materials)

@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:utils"))
+    implementation(project(":core:util"))
     implementation(project(":core:model"))
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
