@@ -1,9 +1,10 @@
 plugins {
     id("android-feature-module")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 dependencies {
-    implementation(project(":core:ui"))
-    implementation(project(":core:security"))
-    implementation(project(":core:data"))
+    implementation(projects.core.ui)
+    implementation(projects.core.security)
+    implementation(projects.core.domain)
 }

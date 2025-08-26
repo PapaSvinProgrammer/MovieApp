@@ -5,7 +5,6 @@ import org.gradle.api.Project
 import org.gradle.api.plugins.ExtensionAware
 
 object Const {
-
     const val NAMESPACE = "com.example.movieapp"
     const val COMPILE_SKD = 35
     const val MIN_SKD = 26

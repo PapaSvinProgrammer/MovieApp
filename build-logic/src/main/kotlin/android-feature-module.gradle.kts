@@ -1,5 +1,4 @@
 import com.android.build.gradle.LibraryExtension
-import gradle.kotlin.dsl.accessors._7a1e42e81073b4d267281119d0f1f871.implementation
 import org.gradle.kotlin.dsl.configure
 import org.gradle.kotlin.dsl.dependencies
 
@@ -27,6 +26,7 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     implementation(libs.haze)
+    implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)

@@ -1,10 +1,10 @@
 plugins {
     id("android-feature-module")
+    alias(libs.plugins.kotlin.serialization)
 }
 
 dependencies {
-    implementation(project(":feature:movie-list-view-model"))
-    implementation(project(":domain:collection-use-case"))
-    implementation(project(":domain:movie"))
-    implementation(project(":core:ui"))
+    implementation(projects.core.domain)
+    implementation(projects.core.ui)
+    implementation(projects.core.baseViewModels)
 }
