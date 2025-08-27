@@ -14,13 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun TitleRow(
     modifier: Modifier = Modifier,
     title: String,
-    fontSize: TextUnit = 16.sp,
+    fontSize: TextUnit = Typography.bodyLarge.fontSize,
     fontWeight: FontWeight = FontWeight.Bold,
     onClick: () -> Unit
 ) {

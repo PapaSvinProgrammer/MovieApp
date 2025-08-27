@@ -19,12 +19,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.ui.R
 import com.mordva.model.image.CollectionMovie
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun CollectionListItem(
@@ -56,7 +56,7 @@ fun CollectionListItem(
                 Text(
                     modifier = Modifier.align(Alignment.CenterVertically),
                     text = collectionMovie.name.toString(),
-                    fontSize = 14.sp,
+                    fontSize = Typography.bodyMedium.fontSize,
                     fontWeight = FontWeight.Medium,
                     maxLines = 2,
                     color = MaterialTheme.colorScheme.onSurface,

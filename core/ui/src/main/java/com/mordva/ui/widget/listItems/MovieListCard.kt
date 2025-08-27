@@ -27,12 +27,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.mordva.model.movie.Movie
 import com.example.movieapp.ui.R
+import com.mordva.model.movie.Movie
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.chips.RatingChip
 import com.mordva.util.convert.ConvertData
 
@@ -69,7 +69,7 @@ fun MovieListCard(
                     .clip(RoundedCornerShape(10.dp)),
                 rating = movie.rating?.kp ?: 0f,
                 top = movie.top250,
-                fontSize = 12.sp
+                fontSize = Typography.bodySmall.fontSize
             )
         }
 
@@ -103,7 +103,7 @@ fun MovieListCard(
 private fun NameContent(movie: Movie) {
     Text(
         text = movie.name ?: "",
-        fontSize = 15.sp,
+        fontSize = Typography.bodyMedium.fontSize,
         fontWeight = FontWeight.Bold,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,
@@ -111,7 +111,7 @@ private fun NameContent(movie: Movie) {
 
     Text(
         text = getAlternativeName(movie),
-        fontSize = 14.sp,
+        fontSize = Typography.bodySmall.fontSize,
         fontWeight = FontWeight.Medium,
         overflow = TextOverflow.Ellipsis,
         maxLines = 1,
@@ -134,8 +134,8 @@ private fun getAlternativeName(movie: Movie): String {
 @Composable
 private fun DetailInfoContent(movie: Movie) {
     Text(
-        text = movie.countries.map { it.name }.joinToString(", "),
-        fontSize = 14.sp,
+        text = movie.countries.joinToString(", ") { it.name },
+        fontSize = Typography.bodyMedium.fontSize,
         fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         overflow = TextOverflow.Ellipsis,
@@ -143,8 +143,8 @@ private fun DetailInfoContent(movie: Movie) {
     )
 
     Text(
-        text = movie.genres.map { it.name }.joinToString(", "),
-        fontSize = 14.sp,
+        text = movie.genres.joinToString(", ") { it.name },
+        fontSize = Typography.bodyMedium.fontSize,
         fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         overflow = TextOverflow.Ellipsis,

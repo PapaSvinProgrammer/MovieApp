@@ -33,6 +33,7 @@ import coil3.request.crossfade
 import com.mordva.model.category.ItemName
 import com.mordva.model.movie.Movie
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.other.RatingText
 import com.mordva.util.convert.ConvertData
 import com.mordva.util.convert.PrettyData
@@ -95,7 +96,7 @@ private fun BoxScope.DetailInfoContent(
         Text(
             text = title,
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -103,7 +104,7 @@ private fun BoxScope.DetailInfoContent(
         Text(
             text = subtitle,
             fontWeight = FontWeight.Normal,
-            fontSize = 13.sp,
+            fontSize = Typography.bodySmall.fontSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -115,7 +116,7 @@ private fun GenreContent(genre: List<ItemName>) {
     Text(
         text = genre.joinToString(", ") { it.name },
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
+        fontSize = Typography.bodyMedium.fontSize,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -138,7 +139,7 @@ private fun OtherInfoContent(
             Text(
                 text = PrettyData.getPrettyInt(votes),
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
+                fontSize = Typography.bodySmall.fontSize,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -148,7 +149,7 @@ private fun OtherInfoContent(
         Text(
             text = country.joinToString(", ") { it.name },
             fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
+            fontSize = Typography.bodySmall.fontSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.End,

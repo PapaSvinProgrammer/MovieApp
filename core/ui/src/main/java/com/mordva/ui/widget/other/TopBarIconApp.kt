@@ -18,6 +18,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun TopBarIconApp() {
@@ -37,7 +38,7 @@ fun TopBarIconApp() {
         Text(
             text = stringResource(R.string.app_name),
             fontWeight = FontWeight.Bold,
-            fontSize = 16.sp,
+            fontSize = Typography.bodyLarge.fontSize,
             lineHeight = 13.sp,
             overflow = TextOverflow.Ellipsis
         )

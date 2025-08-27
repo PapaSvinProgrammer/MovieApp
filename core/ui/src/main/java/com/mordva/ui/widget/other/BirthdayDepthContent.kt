@@ -4,7 +4,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.unit.sp
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.FormatDate
 
 @Composable
@@ -31,7 +31,7 @@ fun BirthdayDepthContent(
 
     Text(
         text = text,
-        fontSize = 14.sp,
+        fontSize = Typography.bodyMedium.fontSize,
         color = color
     )
 }

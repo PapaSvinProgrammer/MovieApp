@@ -20,11 +20,11 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun CollectionCard(
@@ -58,7 +58,7 @@ fun CollectionCard(
             Text(
                 text = title,
                 fontWeight = FontWeight.Medium,
-                fontSize = 12.sp,
+                fontSize = Typography.bodySmall.fontSize,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 2,
                 color = MaterialTheme.colorScheme.onSurface,

@@ -17,8 +17,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.mordva.model.movie.ShortMovie
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.other.RatingText
 
 @Composable
@@ -63,7 +63,7 @@ private fun BoxScope.NameContent(
         name?.let {
             Text(
                 text = it,
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Bold,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -73,7 +73,7 @@ private fun BoxScope.NameContent(
         alternativeName?.let {
             Text(
                 text = it,
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Medium,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis
@@ -83,7 +83,7 @@ private fun BoxScope.NameContent(
         description?.let {
             Text(
                 text = it,
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
                 maxLines = 1,

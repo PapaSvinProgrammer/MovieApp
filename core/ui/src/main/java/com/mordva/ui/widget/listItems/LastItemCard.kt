@@ -23,8 +23,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun LastItemCard(
@@ -60,7 +60,7 @@ fun LastItemCard(
             Text(
                 text = stringResource(R.string.show_all),
                 fontWeight = FontWeight.Medium,
-                fontSize = 14.sp
+                fontSize = Typography.bodyMedium.fontSize
             )
         }
     }

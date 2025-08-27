@@ -13,7 +13,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun PrettyAgeContent(
@@ -28,7 +28,7 @@ fun PrettyAgeContent(
     ) {
         Text(
             text = date,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = fontWeight
         )
 
@@ -44,7 +44,7 @@ fun PrettyAgeContent(
 
         Text(
             text = age,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = fontWeight
         )
     }
