@@ -10,7 +10,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
+import com.mordva.ui.theme.Typography
 
 @Composable
 internal fun PremiereCard(
@@ -27,13 +27,13 @@ internal fun PremiereCard(
     ) {
         Text(
             text = title,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold
         )
 
         Text(
             text = description,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.onSurfaceVariant
         )

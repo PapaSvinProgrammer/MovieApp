@@ -21,6 +21,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.other.RatingText
 import com.mordva.util.convert.PrettyData
 
@@ -35,7 +36,7 @@ internal fun RatingCardLarge(
     Column(modifier = Modifier.fillMaxWidth()) {
         Text(
             text = title,
-            fontSize = 16.sp,
+            fontSize = Typography.bodyLarge.fontSize,
             fontWeight = FontWeight.Bold,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
@@ -66,7 +67,7 @@ internal fun RatingCardLarge(
                 Text(
                     text = "${PrettyData.getPrettyInt(votes)} оценок",
                     fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp,
+                    fontSize = Typography.bodyMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
 
@@ -80,7 +81,7 @@ internal fun RatingCardLarge(
                 ) {
                     Text(
                         text = stringResource(R.string.evaluate),
-                        fontSize = 16.sp
+                        fontSize = Typography.bodyLarge.fontSize
                     )
                 }
             }

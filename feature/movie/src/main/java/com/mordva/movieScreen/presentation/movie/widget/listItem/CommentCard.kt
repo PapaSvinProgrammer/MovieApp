@@ -21,6 +21,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.mordva.model.movie.Comment
 import com.mordva.ui.theme.Green
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.FormatDate
 
 @Composable
@@ -67,13 +68,13 @@ private fun TopInformation(comment: Comment) {
         ) {
             Text(
                 text = comment.author,
-                fontSize = 15.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 fontWeight = FontWeight.Medium
             )
 
             Text(
                 text = FormatDate.formatDate(comment.date),
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }
@@ -92,7 +93,7 @@ private fun CommentContent(comment: Comment) {
     ) {
         Text(
             text = comment.title,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold
         )
 
@@ -100,7 +101,7 @@ private fun CommentContent(comment: Comment) {
 
         Text(
             text = comment.review,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             overflow = TextOverflow.Ellipsis,
             maxLines = 3
         )

@@ -36,7 +36,10 @@ internal fun ContentWithoutBackdrop(
         error = painterResource(R.drawable.ic_movie),
         contentDescription = null,
         contentScale = ContentScale.Crop,
-        modifier = Modifier.height(300.dp).width(200.dp).clip(RoundedCornerShape(10.dp))
+        modifier = Modifier
+            .height(300.dp)
+            .width(200.dp)
+            .clip(RoundedCornerShape(10.dp))
     )
 
     Spacer(modifier = Modifier.height(20.dp))
