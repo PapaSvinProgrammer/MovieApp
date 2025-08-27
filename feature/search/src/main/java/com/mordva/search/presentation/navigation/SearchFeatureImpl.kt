@@ -18,6 +18,7 @@ import com.mordva.search.presentation.searchScreen.di.DaggerSearchComponent
 import com.mordva.search.presentation.searchScreen.di.SearchDependency
 import com.mordva.search.presentation.searchSettings.SearchSettingsScreen
 import com.mordva.search.presentation.searchSettings.SearchSettingsViewModel
+import com.mordva.search.presentation.searchSettings.di.DaggerSearchSettingsComponent
 import dev.chrisbanes.haze.HazeState
 import kotlin.reflect.typeOf
 
@@ -67,7 +68,7 @@ class SearchFeatureImpl(
             }
 
             composable<SearchSettingsRoute> {
-                val component = DaggerSearchComponent.factory().create(dependency)
+                val component = DaggerSearchSettingsComponent.factory().create(dependency)
                 val viewModel: SearchSettingsViewModel = viewModel(
                     factory = component.viewModelFactory
                 )

@@ -35,6 +35,12 @@ internal class MovieViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
 
+    fun updateCollapsedState(state: Boolean) {
+        _uiState.update {
+            it.copy(isCollapsed = state)
+        }
+    }
+
     fun updateSelectedFact(text: String) {
         _uiState.update {
             it.copy(selectedFact = text)
