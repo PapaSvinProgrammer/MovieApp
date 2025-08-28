@@ -26,13 +26,12 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
+import com.example.movieapp.ui.R
 import com.mordva.model.category.ItemName
 import com.mordva.model.movie.Movie
-import com.example.movieapp.ui.R
 import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.other.RatingText
 import com.mordva.util.convert.ConvertData

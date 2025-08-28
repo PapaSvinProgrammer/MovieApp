@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="login_with_yandex">Начать через Яндекс</string>
+    <string name="login_with_vk">Начать через ВКонтакте</string>
+</resources>

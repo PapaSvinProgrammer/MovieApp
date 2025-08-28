@@ -104,3 +104,6 @@ data object SettingsGraph : RootGraph {
     @Serializable
     data object SupportRoute
 }
+
+@Serializable
+data object LoginGraph : RootGraph

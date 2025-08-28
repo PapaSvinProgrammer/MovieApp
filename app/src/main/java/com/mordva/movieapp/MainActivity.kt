@@ -29,6 +29,7 @@ class MainActivity : AppCompatActivity() {
                 .preferencesRepository
                 .getThemeState()
                 .collectAsStateWithLifecycle(1)
+
             val isSystemDark = isSystemInDarkTheme()
 
             val isDarkTheme = when (theme.value.toAppTheme()) {

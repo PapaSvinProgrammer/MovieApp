@@ -1,3 +1,5 @@
+import org.gradle.internal.extensions.core.extra
+
 plugins {
     id("android-app-module")
     alias(libs.plugins.graph)
@@ -9,6 +11,8 @@ android {
         versionCode = 1
         versionName = "1.0"
         targetSdk = Const.COMPILE_SKD
+
+        manifestPlaceholders["YANDEX_CLIENT_ID"] = rootProject.extra["yandexAuthKey"] ?: ""
     }
 }
 

@@ -5,7 +5,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mordva.navigation.FeatureApi
-import com.mordva.navigation.MovieGraph
+import com.mordva.navigation.LoginGraph
 import dev.chrisbanes.haze.HazeState
 
 @Composable
@@ -18,7 +18,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MovieGraph,
+        startDestination = LoginGraph,
         modifier = modifier
     ) {
         list.forEach {

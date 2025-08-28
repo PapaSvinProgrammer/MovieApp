@@ -18,8 +18,10 @@ properties.load(FileInputStream(file))
 
 extra.apply {
     set("movieApiKey", getKinopoiskAPIKey())
+    set("yandexAuthKey", getYandexAuthKey())
+    set("vkAuthKey", getVkAuthKey())
 }
 
-private fun getKinopoiskAPIKey(): String {
-    return properties.getProperty("MOVIE_API_KEY", "")
-}
+private fun getKinopoiskAPIKey() = properties.getProperty("MOVIE_API_KEY", "")
+private fun getYandexAuthKey() = properties.getProperty("YANDEX_AUTH", "")
+private fun getVkAuthKey() = properties.getProperty("VK_AUTH", "")

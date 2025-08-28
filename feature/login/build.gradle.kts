@@ -4,5 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
+    implementation(libs.authsdk)
+    implementation(projects.core.ui)
+    implementation(libs.ktor.client.core)
 }

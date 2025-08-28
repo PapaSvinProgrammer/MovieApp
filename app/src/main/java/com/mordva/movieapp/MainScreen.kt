@@ -16,6 +16,7 @@ import com.mordva.awardlist.presentation.navigation.AwardListFeatureImpl
 import com.mordva.collectionlist.presentation.navigation.CollectionListFeatureImpl
 import com.mordva.favorite.navigation.FavoriteFeatureImpl
 import com.mordva.home.presentation.navigation.HomeFeatureImpl
+import com.mordva.login.presentation.navigation.LoginFeatureImpl
 import com.mordva.movieScreen.presentation.navigation.MovieFeatureImpl
 import com.mordva.movieapp.di.AppComponent
 import com.mordva.movielist.navigation.MovieListFeatureImpl
@@ -48,7 +49,8 @@ fun MainScreen(
         PersonFeatureImpl(appComponent),
         PersonPodiumListFeatureImpl(appComponent),
         SettingsFeatureImpl(appComponent),
-        AboutAppFeatureImpl()
+        AboutAppFeatureImpl(),
+        LoginFeatureImpl(appComponent)
     )
 
     var bottomBarVisible by remember { mutableStateOf(false) }
@@ -85,7 +87,8 @@ fun MainScreen(
 
 private fun bottomBarIsVisibility(route: String?, onResult: (Boolean) -> Unit) {
     when (route) {
-        //SearchRoutes.SearchSettingsRoute::class.java.canonicalName -> onResult(false)
+        "com.mordva.login.presentation.navigation.LoginRoute" -> onResult(false)
+        "com.mordva.search.presentation.navigation.SearchSettingsRoute" -> onResult(false)
         else -> onResult(true)
     }
 }
