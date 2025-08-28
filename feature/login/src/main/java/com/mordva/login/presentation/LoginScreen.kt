@@ -1,6 +1,5 @@
 package com.mordva.login.presentation
 
-import android.util.Log
 import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -20,6 +19,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
@@ -38,9 +38,9 @@ import androidx.navigation.NavController
 import com.example.movieapp.login.R
 import com.mordva.login.presentation.widget.CustomButtonWithLoading
 import com.mordva.login.presentation.widget.state.AuthState
+import com.mordva.navigation.HomeGraph
 import com.yandex.authsdk.YandexAuthLoginOptions
 import com.yandex.authsdk.YandexAuthOptions
-import com.yandex.authsdk.YandexAuthResult
 import com.yandex.authsdk.YandexAuthSdk
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeEffect
@@ -58,7 +58,15 @@ internal fun LoginScreen(
     val yandexSdk = remember { YandexAuthSdk.create(YandexAuthOptions(context)) }
     val yandexLoginOption = remember { YandexAuthLoginOptions() }
     val yandexLauncher = rememberLauncherForActivityResult(yandexSdk.contract) { result ->
-        handleYandexAuth(result, viewModel)
+        viewModel.handleYandexAuth(result)
+    }
+
+    LaunchedEffect(state.yandexAuthState, state.vkAuthState) {
+        if (state.yandexAuthState is AuthState.Success || state.vkAuthState is AuthState.Success) {
+            navController.navigate(HomeGraph) {
+                popUpTo(0) { inclusive = true }
+            }
+        }
     }
 
     Box {
@@ -119,7 +127,6 @@ internal fun LoginScreen(
                 onClick = {
                     viewModel.updateVkAuthState(AuthState.Loading)
                     viewModel.authWithVk()
-                    //vkBottomSheetState.show()
                 }
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
@@ -140,23 +147,6 @@ internal fun LoginScreen(
             }
 
             Spacer(modifier = Modifier.height(80.dp))
-        }
-    }
-}
-
-private fun handleYandexAuth(result: YandexAuthResult, viewModel: LoginViewModel) {
-    when (result) {
-        YandexAuthResult.Cancelled -> {
-            viewModel.updateYandexAuthState(AuthState.Init)
-            Log.d("RRRR", result.toString())
-        }
-        is YandexAuthResult.Failure -> {
-            viewModel.updateYandexAuthState(AuthState.Error)
-            Log.d("RRRR", result.toString())
-        }
-        is YandexAuthResult.Success -> {
-            viewModel.updateYandexAuthState(AuthState.Success(result.token.value))
-            Log.d("RRRR", result.toString())
         }
     }
 }

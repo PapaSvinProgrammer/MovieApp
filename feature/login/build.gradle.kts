@@ -5,6 +5,8 @@ plugins {
 }
 
 dependencies {
+    implementation(projects.core.security)
+
     implementation(libs.vkid)
     implementation(libs.authsdk)
     implementation(projects.core.ui)
