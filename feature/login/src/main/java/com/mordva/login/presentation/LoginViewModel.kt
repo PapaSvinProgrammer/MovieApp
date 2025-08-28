@@ -1,8 +1,14 @@
 package com.mordva.login.presentation
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.mordva.login.presentation.widget.state.AuthState
 import com.mordva.login.presentation.widget.state.LoginUiState
+import com.mordva.util.launchWithoutOld
+import com.vk.id.AccessToken
+import com.vk.id.VKID
+import com.vk.id.VKIDAuthFail
+import com.vk.id.auth.VKIDAuthCallback
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -24,5 +30,36 @@ internal class LoginViewModel @Inject constructor(
         _state.update {
             it.copy(vkAuthState = state)
         }
+    }
+
+    fun saveYandexToken(token: String) = launchWithoutOld(SAVE_TOKEN) {
+
+    }
+
+    fun saveVkToken(token: String) = launchWithoutOld(SAVE_TOKEN) {
+
+    }
+
+    fun handleYandexAuth() {
+
+    }
+
+    fun authWithVk() = launchWithoutOld(AUTH_JOB) {
+        val callback = object : VKIDAuthCallback {
+            override fun onAuth(accessToken: AccessToken) {
+                Log.d("RRRR", accessToken.toString())
+            }
+
+            override fun onFail(fail: VKIDAuthFail) {
+                Log.d("RRRR", fail.toString())
+            }
+        }
+
+        VKID.instance.authorize(callback)
+    }
+
+    private companion object {
+        const val AUTH_JOB = "auth"
+        const val SAVE_TOKEN = "save_token"
     }
 }

@@ -118,6 +118,8 @@ internal fun LoginScreen(
                 isEnable = state.yandexAuthState !is AuthState.Loading,
                 onClick = {
                     viewModel.updateVkAuthState(AuthState.Loading)
+                    viewModel.authWithVk()
+                    //vkBottomSheetState.show()
                 }
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {

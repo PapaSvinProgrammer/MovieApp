@@ -1,5 +1,6 @@
 import java.io.FileInputStream
 import java.util.Properties
+import kotlin.toString
 
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 plugins {
@@ -10,6 +11,19 @@ plugins {
     alias(libs.plugins.ksp) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
     alias(libs.plugins.graph) apply false
+    id("vkid.manifest.placeholders") version "1.1.0" apply true
+}
+
+vkidManifestPlaceholders {
+    init(
+        clientId = "54088753",
+        clientSecret = "e251KqhibxwErk8ICPVM",
+    )
+
+    vkidRedirectHost = "vk.com"
+    vkidRedirectScheme = "vk54088753"
+    vkidClientId = "54088753"
+    vkidClientSecret = "e251KqhibxwErk8ICPVM"
 }
 
 val properties = Properties()

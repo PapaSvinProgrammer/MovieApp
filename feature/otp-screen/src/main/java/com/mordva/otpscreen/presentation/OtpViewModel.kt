@@ -7,7 +7,8 @@ import com.mordva.otpscreen.domain.GetNextFocusedTextFieldIndex
 import com.mordva.otpscreen.domain.GetPreviousFocusedIndex
 import com.mordva.otpscreen.presentation.widget.state.OtpAction
 import com.mordva.otpscreen.presentation.widget.state.UiState
-import com.mordva.security.external.KeyStoreRepository
+import com.mordva.security.external.SecurityRepository
+import com.mordva.security.internal.util.SecurityType
 import com.mordva.util.cancelAllJobs
 import com.mordva.util.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -19,7 +20,7 @@ internal class OtpViewModel @Inject constructor(
     private val getNextFocusedTextFieldIndex: GetNextFocusedTextFieldIndex,
     private val getPreviousFocusedIndex: GetPreviousFocusedIndex,
     private val createNewCode: CreateNewCode,
-    private val keyStoreRepository: KeyStoreRepository,
+    private val keyStoreRepository: SecurityRepository,
     private val preferencesRepository: PreferencesRepository
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UiState())
@@ -27,7 +28,10 @@ internal class OtpViewModel @Inject constructor(
 
     fun setDefaultPinCode() = launchWithoutOld(SET_PIN_CODE_JOB) {
         preferencesRepository.setAuthorizationState(true)
-        val res = keyStoreRepository.encrypt(uiState.value.code.joinToString(""))
+        val res = keyStoreRepository.setData(
+            data = uiState.value.code.joinToString(""),
+            type = SecurityType.PASSWORD
+        )
 
         res.onSuccess {
             _uiState.value = _uiState.value.copy(
@@ -37,7 +41,7 @@ internal class OtpViewModel @Inject constructor(
     }
 
     fun getDefaultPinCode() = launchWithoutOld(GET_PIN_CODE_JOB) {
-        keyStoreRepository.decrypt().onSuccess { pinCode ->
+        keyStoreRepository.getData(SecurityType.PASSWORD).onSuccess { pinCode ->
             _uiState.update {
                 it.copy(defaultCode = pinCode)
             }
@@ -46,9 +50,8 @@ internal class OtpViewModel @Inject constructor(
 
     fun deleteDefaultPinCode() = launchWithoutOld(DELETE_PIN_CODE_JOB) {
         preferencesRepository.setAuthorizationState(false)
-        keyStoreRepository.delete().onSuccess {
-            updateValidState(true)
-        }
+        keyStoreRepository.deleteData(SecurityType.PASSWORD)
+        updateValidState(true)
     }
 
     fun onAction(action: OtpAction) {

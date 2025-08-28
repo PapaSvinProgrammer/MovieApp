@@ -25,5 +25,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <provider
+            android:name="com.vk.id.captcha.init.SdkInitContentProvider"
+            android:authorities="your.unique.authority"
+            android:exported="false"
+            tools:replace="authorities" />
     </application>
 </manifest>
