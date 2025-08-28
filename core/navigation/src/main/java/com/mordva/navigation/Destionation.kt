@@ -62,8 +62,8 @@ data object MovieGraph : RootGraph {
 data object OtpGraph : RootGraph {
     @Serializable
     data class OtpRoute(
-        val isCreate: Boolean,
-        val isDisable: Boolean
+        val isCreate: Boolean = false,
+        val isDisable: Boolean = false
     )
 }
 

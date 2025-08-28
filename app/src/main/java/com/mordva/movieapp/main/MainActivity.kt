@@ -1,4 +1,4 @@
-package com.mordva.movieapp
+package com.mordva.movieapp.main
 
 import android.annotation.SuppressLint
 import android.os.Bundle
@@ -8,31 +8,32 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.toArgb
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.mordva.navigation.HomeGraph
+import com.mordva.movieapp.app.appComponent
 import com.mordva.settings.utils.AppTheme
-import com.mordva.settings.utils.toAppTheme
 import com.mordva.ui.theme.MovieAppTheme
+import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
+    @Inject lateinit var viewModel: MainViewModel
+
     @SuppressLint("ContextCastToActivity")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        appComponent.inject(this)
         setComposeContent()
     }
 
     private fun setComposeContent() {
         setContent {
-            val theme = appComponent
-                .preferencesRepository
-                .getThemeState()
-                .collectAsStateWithLifecycle(1)
-
+            val state by viewModel.state.collectAsStateWithLifecycle()
             val isSystemDark = isSystemInDarkTheme()
 
-            val isDarkTheme = when (theme.value.toAppTheme()) {
+            val isDarkTheme = when (state.theme) {
                 AppTheme.LIGHT -> false
                 AppTheme.DARK -> true
                 AppTheme.SYSTEM -> isSystemDark
@@ -42,13 +43,13 @@ class MainActivity : AppCompatActivity() {
                 changeSystemBarStyle(isDarkTheme)
             }
 
-            MovieAppTheme(
-                darkTheme = isDarkTheme
-            ) {
-                MainScreen(
-                    startRoute = HomeGraph,
-                    appComponent = appComponent
-                )
+            MovieAppTheme(darkTheme = isDarkTheme) {
+                state.startRoute?.let { startRoute ->
+                    MainScreen(
+                        startRoute = startRoute,
+                        appComponent = appComponent
+                    )
+                }
             }
         }
     }

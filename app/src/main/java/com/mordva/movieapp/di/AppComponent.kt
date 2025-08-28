@@ -9,6 +9,7 @@ import com.mordva.data.di.DataModule
 import com.mordva.home.di.HomeDependency
 import com.mordva.login.di.LoginDependency
 import com.mordva.movieScreen.di.MovieDependency
+import com.mordva.movieapp.main.MainActivity
 import com.mordva.network.internal.di.NetworkModule
 import com.mordva.otpscreen.di.OtpDependency
 import com.mordva.personscreen.di.PersonDependency
@@ -22,6 +23,7 @@ import dagger.Component
 
 @Component(
     modules = [
+        AppModule::class,
         DataModule::class,
         NetworkModule::class,
         RoomModule::class,
@@ -46,4 +48,6 @@ interface AppComponent :
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
+
+    fun inject(activity: MainActivity)
 }

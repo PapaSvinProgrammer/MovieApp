@@ -36,6 +36,10 @@ internal class SecurityDataStoreService @Inject constructor(
     }
 
     suspend fun tokenIsExist(): SecurityType? {
+        if (dataIsExist(SecurityType.PASSWORD)) {
+            return SecurityType.PASSWORD
+        }
+
         if (dataIsExist(SecurityType.YANDEX)) {
             return SecurityType.YANDEX
         }

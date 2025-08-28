@@ -1,4 +1,4 @@
-package com.mordva.movieapp
+package com.mordva.movieapp.app
 
 import android.app.Application
 import android.content.Context

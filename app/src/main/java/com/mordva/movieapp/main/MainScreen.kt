@@ -1,4 +1,4 @@
-package com.mordva.movieapp
+package com.mordva.movieapp.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -18,6 +18,7 @@ import com.mordva.favorite.navigation.FavoriteFeatureImpl
 import com.mordva.home.presentation.navigation.HomeFeatureImpl
 import com.mordva.login.presentation.navigation.LoginFeatureImpl
 import com.mordva.movieScreen.presentation.navigation.MovieFeatureImpl
+import com.mordva.movieapp.app.AppNavigation
 import com.mordva.movieapp.di.AppComponent
 import com.mordva.movielist.navigation.MovieListFeatureImpl
 import com.mordva.navigation.RootGraph
@@ -78,7 +79,7 @@ fun MainScreen(
     ) { _ ->
         AppNavigation(
             navController = navController,
-            startDestination = true,
+            startRoute = startRoute,
             hazeState = hazeState,
             list = features
         )
