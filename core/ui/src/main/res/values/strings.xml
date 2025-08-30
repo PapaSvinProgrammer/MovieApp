@@ -115,4 +115,6 @@
     <string name="sex">Пол: %1$s</string>
     <string name="login_with_yandex">Начать через Яндекс</string>
     <string name="login_with_vk">Начать через ВКонтакте</string>
+    <string name="error_get_data">Ошибка получения данных</string>
+    <string name="exit_from_app">Выйти из аккаунта</string>
 </resources>

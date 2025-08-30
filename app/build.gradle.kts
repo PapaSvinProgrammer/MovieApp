@@ -14,14 +14,6 @@ android {
         targetSdk = Const.COMPILE_SKD
 
         manifestPlaceholders["YANDEX_CLIENT_ID"] = rootProject.extra["yandexAuthKey"] ?: ""
-        addManifestPlaceholders(
-            mapOf(
-                "VKIDClientID" to "54088753", // ID вашего приложения (app_id).
-                "VKIDClientSecret" to "e251KqhibxwErk8ICPVM", // Ваш защищенный ключ (client_secret).
-                "VKIDRedirectHost" to "vk.com", // Обычно используется vk.com.
-                "VKIDRedirectScheme" to "vk54088753", // Должно быть vk{ID приложения}.
-            )
-        )
     }
 
     android {
@@ -54,6 +46,8 @@ dependencies {
     implementation(projects.core.security)
     implementation(projects.core.baseViewModels)
 
+    implementation(libs.coil.compose)
+    implementation(libs.coil.network.ktor)
     implementation(libs.vkid)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)

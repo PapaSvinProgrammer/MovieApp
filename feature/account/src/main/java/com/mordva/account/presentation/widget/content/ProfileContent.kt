@@ -20,7 +20,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import com.example.movieapp.account.R
+import com.example.movieapp.ui.R
 import com.mordva.account.domain.model.UserAccount
 import com.mordva.account.presentation.widget.state.UserAccountState
 import com.mordva.ui.theme.Typography

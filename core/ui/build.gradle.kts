@@ -18,7 +18,7 @@ dependencies {
     implementation(libs.haze)
     implementation(libs.haze.materials)
     implementation(libs.coil.compose)
-    implementation(libs.coil.network.okhttp)
+    implementation(libs.coil.network.ktor)
     implementation(libs.bundles.compose)
     implementation(libs.androidx.paging.compose)
     implementation(libs.androidx.navigation)

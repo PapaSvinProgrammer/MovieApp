@@ -1,6 +1,7 @@
 package com.mordva.movieapp.di
 
 import android.content.Context
+import coil3.ImageLoader
 import com.mordva.account.di.AccountDependency
 import com.mordva.awardlist.di.AwardListDependency
 import com.mordva.base_view_models.movie_list.MovieListDependency
@@ -52,4 +53,5 @@ interface AppComponent :
     }
 
     fun inject(activity: MainActivity)
+    fun lazyImageLoader(): dagger.Lazy<ImageLoader>
 }

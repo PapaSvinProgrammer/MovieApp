@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -16,6 +17,7 @@ import androidx.navigation.NavController
 import com.mordva.account.presentation.widget.content.ProfileContent
 import com.mordva.account.presentation.widget.content.SettingsList
 import com.mordva.navigation.AboutAppGraph
+import com.mordva.navigation.LoginGraph
 import com.mordva.navigation.SettingsGraph
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
@@ -27,6 +29,14 @@ internal fun AccountScreen(
     hazeState: HazeState
 ) {
     val state by viewModel.state.collectAsStateWithLifecycle()
+
+    LaunchedEffect(state.isExit) {
+        if (state.isExit) {
+            navController.navigate(LoginGraph) {
+                popUpTo(0) { inclusive = true }
+            }
+        }
+    }
 
     Scaffold { innerPadding ->
         Column(
@@ -65,7 +75,8 @@ internal fun AccountScreen(
                     navController.navigate(SettingsGraph.DecorRoute) {
                         launchSingleTop = true
                     }
-                }
+                },
+                onExit = { viewModel.clearAllData() }
             )
         }
     }

@@ -1,5 +1,7 @@
 package com.mordva.network.internal.di
 
+import android.content.Context
+import coil3.ImageLoader
 import com.mordva.network.external.AwardService
 import com.mordva.network.external.CategoryService
 import com.mordva.network.external.CollectionService
@@ -9,6 +11,7 @@ import com.mordva.network.external.PersonService
 import com.mordva.network.external.SeasonService
 import com.mordva.network.external.StudiesService
 import com.mordva.network.internal.core.HttpClientFactory
+import com.mordva.network.internal.core.provideImageLoader
 import com.mordva.network.internal.service.AwardServiceImpl
 import com.mordva.network.internal.service.CategoryServiceImpl
 import com.mordva.network.internal.service.CollectionServiceImpl
@@ -74,6 +77,12 @@ internal interface NetworkModuleImpl {
         @ApplicationScope
         fun provideHttpClient(okHttpClient: OkHttpClient): HttpClient {
             return HttpClientFactory.create(okHttpClient)
+        }
+
+        @Provides
+        @ApplicationScope
+        fun provideImageLoaderCoil(context: Context): ImageLoader {
+            return provideImageLoader(context)
         }
     }
 }

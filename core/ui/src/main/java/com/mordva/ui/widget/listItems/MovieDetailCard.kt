@@ -20,15 +20,12 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.example.movieapp.ui.R
 import com.mordva.model.category.ItemName
 import com.mordva.model.movie.Movie
@@ -50,10 +47,7 @@ fun MovieDetailCard(
             .padding(15.dp)
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.poster?.url)
-                .crossfade(true)
-                .build(),
+            model = movie.poster?.url,
             contentDescription = null,
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
