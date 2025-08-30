@@ -1,4 +1,4 @@
-package com.mordva.movieapp
+package com.mordva.movieapp.main
 
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Scaffold
@@ -11,12 +11,14 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mordva.aboutapp.navigation.AboutAppFeatureImpl
-import com.mordva.account.navigation.AccountFeatureImpl
+import com.mordva.account.presentation.navigation.AccountFeatureImpl
 import com.mordva.awardlist.presentation.navigation.AwardListFeatureImpl
 import com.mordva.collectionlist.presentation.navigation.CollectionListFeatureImpl
 import com.mordva.favorite.navigation.FavoriteFeatureImpl
 import com.mordva.home.presentation.navigation.HomeFeatureImpl
+import com.mordva.login.presentation.navigation.LoginFeatureImpl
 import com.mordva.movieScreen.presentation.navigation.MovieFeatureImpl
+import com.mordva.movieapp.app.AppNavigation
 import com.mordva.movieapp.di.AppComponent
 import com.mordva.movielist.navigation.MovieListFeatureImpl
 import com.mordva.navigation.RootGraph
@@ -35,7 +37,7 @@ fun MainScreen(
     appComponent: AppComponent
 ) {
     val features = listOf(
-        AccountFeatureImpl(),
+        AccountFeatureImpl(appComponent),
         HomeFeatureImpl(appComponent, appComponent),
         AboutAppFeatureImpl(),
         AwardListFeatureImpl(appComponent),
@@ -48,7 +50,8 @@ fun MainScreen(
         PersonFeatureImpl(appComponent),
         PersonPodiumListFeatureImpl(appComponent),
         SettingsFeatureImpl(appComponent),
-        AboutAppFeatureImpl()
+        AboutAppFeatureImpl(),
+        LoginFeatureImpl(appComponent)
     )
 
     var bottomBarVisible by remember { mutableStateOf(false) }
@@ -76,7 +79,7 @@ fun MainScreen(
     ) { _ ->
         AppNavigation(
             navController = navController,
-            startDestination = true,
+            startRoute = startRoute,
             hazeState = hazeState,
             list = features
         )
@@ -85,7 +88,8 @@ fun MainScreen(
 
 private fun bottomBarIsVisibility(route: String?, onResult: (Boolean) -> Unit) {
     when (route) {
-        //SearchRoutes.SearchSettingsRoute::class.java.canonicalName -> onResult(false)
+        "com.mordva.login.presentation.navigation.LoginRoute" -> onResult(false)
+        "com.mordva.search.presentation.navigation.SearchSettingsRoute" -> onResult(false)
         else -> onResult(true)
     }
 }

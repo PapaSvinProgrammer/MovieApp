@@ -14,9 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -62,11 +60,10 @@ internal fun MovieScreen(
     val scrollState = rememberLazyListState()
     val firstOffset by remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
     val index by remember { derivedStateOf { scrollState.firstVisibleItemIndex } }
-    var isCollapsed by remember { mutableStateOf(false) }
 
     LaunchedEffect(firstOffset, index) {
         if (index == 0) {
-            isCollapsed = firstOffset > 800
+            viewModel.updateCollapsedState(firstOffset > 800)
         }
     }
 
@@ -96,7 +93,7 @@ internal fun MovieScreen(
             )
 
             CollapsedTopBar(
-                isCollapsed = isCollapsed,
+                isCollapsed = uiState.isCollapsed,
                 title = { TitleTopBarText(text = movie.name ?: "") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {

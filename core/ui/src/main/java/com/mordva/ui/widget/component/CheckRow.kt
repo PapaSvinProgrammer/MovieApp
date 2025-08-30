@@ -21,7 +21,7 @@ fun CheckRow(
     Row(
         modifier = modifier
             .fillMaxWidth()
-            .padding(15.dp),
+            .padding(horizontal = 15.dp, vertical = 10.dp),
         horizontalArrangement = Arrangement.SpaceBetween
     ) {
         Text(text = title)

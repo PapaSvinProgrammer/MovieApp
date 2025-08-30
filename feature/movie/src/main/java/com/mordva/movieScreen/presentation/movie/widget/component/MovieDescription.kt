@@ -15,8 +15,8 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 internal fun MovieDescription(
@@ -35,7 +35,7 @@ internal fun MovieDescription(
     ) {
         Text(
             text = title,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Bold
         )
 
@@ -43,14 +43,14 @@ internal fun MovieDescription(
 
         Text(
             text = description,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             overflow = TextOverflow.Ellipsis,
             maxLines = 3
         )
 
         Text(
             text = stringResource(R.string.show_all),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             color = MaterialTheme.colorScheme.primary
         )

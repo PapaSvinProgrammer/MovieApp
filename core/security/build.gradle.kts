@@ -4,7 +4,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:util"))
+    implementation(projects.core.util)
+    implementation(libs.androidx.datastore.preferences)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     testImplementation(libs.junit)

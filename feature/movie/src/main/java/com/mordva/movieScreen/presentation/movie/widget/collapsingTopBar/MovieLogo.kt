@@ -10,12 +10,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
 import coil3.svg.SvgDecoder
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 internal fun MovieLogo(url: String?, name: String) {
@@ -23,7 +23,7 @@ internal fun MovieLogo(url: String?, name: String) {
         Text(
             modifier = Modifier.fillMaxWidth(),
             text = name,
-            fontSize = 30.sp,
+            fontSize = Typography.titleLarge.fontSize,
             fontWeight = FontWeight.Bold,
             textAlign = TextAlign.Center
         )

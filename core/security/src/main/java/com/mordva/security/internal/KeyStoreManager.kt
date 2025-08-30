@@ -3,6 +3,7 @@ package com.mordva.security.internal
 import android.security.keystore.KeyGenParameterSpec
 import android.security.keystore.KeyProperties
 import android.util.Base64
+import com.mordva.util.ApplicationScope
 import java.security.KeyStore
 import javax.crypto.Cipher
 import javax.crypto.KeyGenerator
@@ -10,6 +11,7 @@ import javax.crypto.SecretKey
 import javax.crypto.spec.GCMParameterSpec
 import javax.inject.Inject
 
+@ApplicationScope
 internal class KeyStoreManager @Inject constructor() {
     private val keyStore = KeyStore.getInstance(ANDROID_KEY_STORE_TYPE).apply {
         load(null)
@@ -29,21 +31,6 @@ internal class KeyStoreManager @Inject constructor() {
         if (!keyStore.containsAlias(KEY_ALIES)) {
             generateKey()
         }
-    }
-
-    private fun generateKey() {
-        val keyGenerator = KeyGenerator.getInstance(
-            ALGORITHM,
-            ANDROID_KEY_STORE_TYPE
-        )
-
-        keyGenerator.init(keyGenParameterSpec)
-        keyGenerator.generateKey()
-    }
-
-    fun getKey(): SecretKey {
-        val entry = keyStore.getEntry(KEY_ALIES, null) as KeyStore.SecretKeyEntry
-        return entry.secretKey
     }
 
     fun encrypt(data: String): String {
@@ -75,6 +62,21 @@ internal class KeyStoreManager @Inject constructor() {
         cipher.init(Cipher.DECRYPT_MODE, getKey(), spec)
 
         return String(cipher.doFinal(encryptedBytes))
+    }
+
+    private fun generateKey() {
+        val keyGenerator = KeyGenerator.getInstance(
+            ALGORITHM,
+            ANDROID_KEY_STORE_TYPE
+        )
+
+        keyGenerator.init(keyGenParameterSpec)
+        keyGenerator.generateKey()
+    }
+
+    private fun getKey(): SecretKey {
+        val entry = keyStore.getEntry(KEY_ALIES, null) as KeyStore.SecretKeyEntry
+        return entry.secretKey
     }
 
     private companion object Companion {

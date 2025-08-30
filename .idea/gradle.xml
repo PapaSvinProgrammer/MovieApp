@@ -34,6 +34,7 @@
             <option value="$PROJECT_DIR$/core/security" />
             <option value="$PROJECT_DIR$/core/ui" />
             <option value="$PROJECT_DIR$/core/util" />
+            <option value="$PROJECT_DIR$/core/view-model-factory" />
             <option value="$PROJECT_DIR$/feature" />
             <option value="$PROJECT_DIR$/feature/about-app" />
             <option value="$PROJECT_DIR$/feature/account" />

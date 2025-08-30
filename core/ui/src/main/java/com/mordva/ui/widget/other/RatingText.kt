@@ -8,16 +8,16 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.TextUnit
-import androidx.compose.ui.unit.sp
 import com.mordva.ui.theme.Gold
 import com.mordva.ui.theme.Green
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.ConvertData
 
 @Composable
 fun RatingText(
     rating: Float,
     modifier: Modifier = Modifier,
-    fontSize: TextUnit = 14.sp,
+    fontSize: TextUnit = Typography.bodyMedium.fontSize,
     fontWeight: FontWeight = FontWeight.Bold,
     isTop: Int? = null
 ) {

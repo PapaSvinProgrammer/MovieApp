@@ -11,8 +11,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun AwardListItem(
@@ -28,14 +28,14 @@ fun AwardListItem(
                 Text(
                     text = title,
                     fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp
+                    fontSize = Typography.bodyMedium.fontSize
                 )
 
                 movieName?.let {
                     Text(
                         text = it,
                         fontWeight = FontWeight.Medium,
-                        fontSize = 14.sp,
+                        fontSize = Typography.bodyMedium.fontSize,
                         color = MaterialTheme.colorScheme.onSurfaceVariant
                     )
                 }
@@ -46,7 +46,7 @@ fun AwardListItem(
                     else
                         stringResource(R.string.nomination),
                     fontWeight = FontWeight.Medium,
-                    fontSize = 14.sp,
+                    fontSize = Typography.bodyMedium.fontSize,
                     color = MaterialTheme.colorScheme.onSurfaceVariant
                 )
             }

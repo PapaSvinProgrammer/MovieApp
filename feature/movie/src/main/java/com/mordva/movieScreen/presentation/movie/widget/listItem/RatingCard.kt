@@ -16,6 +16,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.ConvertData
 import com.mordva.util.convert.PrettyData
 
@@ -47,12 +48,12 @@ internal fun RatingCard(
         Column {
             Text(
                 text = title,
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
             )
 
             Text(
                 text = "${PrettyData.getPrettyInt(votes)} оценок",
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

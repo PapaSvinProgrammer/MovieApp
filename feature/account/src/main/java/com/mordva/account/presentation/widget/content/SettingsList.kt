@@ -1,6 +1,7 @@
-package com.mordva.account
+package com.mordva.account.presentation.widget.content
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
@@ -8,17 +9,23 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ExitToApp
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.Icon
+import androidx.compose.material3.ListItem
+import androidx.compose.material3.ListItemDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.component.TitleRow
 
 @Composable
@@ -29,7 +36,8 @@ internal fun SettingsList(
     onLanguage: () -> Unit,
     onDecor: () -> Unit,
     onSupport: () -> Unit,
-    onAbout: () -> Unit
+    onAbout: () -> Unit,
+    onExit: () -> Unit
 ) {
     Column(
         modifier = Modifier.verticalScroll(rememberScrollState())
@@ -46,7 +54,8 @@ internal fun SettingsList(
 
         SupportContent(
             onSupport = onSupport,
-            onAbout = onAbout
+            onAbout = onAbout,
+            onExit = onExit
         )
 
         Spacer(modifier = Modifier.height(100.dp))
@@ -64,7 +73,7 @@ private fun SettingsContent(
     Text(
         text = stringResource(R.string.settings),
         fontWeight = FontWeight.Bold,
-        fontSize = 17.sp,
+        fontSize = Typography.bodyLarge.fontSize,
         modifier = Modifier.padding(start = 15.dp, bottom = 15.dp)
     )
 
@@ -78,7 +87,7 @@ private fun SettingsContent(
     ) {
         TitleRow(
             title = stringResource(R.string.notifications_and_sounds),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onSound,
             modifier = Modifier.clip(
@@ -91,7 +100,7 @@ private fun SettingsContent(
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.confidentiality),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onConf
 
@@ -99,21 +108,21 @@ private fun SettingsContent(
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.data_and_memory),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onData
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.decor),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onTheme
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.language),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onLanguage,
             modifier = Modifier.clip(
@@ -129,12 +138,13 @@ private fun SettingsContent(
 @Composable
 private fun SupportContent(
     onSupport: () -> Unit,
-    onAbout: () -> Unit
+    onAbout: () -> Unit,
+    onExit: () -> Unit
 ) {
     Text(
         text = stringResource(R.string.other),
         fontWeight = FontWeight.Bold,
-        fontSize = 17.sp,
+        fontSize = Typography.bodyLarge.fontSize,
         modifier = Modifier
             .padding(
                 horizontal = 15.dp,
@@ -152,16 +162,51 @@ private fun SupportContent(
     ) {
         TitleRow(
             title = stringResource(R.string.chat_with_support),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
-            onClick = onSupport
+            onClick = onSupport,
+            modifier = Modifier.clip(
+                RoundedCornerShape(
+                    topStart = 10.dp,
+                    topEnd = 10.dp
+                )
+            )
         )
+
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.about_app),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onAbout
+        )
+
+        HorizontalDivider()
+        ListItem(
+            trailingContent = {
+                Icon(
+                    imageVector = Icons.AutoMirrored.Rounded.ExitToApp,
+                    contentDescription = null,
+                    tint = MaterialTheme.colorScheme.error
+                )
+            },
+            headlineContent = {
+                Text(
+                    text = stringResource(R.string.exit_from_app),
+                    fontSize = Typography.bodyMedium.fontSize,
+                    fontWeight = FontWeight.Normal,
+                    color = MaterialTheme.colorScheme.error
+                )
+            },
+            colors = ListItemDefaults.colors(Color.Transparent),
+            modifier = Modifier
+                .clip(
+                    RoundedCornerShape(
+                        bottomStart = 10.dp,
+                        bottomEnd = 10.dp
+                    )
+                )
+                .clickable(onClick = onExit)
         )
     }
 }

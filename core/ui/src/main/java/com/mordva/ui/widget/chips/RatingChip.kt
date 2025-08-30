@@ -18,17 +18,17 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
 import com.mordva.ui.theme.Gold
 import com.mordva.ui.theme.Green
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.ConvertData
 
 @SuppressLint("DefaultLocale")
 @Composable
 fun RatingChip(
     modifier: Modifier = Modifier,
-    fontSize: TextUnit = 12.sp,
+    fontSize: TextUnit = Typography.bodySmall.fontSize,
     rating: Float,
     top: Int? = null
 ) {

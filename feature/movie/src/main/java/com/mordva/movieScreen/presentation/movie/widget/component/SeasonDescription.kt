@@ -15,8 +15,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.PrettyData
 
 @Composable
@@ -38,13 +38,13 @@ internal fun SeasonDescription(
         Column {
             Text(
                 text = stringResource(R.string.seasons_series),
-                fontSize = 16.sp,
+                fontSize = Typography.bodyLarge.fontSize,
                 fontWeight = FontWeight.Bold
             )
 
             Text(
                 text = "$prettySeasons, $prettySeries",
-                fontSize = 14.sp
+                fontSize = Typography.bodyMedium.fontSize
             )
         }
 

@@ -1,16 +1,17 @@
-package com.mordva.movieapp
+package com.mordva.movieapp.app
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mordva.navigation.FeatureApi
-import com.mordva.navigation.MovieGraph
+import com.mordva.navigation.LoginGraph
+import com.mordva.navigation.RootGraph
 import dev.chrisbanes.haze.HazeState
 
 @Composable
 fun AppNavigation(
-    startDestination: Boolean,
+    startRoute: RootGraph,
     navController: NavHostController,
     hazeState: HazeState,
     modifier: Modifier = Modifier,
@@ -18,7 +19,7 @@ fun AppNavigation(
 ) {
     NavHost(
         navController = navController,
-        startDestination = MovieGraph,
+        startDestination = startRoute,
         modifier = modifier
     ) {
         list.forEach {

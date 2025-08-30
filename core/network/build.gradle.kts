@@ -26,6 +26,7 @@ dependencies {
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     api(libs.bundles.ktor)
+    implementation(libs.coil.network.ktor)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

@@ -20,19 +20,16 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
+import com.example.movieapp.ui.R
 import com.mordva.model.category.ItemName
 import com.mordva.model.movie.Movie
-import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.other.RatingText
 import com.mordva.util.convert.ConvertData
 import com.mordva.util.convert.PrettyData
@@ -50,10 +47,7 @@ fun MovieDetailCard(
             .padding(15.dp)
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(movie.poster?.url)
-                .crossfade(true)
-                .build(),
+            model = movie.poster?.url,
             contentDescription = null,
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
@@ -95,7 +89,7 @@ private fun BoxScope.DetailInfoContent(
         Text(
             text = title,
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -103,7 +97,7 @@ private fun BoxScope.DetailInfoContent(
         Text(
             text = subtitle,
             fontWeight = FontWeight.Normal,
-            fontSize = 13.sp,
+            fontSize = Typography.bodySmall.fontSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
@@ -115,7 +109,7 @@ private fun GenreContent(genre: List<ItemName>) {
     Text(
         text = genre.joinToString(", ") { it.name },
         fontWeight = FontWeight.Medium,
-        fontSize = 14.sp,
+        fontSize = Typography.bodyMedium.fontSize,
         maxLines = 1,
         overflow = TextOverflow.Ellipsis,
         color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -138,7 +132,7 @@ private fun OtherInfoContent(
             Text(
                 text = PrettyData.getPrettyInt(votes),
                 fontWeight = FontWeight.Normal,
-                fontSize = 13.sp,
+                fontSize = Typography.bodySmall.fontSize,
                 maxLines = 1,
                 overflow = TextOverflow.Ellipsis,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
@@ -148,7 +142,7 @@ private fun OtherInfoContent(
         Text(
             text = country.joinToString(", ") { it.name },
             fontWeight = FontWeight.Normal,
-            fontSize = 14.sp,
+            fontSize = Typography.bodySmall.fontSize,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis,
             textAlign = TextAlign.End,

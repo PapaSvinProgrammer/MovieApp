@@ -15,17 +15,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.example.movieapp.ui.R
 import com.mordva.model.movie.Movie
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.chips.RatingChip
 
 @Composable
@@ -44,22 +41,20 @@ fun MovieCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(movie.poster?.url)
-                    .crossfade(true)
-                    .build(),
+                model = movie.poster?.url,
                 error = painterResource(R.drawable.ic_movie),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
                     .fillMaxSize()
-                    .clip(RoundedCornerShape(10.dp)).weight(5f)
+                    .clip(RoundedCornerShape(10.dp))
+                    .weight(5f)
             )
 
             Text(
                 text = movie.name ?: "",
                 fontWeight = FontWeight.Medium,
-                fontSize = 12.sp,
+                fontSize = Typography.bodySmall.fontSize,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(vertical = 10.dp).weight(1f)
             )

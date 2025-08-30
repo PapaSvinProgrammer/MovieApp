@@ -26,8 +26,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun FactCard(
@@ -62,7 +62,7 @@ fun FactCard(
             if (targetState) {
                 Text(
                     text = text,
-                    fontSize = 13.sp,
+                    fontSize = Typography.bodySmall.fontSize,
                     overflow = TextOverflow.Ellipsis
                 )
             }
@@ -89,12 +89,12 @@ private fun SpoilerContent() {
 
             Text(
                 text = stringResource(R.string.spoilers_title),
-                fontSize = 13.sp
+                fontSize = Typography.bodySmall.fontSize
             )
 
             Text(
                 text = stringResource(R.string.spoilers_description),
-                fontSize = 13.sp
+                fontSize = Typography.bodySmall.fontSize
             )
         }
     }

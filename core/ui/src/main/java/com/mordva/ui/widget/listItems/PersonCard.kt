@@ -14,17 +14,14 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
-import com.mordva.model.person.Person
 import com.example.movieapp.ui.R
+import com.mordva.model.person.Person
+import com.mordva.ui.theme.Typography
 
 @Composable
 fun PersonCard(
@@ -43,10 +40,7 @@ fun PersonCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             AsyncImage(
-                model = ImageRequest.Builder(LocalContext.current)
-                    .data(person.photo)
-                    .crossfade(true)
-                    .build(),
+                model = person.photo,
                 error = painterResource(R.drawable.ic_face),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
@@ -58,7 +52,7 @@ fun PersonCard(
             Text(
                 text = person.name ?: "",
                 fontWeight = FontWeight.Medium,
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 overflow = TextOverflow.Ellipsis,
                 modifier = Modifier.padding(vertical = 10.dp).weight(1f)
             )

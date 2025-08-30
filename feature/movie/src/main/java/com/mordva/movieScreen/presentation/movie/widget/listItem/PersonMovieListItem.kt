@@ -19,12 +19,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import coil3.request.ImageRequest
 import coil3.request.crossfade
-import com.mordva.model.person.PersonMovie
 import com.example.movieapp.ui.R
+import com.mordva.model.person.PersonMovie
+import com.mordva.ui.theme.Typography
 
 @Composable
 internal fun PersonMovieListItem(
@@ -62,14 +62,14 @@ internal fun PersonMovieListItem(
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
                 fontWeight = FontWeight.Bold,
-                fontSize = 14.sp
+                fontSize = Typography.bodyMedium.fontSize
             )
 
             Text(
                 text = person.description ?: "",
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurfaceVariant
             )
         }

@@ -24,17 +24,14 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.util.convert.FormatDate
 import com.mordva.util.convert.PrettyData
 
@@ -56,10 +53,7 @@ fun PersonListItem(
             .padding(15.dp)
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(photo)
-                .crossfade(true)
-                .build(),
+            model = photo,
             contentDescription = null,
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,
@@ -104,7 +98,7 @@ private fun InfoColumn(
             overflow = TextOverflow.Ellipsis,
             maxLines = 1,
             fontWeight = FontWeight.Bold,
-            fontSize = 14.sp
+            fontSize = Typography.bodyMedium.fontSize
         )
 
         enName?.let {
@@ -112,7 +106,7 @@ private fun InfoColumn(
                 text = enName,
                 overflow = TextOverflow.Ellipsis,
                 maxLines = 1,
-                fontSize = 14.sp
+                fontSize = Typography.bodyMedium.fontSize
             )
         }
 
@@ -133,7 +127,7 @@ private fun AgeContent(
         birthday?.let {
             Text(
                 text = FormatDate.formatDate(it),
-                fontSize = 12.sp,
+                fontSize = Typography.bodySmall.fontSize,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -152,7 +146,7 @@ private fun AgeContent(
 
             Text(
                 text = PrettyData.getPrettyAge(it),
-                fontSize = 12.sp,
+                fontSize = Typography.bodySmall.fontSize,
                 fontWeight = FontWeight.Medium,
                 color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
@@ -177,7 +171,7 @@ private fun BottomContent(
 
     Text(
         text = text,
-        fontSize = 12.sp,
+        fontSize = Typography.bodySmall.fontSize,
         fontWeight = FontWeight.Medium,
         color = MaterialTheme.colorScheme.onSurfaceVariant,
         maxLines = 1,

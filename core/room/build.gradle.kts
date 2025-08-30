@@ -5,8 +5,8 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:util"))
-    implementation(project(":core:model"))
+    implementation(projects.core.util)
+    implementation(projects.core.model)
     implementation(libs.dagger)
     kapt(libs.dagger.compiler)
     implementation(libs.androidx.room.runtime)

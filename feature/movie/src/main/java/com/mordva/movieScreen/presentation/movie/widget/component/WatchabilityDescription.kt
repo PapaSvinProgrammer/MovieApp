@@ -16,8 +16,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 
 @Composable
 internal fun WatchabilityDescription(
@@ -35,12 +35,12 @@ internal fun WatchabilityDescription(
             Text(
                 text = stringResource(R.string.where_can_watch),
                 fontWeight = FontWeight.Bold,
-                fontSize = 16.sp
+                fontSize = Typography.bodyLarge.fontSize
             )
 
             Text(
                 text = "Доступно в $count кинотеатрах",
-                fontSize = 14.sp,
+                fontSize = Typography.bodyMedium.fontSize,
                 color = MaterialTheme.colorScheme.onSurface
             )
         }

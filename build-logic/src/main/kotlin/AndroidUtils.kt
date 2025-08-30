@@ -6,7 +6,7 @@ import org.gradle.api.plugins.ExtensionAware
 
 object Const {
     const val NAMESPACE = "com.example.movieapp"
-    const val COMPILE_SKD = 35
+    const val COMPILE_SKD = 36
     const val MIN_SKD = 26
     val COMPILE_JDK_VERSION = JavaVersion.VERSION_17
 }

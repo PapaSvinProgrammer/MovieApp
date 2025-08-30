@@ -1,13 +1,17 @@
 package com.mordva.movieapp.di
 
 import android.content.Context
+import coil3.ImageLoader
+import com.mordva.account.di.AccountDependency
 import com.mordva.awardlist.di.AwardListDependency
 import com.mordva.base_view_models.movie_list.MovieListDependency
 import com.mordva.base_view_models.person_list.PersonListDependency
 import com.mordva.collectionlist.di.CollectionDependency
 import com.mordva.data.di.DataModule
 import com.mordva.home.di.HomeDependency
+import com.mordva.login.di.LoginDependency
 import com.mordva.movieScreen.di.MovieDependency
+import com.mordva.movieapp.main.MainActivity
 import com.mordva.network.internal.di.NetworkModule
 import com.mordva.otpscreen.di.OtpDependency
 import com.mordva.personscreen.di.PersonDependency
@@ -21,6 +25,7 @@ import dagger.Component
 
 @Component(
     modules = [
+        AppModule::class,
         DataModule::class,
         NetworkModule::class,
         RoomModule::class,
@@ -38,10 +43,15 @@ interface AppComponent :
     PersonDependency,
     PersonListDependency,
     SearchDependency,
-    SettingsDependency {
+    SettingsDependency,
+    LoginDependency,
+    AccountDependency {
 
     @Component.Factory
     interface Factory {
         fun create(@BindsInstance context: Context): AppComponent
     }
+
+    fun inject(activity: MainActivity)
+    fun lazyImageLoader(): dagger.Lazy<ImageLoader>
 }

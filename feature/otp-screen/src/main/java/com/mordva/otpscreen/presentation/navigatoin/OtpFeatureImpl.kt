@@ -27,7 +27,7 @@ class OtpFeatureImpl(
         modifier: Modifier
     ) {
         navGraphBuilder.navigation<OtpGraph>(
-            startDestination = OtpGraph.OtpRoute(isCreate = true, isDisable = true)
+            startDestination = OtpGraph.OtpRoute(isCreate = false, isDisable = false)
         ) {
             composable<OtpGraph.OtpRoute> {
                 val route = it.toRoute<OtpGraph.OtpRoute>()
