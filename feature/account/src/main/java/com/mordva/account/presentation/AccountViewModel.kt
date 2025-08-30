@@ -1,0 +1,32 @@
+package com.mordva.account.presentation
+
+import androidx.lifecycle.ViewModel
+import com.mordva.account.domain.usecase.GetUserAccount
+import com.mordva.account.presentation.widget.state.AccountUiState
+import com.mordva.util.launchWithoutOld
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.asStateFlow
+import javax.inject.Inject
+
+internal class AccountViewModel @Inject constructor(
+    private val getUserAccount: GetUserAccount
+) : ViewModel() {
+    private val _state = MutableStateFlow(AccountUiState())
+    val state = _state.asStateFlow()
+
+    init {
+        getUserInfo()
+    }
+
+    private fun getUserInfo() = launchWithoutOld(GET_INFO_JOB) {
+        getUserAccount.execute(Unit).onSuccess { user ->
+
+        }.onFailure { error ->
+            
+        }
+    }
+
+    private companion object {
+        const val GET_INFO_JOB = "get_user_info"
+    }
+}

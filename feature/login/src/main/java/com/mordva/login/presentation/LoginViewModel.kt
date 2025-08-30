@@ -10,6 +10,7 @@ import com.vk.id.AccessToken
 import com.vk.id.VKID
 import com.vk.id.VKIDAuthFail
 import com.vk.id.auth.VKIDAuthCallback
+import com.vk.id.auth.VKIDAuthParams
 import com.yandex.authsdk.YandexAuthResult
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
@@ -54,7 +55,12 @@ internal class LoginViewModel @Inject constructor(
             }
         }
 
-        VKID.instance.authorize(callback)
+        VKID.instance.authorize(
+            callback = callback,
+            params = VKIDAuthParams {
+                scopes = setOf("email")
+            }
+        )
     }
 
     private fun saveYandexToken(token: String) = launchWithoutOld(SAVE_TOKEN) {

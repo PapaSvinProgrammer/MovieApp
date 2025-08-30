@@ -7,7 +7,7 @@ import com.mordva.util.error.UnknownException
 import io.ktor.client.call.body
 import io.ktor.client.statement.HttpResponse
 
-internal suspend inline fun <reified T> responseToResult(
+suspend inline fun <reified T> responseToResult(
     response: HttpResponse
 ): Result<T> {
     return when(response.status.value) {

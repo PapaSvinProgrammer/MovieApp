@@ -1,4 +1,4 @@
-package com.mordva.account
+package com.mordva.account.presentation.widget
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -17,8 +17,8 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
+import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.component.TitleRow
 
 @Composable
@@ -64,7 +64,7 @@ private fun SettingsContent(
     Text(
         text = stringResource(R.string.settings),
         fontWeight = FontWeight.Bold,
-        fontSize = 17.sp,
+        fontSize = Typography.bodyLarge.fontSize,
         modifier = Modifier.padding(start = 15.dp, bottom = 15.dp)
     )
 
@@ -78,7 +78,7 @@ private fun SettingsContent(
     ) {
         TitleRow(
             title = stringResource(R.string.notifications_and_sounds),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onSound,
             modifier = Modifier.clip(
@@ -91,7 +91,7 @@ private fun SettingsContent(
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.confidentiality),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onConf
 
@@ -99,21 +99,21 @@ private fun SettingsContent(
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.data_and_memory),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onData
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.decor),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onTheme
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.language),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onLanguage,
             modifier = Modifier.clip(
@@ -134,7 +134,7 @@ private fun SupportContent(
     Text(
         text = stringResource(R.string.other),
         fontWeight = FontWeight.Bold,
-        fontSize = 17.sp,
+        fontSize = Typography.bodyLarge.fontSize,
         modifier = Modifier
             .padding(
                 horizontal = 15.dp,
@@ -152,14 +152,14 @@ private fun SupportContent(
     ) {
         TitleRow(
             title = stringResource(R.string.chat_with_support),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onSupport
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.about_app),
-            fontSize = 14.sp,
+            fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
             onClick = onAbout
         )

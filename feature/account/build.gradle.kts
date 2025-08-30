@@ -4,5 +4,10 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":core:ui"))
+    implementation(projects.core.ui)
+    implementation(projects.core.security)
+    implementation(projects.core.network)
+
+    implementation(libs.vkid)
+    implementation(libs.ktor.client.core)
 }

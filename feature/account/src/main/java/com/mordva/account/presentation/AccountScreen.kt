@@ -1,4 +1,4 @@
-package com.mordva.account
+package com.mordva.account.presentation
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
@@ -22,6 +22,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.movieapp.ui.R
+import com.mordva.account.presentation.widget.SettingsList
 import com.mordva.navigation.AboutAppGraph
 import com.mordva.navigation.SettingsGraph
 import com.mordva.ui.theme.ColorGradient1
@@ -35,12 +36,10 @@ import dev.chrisbanes.haze.hazeSource
 @Composable
 internal fun AccountScreen(
     navController: NavController,
+    viewModel: AccountViewModel,
     hazeState: HazeState
 ) {
-    Scaffold(
-        topBar = {
-        }
-    ) { innerPadding ->
+    Scaffold { innerPadding ->
         Column(
             modifier = Modifier
                 .fillMaxSize()

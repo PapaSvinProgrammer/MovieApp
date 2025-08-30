@@ -1,6 +1,7 @@
 package com.mordva.movieapp.di
 
 import android.content.Context
+import com.mordva.account.di.AccountDependency
 import com.mordva.awardlist.di.AwardListDependency
 import com.mordva.base_view_models.movie_list.MovieListDependency
 import com.mordva.base_view_models.person_list.PersonListDependency
@@ -42,7 +43,8 @@ interface AppComponent :
     PersonListDependency,
     SearchDependency,
     SettingsDependency,
-    LoginDependency {
+    LoginDependency,
+    AccountDependency {
 
     @Component.Factory
     interface Factory {

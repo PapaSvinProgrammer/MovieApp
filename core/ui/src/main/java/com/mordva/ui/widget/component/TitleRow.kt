@@ -33,13 +33,17 @@ fun TitleRow(
             text = title,
             fontSize = fontSize,
             fontWeight = fontWeight,
-            modifier = Modifier.align(Alignment.CenterStart).padding(15.dp)
+            modifier = Modifier
+                .align(Alignment.CenterStart)
+                .padding(horizontal = 15.dp, vertical = 10.dp)
         )
 
         Icon(
             imageVector = Icons.AutoMirrored.Rounded.KeyboardArrowRight,
             contentDescription = null,
-            modifier = Modifier.align(Alignment.CenterEnd).padding(15.dp)
+            modifier = Modifier
+                .align(Alignment.CenterEnd)
+                .padding(horizontal = 15.dp, vertical = 10.dp)
         )
     }
 }

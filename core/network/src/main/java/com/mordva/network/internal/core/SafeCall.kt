@@ -9,7 +9,7 @@ import kotlinx.coroutines.ensureActive
 import kotlinx.serialization.SerializationException
 import kotlin.coroutines.coroutineContext
 
-internal suspend inline fun <reified T> safeCall(
+suspend inline fun <reified T> safeCall(
     execute: () -> HttpResponse
 ): Result<T> {
     val response = try {

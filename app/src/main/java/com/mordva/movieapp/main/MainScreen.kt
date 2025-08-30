@@ -11,7 +11,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.mordva.aboutapp.navigation.AboutAppFeatureImpl
-import com.mordva.account.navigation.AccountFeatureImpl
+import com.mordva.account.presentation.navigation.AccountFeatureImpl
 import com.mordva.awardlist.presentation.navigation.AwardListFeatureImpl
 import com.mordva.collectionlist.presentation.navigation.CollectionListFeatureImpl
 import com.mordva.favorite.navigation.FavoriteFeatureImpl
@@ -37,7 +37,7 @@ fun MainScreen(
     appComponent: AppComponent
 ) {
     val features = listOf(
-        AccountFeatureImpl(),
+        AccountFeatureImpl(appComponent),
         HomeFeatureImpl(appComponent, appComponent),
         AboutAppFeatureImpl(),
         AwardListFeatureImpl(appComponent),

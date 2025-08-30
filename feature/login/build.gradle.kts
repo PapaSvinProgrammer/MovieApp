@@ -10,5 +10,4 @@ dependencies {
     implementation(libs.vkid)
     implementation(libs.authsdk)
     implementation(projects.core.ui)
-    implementation(libs.ktor.client.core)
 }
