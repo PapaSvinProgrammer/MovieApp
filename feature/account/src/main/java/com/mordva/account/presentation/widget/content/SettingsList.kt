@@ -1,4 +1,4 @@
-package com.mordva.account.presentation.widget
+package com.mordva.account.presentation.widget.content
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
@@ -154,14 +154,26 @@ private fun SupportContent(
             title = stringResource(R.string.chat_with_support),
             fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
-            onClick = onSupport
+            onClick = onSupport,
+            modifier = Modifier.clip(
+                RoundedCornerShape(
+                    topStart = 10.dp,
+                    topEnd = 10.dp
+                )
+            )
         )
         HorizontalDivider()
         TitleRow(
             title = stringResource(R.string.about_app),
             fontSize = Typography.bodyMedium.fontSize,
             fontWeight = FontWeight.Normal,
-            onClick = onAbout
+            onClick = onAbout,
+            modifier = Modifier.clip(
+                RoundedCornerShape(
+                    bottomStart = 10.dp,
+                    bottomEnd = 10.dp
+                )
+            )
         )
     }
 }

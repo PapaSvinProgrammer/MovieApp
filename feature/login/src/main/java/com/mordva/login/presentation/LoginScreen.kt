@@ -34,7 +34,7 @@ import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.example.movieapp.login.R
+import com.example.movieapp.ui.R
 import com.mordva.login.presentation.widget.CustomButtonWithLoading
 import com.mordva.login.presentation.widget.state.AuthState
 import com.mordva.navigation.HomeGraph

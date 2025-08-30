@@ -113,4 +113,6 @@
     <string name="collection">Коллекции: %1$s</string>
     <string name="sequals_and_prequals">Сиквелы и приквелы</string>
     <string name="sex">Пол: %1$s</string>
+    <string name="login_with_yandex">Начать через Яндекс</string>
+    <string name="login_with_vk">Начать через ВКонтакте</string>
 </resources>

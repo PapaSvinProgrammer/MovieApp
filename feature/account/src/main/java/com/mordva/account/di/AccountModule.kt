@@ -5,8 +5,10 @@ import androidx.lifecycle.ViewModelProvider
 import com.example.viewmodelfactory.ViewModelFactory
 import com.example.viewmodelfactory.ViewModelKey
 import com.mordva.account.data.repository.UserAccountRepositoryImpl
-import com.mordva.account.data.service.UserAccountService
-import com.mordva.account.data.service.UserAccountServiceImpl
+import com.mordva.account.data.service.external.RefreshTokenService
+import com.mordva.account.data.service.external.UserAccountService
+import com.mordva.account.data.service.internal.RefreshTokenServiceImpl
+import com.mordva.account.data.service.internal.UserAccountServiceImpl
 import com.mordva.account.domain.repository.UserAccountRepository
 import com.mordva.account.presentation.AccountViewModel
 import dagger.Binds
@@ -32,4 +34,8 @@ internal interface AccountModule {
     @Binds
     @AccountScope
     fun bindsUserAccountServiceImpl(service: UserAccountServiceImpl): UserAccountService
+
+    @Binds
+    @AccountScope
+    fun bindsRefreshTokenServiceImpl(service: RefreshTokenServiceImpl): RefreshTokenService
 }

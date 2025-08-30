@@ -1,4 +1,4 @@
-package com.mordva.account.data.service
+package com.mordva.account.data.service.external
 
 import com.mordva.account.domain.model.UserAccount
 
