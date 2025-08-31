@@ -12,7 +12,7 @@ import com.mordva.model.totalValue.ReleaseYears
 import com.mordva.model.totalValue.Votes
 
 data class Movie(
-    val id: Int,
+    val id: Int = 0,
     val type: String? = null,
     val name: String? = null,
     val rating: Rating? = null,

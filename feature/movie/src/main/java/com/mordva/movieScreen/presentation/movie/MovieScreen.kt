@@ -45,6 +45,7 @@ import com.mordva.ui.uiState.MovieUIState
 import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
 import com.mordva.ui.widget.other.TitleTopBarText
+import com.mordva.ui.widget.scoreBottomSheet.ScoreBottomSheet
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 
@@ -55,7 +56,7 @@ internal fun MovieScreen(
     hazeState: HazeState,
     id: Int
 ) {
-    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
+    val state by viewModel.uiState.collectAsStateWithLifecycle()
 
     val scrollState = rememberLazyListState()
     val firstOffset by remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
@@ -73,15 +74,15 @@ internal fun MovieScreen(
         viewModel.getComments(id)
     }
 
-    LaunchedEffect(uiState.movieState) {
-        uiState.movieState.body()?.let {
+    LaunchedEffect(state.movieState) {
+        state.movieState.body()?.let {
             viewModel.getCollections(it.lists)
         }
     }
 
-    RenderMovieContent(state = uiState.movieState)
+    RenderMovieContent(state = state.movieState)
 
-    uiState.movieState.body()?.let { movie ->
+    state.movieState.body()?.let { movie ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -93,7 +94,7 @@ internal fun MovieScreen(
             )
 
             CollapsedTopBar(
-                isCollapsed = uiState.isCollapsed,
+                isCollapsed = state.isCollapsed,
                 title = { TitleTopBarText(text = movie.name ?: "") },
                 navigationIcon = {
                     IconButton(onClick = { navController.popBackStack() }) {
@@ -110,7 +111,17 @@ internal fun MovieScreen(
                 modifier = Modifier.hazeSource(hazeState),
                 state = scrollState
             ) {
-                item { ExpandedContent(movie) }
+                item {
+                    ExpandedContent(
+                        movie = movie,
+                        onEvaluate = {
+                            viewModel.updateScoreSheetVisible(true)
+                        },
+                        onAddIntoFuturePackage = {},
+                        onShare = {},
+                        onMore = {}
+                    )
+                }
 
                 movieDescriptionItem(movie)
 
@@ -121,7 +132,7 @@ internal fun MovieScreen(
                 ratingCardLargeItem(movie)
 
                 personGridHorizontalItem(
-                    actors = uiState.actors,
+                    actors = state.actors,
                     navController = navController,
                     onClick = {
                         navController.navigate(
@@ -130,16 +141,16 @@ internal fun MovieScreen(
                     }
                 )
 
-                supportPersonalItem(uiState.supportPersonal, navController)
+                supportPersonalItem(state.supportPersonal, navController)
 
-                voiceActorsItem(uiState.voiceActors, navController)
+                voiceActorsItem(state.voiceActors, navController)
 
-                commentsItem(uiState.comments)
+                commentsItem(state.comments)
 
-                imagesItem(uiState.images)
+                imagesItem(state.images)
 
                 collectionsItem(
-                    data = uiState.collections,
+                    data = state.collections,
                     navController = navController,
                     listId = movie.lists
                 )
@@ -157,11 +168,22 @@ internal fun MovieScreen(
         }
     }
 
-    if (uiState.selectedFact.isNotEmpty()) {
+    if (state.selectedFact.isNotEmpty()) {
         FactSheet(
-            text = uiState.selectedFact,
+            text = state.selectedFact,
             onDismissRequest = {
                 viewModel.updateSelectedFact("")
+            }
+        )
+    }
+
+    if (state.scoreSheetVisible) {
+        ScoreBottomSheet(
+            movie = state.movieState.body() ?: Movie(),
+            onSave = {},
+            onValueChange = {},
+            onDismissRequest = {
+                viewModel.updateScoreSheetVisible(false)
             }
         )
     }

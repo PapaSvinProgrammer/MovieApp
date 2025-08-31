@@ -15,5 +15,6 @@ internal data class UIState(
     val images: List<Poster> = listOf(),
     val collections: List<CollectionMovie> = listOf(),
     val selectedFact: String = "",
-    val isCollapsed: Boolean = false
+    val isCollapsed: Boolean = false,
+    val scoreSheetVisible: Boolean = false
 )

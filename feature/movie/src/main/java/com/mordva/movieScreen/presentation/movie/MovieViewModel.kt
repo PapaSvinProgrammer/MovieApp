@@ -35,6 +35,12 @@ internal class MovieViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
 
+    fun updateScoreSheetVisible(visible: Boolean) {
+        _uiState.update {
+            it.copy(scoreSheetVisible = visible)
+        }
+    }
+
     fun updateCollapsedState(state: Boolean) {
         _uiState.update {
             it.copy(isCollapsed = state)

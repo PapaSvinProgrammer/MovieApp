@@ -1,5 +1,7 @@
 package com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar
 
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.interaction.MutableInteractionSource
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.height
@@ -8,6 +10,7 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.painter.Painter
@@ -18,26 +21,35 @@ import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
 
 @Composable
-internal fun ExpandedNavigationBar() {
+internal fun ExpandedNavigationBar(
+    onEvaluate: () -> Unit,
+    onAddIntoFuturePackage: () -> Unit,
+    onShare: () -> Unit,
+    onMore: () -> Unit
+) {
     Row {
         NavigationTab(
             painter = painterResource(R.drawable.ic_star),
-            title = stringResource(R.string.evaluate)
+            title = stringResource(R.string.evaluate),
+            clickable = onEvaluate
         )
 
         NavigationTab(
             painter = painterResource(R.drawable.ic_bookmark_add),
-            title = stringResource(R.string.will_watching)
+            title = stringResource(R.string.will_watching),
+            clickable = onAddIntoFuturePackage
         )
 
         NavigationTab(
             painter = painterResource(R.drawable.ic_share),
-            title = stringResource(R.string.share)
+            title = stringResource(R.string.share),
+            clickable = onShare
         )
 
         NavigationTab(
             painter = painterResource(R.drawable.ic_more_horiz),
-            title = stringResource(R.string.more)
+            title = stringResource(R.string.more),
+            clickable = onMore
         )
     }
 }
@@ -46,12 +58,18 @@ internal fun ExpandedNavigationBar() {
 private fun NavigationTab(
     modifier: Modifier = Modifier,
     painter: Painter,
-    title: String
+    title: String,
+    clickable: () -> Unit = {}
 ) {
     Column(
         modifier = Modifier
             .height(45.dp)
-            .width(90.dp),
+            .width(90.dp)
+            .clickable(
+                indication = null,
+                interactionSource = remember { MutableInteractionSource() },
+                onClick = clickable
+            ),
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Icon(
