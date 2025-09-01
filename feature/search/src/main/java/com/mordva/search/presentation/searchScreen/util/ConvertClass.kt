@@ -1,6 +1,6 @@
 package com.mordva.search.presentation.searchScreen.util
 
-import com.mordva.model.History
+import com.mordva.model.local.History
 import com.mordva.model.SearchItem
 import com.mordva.model.movie.Movie
 import com.mordva.model.person.Person

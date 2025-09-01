@@ -2,7 +2,7 @@ package com.mordva.data
 
 import androidx.paging.PagingData
 import com.mordva.domain.repository.HistoryRepository
-import com.mordva.model.History
+import com.mordva.model.local.History
 import com.mordva.room.external.HistoryService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

@@ -14,7 +14,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import com.example.movieapp.ui.R
-import com.mordva.model.History
+import com.mordva.model.local.History
 import com.mordva.model.SearchItem
 import com.mordva.ui.uiState.SearchUIState
 import dev.chrisbanes.haze.HazeState

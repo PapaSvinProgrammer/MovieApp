@@ -8,6 +8,7 @@ import com.mordva.data.HistoryRepositoryImpl
 import com.mordva.data.MovieRepositoryImpl
 import com.mordva.data.PersonRepositoryImpl
 import com.mordva.data.PreferencesRepositoryImpl
+import com.mordva.data.RatedMovieRepositoryImpl
 import com.mordva.data.SeasonRepositoryImpl
 import com.mordva.data.StudioRepositoryImpl
 import com.mordva.domain.repository.AwardRepository
@@ -18,6 +19,7 @@ import com.mordva.domain.repository.HistoryRepository
 import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.repository.PersonRepository
 import com.mordva.domain.repository.PreferencesRepository
+import com.mordva.domain.repository.RatedMovieRepository
 import com.mordva.domain.repository.SeasonRepository
 import com.mordva.domain.repository.StudioRepository
 import com.mordva.util.ApplicationScope
@@ -65,4 +67,8 @@ internal interface DataModuleImpl {
     @Binds
     @ApplicationScope
     fun bindHistoryRepositoryImpl(repository: HistoryRepositoryImpl): HistoryRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsRatedMovieRepository(repository: RatedMovieRepositoryImpl): RatedMovieRepository
 }

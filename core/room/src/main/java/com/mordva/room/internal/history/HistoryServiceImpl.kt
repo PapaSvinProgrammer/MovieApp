@@ -4,7 +4,7 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import androidx.paging.map
-import com.mordva.model.History
+import com.mordva.model.local.History
 import com.mordva.room.external.HistoryService
 import com.mordva.room.internal.utils.safeCall
 import com.mordva.room.internal.utils.toDomain

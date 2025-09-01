@@ -33,7 +33,7 @@ class MovieFeatureImpl(
         modifier: Modifier
     ) {
         navGraphBuilder.navigation<MovieGraph>(
-            startDestination = MovieGraph.MovieRoute(5249436)
+            startDestination = MovieGraph.MovieRoute(326)
         ) {
             composable<MovieGraph.MovieRoute> {
                 val route = it.toRoute<MovieGraph.MovieRoute>()

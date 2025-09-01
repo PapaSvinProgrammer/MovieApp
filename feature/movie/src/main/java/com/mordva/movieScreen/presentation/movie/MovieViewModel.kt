@@ -7,11 +7,14 @@ import com.mordva.domain.usecase.comment.model.CommentParams
 import com.mordva.domain.usecase.movie.GetMovieById
 import com.mordva.domain.usecase.movie.GetMovieImages
 import com.mordva.domain.usecase.movie.model.MovieParams
+import com.mordva.model.movie.Movie
 import com.mordva.model.person.PersonMovie
+import com.mordva.movieScreen.domain.AddRatedMovie
 import com.mordva.movieScreen.domain.FilterCollection
 import com.mordva.movieScreen.domain.FilterPersonsLikeActors
 import com.mordva.movieScreen.domain.FilterPersonsLikeSupport
 import com.mordva.movieScreen.domain.FilterPersonsLikeVoiceActors
+import com.mordva.movieScreen.domain.model.RatedMovieParams
 import com.mordva.movieScreen.presentation.movie.widget.UIState
 import com.mordva.ui.uiState.MovieUIState
 import com.mordva.util.cancelAllJobs
@@ -30,7 +33,8 @@ internal class MovieViewModel @Inject constructor(
     private val filterCollection: FilterCollection,
     private val filterPersonsLikeVoiceActors: FilterPersonsLikeVoiceActors,
     private val filterPersonsLikeActors: FilterPersonsLikeActors,
-    private val filterPersonsLikeSupport: FilterPersonsLikeSupport
+    private val filterPersonsLikeSupport: FilterPersonsLikeSupport,
+    private val addRatedMovie: AddRatedMovie
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
@@ -51,6 +55,15 @@ internal class MovieViewModel @Inject constructor(
         _uiState.update {
             it.copy(selectedFact = text)
         }
+    }
+
+    fun addRatedMovie(rating: Int) = launchWithoutOld(ADD_RATED_MOVIE_JOB) {
+        val params = RatedMovieParams(
+            movie = uiState.value.movieState.body() ?: Movie(),
+            rating = rating
+        )
+
+        addRatedMovie.execute(params)
     }
 
     fun getComments(movieId: Int) = launchWithoutOld(GET_COMMENTS_JOB) {
@@ -132,6 +145,7 @@ internal class MovieViewModel @Inject constructor(
     }
 
     private companion object {
+        const val ADD_RATED_MOVIE_JOB = "add_rated_movie"
         const val GET_COMMENTS_JOB = "get_comments"
         const val GET_MOVIE_JOB = "get_movie"
         const val GET_IMAGES_JOB = "get_images"

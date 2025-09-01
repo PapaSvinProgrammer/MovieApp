@@ -76,7 +76,10 @@ fun ScoreBottomSheet(
 
             Button(
                 colors = ButtonDefaults.buttonColors(scoreValue.toRatingColor()),
-                onClick = { onSave(scoreValue) }
+                onClick = {
+                    onSave(scoreValue)
+                    onDismissRequest()
+                }
             ) {
                 Text(
                     text = "Поставить оценку",

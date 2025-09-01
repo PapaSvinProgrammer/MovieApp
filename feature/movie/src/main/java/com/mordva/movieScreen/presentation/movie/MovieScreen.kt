@@ -180,8 +180,12 @@ internal fun MovieScreen(
     if (state.scoreSheetVisible) {
         ScoreBottomSheet(
             movie = state.movieState.body() ?: Movie(),
-            onSave = {},
-            onValueChange = {},
+            onSave = {
+                viewModel.addRatedMovie(it)
+            },
+            onValueChange = {
+
+            },
             onDismissRequest = {
                 viewModel.updateScoreSheetVisible(false)
             }
@@ -189,7 +193,7 @@ internal fun MovieScreen(
     }
 }
 
-private fun MovieUIState.body(): Movie? {
+internal fun MovieUIState.body(): Movie? {
     return (this as? MovieUIState.Success)?.data?.first()
 }
 

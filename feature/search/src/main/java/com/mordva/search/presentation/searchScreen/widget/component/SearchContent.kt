@@ -19,7 +19,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.movieapp.ui.R
-import com.mordva.model.History
+import com.mordva.model.local.History
 import com.mordva.model.SearchItem
 import com.mordva.search.presentation.searchScreen.util.toSearchItem
 import com.mordva.search.presentation.searchScreen.widget.listItem.SearchHistoryMovieCard

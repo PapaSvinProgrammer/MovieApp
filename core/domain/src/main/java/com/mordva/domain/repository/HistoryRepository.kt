@@ -1,9 +1,8 @@
 package com.mordva.domain.repository
 
 import androidx.paging.PagingData
-import com.mordva.model.History
+import com.mordva.model.local.History
 import kotlinx.coroutines.flow.Flow
-
 
 interface HistoryRepository {
     suspend fun insert(history: History)

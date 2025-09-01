@@ -1,7 +1,7 @@
 package com.mordva.room.external
 
 import androidx.paging.PagingData
-import com.mordva.model.History
+import com.mordva.model.local.History
 import kotlinx.coroutines.flow.Flow
 
 interface HistoryService {

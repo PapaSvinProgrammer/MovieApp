@@ -1,7 +1,6 @@
-package com.mordva.model
+package com.mordva.model.local
 
-data class History(
-    val id: Int = 0,
+data class RatedMovie(
     val movieId: Int,
     val name: String,
     val alternativeName: String,
@@ -9,5 +8,5 @@ data class History(
     val start: Int?,
     val end: Int?,
     val poster: String,
-    val isMovie: Boolean
+    val rating: Int
 )
