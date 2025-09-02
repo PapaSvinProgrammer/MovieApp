@@ -17,7 +17,7 @@ fun <T> DefaultLazyRow(
     modifier: Modifier = Modifier,
     list: List<T>,
     key: ((item: T) -> Any)? = null,
-    lastItemCard: @Composable () -> Unit,
+    lastItemCard: @Composable () -> Unit = {},
     content: @Composable (T) -> Unit
 ) {
     val listState = rememberLazyListState()

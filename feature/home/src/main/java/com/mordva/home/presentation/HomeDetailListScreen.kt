@@ -100,7 +100,10 @@ private fun MainPersonContent(
         onLoadMore = onLoadMore
     ) {
         MovieCard(
-            movie = it,
+            name = it.name ?: "",
+            image = it.poster?.url ?: "",
+            rating = it.rating?.kp,
+            top250 = it.top250,
             modifier = Modifier.height(300.dp),
             onClick = { onClick(it) }
         )

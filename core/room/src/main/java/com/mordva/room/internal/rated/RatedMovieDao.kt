@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.mordva.model.local.RatedMovie
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -19,4 +20,7 @@ internal interface RatedMovieDao {
 
     @Query("SELECT * FROM rated_movies WHERE rating = :rating")
     fun getAllByRating(rating: Int): Flow<List<RatedMovieEntity>>
+
+    @Query("SELECT * FROM rated_movies WHERE movie_id = :movieId")
+    fun getById(movieId: Int): Flow<RatedMovieEntity?>
 }

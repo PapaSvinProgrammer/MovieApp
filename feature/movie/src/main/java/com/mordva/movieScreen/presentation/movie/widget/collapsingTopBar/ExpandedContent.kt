@@ -15,6 +15,7 @@ import com.mordva.util.convert.PrettyData
 @Composable
 internal fun ExpandedContent(
     movie: Movie,
+    customRating: Int? = null,
     onEvaluate: () -> Unit,
     onAddIntoFuturePackage: () -> Unit,
     onShare: () -> Unit,
@@ -39,7 +40,8 @@ internal fun ExpandedContent(
                 date = date,
                 countries = countries,
                 length = length,
-                age = age
+                age = age,
+                customRating = customRating,
             )
         }
         else {
@@ -48,6 +50,7 @@ internal fun ExpandedContent(
                 genres = genres,
                 date = date,
                 countries = countries,
+                customRating = customRating,
                 length = length,
                 age = age
             )
@@ -56,6 +59,7 @@ internal fun ExpandedContent(
         Spacer(modifier = Modifier.height(20.dp))
 
         ExpandedNavigationBar(
+            customRating = customRating,
             onEvaluate = onEvaluate,
             onShare = onShare,
             onMore = onMore,

@@ -10,6 +10,7 @@ import com.mordva.model.movie.Movie
 @Composable
 internal fun ContentWithBackdrop(
     movie: Movie,
+    customRating: Int? = null,
     date: String,
     genres: String,
     countries: String,
@@ -28,6 +29,7 @@ internal fun ContentWithBackdrop(
         countries = countries,
         length = length,
         age = age,
+        customRating = customRating,
         title = {
             MovieLogo(
                 url = movie.logo?.url,

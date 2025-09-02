@@ -24,7 +24,8 @@ internal fun ContentWithoutBackdrop(
     genres: String,
     countries: String,
     length: String,
-    age: String
+    age: String,
+    customRating: Int? = null
 ) {
     Spacer(modifier = Modifier.height(100.dp))
 
@@ -54,6 +55,7 @@ internal fun ContentWithoutBackdrop(
         countries = countries,
         length = length,
         age = age,
+        customRating = customRating,
         title = {
             MovieLogo(
                 url = null,
