@@ -6,7 +6,7 @@ import com.mordva.model.local.RatedMovie
 import com.mordva.model.movie.Comment
 import com.mordva.model.person.PersonMovie
 import com.mordva.ui.uiState.MovieUIState
-import com.mordva.ui.widget.scoreBottomSheet.RatedMovieState
+import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.RatedMovieState
 
 internal data class UIState(
     val movieState: MovieUIState = MovieUIState.Loading,

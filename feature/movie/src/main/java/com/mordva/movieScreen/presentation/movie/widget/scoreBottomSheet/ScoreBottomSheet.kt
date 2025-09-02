@@ -1,4 +1,4 @@
-package com.mordva.ui.widget.scoreBottomSheet
+package com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.ColumnScope
@@ -21,7 +21,6 @@ import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -41,6 +40,7 @@ import com.example.movieapp.ui.R
 import com.mordva.model.local.RatedMovie
 import com.mordva.model.movie.Movie
 import com.mordva.ui.theme.Typography
+import com.mordva.ui.widget.component.ScorePicker
 import com.mordva.ui.widget.lazyComponent.DefaultLazyRow
 import com.mordva.ui.widget.listItems.MovieCard
 import com.mordva.ui.widget.other.toRatingColor
@@ -49,7 +49,7 @@ import com.mordva.util.convert.ConvertData
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ScoreBottomSheet(
+internal fun ScoreBottomSheet(
     movie: Movie,
     ratedMovieState: RatedMovieState = RatedMovieState.Init,
     initialValue: Int? = null,
@@ -149,7 +149,7 @@ private fun ColumnScope.RenderRatedMovieList(
                 modifier = Modifier
                     .align(Alignment.CenterHorizontally)
                     .padding(15.dp),
-                text = "Ваши фильмы на $currentRating",
+                text = stringResource(R.string.your_movie_on, currentRating),
                 fontSize = Typography.bodyLarge.fontSize,
                 fontWeight = FontWeight.Medium
             )

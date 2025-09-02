@@ -1,4 +1,4 @@
-package com.mordva.ui.widget.scoreBottomSheet
+package com.mordva.ui.widget.component
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateFloatAsState

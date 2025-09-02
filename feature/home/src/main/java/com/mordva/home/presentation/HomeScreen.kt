@@ -53,7 +53,7 @@ internal fun HomeScreen(
                 .fillMaxSize()
                 .padding(innerPadding)
                 .hazeSource(hazeState),
-            verticalArrangement = Arrangement.spacedBy(15.dp)
+            verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             item {
                 viewModel.getCollections()

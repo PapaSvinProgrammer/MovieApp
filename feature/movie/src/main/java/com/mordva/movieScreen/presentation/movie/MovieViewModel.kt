@@ -17,8 +17,8 @@ import com.mordva.movieScreen.domain.FilterPersonsLikeVoiceActors
 import com.mordva.movieScreen.domain.model.RatedMovieParams
 import com.mordva.movieScreen.presentation.movie.widget.UIState
 import com.mordva.ui.uiState.MovieUIState
-import com.mordva.ui.widget.scoreBottomSheet.RatedMovieState
-import com.mordva.ui.widget.scoreBottomSheet.ScoreSheetAction
+import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.RatedMovieState
+import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreSheetAction
 import com.mordva.util.cancelAllJobs
 import com.mordva.util.launchWithoutOld
 import com.mordva.util.multiRequest

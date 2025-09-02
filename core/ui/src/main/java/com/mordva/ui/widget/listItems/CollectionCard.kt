@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
@@ -31,8 +30,6 @@ fun CollectionCard(
 ) {
     Box(
         modifier = Modifier
-            .height(210.dp)
-            .width(140.dp)
             .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick)
     ) {
@@ -43,10 +40,9 @@ fun CollectionCard(
                 contentDescription = null,
                 contentScale = ContentScale.FillBounds,
                 modifier = Modifier
-                    .fillMaxWidth()
+                    .width(140.dp)
                     .height(140.dp)
                     .clip(RoundedCornerShape(10.dp))
-
             )
 
             Text(
@@ -54,9 +50,12 @@ fun CollectionCard(
                 fontWeight = FontWeight.Medium,
                 fontSize = Typography.bodySmall.fontSize,
                 overflow = TextOverflow.Ellipsis,
+                minLines = 2,
                 maxLines = 2,
                 color = MaterialTheme.colorScheme.onSurface,
-                modifier = Modifier.padding(vertical = 10.dp)
+                modifier = Modifier
+                    .padding(vertical = 10.dp)
+                    .width(140.dp)
             )
         }
     }

@@ -121,4 +121,5 @@
     <string name="change_rating">Изменить рейтинг</string>
     <string name="not_change">Ничего не ставить</string>
     <string name="delete_rating">Удалить оценку</string>
+    <string name="your_movie_on">Ваши фильмы на %1$d</string>
 </resources>

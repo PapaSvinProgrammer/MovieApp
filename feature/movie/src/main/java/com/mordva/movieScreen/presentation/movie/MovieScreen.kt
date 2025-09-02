@@ -45,7 +45,7 @@ import com.mordva.ui.uiState.MovieUIState
 import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
 import com.mordva.ui.widget.other.TitleTopBarText
-import com.mordva.ui.widget.scoreBottomSheet.ScoreBottomSheet
+import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreBottomSheet
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

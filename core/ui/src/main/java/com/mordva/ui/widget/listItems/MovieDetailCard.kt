@@ -42,7 +42,6 @@ fun MovieDetailCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .height(130.dp)
             .clickable(onClick = onClick)
             .padding(15.dp)
     ) {

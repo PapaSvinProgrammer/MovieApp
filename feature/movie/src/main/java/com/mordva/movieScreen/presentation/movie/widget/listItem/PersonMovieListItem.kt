@@ -14,14 +14,11 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
 import com.example.movieapp.ui.R
 import com.mordva.model.person.PersonMovie
 import com.mordva.ui.theme.Typography
@@ -41,10 +38,7 @@ internal fun PersonMovieListItem(
         verticalAlignment = Alignment.CenterVertically
     ) {
         AsyncImage(
-            model = ImageRequest.Builder(LocalContext.current)
-                .data(person.photo)
-                .crossfade(true)
-                .build(),
+            model = person.photo,
             contentDescription = null,
             error = painterResource(R.drawable.ic_image),
             contentScale = ContentScale.Crop,

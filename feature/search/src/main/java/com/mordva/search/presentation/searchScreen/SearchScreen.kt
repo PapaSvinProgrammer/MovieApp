@@ -109,7 +109,7 @@ internal fun SearchScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .hazeSource(hazeState),
-            verticalArrangement = Arrangement.spacedBy(10.dp)
+            verticalArrangement = Arrangement.spacedBy(5.dp)
         ) {
             collectionsItemContent(
                 state = uiState.collectionsState,

@@ -18,18 +18,18 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.movieapp.ui.R
-import com.mordva.model.movie.Movie
 import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.chips.RatingChip
 
 @Composable
 fun MovieCard(
-    modifier: Modifier = Modifier
-        .width(160.dp)
-        .height(260.dp),
+    modifier: Modifier = Modifier,
+    imageHeight: Dp = 190.dp,
+    imageWidth: Dp = 140.dp,
     name: String,
     image: String,
     rating: Float? = null,
@@ -51,9 +51,9 @@ fun MovieCard(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .height(imageHeight)
+                    .width(imageWidth)
                     .clip(RoundedCornerShape(10.dp))
-                    .weight(5f)
             )
 
             Text(
@@ -61,9 +61,11 @@ fun MovieCard(
                 fontWeight = FontWeight.Medium,
                 fontSize = Typography.bodySmall.fontSize,
                 overflow = TextOverflow.Ellipsis,
+                minLines = 2,
+                maxLines = 2,
                 modifier = Modifier
+                    .width(imageWidth)
                     .padding(vertical = 10.dp)
-                    .weight(1f)
             )
         }
 

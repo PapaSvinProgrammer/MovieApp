@@ -47,8 +47,8 @@ private fun MainMovieRow(
         key = { it.id },
         lastItemCard = {
             LastItemCard(
-                width = 160.dp,
-                height = 260.dp,
+                width = 140.dp,
+                height = 190.dp,
                 onClick = onShowAll
             )
         },

@@ -21,7 +21,9 @@ import com.mordva.ui.theme.Typography
 internal fun MovieLogo(url: String?, name: String) {
     if (url == null) {
         Text(
-            modifier = Modifier.fillMaxWidth(),
+            modifier = Modifier
+                .padding(horizontal = 15.dp)
+                .fillMaxWidth(),
             text = name,
             fontSize = Typography.titleLarge.fontSize,
             fontWeight = FontWeight.Bold,

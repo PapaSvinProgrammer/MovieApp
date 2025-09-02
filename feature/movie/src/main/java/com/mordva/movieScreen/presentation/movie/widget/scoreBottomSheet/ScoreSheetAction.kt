@@ -1,6 +1,6 @@
-package com.mordva.ui.widget.scoreBottomSheet
+package com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet
 
-sealed interface ScoreSheetAction {
+internal sealed interface ScoreSheetAction {
     data class ValueChange(val rating: Int) : ScoreSheetAction
     data class Save(val rating: Int) : ScoreSheetAction
     data object Nothing : ScoreSheetAction
