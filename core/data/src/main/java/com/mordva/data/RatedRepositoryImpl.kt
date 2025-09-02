@@ -17,6 +17,10 @@ internal class RatedMovieRepositoryImpl @Inject constructor(
         service.delete(movieId)
     }
 
+    override fun getById(movieId: Int): Flow<RatedMovie?> {
+        return service.getById(movieId)
+    }
+
     override fun getAll(): Flow<List<RatedMovie>> {
         return service.getAll()
     }

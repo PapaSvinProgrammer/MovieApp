@@ -13,6 +13,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
@@ -22,6 +23,7 @@ import com.example.movieapp.ui.R
 
 @Composable
 internal fun ExpandedNavigationBar(
+    customRating: Int? = null,
     onEvaluate: () -> Unit,
     onAddIntoFuturePackage: () -> Unit,
     onShare: () -> Unit,
@@ -29,9 +31,16 @@ internal fun ExpandedNavigationBar(
 ) {
     Row {
         NavigationTab(
-            painter = painterResource(R.drawable.ic_star),
+            painter = if (customRating != null)
+                painterResource(R.drawable.ic_star_fill)
+            else
+                painterResource(R.drawable.ic_star),
             title = stringResource(R.string.evaluate),
-            clickable = onEvaluate
+            clickable = onEvaluate,
+            color = if (customRating != null)
+                MaterialTheme.colorScheme.primary
+            else
+                MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         NavigationTab(
@@ -59,6 +68,7 @@ private fun NavigationTab(
     modifier: Modifier = Modifier,
     painter: Painter,
     title: String,
+    color: Color = MaterialTheme.colorScheme.onSurfaceVariant,
     clickable: () -> Unit = {}
 ) {
     Column(
@@ -76,13 +86,12 @@ private fun NavigationTab(
             modifier = modifier,
             painter = painter,
             contentDescription = null,
-            tint = MaterialTheme.colorScheme.onSurfaceVariant
+            tint = color
         )
 
         Text(
             text = title,
-            fontSize = 10.sp,
-            color = MaterialTheme.colorScheme.onSurfaceVariant
+            fontSize = 10.sp
         )
     }
 }

@@ -18,17 +18,22 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
+import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.movieapp.ui.R
-import com.mordva.model.movie.Movie
 import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.chips.RatingChip
 
 @Composable
 fun MovieCard(
-    movie: Movie,
-    modifier: Modifier = Modifier.width(160.dp).height(260.dp),
+    modifier: Modifier = Modifier,
+    imageHeight: Dp = 190.dp,
+    imageWidth: Dp = 140.dp,
+    name: String,
+    image: String,
+    rating: Float? = null,
+    top250: Int? = null,
     onClick: () -> Unit = {}
 ) {
     Box(
@@ -41,31 +46,37 @@ fun MovieCard(
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             AsyncImage(
-                model = movie.poster?.url,
+                model = image,
                 error = painterResource(R.drawable.ic_movie),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxSize()
+                    .height(imageHeight)
+                    .width(imageWidth)
                     .clip(RoundedCornerShape(10.dp))
-                    .weight(5f)
             )
 
             Text(
-                text = movie.name ?: "",
+                text = name,
                 fontWeight = FontWeight.Medium,
                 fontSize = Typography.bodySmall.fontSize,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(vertical = 10.dp).weight(1f)
+                minLines = 2,
+                maxLines = 2,
+                modifier = Modifier
+                    .width(imageWidth)
+                    .padding(vertical = 10.dp)
             )
         }
 
-        RatingChip(
-            modifier = Modifier
-                .align(Alignment.TopStart)
-                .padding(5.dp),
-            rating = movie.rating?.kp ?: 0f,
-            top = movie.top250
-        )
+        rating?.let { value ->
+            RatingChip(
+                modifier = Modifier
+                    .align(Alignment.TopStart)
+                    .padding(5.dp),
+                rating = value,
+                top = top250
+            )
+        }
     }
 }

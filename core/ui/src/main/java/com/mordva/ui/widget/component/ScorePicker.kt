@@ -1,4 +1,4 @@
-package com.mordva.ui.widget.scoreBottomSheet
+package com.mordva.ui.widget.component
 
 import android.annotation.SuppressLint
 import androidx.compose.animation.core.animateFloatAsState
@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableIntStateOf
@@ -27,6 +28,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
@@ -40,9 +42,10 @@ import kotlin.math.min
 fun ScorePicker(
     modifier: Modifier = Modifier,
     range: IntRange = 1..10,
-    onValueChange: (Int) -> Unit
+    initialValue: Int = 1,
+    onValueChange: (Int?) -> Unit
 ) {
-    val items = range.toList()
+    val items: List<Int?> = listOf(null) + range.toList()
 
     val listState = rememberLazyListState()
     val flingBehavior = rememberSnapFlingBehavior(
@@ -52,7 +55,11 @@ fun ScorePicker(
 
 
     val screenWidth = LocalConfiguration.current.screenWidthDp.dp
-    var selectedIndex by remember { mutableIntStateOf(0) }
+    var selectedIndex by remember { mutableIntStateOf(initialValue) }
+
+    LaunchedEffect(Unit) {
+        listState.animateScrollToItem(initialValue)
+    }
 
     Box(modifier = modifier.fillMaxWidth()) {
         Box(
@@ -105,20 +112,26 @@ fun ScorePicker(
 
 
 @Composable
-internal fun ScoreText(
+private fun ScoreText(
     isFocused: Boolean,
-    value: Int
+    value: Int?
 ) {
+    var text = value.toString()
+
+    if (value == null) {
+        text = "-"
+    }
+
     if (isFocused) {
         Text(
-            text = value.toString(),
+            text = text,
             fontSize = 32.sp,
             fontWeight = FontWeight.Bold,
-            color = value.toRatingColor()
+            color = value?.toRatingColor() ?: Color.White
         )
     } else {
         Text(
-            text = value.toString(),
+            text = text,
             fontSize = 22.sp,
             fontWeight = FontWeight.SemiBold,
             color = MaterialTheme.colorScheme.onSurface

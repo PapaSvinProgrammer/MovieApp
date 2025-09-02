@@ -38,7 +38,6 @@ private fun MainPersonContent(
     onClick: (Movie) -> Unit,
     loadMore: () -> Unit
 ) {
-
     EndlessLazyColumn(
         modifier = modifier,
         items = movies,

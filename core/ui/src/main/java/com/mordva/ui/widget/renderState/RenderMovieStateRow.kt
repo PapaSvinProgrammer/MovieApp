@@ -47,14 +47,17 @@ private fun MainMovieRow(
         key = { it.id },
         lastItemCard = {
             LastItemCard(
-                width = 160.dp,
-                height = 260.dp,
+                width = 140.dp,
+                height = 190.dp,
                 onClick = onShowAll
             )
         },
         content = {
             MovieCard(
-                movie = it,
+                name = it.name ?: "",
+                image = it.poster?.url ?: "",
+                rating = it.rating?.kp,
+                top250 = it.top250,
                 onClick = { onCLick(it) }
             )
         }

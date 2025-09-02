@@ -8,14 +8,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
-import coil3.request.ImageRequest
-import coil3.request.crossfade
-import com.mordva.model.movie.Movie
 import com.example.movieapp.ui.R
+import com.mordva.model.movie.Movie
 
 @Composable
 internal fun ContentWithoutBackdrop(
@@ -24,15 +21,13 @@ internal fun ContentWithoutBackdrop(
     genres: String,
     countries: String,
     length: String,
-    age: String
+    age: String,
+    customRating: Int? = null
 ) {
     Spacer(modifier = Modifier.height(100.dp))
 
     AsyncImage(
-        model = ImageRequest.Builder(LocalContext.current)
-            .data(movie.poster?.url)
-            .crossfade(true)
-            .build(),
+        model = movie.poster?.url,
         error = painterResource(R.drawable.ic_movie),
         contentDescription = null,
         contentScale = ContentScale.Crop,
@@ -54,6 +49,7 @@ internal fun ContentWithoutBackdrop(
         countries = countries,
         length = length,
         age = age,
+        customRating = customRating,
         title = {
             MovieLogo(
                 url = null,

@@ -6,12 +6,10 @@ import com.mordva.model.local.RatedMovie
 import com.mordva.model.movie.Movie
 import com.mordva.model.movie.Watchability
 import com.mordva.model.person.PersonMovie
-import com.mordva.model.totalValue.ReleaseYears
 import com.mordva.movieScreen.domain.model.PersonMovieScreenObject
 import com.mordva.movieScreen.domain.model.PosterScreenObject
 import com.mordva.movieScreen.domain.model.WatchabilityItemScreenObject
 import com.mordva.movieScreen.domain.model.WatchabilityScreenObject
-import com.mordva.util.convert.ConvertData
 
 fun Watchability.toScreenObject() = WatchabilityScreenObject(items.map { it.toDto() })
 internal fun WatchabilityItem.toDto() = WatchabilityItemScreenObject(name, logo?.toDto(), url)
@@ -29,10 +27,6 @@ internal fun Movie.toRatedMovie(rating: Int): RatedMovie {
     return RatedMovie(
         movieId = id,
         name = name ?: "",
-        alternativeName = ConvertData.getAlternativeNameForMovie(this),
-        year = year ?: 0,
-        start = releaseYears.firstOrNull()?.start,
-        end = releaseYears.firstOrNull()?.end,
         poster = this.poster?.url ?: "",
         rating = rating
     )

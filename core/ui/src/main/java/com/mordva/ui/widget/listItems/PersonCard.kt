@@ -30,8 +30,6 @@ fun PersonCard(
 ) {
     Box(
         modifier = Modifier
-            .width(160.dp)
-            .height(250.dp)
             .clip(RoundedCornerShape(10.dp))
             .clickable(onClick = onClick)
     ) {
@@ -45,8 +43,9 @@ fun PersonCard(
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
                 modifier = Modifier
-                    .fillMaxSize()
-                    .clip(RoundedCornerShape(10.dp)).weight(5f)
+                    .width(140.dp)
+                    .height(190.dp)
+                    .clip(RoundedCornerShape(10.dp))
             )
 
             Text(
@@ -54,7 +53,9 @@ fun PersonCard(
                 fontWeight = FontWeight.Medium,
                 fontSize = Typography.bodyMedium.fontSize,
                 overflow = TextOverflow.Ellipsis,
-                modifier = Modifier.padding(vertical = 10.dp).weight(1f)
+                maxLines = 2,
+                minLines = 2,
+                modifier = Modifier.padding(vertical = 10.dp)
             )
         }
     }

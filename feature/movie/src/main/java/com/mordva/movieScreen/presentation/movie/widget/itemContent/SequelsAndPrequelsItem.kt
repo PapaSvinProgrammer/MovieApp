@@ -38,7 +38,10 @@ internal fun LazyListScope.sequelsAndPrequelsItem(
             lastItemCard = {},
         ) {
             MovieCard(
-                movie = it,
+                name = it.name ?: "",
+                image = it.poster?.url ?: "",
+                rating = it.rating?.kp,
+                top250 = it.top250,
                 onClick = {
                     navController.navigate(MovieGraph.MovieRoute(it.id))
                 }

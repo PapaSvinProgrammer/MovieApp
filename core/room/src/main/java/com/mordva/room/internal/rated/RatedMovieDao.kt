@@ -19,4 +19,7 @@ internal interface RatedMovieDao {
 
     @Query("SELECT * FROM rated_movies WHERE rating = :rating")
     fun getAllByRating(rating: Int): Flow<List<RatedMovieEntity>>
+
+    @Query("SELECT * FROM rated_movies WHERE movie_id = :movieId")
+    fun getById(movieId: Int): Flow<RatedMovieEntity?>
 }

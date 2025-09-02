@@ -45,7 +45,7 @@ import com.mordva.ui.uiState.MovieUIState
 import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
 import com.mordva.ui.widget.other.TitleTopBarText
-import com.mordva.ui.widget.scoreBottomSheet.ScoreBottomSheet
+import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreBottomSheet
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 
@@ -75,14 +75,15 @@ internal fun MovieScreen(
     }
 
     LaunchedEffect(state.movieState) {
-        state.movieState.body()?.let {
+        state.movieState.body().let {
+            viewModel.isRatedMovie()
             viewModel.getCollections(it.lists)
         }
     }
 
     RenderMovieContent(state = state.movieState)
 
-    state.movieState.body()?.let { movie ->
+    state.movieState.body().let { movie ->
         Box(
             modifier = Modifier
                 .fillMaxSize()
@@ -114,6 +115,7 @@ internal fun MovieScreen(
                 item {
                     ExpandedContent(
                         movie = movie,
+                        customRating = state.isRatedMovieState?.rating,
                         onEvaluate = {
                             viewModel.updateScoreSheetVisible(true)
                         },
@@ -179,12 +181,11 @@ internal fun MovieScreen(
 
     if (state.scoreSheetVisible) {
         ScoreBottomSheet(
-            movie = state.movieState.body() ?: Movie(),
-            onSave = {
-                viewModel.addRatedMovie(it)
-            },
-            onValueChange = {
-
+            movie = state.movieState.body(),
+            initialValue = state.isRatedMovieState?.rating,
+            ratedMovieState = state.ratedMoviesState,
+            onAction = { action ->
+                viewModel.handleScoreSheetHandle(action)
             },
             onDismissRequest = {
                 viewModel.updateScoreSheetVisible(false)
@@ -193,8 +194,8 @@ internal fun MovieScreen(
     }
 }
 
-internal fun MovieUIState.body(): Movie? {
-    return (this as? MovieUIState.Success)?.data?.first()
+internal fun MovieUIState.body(): Movie {
+    return (this as? MovieUIState.Success)?.data?.first() ?: Movie()
 }
 
 @Composable

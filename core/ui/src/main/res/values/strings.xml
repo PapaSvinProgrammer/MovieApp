@@ -117,4 +117,9 @@
     <string name="login_with_vk">Начать через ВКонтакте</string>
     <string name="error_get_data">Ошибка получения данных</string>
     <string name="exit_from_app">Выйти из аккаунта</string>
+    <string name="set_rating">Поставить оценку</string>
+    <string name="change_rating">Изменить рейтинг</string>
+    <string name="not_change">Ничего не ставить</string>
+    <string name="delete_rating">Удалить оценку</string>
+    <string name="your_movie_on">Ваши фильмы на %1$d</string>
 </resources>

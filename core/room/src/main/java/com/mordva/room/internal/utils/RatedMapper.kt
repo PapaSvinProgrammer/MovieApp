@@ -7,10 +7,6 @@ internal fun RatedMovieEntity.toDomain(): RatedMovie =
     RatedMovie(
         movieId = movieId,
         name = name,
-        alternativeName = alternativeName,
-        year = year,
-        start = start,
-        end = end,
         poster = poster,
         rating = rating
     )
@@ -19,10 +15,6 @@ internal fun RatedMovie.toEntity(): RatedMovieEntity =
     RatedMovieEntity(
         movieId = movieId,
         name = name,
-        alternativeName = alternativeName,
-        year = year,
-        start = start,
-        end = end,
         poster = poster,
         rating = rating
     )

@@ -31,21 +31,16 @@ fun ShimmerMovieRow() {
 
 @Composable
 fun ShimmerMovieCard() {
-    Box(
-        modifier = Modifier
-            .width(160.dp)
-            .height(260.dp)
-            .clip(RoundedCornerShape(10.dp))
-    ) {
+    Box(modifier = Modifier.clip(RoundedCornerShape(10.dp))) {
         Column(
             modifier = Modifier.fillMaxSize(),
             verticalArrangement = Arrangement.SpaceBetween
         ) {
             Box(
                 modifier = Modifier
-                    .fillMaxSize()
+                    .width(140.dp)
+                    .height(190.dp)
                     .clip(RoundedCornerShape(10.dp))
-                    .weight(5f)
                     .shimmerEffect()
             )
 
