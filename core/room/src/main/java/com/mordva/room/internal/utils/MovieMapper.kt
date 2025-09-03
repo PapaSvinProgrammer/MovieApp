@@ -24,7 +24,7 @@ import com.mordva.room.internal.movie.entity.EpisodeEntity
 import com.mordva.room.internal.movie.entity.FactEntity
 import com.mordva.room.internal.movie.entity.GenreEntity
 import com.mordva.room.internal.movie.entity.MovieEntity
-import com.mordva.room.internal.movie.entity.PersonEntity
+import com.mordva.room.internal.movie.entity.PersonMovieEntity
 import com.mordva.room.internal.movie.entity.PosterEntity
 import com.mordva.room.internal.movie.entity.PremiereEntity
 import com.mordva.room.internal.movie.entity.RatingEntity
@@ -145,7 +145,7 @@ internal fun List<ItemName>.toCountryEntities(movieId: Int) = map {
 
 @JvmName("listPersonMovieToEntities")
 internal fun List<PersonMovie>.toEntities(movieId: Int) = map {
-    PersonEntity(
+    PersonMovieEntity(
         id = it.id,
         movieId = movieId,
         name = it.name,

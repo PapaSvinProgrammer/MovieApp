@@ -7,7 +7,7 @@ import androidx.room.Index
 import androidx.room.PrimaryKey
 
 @Entity(
-    tableName = "person",
+    tableName = "person_movie",
     foreignKeys = [
         ForeignKey(
             entity = MovieEntity::class,
@@ -18,7 +18,7 @@ import androidx.room.PrimaryKey
     ],
     indices = [Index("movie_id")]
 )
-internal data class PersonEntity(
+internal data class PersonMovieEntity(
     @PrimaryKey
     @ColumnInfo(name = "id") val id: Int,
 

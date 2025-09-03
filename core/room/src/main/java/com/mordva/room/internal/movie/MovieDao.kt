@@ -9,7 +9,7 @@ import com.mordva.room.internal.movie.entity.EpisodeEntity
 import com.mordva.room.internal.movie.entity.FactEntity
 import com.mordva.room.internal.movie.entity.GenreEntity
 import com.mordva.room.internal.movie.entity.MovieEntity
-import com.mordva.room.internal.movie.entity.PersonEntity
+import com.mordva.room.internal.movie.entity.PersonMovieEntity
 import com.mordva.room.internal.movie.entity.PosterEntity
 import com.mordva.room.internal.movie.entity.PremiereEntity
 import com.mordva.room.internal.movie.entity.RatingEntity
@@ -51,7 +51,7 @@ internal interface MovieDao {
     suspend fun insertCountries(countries: List<CountryEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertPersons(persons: List<PersonEntity>)
+    suspend fun insertPersons(persons: List<PersonMovieEntity>)
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertWatchabilityItems(items: List<WatchabilityItemEntity>)
@@ -98,7 +98,7 @@ internal interface MovieDao {
     @Query("DELETE FROM country WHERE movie_id = :movieId")
     suspend fun deleteCountries(movieId: Int)
 
-    @Query("DELETE FROM person WHERE movie_id = :movieId")
+    @Query("DELETE FROM person_movie WHERE movie_id = :movieId")
     suspend fun deletePersons(movieId: Int)
 
     @Query("DELETE FROM watchability_item WHERE movie_id = :movieId")

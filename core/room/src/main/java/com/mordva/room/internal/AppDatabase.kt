@@ -13,7 +13,7 @@ import com.mordva.room.internal.movie.entity.EpisodeEntity
 import com.mordva.room.internal.movie.entity.FactEntity
 import com.mordva.room.internal.movie.entity.GenreEntity
 import com.mordva.room.internal.movie.entity.MovieEntity
-import com.mordva.room.internal.movie.entity.PersonEntity
+import com.mordva.room.internal.movie.entity.PersonMovieEntity
 import com.mordva.room.internal.movie.entity.PosterEntity
 import com.mordva.room.internal.movie.entity.PremiereEntity
 import com.mordva.room.internal.movie.entity.RatingEntity
@@ -38,7 +38,7 @@ import com.mordva.room.internal.rated.RatedMovieEntity
         FactEntity::class,
         GenreEntity::class,
         CountryEntity::class,
-        PersonEntity::class,
+        PersonMovieEntity::class,
         WatchabilityItemEntity::class,
         AudienceEntity::class,
         ReleaseYearsEntity::class,

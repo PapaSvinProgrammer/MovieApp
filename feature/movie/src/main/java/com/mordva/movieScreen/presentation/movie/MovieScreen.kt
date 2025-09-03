@@ -76,6 +76,7 @@ internal fun MovieScreen(
 
     LaunchedEffect(state.movieState) {
         state.movieState.body().let {
+            viewModel.save(it)
             viewModel.isRatedMovie()
             viewModel.getCollections(it.lists)
         }

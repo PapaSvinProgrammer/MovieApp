@@ -15,11 +15,14 @@ internal interface RatedMovieDao {
     suspend fun delete(movieId: Int)
 
     @Query("SELECT * FROM rated_movies")
-    fun getAll(): Flow<List<RatedMovieEntity>>
+    fun getAll(): Flow<List<RatedMovieWithDetails>>
 
     @Query("SELECT * FROM rated_movies WHERE rating = :rating")
-    fun getAllByRating(rating: Int): Flow<List<RatedMovieEntity>>
+    fun getAllByRating(rating: Int): Flow<List<RatedMovieWithDetails>>
 
     @Query("SELECT * FROM rated_movies WHERE movie_id = :movieId")
-    fun getById(movieId: Int): Flow<RatedMovieEntity?>
+    fun getById(movieId: Int): Flow<RatedMovieWithDetails?>
+
+    @Query("SELECT * FROM rated_movies ORDER BY date DESC")
+    fun getSortByDate(): Flow<RatedMovieEntity?>
 }

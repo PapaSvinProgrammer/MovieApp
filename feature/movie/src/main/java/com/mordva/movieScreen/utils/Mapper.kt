@@ -25,9 +25,8 @@ internal fun PersonMovie.toScreenObject() = PersonMovieScreenObject(
 
 internal fun Movie.toRatedMovie(rating: Int): RatedMovie {
     return RatedMovie(
-        movieId = id,
-        name = name ?: "",
-        poster = this.poster?.url ?: "",
-        rating = rating
+        movie = this,
+        rating = rating,
+        dateRating = System.currentTimeMillis()
     )
 }

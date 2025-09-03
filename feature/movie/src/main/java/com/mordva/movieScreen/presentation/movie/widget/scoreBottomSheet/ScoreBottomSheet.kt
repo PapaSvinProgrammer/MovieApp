@@ -156,11 +156,11 @@ private fun ColumnScope.RenderRatedMovieList(
 
             DefaultLazyRow(
                 list = state.data,
-                key = { it.movieId },
+                key = { it.movie.id },
                 content = { ratedMovie ->
                     MovieCard(
-                        name = ratedMovie.name,
-                        image = ratedMovie.poster,
+                        name = ratedMovie.movie.name ?: "",
+                        image = ratedMovie.movie.poster?.url ?: "",
                         onClick = { onClick(ratedMovie) }
                     )
                 }

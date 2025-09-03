@@ -9,7 +9,7 @@ import com.mordva.room.internal.movie.entity.DistributorEntity
 import com.mordva.room.internal.movie.entity.FactEntity
 import com.mordva.room.internal.movie.entity.GenreEntity
 import com.mordva.room.internal.movie.entity.MovieEntity
-import com.mordva.room.internal.movie.entity.PersonEntity
+import com.mordva.room.internal.movie.entity.PersonMovieEntity
 import com.mordva.room.internal.movie.entity.PosterEntity
 import com.mordva.room.internal.movie.entity.PremiereEntity
 import com.mordva.room.internal.movie.entity.RatingEntity
@@ -49,7 +49,7 @@ internal data class MovieWithDetails(
     val countries: List<CountryEntity>,
 
     @Relation(parentColumn = "id", entityColumn = "movie_id")
-    val persons: List<PersonEntity>,
+    val persons: List<PersonMovieEntity>,
 
     @Relation(parentColumn = "id", entityColumn = "movie_id")
     val watchability: List<WatchabilityItemEntity>,
