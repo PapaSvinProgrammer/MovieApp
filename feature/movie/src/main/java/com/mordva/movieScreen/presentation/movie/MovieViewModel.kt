@@ -8,6 +8,7 @@ import com.mordva.domain.usecase.comment.model.CommentParams
 import com.mordva.domain.usecase.movie.GetMovieById
 import com.mordva.domain.usecase.movie.GetMovieImages
 import com.mordva.domain.usecase.movie.model.MovieParams
+import com.mordva.model.movie.Movie
 import com.mordva.model.person.PersonMovie
 import com.mordva.movieScreen.domain.AddRatedMovie
 import com.mordva.movieScreen.domain.FilterCollection
@@ -19,6 +20,7 @@ import com.mordva.movieScreen.presentation.movie.widget.UIState
 import com.mordva.ui.uiState.MovieUIState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.RatedMovieState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreSheetAction
+import com.mordva.room.external.MovieLocalService
 import com.mordva.util.cancelAllJobs
 import com.mordva.util.launchWithoutOld
 import com.mordva.util.multiRequest
@@ -37,10 +39,15 @@ internal class MovieViewModel @Inject constructor(
     private val filterPersonsLikeActors: FilterPersonsLikeActors,
     private val filterPersonsLikeSupport: FilterPersonsLikeSupport,
     private val addRatedMovie: AddRatedMovie,
-    private val ratedMovieRepository: RatedMovieRepository
+    private val ratedMovieRepository: RatedMovieRepository,
+    private val movieLocalService: MovieLocalService
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState())
     val uiState = _uiState.asStateFlow()
+
+    fun save(movie: Movie) = launchWithoutOld {
+        movieLocalService.insert(movie)
+    }
 
     fun updateScoreSheetVisible(visible: Boolean) {
         _uiState.update {
