@@ -2,6 +2,7 @@ package com.mordva.movieScreen.presentation.movie
 
 import androidx.lifecycle.ViewModel
 import com.mordva.domain.repository.RatedMovieRepository
+import com.mordva.domain.repository.WillWatchPackageRepository
 import com.mordva.domain.usecase.collection.GetCollectionBySlug
 import com.mordva.domain.usecase.comment.GetCommentByDate
 import com.mordva.domain.usecase.comment.model.CommentParams
@@ -10,12 +11,14 @@ import com.mordva.domain.usecase.movie.GetMovieImages
 import com.mordva.domain.usecase.movie.model.MovieParams
 import com.mordva.model.movie.Movie
 import com.mordva.model.person.PersonMovie
-import com.mordva.movieScreen.domain.AddRatedMovie
 import com.mordva.movieScreen.domain.FilterCollection
 import com.mordva.movieScreen.domain.FilterPersonsLikeActors
 import com.mordva.movieScreen.domain.FilterPersonsLikeSupport
 import com.mordva.movieScreen.domain.FilterPersonsLikeVoiceActors
-import com.mordva.movieScreen.domain.model.RatedMovieParams
+import com.mordva.movieScreen.domain.HandleRatedMovieAction
+import com.mordva.movieScreen.domain.HandleWillWatchAction
+import com.mordva.movieScreen.domain.model.RatedMovieActionParams
+import com.mordva.movieScreen.domain.model.WillWatchParams
 import com.mordva.movieScreen.presentation.movie.widget.UIState
 import com.mordva.ui.uiState.MovieUIState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.RatedMovieState
@@ -38,8 +41,11 @@ internal class MovieViewModel @Inject constructor(
     private val filterPersonsLikeVoiceActors: FilterPersonsLikeVoiceActors,
     private val filterPersonsLikeActors: FilterPersonsLikeActors,
     private val filterPersonsLikeSupport: FilterPersonsLikeSupport,
-    private val addRatedMovie: AddRatedMovie,
     private val ratedMovieRepository: RatedMovieRepository,
+    private val willWatchPackageRepository: WillWatchPackageRepository,
+    private val handleWillWatchAction: HandleWillWatchAction,
+    private val handleRatedMovieAction: HandleRatedMovieAction,
+
     private val movieLocalService: MovieLocalService
 ) : ViewModel() {
     private val _uiState = MutableStateFlow(UIState())
@@ -71,31 +77,22 @@ internal class MovieViewModel @Inject constructor(
         _uiState.update { it.copy(currentMovieRating = rating) }
     }
 
-    fun handleScoreSheetHandle(action: ScoreSheetAction) {
-        when (action) {
-            ScoreSheetAction.Delete -> {
-                deleteRatedMovie(uiState.value.movieState.body().id)
-            }
+    fun handleScoreSheetHandle(
+        action: ScoreSheetAction
+    ) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
+        val params = RatedMovieActionParams(
+            scoreSheetAction = action,
+            currentScore = uiState.value.currentMovieRating,
+            movie = uiState.value.movieState.body(),
+        )
 
-            ScoreSheetAction.Nothing -> {}
-
-            is ScoreSheetAction.Save -> {
-                addRatedMovie(action.rating)
-            }
-
-            is ScoreSheetAction.ValueChange -> {
-                if (action.rating == uiState.value.currentMovieRating) return
-
-                updateCurrentRatingMovie(action.rating)
-                getRatedMovies(action.rating)
-            }
-        }
+        handleRatedMovieAction.execute(params)
     }
 
     fun isRatedMovie() = launchWithoutOld(IS_RATED_MOVIE_JOB) {
         val movieId = uiState.value.movieState.body().id
 
-        ratedMovieRepository.getById(movieId).collect { ratedMovie ->
+        ratedMovieRepository.isStock(movieId).collect { ratedMovie ->
             _uiState.update {
                 it.copy(isRatedMovieState = ratedMovie)
             }
@@ -137,9 +134,7 @@ internal class MovieViewModel @Inject constructor(
         val res = getMovieImages.execute(params)
 
         res.onSuccess { images ->
-            _uiState.update {
-                it.copy(images = images)
-            }
+            _uiState.update { it.copy(images = images) }
         }
     }
 
@@ -161,21 +156,26 @@ internal class MovieViewModel @Inject constructor(
         }
     }
 
-    private fun deleteRatedMovie(movieId: Int) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
-        _uiState.update { it.copy(isRatedMovieState = null) }
-        ratedMovieRepository.delete(movieId)
+    fun isWillWatchPackage() = launchWithoutOld(IS_WILL_WATCH_JOB) {
+        val movieId = uiState.value.movieState.body().id
+
+        willWatchPackageRepository.isStock(movieId).collect { result ->
+            _uiState.update {
+                it.copy(isWillWatch = result != null)
+            }
+        }
     }
 
-    private fun addRatedMovie(rating: Int) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
-        val params = RatedMovieParams(
-            movie = uiState.value.movieState.body(),
-            rating = rating
+    fun handleWillWatchAction() = launchWithoutOld(ACTION_WILL_WATCH_JOB) {
+        val params = WillWatchParams(
+            isChecked = uiState.value.isWillWatch,
+            movieId = uiState.value.movieState.body().id
         )
 
-        addRatedMovie.execute(params)
+        handleWillWatchAction.execute(params)
     }
 
-    private fun getRatedMovies(rating: Int) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
+    fun getRatedMovies(rating: Int) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
         _uiState.update { it.copy(ratedMoviesState = RatedMovieState.Loading) }
 
         ratedMovieRepository.getAllByRating(rating).collect { movies ->
@@ -187,15 +187,11 @@ internal class MovieViewModel @Inject constructor(
 
     private fun filterActors(list: List<PersonMovie>) = launchWithoutOld(FILTER_ACTORS_JOB) {
         _uiState.update {
-            it.copy(actors = filterPersonsLikeActors.execute(list))
-        }
-
-        _uiState.update {
-            it.copy(voiceActors = filterPersonsLikeVoiceActors.execute(list))
-        }
-
-        _uiState.update {
-            it.copy(supportPersonal = filterPersonsLikeSupport.execute(list))
+            it.copy(
+                actors = filterPersonsLikeActors.execute(list),
+                voiceActors = filterPersonsLikeVoiceActors.execute(list),
+                supportPersonal = filterPersonsLikeSupport.execute(list)
+            )
         }
     }
 
@@ -205,6 +201,8 @@ internal class MovieViewModel @Inject constructor(
     }
 
     private companion object {
+        const val ACTION_WILL_WATCH_JOB = "action_will_watch_job"
+        const val IS_WILL_WATCH_JOB = "is_will_watch_package"
         const val ACTION_RATED_MOVIE_JOB = "action_for_rated_movie"
         const val IS_RATED_MOVIE_JOB = "is_rated_movie"
         const val GET_COMMENTS_JOB = "get_comments"

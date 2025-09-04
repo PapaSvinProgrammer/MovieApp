@@ -78,6 +78,7 @@ internal fun MovieScreen(
         state.movieState.body().let {
             viewModel.save(it)
             viewModel.isRatedMovie()
+            viewModel.isWillWatchPackage()
             viewModel.getCollections(it.lists)
         }
     }
@@ -116,11 +117,14 @@ internal fun MovieScreen(
                 item {
                     ExpandedContent(
                         movie = movie,
-                        customRating = state.isRatedMovieState?.rating,
+                        isCustomRating = state.isRatedMovieState?.rating,
+                        isWillWatchPackage = state.isWillWatch,
                         onEvaluate = {
                             viewModel.updateScoreSheetVisible(true)
                         },
-                        onAddIntoFuturePackage = {},
+                        onAddIntoFuturePackage = {
+                            viewModel.handleWillWatchAction()
+                        },
                         onShare = {},
                         onMore = {}
                     )
@@ -190,6 +194,12 @@ internal fun MovieScreen(
             },
             onDismissRequest = {
                 viewModel.updateScoreSheetVisible(false)
+            },
+            onValueChange = {
+                if (it == state.currentMovieRating) return@ScoreBottomSheet
+
+                viewModel.updateCurrentRatingMovie(it)
+                viewModel.getRatedMovies(it)
             }
         )
     }

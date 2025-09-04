@@ -115,11 +115,11 @@ internal interface MovieDao {
 
     @Transaction
     @Query("SELECT * FROM movie WHERE id = :movieId")
-    suspend fun getMovieWithDetails(movieId: Int): MovieWithDetails?
+    suspend fun getMovieWithDetails(movieId: Int): MovieDetails?
 
     @Transaction
     @Query("SELECT * FROM movie")
-    suspend fun getAllMoviesWithDetails(): List<MovieWithDetails>
+    suspend fun getAllMoviesWithDetails(): List<MovieDetails>
 
     @Update
     suspend fun updateMovie(movie: MovieEntity)

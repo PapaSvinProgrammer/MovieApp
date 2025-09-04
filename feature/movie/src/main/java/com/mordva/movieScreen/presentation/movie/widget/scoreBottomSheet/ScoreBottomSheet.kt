@@ -54,7 +54,8 @@ internal fun ScoreBottomSheet(
     ratedMovieState: RatedMovieState = RatedMovieState.Init,
     initialValue: Int? = null,
     onDismissRequest: () -> Unit,
-    onAction: (ScoreSheetAction) -> Unit
+    onAction: (ScoreSheetAction) -> Unit,
+    onValueChange: (Int) -> Unit
 ) {
     var scoreValue by remember { mutableStateOf<Int?>(initialValue ?: 5) }
     val containerColor = scoreValue?.toRatingColor() ?: MaterialTheme.colorScheme.onSurfaceVariant
@@ -83,7 +84,7 @@ internal fun ScoreBottomSheet(
                 initialValue = initialValue ?: 5,
                 onValueChange = { score ->
                     scoreValue = score
-                    score?.let { onAction(ScoreSheetAction.ValueChange(it)) }
+                    score?.let { onValueChange(score) }
                 }
             )
 

@@ -22,7 +22,7 @@ internal fun ContentWithoutBackdrop(
     countries: String,
     length: String,
     age: String,
-    customRating: Int? = null
+    customRating: Int? = null,
 ) {
     Spacer(modifier = Modifier.height(100.dp))
 

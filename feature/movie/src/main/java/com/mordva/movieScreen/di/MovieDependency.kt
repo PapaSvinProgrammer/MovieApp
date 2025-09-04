@@ -5,6 +5,7 @@ import com.mordva.domain.repository.CommentRepository
 import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.repository.PersonRepository
 import com.mordva.domain.repository.RatedMovieRepository
+import com.mordva.domain.repository.WillWatchPackageRepository
 import com.mordva.room.external.MovieLocalService
 
 interface MovieDependency {
@@ -14,4 +15,5 @@ interface MovieDependency {
     val personRepository: PersonRepository
     val ratedMovieRepository: RatedMovieRepository
     val movieLocalService: MovieLocalService
+    val willWatchPackageRepository: WillWatchPackageRepository
 }

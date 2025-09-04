@@ -2,10 +2,10 @@ package com.mordva.room.internal.rated
 
 import androidx.room.Embedded
 import androidx.room.Relation
-import com.mordva.room.internal.movie.MovieWithDetails
+import com.mordva.room.internal.movie.MovieDetails
 import com.mordva.room.internal.movie.entity.MovieEntity
 
-internal data class RatedMovieWithDetails(
+internal data class RatedMovieDetails(
     @Embedded val ratedMovie: RatedMovieEntity,
 
     @Relation(
@@ -13,5 +13,5 @@ internal data class RatedMovieWithDetails(
         entityColumn = "id",
         entity = MovieEntity::class
     )
-    val movieWithDetails: MovieWithDetails
+    val movieDetails: MovieDetails
 )

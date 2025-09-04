@@ -11,6 +11,7 @@ import com.mordva.data.PreferencesRepositoryImpl
 import com.mordva.data.RatedMovieRepositoryImpl
 import com.mordva.data.SeasonRepositoryImpl
 import com.mordva.data.StudioRepositoryImpl
+import com.mordva.data.WillWatchPackageRepositoryImpl
 import com.mordva.domain.repository.AwardRepository
 import com.mordva.domain.repository.CategoryRepository
 import com.mordva.domain.repository.CollectionRepository
@@ -22,6 +23,7 @@ import com.mordva.domain.repository.PreferencesRepository
 import com.mordva.domain.repository.RatedMovieRepository
 import com.mordva.domain.repository.SeasonRepository
 import com.mordva.domain.repository.StudioRepository
+import com.mordva.domain.repository.WillWatchPackageRepository
 import com.mordva.util.ApplicationScope
 import dagger.Binds
 import dagger.Module
@@ -71,4 +73,8 @@ internal interface DataModuleImpl {
     @Binds
     @ApplicationScope
     fun bindsRatedMovieRepository(repository: RatedMovieRepositoryImpl): RatedMovieRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsWillWatchPackageRepositoryImpl(repository: WillWatchPackageRepositoryImpl): WillWatchPackageRepository
 }

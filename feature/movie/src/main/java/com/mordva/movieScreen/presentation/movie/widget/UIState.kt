@@ -21,5 +21,6 @@ internal data class UIState(
     val currentMovieRating: Int = -1,
     val selectedFact: String = "",
     val isCollapsed: Boolean = false,
-    val scoreSheetVisible: Boolean = false
+    val scoreSheetVisible: Boolean = false,
+    val isWillWatch: Boolean = false
 )

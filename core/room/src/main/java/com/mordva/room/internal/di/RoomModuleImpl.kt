@@ -2,11 +2,14 @@ package com.mordva.room.internal.di
 
 import android.content.Context
 import androidx.room.Room
+import com.mordva.room.external.WillWatchPackageService
 import com.mordva.room.external.HistoryService
 import com.mordva.room.external.MovieLocalService
 import com.mordva.room.external.RatedMovieService
 import com.mordva.room.internal.history.HistoryDao
 import com.mordva.room.internal.AppDatabase
+import com.mordva.room.internal.will_watch_package.WillWatchPackageDao
+import com.mordva.room.internal.will_watch_package.WillWatchPackageServiceImpl
 import com.mordva.room.internal.history.HistoryServiceImpl
 import com.mordva.room.internal.movie.MovieDao
 import com.mordva.room.internal.movie.MovieLocalServiceImpl
@@ -30,6 +33,10 @@ internal interface RoomModuleImpl {
     @Binds
     @ApplicationScope
     fun bindsMovieLocalServiceImpl(service: MovieLocalServiceImpl): MovieLocalService
+
+    @Binds
+    @ApplicationScope
+    fun bindsFavoriteMoviePackageServiceImpl(service: WillWatchPackageServiceImpl): WillWatchPackageService
 
     companion object {
         private const val DATABASE_NAME = "movie_app_database"
@@ -62,6 +69,12 @@ internal interface RoomModuleImpl {
         @ApplicationScope
         fun providesMovieDao(db: AppDatabase): MovieDao {
             return db.getMovieDao()
+        }
+
+        @Provides
+        @ApplicationScope
+        fun providesFavoriteMoviePackageDao(db: AppDatabase): WillWatchPackageDao {
+            return db.getFavoriteMoviePackageDao()
         }
     }
 }

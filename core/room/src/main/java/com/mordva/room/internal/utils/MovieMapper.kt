@@ -15,7 +15,7 @@ import com.mordva.model.totalValue.Premiere
 import com.mordva.model.totalValue.Rating
 import com.mordva.model.totalValue.ReleaseYears
 import com.mordva.model.totalValue.Votes
-import com.mordva.room.internal.movie.MovieWithDetails
+import com.mordva.room.internal.movie.MovieDetails
 import com.mordva.room.internal.movie.entity.AudienceEntity
 import com.mordva.room.internal.movie.entity.BudgetEntity
 import com.mordva.room.internal.movie.entity.CountryEntity
@@ -215,7 +215,7 @@ internal fun List<Season>.toEpisodeEntities(seasons: List<SeasonEntity>): List<E
     return result
 }
 
-internal fun MovieWithDetails.toMovie(): Movie {
+internal fun MovieDetails.toMovie(): Movie {
     return Movie(
         id = movie.id,
         type = movie.type,

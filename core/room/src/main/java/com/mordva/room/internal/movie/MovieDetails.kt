@@ -18,7 +18,7 @@ import com.mordva.room.internal.movie.entity.SeasonEntity
 import com.mordva.room.internal.movie.entity.VotesEntity
 import com.mordva.room.internal.movie.entity.WatchabilityItemEntity
 
-internal data class MovieWithDetails(
+internal data class MovieDetails(
     @Embedded val movie: MovieEntity,
 
     @Relation(parentColumn = "id", entityColumn = "movie_id")

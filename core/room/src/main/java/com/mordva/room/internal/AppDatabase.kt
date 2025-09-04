@@ -2,6 +2,8 @@ package com.mordva.room.internal
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import com.mordva.room.internal.will_watch_package.WillWatchPackageDao
+import com.mordva.room.internal.will_watch_package.WillWatchPackageEntity
 import com.mordva.room.internal.history.HistoryDao
 import com.mordva.room.internal.history.HistoryEntity
 import com.mordva.room.internal.movie.MovieDao
@@ -44,6 +46,7 @@ import com.mordva.room.internal.rated.RatedMovieEntity
         ReleaseYearsEntity::class,
         SeasonEntity::class,
         EpisodeEntity::class,
+        WillWatchPackageEntity::class,
     ],
     version = 1,
     exportSchema = true
@@ -52,4 +55,5 @@ internal abstract class AppDatabase : RoomDatabase() {
     abstract fun getHistoryDao(): HistoryDao
     abstract fun getRatedDao(): RatedMovieDao
     abstract fun getMovieDao(): MovieDao
+    abstract fun getFavoriteMoviePackageDao(): WillWatchPackageDao
 }

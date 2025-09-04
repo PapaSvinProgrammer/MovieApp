@@ -19,8 +19,8 @@ internal class RatedMovieServiceImpl @Inject constructor(
         dao.delete(id)
     }
 
-    override fun getById(id: Int): Flow<RatedMovie?> {
-        return dao.getById(id).map { it?.toDomain() }
+    override fun isStock(id: Int): Flow<RatedMovie?> {
+        return dao.isStock(id).map { it?.toDomain() }
     }
 
     override fun getAll(): Flow<List<RatedMovie>> {
