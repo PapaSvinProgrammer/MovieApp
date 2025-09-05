@@ -18,9 +18,10 @@ internal data class UIState(
     val collections: List<CollectionMovie> = listOf(),
     val ratedMoviesState: RatedMovieState = RatedMovieState.Init,
     val isRatedMovieState: RatedMovie? = null,
+    val scoreSheetVisible: Boolean = false,
+    val moreSheetVisible: Boolean = false,
     val currentMovieRating: Int = -1,
     val selectedFact: String = "",
     val isCollapsed: Boolean = false,
-    val scoreSheetVisible: Boolean = false,
-    val isWillWatch: Boolean = false
+    val isWillWatch: Boolean = false,
 )

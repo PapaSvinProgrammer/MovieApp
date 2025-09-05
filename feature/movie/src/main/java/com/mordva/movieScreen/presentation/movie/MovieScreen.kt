@@ -46,6 +46,7 @@ import com.mordva.movieScreen.presentation.movie.widget.itemContent.similarMovie
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.supportPersonalItem
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.voiceActorsItem
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.watchabilityItem
+import com.mordva.movieScreen.presentation.movie.widget.moreBottomSheet.MoreBottomSheet
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreBottomSheet
 import com.mordva.movieScreen.presentation.navigation.GroupPersonRoute
 import com.mordva.movieScreen.utils.body
@@ -144,7 +145,9 @@ internal fun MovieScreen(
                             )
                         },
                         onShare = {},
-                        onMore = {}
+                        onMore = {
+                            viewModel.updateMoreSheetVisible(true)
+                        }
                     )
                 }
 
@@ -218,6 +221,18 @@ internal fun MovieScreen(
 
                 viewModel.updateCurrentRatingMovie(it)
                 viewModel.getRatedMovies(it)
+            }
+        )
+    }
+
+    if (state.moreSheetVisible) {
+        MoreBottomSheet(
+            movie = state.movieState.body(),
+            isBlocked = true,
+            isVisibility = true,
+            onAction = {},
+            onDismissRequest = {
+                viewModel.updateMoreSheetVisible(false)
             }
         )
     }

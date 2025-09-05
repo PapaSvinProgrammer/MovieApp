@@ -56,6 +56,12 @@ internal class MovieViewModel @Inject constructor(
         movieLocalService.insert(movie)
     }
 
+    fun updateMoreSheetVisible(visible: Boolean) {
+        _uiState.update {
+            it.copy(moreSheetVisible = visible)
+        }
+    }
+
     fun updateScoreSheetVisible(visible: Boolean) {
         _uiState.update {
             it.copy(scoreSheetVisible = visible)
