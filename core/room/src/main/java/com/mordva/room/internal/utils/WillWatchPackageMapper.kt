@@ -7,7 +7,7 @@ import com.mordva.room.internal.will_watch_package.WillWatchPackageDetails
 import com.mordva.room.internal.will_watch_package.WillWatchPackageEntity
 
 internal fun WillWatchPackageDetails.toDomain() = MoviePackage(
-    movie = movieEntity.toMovie(),
+    movie = movie.toMovie(),
     date = willWatchPackageEntity.date
 )
 

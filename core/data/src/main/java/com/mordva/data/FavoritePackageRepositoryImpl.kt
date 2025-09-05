@@ -1,15 +1,15 @@
 package com.mordva.data
 
-import com.mordva.domain.repository.WillWatchPackageRepository
+import com.mordva.domain.repository.FavoritePackageRepository
 import com.mordva.model.local.MoviePackage
 import com.mordva.model.local.PackageParams
-import com.mordva.room.external.WillWatchPackageService
+import com.mordva.room.external.FavoritePackageService
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
-internal class WillWatchPackageRepositoryImpl @Inject constructor(
-    private val service: WillWatchPackageService
-) : WillWatchPackageRepository {
+internal class FavoritePackageRepositoryImpl @Inject constructor(
+    private val service: FavoritePackageService
+) : FavoritePackageRepository {
     override suspend fun insert(params: PackageParams) {
         service.insert(params)
     }

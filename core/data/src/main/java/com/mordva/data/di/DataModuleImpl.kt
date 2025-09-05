@@ -4,6 +4,7 @@ import com.mordva.data.AwardRepositoryImpl
 import com.mordva.data.CategoryRepositoryImpl
 import com.mordva.data.CollectionRepositoryImpl
 import com.mordva.data.CommentRepositoryImpl
+import com.mordva.data.FavoritePackageRepositoryImpl
 import com.mordva.data.HistoryRepositoryImpl
 import com.mordva.data.MovieRepositoryImpl
 import com.mordva.data.PersonRepositoryImpl
@@ -16,6 +17,7 @@ import com.mordva.domain.repository.AwardRepository
 import com.mordva.domain.repository.CategoryRepository
 import com.mordva.domain.repository.CollectionRepository
 import com.mordva.domain.repository.CommentRepository
+import com.mordva.domain.repository.FavoritePackageRepository
 import com.mordva.domain.repository.HistoryRepository
 import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.repository.PersonRepository
@@ -77,4 +79,8 @@ internal interface DataModuleImpl {
     @Binds
     @ApplicationScope
     fun bindsWillWatchPackageRepositoryImpl(repository: WillWatchPackageRepositoryImpl): WillWatchPackageRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsFavoritePackageRepositoryImpl(repository: FavoritePackageRepositoryImpl): FavoritePackageRepository
 }

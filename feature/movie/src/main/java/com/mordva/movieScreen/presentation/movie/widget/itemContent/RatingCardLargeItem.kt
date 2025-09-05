@@ -15,14 +15,17 @@ import com.mordva.model.totalValue.Votes
 import com.mordva.movieScreen.presentation.movie.widget.component.RatingMovieContentRow
 import com.mordva.movieScreen.presentation.movie.widget.listItem.RatingCardLarge
 
-internal fun LazyListScope.ratingCardLargeItem(movie: Movie) {
+internal fun LazyListScope.ratingCardLargeItem(
+    movie: Movie,
+    onClick: () -> Unit
+) {
     item {
         RatingCardLarge(
             modifier = Modifier.padding(horizontal = 15.dp),
             title = stringResource(R.string.rating_kinopoisk),
             rating = movie.rating?.kp ?: 0f,
             votes = movie.votes?.kp ?: 0,
-            onClick = {}
+            onClick = onClick
         )
     }
 

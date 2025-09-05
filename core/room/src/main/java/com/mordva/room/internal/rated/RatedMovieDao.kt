@@ -4,6 +4,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -14,9 +15,11 @@ internal interface RatedMovieDao {
     @Query("DELETE FROM rated_movies WHERE movie_id = :movieId")
     suspend fun delete(movieId: Int)
 
+    @Transaction
     @Query("SELECT * FROM rated_movies")
     fun getAll(): Flow<List<RatedMovieDetails>>
 
+    @Transaction
     @Query("SELECT * FROM rated_movies WHERE rating = :rating")
     fun getAllByRating(rating: Int): Flow<List<RatedMovieDetails>>
 

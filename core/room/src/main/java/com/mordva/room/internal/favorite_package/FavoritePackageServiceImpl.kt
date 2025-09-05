@@ -1,19 +1,19 @@
-package com.mordva.room.internal.will_watch_package
+package com.mordva.room.internal.favorite_package
 
 import com.mordva.model.local.MoviePackage
 import com.mordva.model.local.PackageParams
-import com.mordva.room.external.WillWatchPackageService
+import com.mordva.room.external.FavoritePackageService
 import com.mordva.room.internal.utils.toDomain
-import com.mordva.room.internal.utils.toEntity
+import com.mordva.room.internal.utils.toFavoritePackageEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
-internal class WillWatchPackageServiceImpl @Inject constructor(
-    private val dao: WillWatchPackageDao
-) : WillWatchPackageService {
+internal class FavoritePackageServiceImpl @Inject constructor(
+    private val dao: FavoritePackageDao
+): FavoritePackageService{
     override suspend fun insert(value: PackageParams) {
-        dao.insert(value.toEntity())
+        dao.insert(value.toFavoritePackageEntity())
     }
 
     override suspend fun delete(movieId: Int) {

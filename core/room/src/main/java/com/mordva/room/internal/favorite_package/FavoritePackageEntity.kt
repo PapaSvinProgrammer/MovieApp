@@ -1,4 +1,4 @@
-package com.mordva.room.internal.will_watch_package
+package com.mordva.room.internal.favorite_package
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey
 import com.mordva.room.internal.movie.entity.MovieEntity
 
 @Entity(
-    tableName = "will_watch_package",
+    tableName = "favorite_package",
     foreignKeys = [
         ForeignKey(
             entity = MovieEntity::class,
@@ -18,7 +18,7 @@ import com.mordva.room.internal.movie.entity.MovieEntity
     ],
     indices = [Index("movie_id")]
 )
-internal data class WillWatchPackageEntity(
+internal data class FavoritePackageEntity(
     @PrimaryKey @ColumnInfo(name = "movie_id") val movieId: Int,
     @ColumnInfo(name = "date") val date: Long
 )

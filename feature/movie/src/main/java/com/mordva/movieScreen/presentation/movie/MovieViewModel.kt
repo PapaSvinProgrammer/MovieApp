@@ -1,6 +1,7 @@
 package com.mordva.movieScreen.presentation.movie
 
 import androidx.lifecycle.ViewModel
+import com.mordva.domain.repository.FavoritePackageRepository
 import com.mordva.domain.repository.RatedMovieRepository
 import com.mordva.domain.repository.WillWatchPackageRepository
 import com.mordva.domain.usecase.collection.GetCollectionBySlug
@@ -9,22 +10,26 @@ import com.mordva.domain.usecase.comment.model.CommentParams
 import com.mordva.domain.usecase.movie.GetMovieById
 import com.mordva.domain.usecase.movie.GetMovieImages
 import com.mordva.domain.usecase.movie.model.MovieParams
+import com.mordva.model.PackageType
 import com.mordva.model.movie.Movie
 import com.mordva.model.person.PersonMovie
 import com.mordva.movieScreen.domain.FilterCollection
 import com.mordva.movieScreen.domain.FilterPersonsLikeActors
 import com.mordva.movieScreen.domain.FilterPersonsLikeSupport
 import com.mordva.movieScreen.domain.FilterPersonsLikeVoiceActors
+import com.mordva.movieScreen.domain.HandleFavoritePackageAction
 import com.mordva.movieScreen.domain.HandleRatedMovieAction
 import com.mordva.movieScreen.domain.HandleWillWatchAction
+import com.mordva.movieScreen.domain.model.PackageItemParams
 import com.mordva.movieScreen.domain.model.RatedMovieActionParams
 import com.mordva.movieScreen.domain.model.WillWatchParams
 import com.mordva.movieScreen.presentation.movie.widget.UIState
-import com.mordva.ui.uiState.MovieUIState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.RatedMovieState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreSheetAction
 import com.mordva.movieScreen.utils.body
 import com.mordva.room.external.MovieLocalService
+import com.mordva.ui.uiState.MovieUIState
+import com.mordva.ui.widget.packageBottomSheet.PackageItemAction
 import com.mordva.util.cancelAllJobs
 import com.mordva.util.launchWithoutOld
 import com.mordva.util.multiRequest
@@ -46,6 +51,8 @@ internal class MovieViewModel @Inject constructor(
     private val willWatchPackageRepository: WillWatchPackageRepository,
     private val handleWillWatchAction: HandleWillWatchAction,
     private val handleRatedMovieAction: HandleRatedMovieAction,
+    private val handleFavoritePackageAction: HandleFavoritePackageAction,
+    private val favoritePackageRepository: FavoritePackageRepository,
 
     private val movieLocalService: MovieLocalService
 ) : ViewModel() {
@@ -54,6 +61,12 @@ internal class MovieViewModel @Inject constructor(
 
     fun save(movie: Movie) = launchWithoutOld {
         movieLocalService.insert(movie)
+    }
+
+    fun updatePackageVisible(visible: Boolean) {
+        _uiState.update {
+            it.copy(packageSheetVisible = visible)
+        }
     }
 
     fun updateMoreSheetVisible(visible: Boolean) {
@@ -84,9 +97,7 @@ internal class MovieViewModel @Inject constructor(
         _uiState.update { it.copy(currentMovieRating = rating) }
     }
 
-    fun handleScoreSheetHandle(
-        action: ScoreSheetAction
-    ) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
+    fun handleScoreSheetHandle(action: ScoreSheetAction) = launchWithoutOld(RATED_MOVIE_JOB) {
         val params = RatedMovieActionParams(
             scoreSheetAction = action,
             currentScore = uiState.value.currentMovieRating,
@@ -167,13 +178,23 @@ internal class MovieViewModel @Inject constructor(
         val movieId = uiState.value.movieState.body().id
 
         willWatchPackageRepository.isStock(movieId).collect { result ->
+            val set = uiState.value.selectedPackage.toMutableSet()
+
             _uiState.update {
                 it.copy(isWillWatch = result != null)
             }
+
+            if (result != null) {
+                set.add(PackageType.WILL_WATCH)
+            } else {
+                set.remove(PackageType.WILL_WATCH)
+            }
+
+            _uiState.update { it.copy(selectedPackage = set) }
         }
     }
 
-    fun handleWillWatchAction() = launchWithoutOld(ACTION_WILL_WATCH_JOB) {
+    fun handleWillWatchAction() = launchWithoutOld(WILL_WATCH_JOB) {
         val params = WillWatchParams(
             isChecked = uiState.value.isWillWatch,
             movieId = uiState.value.movieState.body().id
@@ -182,13 +203,60 @@ internal class MovieViewModel @Inject constructor(
         handleWillWatchAction.execute(params)
     }
 
-    fun getRatedMovies(rating: Int) = launchWithoutOld(ACTION_RATED_MOVIE_JOB) {
+    fun getRatedMovies(rating: Int) = launchWithoutOld(RATED_MOVIE_JOB) {
         _uiState.update { it.copy(ratedMoviesState = RatedMovieState.Loading) }
 
         ratedMovieRepository.getAllByRating(rating).collect { movies ->
             _uiState.update {
                 it.copy(ratedMoviesState = RatedMovieState.Success(movies))
             }
+        }
+    }
+
+    fun handlePackageAction(action: PackageItemAction) = launchWithoutOld(FAVORITE_PACKAGE_JOB) {
+        val params = PackageItemParams(
+            action = action,
+            movieId = uiState.value.movieState.body().id
+        )
+
+        handleFavoritePackageAction.execute(params)
+    }
+
+    fun getInfoForPackages() {
+        val movieId = uiState.value.movieState.body().id
+
+        isFavoritePackage(movieId)
+        getCountFavoritePackage()
+        getCountWillWatchPackage()
+    }
+
+    private fun getCountFavoritePackage() = launchWithoutOld(COUNT_FAVORITE_JOB) {
+        favoritePackageRepository.count().collect { count ->
+            val map = uiState.value.packageSize.toMutableMap()
+            map[PackageType.FAVORITE] = count
+            _uiState.update { it.copy(packageSize = map) }
+        }
+    }
+
+    private fun getCountWillWatchPackage() = launchWithoutOld(COUNT_WILL_WATCH_JOB) {
+        willWatchPackageRepository.count().collect { count ->
+            val map = uiState.value.packageSize.toMutableMap()
+            map[PackageType.WILL_WATCH] = count
+            _uiState.update { it.copy(packageSize = map) }
+        }
+    }
+
+    private fun isFavoritePackage(movieId: Int) = launchWithoutOld(IS_FAVORITE_PACKAGE_JOB) {
+        favoritePackageRepository.isStock(movieId).collect { moviePackage ->
+            val set = uiState.value.selectedPackage.toMutableSet()
+
+            if (moviePackage != null) {
+                set.add(PackageType.FAVORITE)
+            } else {
+                set.remove(PackageType.FAVORITE)
+            }
+
+            _uiState.update { it.copy(selectedPackage = set) }
         }
     }
 
@@ -208,9 +276,13 @@ internal class MovieViewModel @Inject constructor(
     }
 
     private companion object {
-        const val ACTION_WILL_WATCH_JOB = "action_will_watch_job"
+        const val COUNT_WILL_WATCH_JOB = "count_will_watch_job"
+        const val COUNT_FAVORITE_JOB = "count_favorite_package"
+        const val IS_FAVORITE_PACKAGE_JOB = "is_favorite_package"
+        const val FAVORITE_PACKAGE_JOB = "action_favorite_package"
+        const val WILL_WATCH_JOB = "action_will_watch_job"
         const val IS_WILL_WATCH_JOB = "is_will_watch_package"
-        const val ACTION_RATED_MOVIE_JOB = "action_for_rated_movie"
+        const val RATED_MOVIE_JOB = "action_for_rated_movie"
         const val IS_RATED_MOVIE_JOB = "is_rated_movie"
         const val GET_COMMENTS_JOB = "get_comments"
         const val GET_MOVIE_JOB = "get_movie"

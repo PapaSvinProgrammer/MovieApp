@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -29,6 +30,8 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
+import com.mordva.model.PackageType
+import com.mordva.model.movie.Movie
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.BackdropContent
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.CollapsedTopBar
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.ExpandedContent
@@ -47,15 +50,19 @@ import com.mordva.movieScreen.presentation.movie.widget.itemContent.supportPerso
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.voiceActorsItem
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.watchabilityItem
 import com.mordva.movieScreen.presentation.movie.widget.moreBottomSheet.MoreBottomSheet
+import com.mordva.movieScreen.presentation.movie.widget.moreBottomSheet.MoreSheetAction
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreBottomSheet
 import com.mordva.movieScreen.presentation.navigation.GroupPersonRoute
 import com.mordva.movieScreen.utils.body
 import com.mordva.movieScreen.utils.handleSnackBarSate
+import com.mordva.movieScreen.utils.shareMovieIntent
 import com.mordva.movieScreen.utils.toScreenObject
 import com.mordva.ui.uiState.MovieUIState
 import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
 import com.mordva.ui.widget.other.TitleTopBarText
+import com.mordva.ui.widget.packageBottomSheet.PackageBottomSheet
+import com.mordva.ui.widget.packageBottomSheet.PackageItemAction
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 
@@ -94,6 +101,7 @@ internal fun MovieScreen(
             viewModel.isRatedMovie()
             viewModel.isWillWatchPackage()
             viewModel.getCollections(it.lists)
+            viewModel.getInfoForPackages()
         }
     }
 
@@ -144,7 +152,9 @@ internal fun MovieScreen(
                                 context = context
                             )
                         },
-                        onShare = {},
+                        onShare = {
+                            context.shareMovieIntent(state.movieState.body())
+                        },
                         onMore = {
                             viewModel.updateMoreSheetVisible(true)
                         }
@@ -157,7 +167,12 @@ internal fun MovieScreen(
 
                 watchabilityItem(movie, navController)
 
-                ratingCardLargeItem(movie)
+                ratingCardLargeItem(
+                    movie = movie,
+                    onClick = {
+                        viewModel.updateScoreSheetVisible(true)
+                    }
+                )
 
                 personGridHorizontalItem(
                     actors = state.actors,
@@ -230,9 +245,32 @@ internal fun MovieScreen(
             movie = state.movieState.body(),
             isBlocked = true,
             isVisibility = true,
-            onAction = {},
+            onAction = { action ->
+                when (action) {
+                    MoreSheetAction.AddInFolder -> {
+                        viewModel.updatePackageVisible(true)
+                    }
+
+                    MoreSheetAction.BlockedChange -> {}
+                    MoreSheetAction.VisibilityChange -> {}
+                }
+            },
             onDismissRequest = {
                 viewModel.updateMoreSheetVisible(false)
+            }
+        )
+    }
+
+    if (state.packageSheetVisible) {
+        PackageBottomSheet(
+            movie = state.movieState.body(),
+            selectedSet = state.selectedPackage,
+            packageSize = state.packageSize,
+            onAction = { action ->
+                viewModel.handlePackageAction(action)
+            },
+            onDismissRequest = {
+                viewModel.updatePackageVisible(false)
             }
         )
     }
@@ -260,4 +298,3 @@ private fun RenderMovieContent(
         is MovieUIState.Success -> {}
     }
 }
-

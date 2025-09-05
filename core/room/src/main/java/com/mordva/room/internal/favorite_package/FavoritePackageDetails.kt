@@ -1,17 +1,17 @@
-package com.mordva.room.internal.will_watch_package
+package com.mordva.room.internal.favorite_package
 
 import androidx.room.Embedded
 import androidx.room.Relation
 import com.mordva.room.internal.movie.MovieDetails
 import com.mordva.room.internal.movie.entity.MovieEntity
 
-internal data class WillWatchPackageDetails(
-    @Embedded val willWatchPackageEntity: WillWatchPackageEntity,
+internal data class FavoritePackageDetails(
+    @Embedded val favoritePackageEntity: FavoritePackageEntity,
 
     @Relation(
-        parentColumn = "movie_id",
+        entity = MovieEntity::class,
         entityColumn = "id",
-        entity = MovieEntity::class
+        parentColumn = "movie_id"
     )
     val movie: MovieDetails
 )
