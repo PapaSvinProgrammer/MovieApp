@@ -28,7 +28,7 @@ internal class HandleRatedMovieAction @Inject constructor(
                 ratedMovieRepository.add(ratedMovie)
             }
 
-            else -> {}
+            ScoreSheetAction.Nothing -> {}
         }
     }
 }

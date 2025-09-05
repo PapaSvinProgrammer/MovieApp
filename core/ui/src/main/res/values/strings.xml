@@ -122,4 +122,6 @@
     <string name="not_change">Ничего не ставить</string>
     <string name="delete_rating">Удалить оценку</string>
     <string name="your_movie_on">Ваши фильмы на %1$d</string>
+    <string name="delete_from_will_watch">Фильм убран из папки \"Буду смотреть\"</string>
+    <string name="add_in_will_watch">Фильм добавлен в папку \"Буду смотреть\"</string>
 </resources>
