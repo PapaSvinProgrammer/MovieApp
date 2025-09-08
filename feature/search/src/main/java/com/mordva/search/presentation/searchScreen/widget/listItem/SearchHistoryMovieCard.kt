@@ -24,6 +24,7 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.movieapp.ui.R
 import com.mordva.model.SearchItem
+import com.mordva.ui.widget.listItems.DetailSearchInfoContent
 
 @Composable
 fun SearchHistoryMovieCard(
@@ -56,7 +57,7 @@ fun SearchHistoryMovieCard(
                     .fillMaxWidth()
                     .align(Alignment.Center)
             ) {
-                DetailInfoContent(
+                DetailSearchInfoContent(
                     modifier = Modifier
                         .align(Alignment.CenterStart)
                         .padding(end = 30.dp),

@@ -1,4 +1,4 @@
-package com.mordva.search.presentation.searchScreen.widget.listItem
+package com.mordva.ui.widget.listItems
 
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -41,39 +41,56 @@ fun SearchItemCard(
             .clickable(onClick = onClick)
             .padding(15.dp)
     ) {
-        AsyncImage(
-            model = searchItem.poster,
-            contentDescription = null,
-            error = painterResource(R.drawable.ic_image),
-            contentScale = ContentScale.Crop,
+        SearchItemContent(searchItem)
+    }
+}
+
+@Composable
+fun SearchItemCard(searchItem: SearchItem) {
+    Row(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(110.dp)
+            .padding(15.dp)
+    ) {
+        SearchItemContent(searchItem)
+    }
+}
+
+@Composable
+private fun SearchItemContent(searchItem: SearchItem) {
+    AsyncImage(
+        model = searchItem.poster,
+        contentDescription = null,
+        error = painterResource(R.drawable.ic_image),
+        contentScale = ContentScale.Crop,
+        modifier = Modifier
+            .height(80.dp)
+            .width(60.dp)
+            .clip(RoundedCornerShape(10.dp))
+    )
+
+    Spacer(modifier = Modifier.width(15.dp))
+
+    Box(modifier = Modifier.fillMaxSize()) {
+        DetailSearchInfoContent(
             modifier = Modifier
-                .height(80.dp)
-                .width(60.dp)
-                .clip(RoundedCornerShape(10.dp))
+                .align(Alignment.CenterStart)
+                .padding(end = 30.dp),
+            searchItem = searchItem
         )
 
-        Spacer(modifier = Modifier.width(15.dp))
-
-        Box(modifier = Modifier.fillMaxSize()) {
-            DetailInfoContent(
-                modifier = Modifier
-                    .align(Alignment.CenterStart)
-                    .padding(end = 30.dp),
-                searchItem = searchItem
+        if (searchItem.isMovie) {
+            RatingText(
+                modifier = Modifier.align(Alignment.CenterEnd),
+                rating = searchItem.rating
             )
-
-            if (searchItem.isMovie) {
-                RatingText(
-                    modifier = Modifier.align(Alignment.CenterEnd),
-                    rating = searchItem.rating
-                )
-            }
         }
     }
 }
 
 @Composable
-internal fun DetailInfoContent(
+fun DetailSearchInfoContent(
     modifier: Modifier = Modifier,
     searchItem: SearchItem
 ) {

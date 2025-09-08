@@ -1,6 +1,7 @@
 package com.mordva.ui.widget.packageBottomSheet
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
@@ -15,6 +16,8 @@ import com.mordva.model.PackageType
 import com.mordva.model.movie.Movie
 import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.bottomSheets.DisableChangeStatusBarIconColor
+import com.mordva.ui.widget.listItems.SearchItemCard
+import com.mordva.ui.widget.other.toSearchItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -37,42 +40,46 @@ fun PackageBottomSheet(
     )
 
     ModalBottomSheet(onDismissRequest = onDismissRequest) {
-        listItems.forEach { packageItem ->
-            val isSelected = packageItem.type in selectedSet
+        Column {
+            SearchItemCard(searchItem = movie.toSearchItem())
 
-            ListItem(
-                modifier = Modifier.clickable {
-                    if (!isSelected) {
-                        onAction(PackageItemAction.Add(packageItem.type))
-                    } else {
-                        onAction(PackageItemAction.Delete(packageItem.type))
-                    }
-                },
-                leadingContent = {
-                    Icon(
-                        imageVector = packageItem.type.toIcon(isSelected),
-                        contentDescription = null,
-                        tint = if (isSelected)
-                            MaterialTheme.colorScheme.primary
-                        else
-                            MaterialTheme.colorScheme.onSurface
-                    )
-                },
-                headlineContent = {
-                    Text(
-                        text = packageItem.title,
-                        fontSize = Typography.bodyMedium.fontSize
-                    )
-                },
-                trailingContent = {
-                    Text(
-                        text = packageSize[packageItem.type].toString()
-                    )
-                },
-                colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainerLow)
-            )
+            listItems.forEach { packageItem ->
+                val isSelected = packageItem.type in selectedSet
 
-            HorizontalDivider()
+                ListItem(
+                    modifier = Modifier.clickable {
+                        if (!isSelected) {
+                            onAction(PackageItemAction.Add(packageItem.type))
+                        } else {
+                            onAction(PackageItemAction.Delete(packageItem.type))
+                        }
+                    },
+                    leadingContent = {
+                        Icon(
+                            imageVector = packageItem.type.toIcon(isSelected),
+                            contentDescription = null,
+                            tint = if (isSelected)
+                                MaterialTheme.colorScheme.primary
+                            else
+                                MaterialTheme.colorScheme.onSurface
+                        )
+                    },
+                    headlineContent = {
+                        Text(
+                            text = packageItem.title,
+                            fontSize = Typography.bodyMedium.fontSize
+                        )
+                    },
+                    trailingContent = {
+                        Text(
+                            text = packageSize[packageItem.type].toString()
+                        )
+                    },
+                    colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainerLow)
+                )
+
+                HorizontalDivider()
+            }
         }
 
         DisableChangeStatusBarIconColor()

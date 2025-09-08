@@ -76,7 +76,7 @@ fun MovieListCard(
         ) {
             Column(modifier = Modifier.fillMaxWidth()) {
                 NameContent(movie)
-                DetailInfoContent(movie)
+                DetailSearchInfoContent(movie)
             }
 
             IconButton(
@@ -126,7 +126,7 @@ private fun getAlternativeName(movie: Movie): String {
 }
 
 @Composable
-private fun DetailInfoContent(movie: Movie) {
+private fun DetailSearchInfoContent(movie: Movie) {
     Text(
         text = movie.countries.joinToString(", ") { it.name },
         fontSize = Typography.bodyMedium.fontSize,

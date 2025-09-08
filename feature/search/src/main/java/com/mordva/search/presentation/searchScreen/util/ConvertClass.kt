@@ -1,13 +1,13 @@
 package com.mordva.search.presentation.searchScreen.util
 
-import com.mordva.model.local.History
 import com.mordva.model.SearchItem
+import com.mordva.model.local.History
 import com.mordva.model.movie.Movie
 import com.mordva.model.person.Person
 import com.mordva.model.totalValue.ReleaseYears
-import com.mordva.util.convert.ConvertData
+import com.mordva.ui.widget.other.toSearchItem
 
-fun SearchItem.toHistory(): History {
+internal fun SearchItem.toHistory(): History {
     return History(
         movieId = this.id,
         name = this.name,
@@ -20,20 +20,7 @@ fun SearchItem.toHistory(): History {
     )
 }
 
-fun Movie.toSearchItem(): SearchItem {
-    return SearchItem(
-        id = this.id,
-        isMovie = true,
-        name = this.name ?: "",
-        alternativeName = ConvertData.getAlternativeNameForMovie(this),
-        year = this.year ?: 0,
-        releaseYears = this.releaseYears.firstOrNull() ?: ReleaseYears(null, null),
-        poster = this.poster?.url ?: "",
-        rating = this.rating?.kp ?: 0f
-    )
-}
-
-fun Person.toSearchItem(): SearchItem {
+internal fun Person.toSearchItem(): SearchItem {
     return SearchItem(
         id = this.id,
         isMovie = false,
@@ -47,7 +34,7 @@ fun Person.toSearchItem(): SearchItem {
 }
 
 @JvmName(name = "movieToSearchItemList")
-fun List<Movie>.toSearchItemList(): List<SearchItem> {
+internal fun List<Movie>.toSearchItemList(): List<SearchItem> {
     val res = ArrayList<SearchItem>()
 
     this.forEach {
@@ -58,7 +45,7 @@ fun List<Movie>.toSearchItemList(): List<SearchItem> {
 }
 
 @JvmName(name = "personToSearchItemList")
-fun List<Person>.toSearchItemList(): List<SearchItem> {
+internal fun List<Person>.toSearchItemList(): List<SearchItem> {
     val res = ArrayList<SearchItem>()
 
     this.forEach {
@@ -68,7 +55,7 @@ fun List<Person>.toSearchItemList(): List<SearchItem> {
     return res
 }
 
-fun History.toSearchItem(): SearchItem {
+internal fun History.toSearchItem(): SearchItem {
     val releaseYears = ReleaseYears(
         start = this.start,
         end = this.end

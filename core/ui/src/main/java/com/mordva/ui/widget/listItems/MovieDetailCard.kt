@@ -59,7 +59,7 @@ fun MovieDetailCard(
         Spacer(modifier = Modifier.width(15.dp))
 
         Box(modifier = Modifier.fillMaxSize()) {
-            DetailInfoContent(
+            DetailSearchInfoContent(
                 title = movie.name ?: "",
                 subtitle = ConvertData.getAlternativeNameForMovie(movie)
             )
@@ -78,7 +78,7 @@ fun MovieDetailCard(
 }
 
 @Composable
-private fun BoxScope.DetailInfoContent(
+private fun BoxScope.DetailSearchInfoContent(
     title: String,
     subtitle: String
 ) {
