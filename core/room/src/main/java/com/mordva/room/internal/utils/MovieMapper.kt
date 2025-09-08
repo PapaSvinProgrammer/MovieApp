@@ -15,23 +15,23 @@ import com.mordva.model.totalValue.Premiere
 import com.mordva.model.totalValue.Rating
 import com.mordva.model.totalValue.ReleaseYears
 import com.mordva.model.totalValue.Votes
-import com.mordva.room.internal.movie.MovieDetails
-import com.mordva.room.internal.movie.entity.AudienceEntity
-import com.mordva.room.internal.movie.entity.BudgetEntity
-import com.mordva.room.internal.movie.entity.CountryEntity
-import com.mordva.room.internal.movie.entity.DistributorEntity
-import com.mordva.room.internal.movie.entity.EpisodeEntity
-import com.mordva.room.internal.movie.entity.FactEntity
-import com.mordva.room.internal.movie.entity.GenreEntity
-import com.mordva.room.internal.movie.entity.MovieEntity
-import com.mordva.room.internal.movie.entity.PersonMovieEntity
-import com.mordva.room.internal.movie.entity.PosterEntity
-import com.mordva.room.internal.movie.entity.PremiereEntity
-import com.mordva.room.internal.movie.entity.RatingEntity
-import com.mordva.room.internal.movie.entity.ReleaseYearsEntity
-import com.mordva.room.internal.movie.entity.SeasonEntity
-import com.mordva.room.internal.movie.entity.VotesEntity
-import com.mordva.room.internal.movie.entity.WatchabilityItemEntity
+import com.mordva.room.internal.entities.movie.MovieDetails
+import com.mordva.room.internal.entities.movie.entity.AudienceEntity
+import com.mordva.room.internal.entities.movie.entity.BudgetEntity
+import com.mordva.room.internal.entities.movie.entity.CountryEntity
+import com.mordva.room.internal.entities.movie.entity.DistributorEntity
+import com.mordva.room.internal.entities.movie.entity.EpisodeEntity
+import com.mordva.room.internal.entities.movie.entity.FactEntity
+import com.mordva.room.internal.entities.movie.entity.GenreEntity
+import com.mordva.room.internal.entities.movie.entity.MovieEntity
+import com.mordva.room.internal.entities.movie.entity.PersonMovieEntity
+import com.mordva.room.internal.entities.movie.entity.PosterEntity
+import com.mordva.room.internal.entities.movie.entity.PremiereEntity
+import com.mordva.room.internal.entities.movie.entity.RatingEntity
+import com.mordva.room.internal.entities.movie.entity.ReleaseYearsEntity
+import com.mordva.room.internal.entities.movie.entity.SeasonEntity
+import com.mordva.room.internal.entities.movie.entity.VotesEntity
+import com.mordva.room.internal.entities.movie.entity.WatchabilityItemEntity
 
 internal fun Movie.toMovieEntity() = MovieEntity(
     id = id,

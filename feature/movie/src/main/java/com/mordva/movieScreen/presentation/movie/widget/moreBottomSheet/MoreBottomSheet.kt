@@ -14,6 +14,7 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.ListItem
 import androidx.compose.material3.ListItemDefaults
+import androidx.compose.material3.LocalContentColor
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
@@ -23,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
@@ -37,7 +39,7 @@ import com.mordva.util.convert.ConvertData
 internal fun MoreBottomSheet(
     movie: Movie,
     isBlocked: Boolean,
-    isVisibility: Boolean,
+    isViewed: Boolean,
     onDismissRequest: () -> Unit,
     onAction: (MoreSheetAction) -> Unit
 ) {
@@ -51,7 +53,7 @@ internal fun MoreBottomSheet(
                 onAction(MoreSheetAction.AddInFolder)
                 onDismissRequest()
             },
-            colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainer),
+            colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainerLow),
             leadingContent = {
                 Icon(
                     painter = painterResource(R.drawable.ic_new_folder),
@@ -73,7 +75,7 @@ internal fun MoreBottomSheet(
                 onAction(MoreSheetAction.BlockedChange)
                 onDismissRequest()
             },
-            colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainer),
+            colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainerLow),
             leadingContent = {
                 Icon(
                     painter = if (isBlocked)
@@ -83,13 +85,13 @@ internal fun MoreBottomSheet(
                     tint = if (isBlocked)
                         MaterialTheme.colorScheme.primary
                     else
-                        MaterialTheme.colorScheme.surface,
+                        LocalContentColor.current,
                     contentDescription = null
                 )
             },
             headlineContent = {
                 Text(
-                    text = "Неинтересно",
+                    text = stringResource(R.string.blocked),
                     fontSize = Typography.bodyMedium.fontSize
                 )
             }
@@ -102,23 +104,23 @@ internal fun MoreBottomSheet(
                 onAction(MoreSheetAction.VisibilityChange)
                 onDismissRequest()
             },
-            colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainer),
+            colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainerLow),
             leadingContent = {
                 Icon(
-                    painter = if (isVisibility)
+                    painter = if (isViewed)
                         painterResource(R.drawable.ic_visibility_fill)
                     else
                         painterResource(R.drawable.ic_visibility),
-                    tint = if (isBlocked)
+                    tint = if (isViewed)
                         MaterialTheme.colorScheme.primary
                     else
-                        MaterialTheme.colorScheme.surface,
+                        LocalContentColor.current,
                     contentDescription = null
                 )
             },
             headlineContent = {
                 Text(
-                    text = "Просмотрен",
+                    text = stringResource(R.string.viewed),
                     fontSize = Typography.bodyMedium.fontSize
                 )
             }

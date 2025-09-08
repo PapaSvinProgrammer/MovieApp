@@ -1,8 +1,10 @@
 package com.mordva.movieScreen.presentation.movie
 
 import androidx.lifecycle.ViewModel
+import com.mordva.domain.repository.BlockedRepository
 import com.mordva.domain.repository.FavoritePackageRepository
 import com.mordva.domain.repository.RatedMovieRepository
+import com.mordva.domain.repository.ViewedRepository
 import com.mordva.domain.repository.WillWatchPackageRepository
 import com.mordva.domain.usecase.collection.GetCollectionBySlug
 import com.mordva.domain.usecase.comment.GetCommentByDate
@@ -17,12 +19,14 @@ import com.mordva.movieScreen.domain.FilterCollection
 import com.mordva.movieScreen.domain.FilterPersonsLikeActors
 import com.mordva.movieScreen.domain.FilterPersonsLikeSupport
 import com.mordva.movieScreen.domain.FilterPersonsLikeVoiceActors
+import com.mordva.movieScreen.domain.HandleBlockedAction
 import com.mordva.movieScreen.domain.HandleFavoritePackageAction
 import com.mordva.movieScreen.domain.HandleRatedMovieAction
+import com.mordva.movieScreen.domain.HandleViewedAction
 import com.mordva.movieScreen.domain.HandleWillWatchAction
 import com.mordva.movieScreen.domain.model.PackageItemParams
 import com.mordva.movieScreen.domain.model.RatedMovieActionParams
-import com.mordva.movieScreen.domain.model.WillWatchParams
+import com.mordva.movieScreen.domain.model.CheckedParams
 import com.mordva.movieScreen.presentation.movie.widget.UIState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.RatedMovieState
 import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreSheetAction
@@ -52,7 +56,11 @@ internal class MovieViewModel @Inject constructor(
     private val handleWillWatchAction: HandleWillWatchAction,
     private val handleRatedMovieAction: HandleRatedMovieAction,
     private val handleFavoritePackageAction: HandleFavoritePackageAction,
+    private val handleViewedAction: HandleViewedAction,
+    private val handleBlockedAction: HandleBlockedAction,
     private val favoritePackageRepository: FavoritePackageRepository,
+    private val viewedRepository: ViewedRepository,
+    private val blockedRepository: BlockedRepository,
 
     private val movieLocalService: MovieLocalService
 ) : ViewModel() {
@@ -194,8 +202,46 @@ internal class MovieViewModel @Inject constructor(
         }
     }
 
+    fun isBlocked() = launchWithoutOld(IS_BLOCKED_JPB) {
+        val movieId = uiState.value.movieState.body().id
+
+        blockedRepository.isStock(movieId).collect { moviePackage ->
+            _uiState.update {
+                it.copy(isBlocked = moviePackage != null)
+            }
+        }
+    }
+
+    fun isViewed() = launchWithoutOld(IS_VIEWED_JOB) {
+        val movieId = uiState.value.movieState.body().id
+
+        viewedRepository.isStock(movieId).collect { moviePackage ->
+            _uiState.update {
+                it.copy(isViewed = moviePackage != null)
+            }
+        }
+    }
+
+    fun handleViewedAction() = launchWithoutOld(VIEWED_JOB) {
+        val params = CheckedParams(
+            isChecked = uiState.value.isViewed,
+            movieId = uiState.value.movieState.body().id
+        )
+
+        handleViewedAction.execute(params)
+    }
+
+    fun handleBlockedAction() = launchWithoutOld(BLOCKED_JOB) {
+        val params = CheckedParams(
+            isChecked = uiState.value.isBlocked,
+            movieId = uiState.value.movieState.body().id
+        )
+
+        handleBlockedAction.execute(params)
+    }
+
     fun handleWillWatchAction() = launchWithoutOld(WILL_WATCH_JOB) {
-        val params = WillWatchParams(
+        val params = CheckedParams(
             isChecked = uiState.value.isWillWatch,
             movieId = uiState.value.movieState.body().id
         )
@@ -276,6 +322,10 @@ internal class MovieViewModel @Inject constructor(
     }
 
     private companion object {
+        const val VIEWED_JOB = "viewed_action"
+        const val IS_VIEWED_JOB = "is_viewed_movie"
+        const val BLOCKED_JOB = "blocked_action_job"
+        const val IS_BLOCKED_JPB = "is_blocked_movie"
         const val COUNT_WILL_WATCH_JOB = "count_will_watch_job"
         const val COUNT_FAVORITE_JOB = "count_favorite_package"
         const val IS_FAVORITE_PACKAGE_JOB = "is_favorite_package"

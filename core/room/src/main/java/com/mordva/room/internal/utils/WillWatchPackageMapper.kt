@@ -3,8 +3,8 @@ package com.mordva.room.internal.utils
 import com.mordva.model.local.MoviePackage
 import com.mordva.model.local.PackageParams
 import com.mordva.model.movie.Movie
-import com.mordva.room.internal.will_watch_package.WillWatchPackageDetails
-import com.mordva.room.internal.will_watch_package.WillWatchPackageEntity
+import com.mordva.room.internal.entities.will_watch_package.WillWatchPackageDetails
+import com.mordva.room.internal.entities.will_watch_package.WillWatchPackageEntity
 
 internal fun WillWatchPackageDetails.toDomain() = MoviePackage(
     movie = movie.toMovie(),

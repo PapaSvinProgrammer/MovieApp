@@ -28,4 +28,6 @@ internal data class UIState(
     val selectedFact: String = "",
     val isCollapsed: Boolean = false,
     val isWillWatch: Boolean = false,
+    val isViewed: Boolean = false,
+    val isBlocked: Boolean = false,
 )

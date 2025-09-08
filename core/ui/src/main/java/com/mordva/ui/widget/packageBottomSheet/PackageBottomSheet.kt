@@ -25,7 +25,6 @@ fun PackageBottomSheet(
     onAction: (PackageItemAction) -> Unit,
     onDismissRequest: () -> Unit,
 ) {
-    Log.d("RRRR", selectedSet.toString())
     val listItems = listOf(
         PackageItem(
             title = "Любимые фильмы",
@@ -70,7 +69,7 @@ fun PackageBottomSheet(
                         text = packageSize[packageItem.type].toString()
                     )
                 },
-                colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainer)
+                colors = ListItemDefaults.colors(MaterialTheme.colorScheme.surfaceContainerLow)
             )
 
             HorizontalDivider()

@@ -1,5 +1,6 @@
 package com.mordva.movieScreen.presentation.movie
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -20,7 +21,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateSetOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
@@ -30,8 +30,6 @@ import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.mordva.model.PackageType
-import com.mordva.model.movie.Movie
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.BackdropContent
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.CollapsedTopBar
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.ExpandedContent
@@ -62,7 +60,6 @@ import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
 import com.mordva.ui.widget.other.TitleTopBarText
 import com.mordva.ui.widget.packageBottomSheet.PackageBottomSheet
-import com.mordva.ui.widget.packageBottomSheet.PackageItemAction
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 
@@ -96,10 +93,14 @@ internal fun MovieScreen(
     }
 
     LaunchedEffect(state.movieState) {
+        Log.d("RRRR", "RECOMPOSITION")
+
         state.movieState.body().let {
             viewModel.save(it)
             viewModel.isRatedMovie()
             viewModel.isWillWatchPackage()
+            viewModel.isBlocked()
+            viewModel.isViewed()
             viewModel.getCollections(it.lists)
             viewModel.getInfoForPackages()
         }
@@ -243,16 +244,13 @@ internal fun MovieScreen(
     if (state.moreSheetVisible) {
         MoreBottomSheet(
             movie = state.movieState.body(),
-            isBlocked = true,
-            isVisibility = true,
+            isBlocked = state.isBlocked,
+            isViewed = state.isViewed,
             onAction = { action ->
                 when (action) {
-                    MoreSheetAction.AddInFolder -> {
-                        viewModel.updatePackageVisible(true)
-                    }
-
-                    MoreSheetAction.BlockedChange -> {}
-                    MoreSheetAction.VisibilityChange -> {}
+                    MoreSheetAction.AddInFolder -> viewModel.updatePackageVisible(true)
+                    MoreSheetAction.BlockedChange -> viewModel.handleBlockedAction()
+                    MoreSheetAction.VisibilityChange -> viewModel.handleViewedAction()
                 }
             },
             onDismissRequest = {

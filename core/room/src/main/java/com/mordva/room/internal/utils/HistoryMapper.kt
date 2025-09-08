@@ -1,7 +1,7 @@
 package com.mordva.room.internal.utils
 
 import com.mordva.model.local.History
-import com.mordva.room.internal.history.HistoryEntity
+import com.mordva.room.internal.entities.history.HistoryEntity
 
 internal fun History.toEntity(): HistoryEntity = HistoryEntity(
     id = id,
