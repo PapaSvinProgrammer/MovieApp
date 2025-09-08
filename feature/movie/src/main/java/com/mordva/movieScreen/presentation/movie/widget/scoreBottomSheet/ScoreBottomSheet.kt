@@ -19,7 +19,6 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -29,17 +28,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.window.DialogWindowProvider
-import androidx.core.view.WindowCompat
 import coil3.compose.AsyncImage
 import com.example.movieapp.ui.R
 import com.mordva.model.local.RatedMovie
 import com.mordva.model.movie.Movie
 import com.mordva.ui.theme.Typography
+import com.mordva.ui.widget.bottomSheets.DisableChangeStatusBarIconColor
 import com.mordva.ui.widget.component.ScorePicker
 import com.mordva.ui.widget.lazyComponent.DefaultLazyRow
 import com.mordva.ui.widget.listItems.MovieCard
@@ -205,14 +202,4 @@ private fun TopHeadlineContent(movie: Movie) {
         fontSize = Typography.bodyMedium.fontSize,
         color = MaterialTheme.colorScheme.onSurfaceVariant
     )
-}
-
-@Composable
-fun DisableChangeStatusBarIconColor() {
-    val view = LocalView.current
-    (view.parent as? DialogWindowProvider)?.window?.let { window ->
-        SideEffect {
-            WindowCompat.getInsetsController(window, view).isAppearanceLightStatusBars = false
-        }
-    }
 }

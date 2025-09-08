@@ -30,8 +30,8 @@ import androidx.compose.ui.unit.dp
 import coil3.compose.AsyncImage
 import com.example.movieapp.movie.R
 import com.mordva.model.movie.Movie
-import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.DisableChangeStatusBarIconColor
 import com.mordva.ui.theme.Typography
+import com.mordva.ui.widget.bottomSheets.DisableChangeStatusBarIconColor
 import com.mordva.util.convert.ConvertData
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -141,8 +141,8 @@ private fun TopSheetContent(movie: Movie) {
             contentDescription = null,
             contentScale = ContentScale.Crop,
             modifier = Modifier
-                .height(130.dp)
-                .width(90.dp)
+                .height(100.dp)
+                .width(70.dp)
                 .clip(RoundedCornerShape(10.dp))
         )
 
