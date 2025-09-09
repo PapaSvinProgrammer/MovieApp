@@ -12,6 +12,8 @@ import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
+import com.example.movieapp.ui.R
 import com.mordva.model.PackageType
 import com.mordva.model.movie.Movie
 import com.mordva.ui.theme.Typography
@@ -30,11 +32,11 @@ fun PackageBottomSheet(
 ) {
     val listItems = listOf(
         PackageItem(
-            title = "Любимые фильмы",
+            title = stringResource(R.string.favorite_films),
             type = PackageType.FAVORITE
         ),
         PackageItem(
-            title = "Буду смотреть",
+            title = stringResource(R.string.will_watch),
             type = PackageType.WILL_WATCH
         )
     )
