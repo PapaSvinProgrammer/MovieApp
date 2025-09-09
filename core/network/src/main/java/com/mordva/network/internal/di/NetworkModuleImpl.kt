@@ -6,6 +6,7 @@ import com.mordva.network.external.AwardService
 import com.mordva.network.external.CategoryService
 import com.mordva.network.external.CollectionService
 import com.mordva.network.external.CommentService
+import com.mordva.network.external.ImageService
 import com.mordva.network.external.MovieService
 import com.mordva.network.external.PersonService
 import com.mordva.network.external.SeasonService
@@ -16,6 +17,7 @@ import com.mordva.network.internal.service.AwardServiceImpl
 import com.mordva.network.internal.service.CategoryServiceImpl
 import com.mordva.network.internal.service.CollectionServiceImpl
 import com.mordva.network.internal.service.CommentServiceImpl
+import com.mordva.network.internal.service.ImageServiceImpl
 import com.mordva.network.internal.service.MovieServiceImpl
 import com.mordva.network.internal.service.PersonServiceImpl
 import com.mordva.network.internal.service.SeasonServiceImpl
@@ -61,6 +63,10 @@ internal interface NetworkModuleImpl {
     @Binds
     @ApplicationScope
     fun bindsStudiesServiceImpl(service: StudiesServiceImpl): StudiesService
+
+    @Binds
+    @ApplicationScope
+    fun bindsImageServiceImpl(service: ImageServiceImpl): ImageService
 
     companion object {
         @Provides

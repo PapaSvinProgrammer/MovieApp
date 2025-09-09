@@ -9,6 +9,7 @@ import com.mordva.base_view_models.person_list.PersonListDependency
 import com.mordva.collectionlist.di.CollectionDependency
 import com.mordva.data.di.DataModule
 import com.mordva.home.di.HomeDependency
+import com.mordva.images_list.di.ImageListDependency
 import com.mordva.login.di.LoginDependency
 import com.mordva.movieScreen.di.MovieDependency
 import com.mordva.movieapp.main.MainActivity
@@ -45,7 +46,8 @@ interface AppComponent :
     SearchDependency,
     SettingsDependency,
     LoginDependency,
-    AccountDependency {
+    AccountDependency,
+    ImageListDependency {
 
     @Component.Factory
     interface Factory {

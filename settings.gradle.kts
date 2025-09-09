@@ -2,6 +2,9 @@
 
 import java.net.URI
 
+include(":feature:images-list")
+
+
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 include(":core:domain")

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="all_images">Все изображения</string>
+    <string name="all">Все</string>
+    <string name="backdrop">Фон</string>
+    <string name="cover">Покрытие</string>
+    <string name="frame">Рамка</string>
+    <string name="promo">Промо</string>
+    <string name="screenshot">Скриншот</string>
+    <string name="shooting">Съёмка</string>
+    <string name="still">Тихий</string>
+    <string name="wallpaper">Обои</string>
+</resources>

@@ -7,6 +7,7 @@ import com.mordva.data.CollectionRepositoryImpl
 import com.mordva.data.CommentRepositoryImpl
 import com.mordva.data.FavoritePackageRepositoryImpl
 import com.mordva.data.HistoryRepositoryImpl
+import com.mordva.data.ImageRepositoryImpl
 import com.mordva.data.MovieRepositoryImpl
 import com.mordva.data.PersonRepositoryImpl
 import com.mordva.data.PreferencesRepositoryImpl
@@ -22,6 +23,7 @@ import com.mordva.domain.repository.CollectionRepository
 import com.mordva.domain.repository.CommentRepository
 import com.mordva.domain.repository.FavoritePackageRepository
 import com.mordva.domain.repository.HistoryRepository
+import com.mordva.domain.repository.ImageRepository
 import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.repository.PersonRepository
 import com.mordva.domain.repository.PreferencesRepository
@@ -95,4 +97,8 @@ internal interface DataModuleImpl {
     @Binds
     @ApplicationScope
     fun bindsViewedRepositoryImpl(repository: ViewedRepositoryImpl): ViewedRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsImageRepositoryImpl(repository: ImageRepositoryImpl): ImageRepository
 }

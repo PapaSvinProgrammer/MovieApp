@@ -10,7 +10,6 @@ import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.usecase.collection.GetCollectionBySlug
 import com.mordva.domain.usecase.comment.GetCommentByDate
 import com.mordva.domain.usecase.movie.GetMovieById
-import com.mordva.domain.usecase.movie.GetMovieImages
 import com.mordva.movieScreen.presentation.groupPerson.GroupPersonViewModel
 import com.mordva.movieScreen.presentation.movie.MovieViewModel
 import dagger.Binds
@@ -41,12 +40,6 @@ internal interface MovieModule {
         @MovieScope
         fun providesGetMovieById(repository: MovieRepository): GetMovieById {
             return GetMovieById(repository)
-        }
-
-        @Provides
-        @MovieScope
-        fun providesGetMovieImages(repository: MovieRepository): GetMovieImages {
-            return GetMovieImages(repository)
         }
 
         @Provides

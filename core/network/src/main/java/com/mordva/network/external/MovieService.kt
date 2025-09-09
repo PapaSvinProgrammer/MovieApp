@@ -1,6 +1,5 @@
 package com.mordva.network.external
 
-import com.mordva.model.image.Poster
 import com.mordva.model.movie.Movie
 
 interface MovieService {
@@ -11,9 +10,4 @@ interface MovieService {
     suspend fun getMoviesByFilter(
         queryParameters: List<Pair<String, String>>
     ): Result<List<Movie>>
-
-    suspend fun getMovieImages(
-        movieId: Int,
-        page: Int = 1
-    ): Result<List<Poster>>
 }

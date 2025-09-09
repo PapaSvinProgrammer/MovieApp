@@ -1,6 +1,5 @@
 package com.mordva.domain.repository
 
-import com.mordva.model.image.Poster
 import com.mordva.model.movie.Movie
 
 interface MovieRepository {
@@ -14,9 +13,4 @@ interface MovieRepository {
         q: String,
         page: Int = 1
     ): Result<List<Movie>>
-
-    suspend fun getImages(
-        movieId: Int,
-        page: Int = 1
-    ): Result<List<Poster>>
 }

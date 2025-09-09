@@ -53,9 +53,7 @@ data object MovieListGraph : RootGraph {
 @Serializable
 data object MovieGraph : RootGraph {
     @Serializable
-    data class MovieRoute(
-        val id: Int
-    )
+    data class MovieRoute(val id: Int)
 }
 
 @Serializable
@@ -79,9 +77,7 @@ data object PersonPodiumListGraph : RootGraph {
 @Serializable
 data object PersonGraph : RootGraph {
     @Serializable
-    data class PersonRoute(
-        val id: Int
-    )
+    data class PersonRoute(val id: Int)
 }
 
 @Serializable
@@ -107,3 +103,9 @@ data object SettingsGraph : RootGraph {
 
 @Serializable
 data object LoginGraph : RootGraph
+
+@Serializable
+data object ImageListGraph : RootGraph {
+    @Serializable
+    data class ImageListRoute(val movieId: Int)
+}

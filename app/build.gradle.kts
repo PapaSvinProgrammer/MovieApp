@@ -38,6 +38,7 @@ dependencies {
     implementation(projects.feature.search)
     implementation(projects.feature.settings)
     implementation(projects.feature.otpScreen)
+    implementation(projects.feature.imagesList)
 
     implementation(projects.core.domain)
     implementation(projects.core.navigation)

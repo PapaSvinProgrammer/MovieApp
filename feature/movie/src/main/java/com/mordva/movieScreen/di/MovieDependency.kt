@@ -4,6 +4,7 @@ import com.mordva.domain.repository.BlockedRepository
 import com.mordva.domain.repository.CollectionRepository
 import com.mordva.domain.repository.CommentRepository
 import com.mordva.domain.repository.FavoritePackageRepository
+import com.mordva.domain.repository.ImageRepository
 import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.repository.PersonRepository
 import com.mordva.domain.repository.RatedMovieRepository
@@ -22,4 +23,5 @@ interface MovieDependency {
     val favoritePackageRepository: FavoritePackageRepository
     val blockedRepository: BlockedRepository
     val viewedRepository: ViewedRepository
+    val imageRepository: ImageRepository
 }

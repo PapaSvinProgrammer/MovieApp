@@ -18,7 +18,8 @@ import com.mordva.ui.theme.MovieAppTheme
 import javax.inject.Inject
 
 class MainActivity : AppCompatActivity() {
-    @Inject lateinit var viewModel: MainViewModel
+    @Inject
+    lateinit var viewModel: MainViewModel
 
     @SuppressLint("ContextCastToActivity")
     override fun onCreate(savedInstanceState: Bundle?) {

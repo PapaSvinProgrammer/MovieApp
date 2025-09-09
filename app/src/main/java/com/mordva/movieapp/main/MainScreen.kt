@@ -16,6 +16,7 @@ import com.mordva.awardlist.presentation.navigation.AwardListFeatureImpl
 import com.mordva.collectionlist.presentation.navigation.CollectionListFeatureImpl
 import com.mordva.favorite.navigation.FavoriteFeatureImpl
 import com.mordva.home.presentation.navigation.HomeFeatureImpl
+import com.mordva.images_list.presentation.navigation.ImageListFeatureImpl
 import com.mordva.login.presentation.navigation.LoginFeatureImpl
 import com.mordva.movieScreen.presentation.navigation.MovieFeatureImpl
 import com.mordva.movieapp.app.AppNavigation
@@ -51,7 +52,8 @@ fun MainScreen(
         PersonPodiumListFeatureImpl(appComponent),
         SettingsFeatureImpl(appComponent),
         AboutAppFeatureImpl(),
-        LoginFeatureImpl(appComponent)
+        LoginFeatureImpl(appComponent),
+        ImageListFeatureImpl(appComponent)
     )
 
     var bottomBarVisible by remember { mutableStateOf(false) }
