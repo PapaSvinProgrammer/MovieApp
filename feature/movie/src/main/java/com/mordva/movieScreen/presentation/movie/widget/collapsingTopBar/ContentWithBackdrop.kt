@@ -10,12 +10,12 @@ import com.mordva.model.movie.Movie
 @Composable
 internal fun ContentWithBackdrop(
     movie: Movie,
-    customRating: Int? = null,
     date: String,
     genres: String,
     countries: String,
     length: String,
-    age: String
+    age: String,
+    customRating: Int? = null,
 ) {
     Spacer(modifier = Modifier.height(360.dp))
 

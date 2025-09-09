@@ -1,8 +1,9 @@
 package com.mordva.model.local
 
+import com.mordva.model.movie.Movie
+
 data class RatedMovie(
-    val movieId: Int,
-    val name: String,
-    val poster: String,
-    val rating: Int
+    val movie: Movie,
+    val rating: Int,
+    val dateRating: Long
 )

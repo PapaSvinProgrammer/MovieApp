@@ -37,7 +37,7 @@ fun RatingText(
         color = Gold
     }
 
-    Box {
+    Box(modifier = modifier) {
         isTop?.let {
             Icon(
                 painter = painterResource(R.drawable.ic_branch),
@@ -59,7 +59,7 @@ fun RatingText(
             overflow = TextOverflow.Ellipsis,
             color = color,
             textAlign = TextAlign.End,
-            modifier = modifier
+            modifier = Modifier
                 .align(Alignment.Center)
                 .padding(horizontal = horizontalPadding)
         )

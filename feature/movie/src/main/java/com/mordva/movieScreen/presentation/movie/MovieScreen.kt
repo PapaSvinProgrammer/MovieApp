@@ -1,27 +1,35 @@
 package com.mordva.movieScreen.presentation.movie
 
+import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.safeContentPadding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.rememberLazyListState
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
-import com.mordva.model.movie.Movie
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.BackdropContent
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.CollapsedTopBar
 import com.mordva.movieScreen.presentation.movie.widget.collapsingTopBar.ExpandedContent
@@ -39,13 +47,19 @@ import com.mordva.movieScreen.presentation.movie.widget.itemContent.similarMovie
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.supportPersonalItem
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.voiceActorsItem
 import com.mordva.movieScreen.presentation.movie.widget.itemContent.watchabilityItem
+import com.mordva.movieScreen.presentation.movie.widget.moreBottomSheet.MoreBottomSheet
+import com.mordva.movieScreen.presentation.movie.widget.moreBottomSheet.MoreSheetAction
+import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreBottomSheet
 import com.mordva.movieScreen.presentation.navigation.GroupPersonRoute
+import com.mordva.movieScreen.utils.body
+import com.mordva.movieScreen.utils.handleSnackBarSate
+import com.mordva.movieScreen.utils.shareMovieIntent
 import com.mordva.movieScreen.utils.toScreenObject
 import com.mordva.ui.uiState.MovieUIState
 import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
 import com.mordva.ui.widget.other.TitleTopBarText
-import com.mordva.movieScreen.presentation.movie.widget.scoreBottomSheet.ScoreBottomSheet
+import com.mordva.ui.widget.packageBottomSheet.PackageBottomSheet
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 
@@ -57,6 +71,10 @@ internal fun MovieScreen(
     id: Int
 ) {
     val state by viewModel.uiState.collectAsStateWithLifecycle()
+
+    val scope = rememberCoroutineScope()
+    val context = LocalContext.current
+    val snackbarState = remember { SnackbarHostState() }
 
     val scrollState = rememberLazyListState()
     val firstOffset by remember { derivedStateOf { scrollState.firstVisibleItemScrollOffset } }
@@ -75,9 +93,16 @@ internal fun MovieScreen(
     }
 
     LaunchedEffect(state.movieState) {
+        Log.d("RRRR", "RECOMPOSITION")
+
         state.movieState.body().let {
+            viewModel.save(it)
             viewModel.isRatedMovie()
+            viewModel.isWillWatchPackage()
+            viewModel.isBlocked()
+            viewModel.isViewed()
             viewModel.getCollections(it.lists)
+            viewModel.getInfoForPackages()
         }
     }
 
@@ -115,13 +140,25 @@ internal fun MovieScreen(
                 item {
                     ExpandedContent(
                         movie = movie,
-                        customRating = state.isRatedMovieState?.rating,
+                        isCustomRating = state.isRatedMovieState?.rating,
+                        isWillWatchPackage = state.isWillWatch,
                         onEvaluate = {
                             viewModel.updateScoreSheetVisible(true)
                         },
-                        onAddIntoFuturePackage = {},
-                        onShare = {},
-                        onMore = {}
+                        onAddIntoFuturePackage = {
+                            viewModel.handleWillWatchAction()
+                            snackbarState.handleSnackBarSate(
+                                scope = scope,
+                                isChecked = state.isWillWatch,
+                                context = context
+                            )
+                        },
+                        onShare = {
+                            context.shareMovieIntent(state.movieState.body())
+                        },
+                        onMore = {
+                            viewModel.updateMoreSheetVisible(true)
+                        }
                     )
                 }
 
@@ -131,7 +168,12 @@ internal fun MovieScreen(
 
                 watchabilityItem(movie, navController)
 
-                ratingCardLargeItem(movie)
+                ratingCardLargeItem(
+                    movie = movie,
+                    onClick = {
+                        viewModel.updateScoreSheetVisible(true)
+                    }
+                )
 
                 personGridHorizontalItem(
                     actors = state.actors,
@@ -189,13 +231,59 @@ internal fun MovieScreen(
             },
             onDismissRequest = {
                 viewModel.updateScoreSheetVisible(false)
+            },
+            onValueChange = {
+                if (it == state.currentMovieRating) return@ScoreBottomSheet
+
+                viewModel.updateCurrentRatingMovie(it)
+                viewModel.getRatedMovies(it)
             }
         )
     }
-}
 
-internal fun MovieUIState.body(): Movie {
-    return (this as? MovieUIState.Success)?.data?.first() ?: Movie()
+    if (state.moreSheetVisible) {
+        MoreBottomSheet(
+            movie = state.movieState.body(),
+            isBlocked = state.isBlocked,
+            isViewed = state.isViewed,
+            onAction = { action ->
+                when (action) {
+                    MoreSheetAction.AddInFolder -> viewModel.updatePackageVisible(true)
+                    MoreSheetAction.BlockedChange -> viewModel.handleBlockedAction()
+                    MoreSheetAction.VisibilityChange -> viewModel.handleViewedAction()
+                }
+            },
+            onDismissRequest = {
+                viewModel.updateMoreSheetVisible(false)
+            }
+        )
+    }
+
+    if (state.packageSheetVisible) {
+        PackageBottomSheet(
+            movie = state.movieState.body(),
+            selectedSet = state.selectedPackage,
+            packageSize = state.packageSize,
+            onAction = { action ->
+                viewModel.handlePackageAction(action)
+            },
+            onDismissRequest = {
+                viewModel.updatePackageVisible(false)
+            }
+        )
+    }
+
+    SnackbarHost(
+        modifier = Modifier.safeContentPadding(),
+        hostState = snackbarState,
+        snackbar = { data ->
+            Snackbar(
+                modifier = Modifier.fillMaxWidth(),
+                snackbarData = data,
+                shape = RoundedCornerShape(10.dp)
+            )
+        }
+    )
 }
 
 @Composable

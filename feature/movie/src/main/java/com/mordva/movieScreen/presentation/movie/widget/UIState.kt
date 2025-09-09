@@ -1,5 +1,6 @@
 package com.mordva.movieScreen.presentation.movie.widget
 
+import com.mordva.model.PackageType
 import com.mordva.model.image.CollectionMovie
 import com.mordva.model.image.Poster
 import com.mordva.model.local.RatedMovie
@@ -17,9 +18,16 @@ internal data class UIState(
     val images: List<Poster> = listOf(),
     val collections: List<CollectionMovie> = listOf(),
     val ratedMoviesState: RatedMovieState = RatedMovieState.Init,
+    val selectedPackage: Set<PackageType> = setOf(),
+    val packageSize: Map<PackageType, Int> = mapOf(),
     val isRatedMovieState: RatedMovie? = null,
+    val scoreSheetVisible: Boolean = false,
+    val moreSheetVisible: Boolean = false,
+    val packageSheetVisible: Boolean = false,
     val currentMovieRating: Int = -1,
     val selectedFact: String = "",
     val isCollapsed: Boolean = false,
-    val scoreSheetVisible: Boolean = false
+    val isWillWatch: Boolean = false,
+    val isViewed: Boolean = false,
+    val isBlocked: Boolean = false,
 )

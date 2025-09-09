@@ -1,9 +1,11 @@
 package com.mordva.data.di
 
 import com.mordva.data.AwardRepositoryImpl
+import com.mordva.data.BlockedRepositoryImpl
 import com.mordva.data.CategoryRepositoryImpl
 import com.mordva.data.CollectionRepositoryImpl
 import com.mordva.data.CommentRepositoryImpl
+import com.mordva.data.FavoritePackageRepositoryImpl
 import com.mordva.data.HistoryRepositoryImpl
 import com.mordva.data.MovieRepositoryImpl
 import com.mordva.data.PersonRepositoryImpl
@@ -11,10 +13,14 @@ import com.mordva.data.PreferencesRepositoryImpl
 import com.mordva.data.RatedMovieRepositoryImpl
 import com.mordva.data.SeasonRepositoryImpl
 import com.mordva.data.StudioRepositoryImpl
+import com.mordva.data.ViewedRepositoryImpl
+import com.mordva.data.WillWatchPackageRepositoryImpl
 import com.mordva.domain.repository.AwardRepository
+import com.mordva.domain.repository.BlockedRepository
 import com.mordva.domain.repository.CategoryRepository
 import com.mordva.domain.repository.CollectionRepository
 import com.mordva.domain.repository.CommentRepository
+import com.mordva.domain.repository.FavoritePackageRepository
 import com.mordva.domain.repository.HistoryRepository
 import com.mordva.domain.repository.MovieRepository
 import com.mordva.domain.repository.PersonRepository
@@ -22,6 +28,8 @@ import com.mordva.domain.repository.PreferencesRepository
 import com.mordva.domain.repository.RatedMovieRepository
 import com.mordva.domain.repository.SeasonRepository
 import com.mordva.domain.repository.StudioRepository
+import com.mordva.domain.repository.ViewedRepository
+import com.mordva.domain.repository.WillWatchPackageRepository
 import com.mordva.util.ApplicationScope
 import dagger.Binds
 import dagger.Module
@@ -71,4 +79,20 @@ internal interface DataModuleImpl {
     @Binds
     @ApplicationScope
     fun bindsRatedMovieRepository(repository: RatedMovieRepositoryImpl): RatedMovieRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsWillWatchPackageRepositoryImpl(repository: WillWatchPackageRepositoryImpl): WillWatchPackageRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsFavoritePackageRepositoryImpl(repository: FavoritePackageRepositoryImpl): FavoritePackageRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsBlockedRepositoryImpl(repository: BlockedRepositoryImpl): BlockedRepository
+
+    @Binds
+    @ApplicationScope
+    fun bindsViewedRepositoryImpl(repository: ViewedRepositoryImpl): ViewedRepository
 }

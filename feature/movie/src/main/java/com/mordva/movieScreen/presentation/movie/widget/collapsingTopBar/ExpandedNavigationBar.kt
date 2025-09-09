@@ -24,6 +24,7 @@ import com.example.movieapp.ui.R
 @Composable
 internal fun ExpandedNavigationBar(
     customRating: Int? = null,
+    isWillWatchPackage: Boolean = false,
     onEvaluate: () -> Unit,
     onAddIntoFuturePackage: () -> Unit,
     onShare: () -> Unit,
@@ -44,9 +45,16 @@ internal fun ExpandedNavigationBar(
         )
 
         NavigationTab(
-            painter = painterResource(R.drawable.ic_bookmark_add),
+            painter = if (!isWillWatchPackage)
+                painterResource(R.drawable.ic_bookmark_add)
+            else
+                painterResource(R.drawable.ic_bookmark_fill),
             title = stringResource(R.string.will_watching),
-            clickable = onAddIntoFuturePackage
+            clickable = onAddIntoFuturePackage,
+            color = if (isWillWatchPackage)
+                MaterialTheme.colorScheme.primary
+            else
+                MaterialTheme.colorScheme.onSurfaceVariant
         )
 
         NavigationTab(

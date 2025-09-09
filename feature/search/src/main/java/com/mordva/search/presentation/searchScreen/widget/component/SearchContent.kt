@@ -23,8 +23,8 @@ import com.mordva.model.local.History
 import com.mordva.model.SearchItem
 import com.mordva.search.presentation.searchScreen.util.toSearchItem
 import com.mordva.search.presentation.searchScreen.widget.listItem.SearchHistoryMovieCard
-import com.mordva.search.presentation.searchScreen.widget.listItem.SearchItemCard
 import com.mordva.ui.widget.lazyComponent.EndlessLazyColumn
+import com.mordva.ui.widget.listItems.SearchItemCard
 import dev.chrisbanes.haze.HazeState
 import dev.chrisbanes.haze.hazeSource
 

@@ -1,22 +1,30 @@
 package com.mordva.room.internal.utils
 
 import com.mordva.model.local.RatedMovie
-import com.mordva.room.internal.rated.RatedMovieEntity
+import com.mordva.model.movie.Movie
+import com.mordva.room.internal.entities.rated.RatedMovieDetails
+import com.mordva.room.internal.entities.rated.RatedMovieEntity
 
-internal fun RatedMovieEntity.toDomain(): RatedMovie =
-    RatedMovie(
-        movieId = movieId,
-        name = name,
-        poster = poster,
-        rating = rating
+internal fun RatedMovieDetails.toDomain(): RatedMovie {
+    return RatedMovie(
+        movie = movieDetails.toMovie(),
+        rating = ratedMovie.rating,
+        dateRating = ratedMovie.date
     )
+}
 
-internal fun RatedMovie.toEntity(): RatedMovieEntity =
-    RatedMovieEntity(
-        movieId = movieId,
-        name = name,
-        poster = poster,
-        rating = rating
+internal fun RatedMovie.toEntity(): RatedMovieEntity {
+    return RatedMovieEntity(
+        movieId = movie.id,
+        rating = rating,
+        date = dateRating
     )
+}
 
-internal fun List<RatedMovieEntity>.toDomain() = map { it.toDomain() }
+internal fun List<RatedMovieDetails>.toDomain() = map { it.toDomain() }
+
+internal fun RatedMovieEntity.toDomain() = RatedMovie(
+    movie = Movie(),
+    rating = rating,
+    dateRating = date
+)
