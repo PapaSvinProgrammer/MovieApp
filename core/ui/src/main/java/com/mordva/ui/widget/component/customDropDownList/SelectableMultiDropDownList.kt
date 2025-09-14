@@ -1,12 +1,14 @@
 package com.mordva.ui.widget.component.customDropDownList
 
-import androidx.compose.animation.animateContentSize
+import androidx.compose.animation.AnimatedVisibility
+import androidx.compose.animation.expandVertically
+import androidx.compose.animation.shrinkVertically
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.BoxScope
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.IntrinsicSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
@@ -18,47 +20,51 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Popup
 
 @Composable
-fun BoxScope.SelectableMultiDropDownList(
+fun SelectableMultiDropDownList(
+    modifier: Modifier = Modifier,
     current: List<DropDownItem>,
     list: List<DropDownItem>,
     onClick: (DropDownItem) -> Unit
 ) {
     var isExpanded by remember { mutableStateOf(false) }
-    val takeCount = remember(isExpanded) { if (isExpanded) list.count() else 0 }
 
-    Box(
-        modifier = Modifier
-            .padding(15.dp)
-            .shadow(
-                elevation = 2.dp,
-                shape = RoundedCornerShape(18.dp)
-            )
-            .align(Alignment.TopEnd)
-            .background(
-                shape = RoundedCornerShape(20.dp),
-                color = MaterialTheme.colorScheme.surfaceContainer
-            )
-            .animateContentSize()
-    ) {
-        LazyColumn {
-            item {
-                SingleDropDownListItem(
-                    item = current.first(),
-                    isSelect = true,
-                    onClick = {
-                        isExpanded = !isExpanded
+    Box(modifier = modifier.padding(15.dp)) {
+        SingleDropDownListItem(
+            item = DropDownItem(text = current.joinToString { it.text }),
+            isSelect = true,
+            onClick = { isExpanded = !isExpanded }
+        )
+
+        Popup(onDismissRequest = { isExpanded = false }) {
+            AnimatedVisibility(
+                visible = isExpanded,
+                enter = expandVertically(expandFrom = Alignment.Top),
+                exit = shrinkVertically(shrinkTowards = Alignment.Top)
+            ) {
+                Column(
+                    modifier = Modifier
+                        .padding(top = 40.dp)
+                        .shadow(
+                            elevation = 4.dp,
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .background(
+                            color = MaterialTheme.colorScheme.surface,
+                            shape = RoundedCornerShape(12.dp)
+                        )
+                        .width(IntrinsicSize.Min)
+                ) {
+                    list.forEach { item ->
+                        MultiDropDownListItem(
+                            item = item,
+                            isSelect = item in current,
+                            onClick = { onClick(item) }
+                        )
                     }
-                )
-            }
-
-            items(list.take(takeCount)) { item ->
-                MultiDropDownListItem(
-                    item = item,
-                    isSelect = item in current,
-                    onClick = { onClick(item) }
-                )
+                }
             }
         }
     }

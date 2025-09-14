@@ -2,8 +2,11 @@ package com.mordva.images_list.presentation
 
 import androidx.lifecycle.ViewModel
 import com.mordva.images_list.domain.GetMovieImages
+import com.mordva.images_list.domain.model.ImagesParams
 import com.mordva.images_list.presentation.widget.UIState
+import com.mordva.images_list.util.getData
 import com.mordva.model.image.ImageType
+import com.mordva.ui.uiState.ImageUIState
 import com.mordva.util.cancelAllJobs
 import com.mordva.util.launchWithoutOld
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,17 +42,38 @@ internal class ImageListViewModel @Inject constructor(
     }
 
     fun getImages(movieId: Int) = launchWithoutOld(GET_IMAGES_JOB) {
-//        val params = ImagesParams(
-//            movieId = movieId,
-//            page = 1,
-//            types = state.value.imageTypes
-//        )
-//
-//        getMovieImages.execute(params).onSuccess { imageList ->
-//            _state.update {
-//                it.copy(imagesState = ImageUIState.Success(imageList))
-//            }
-//        }
+        _state.update { it.copy(page = 1) }
+
+        val params = ImagesParams(
+            movieId = movieId,
+            page = state.value.page,
+            types = state.value.imageTypes
+        )
+
+        getMovieImages.execute(params).onSuccess { imageList ->
+            _state.update {
+                it.copy(imagesState = ImageUIState.Success(imageList))
+            }
+        }
+    }
+
+    fun loadMoreImages(movieId: Int) = launchWithoutOld(GET_IMAGES_JOB) {
+        _state.update { it.copy(page = it.page + 1) }
+
+        val params = ImagesParams(
+            movieId = movieId,
+            page = state.value.page,
+            types = state.value.imageTypes
+        )
+
+        getMovieImages.execute(params).onSuccess { imageList ->
+            val new = state.value.imagesState.getData().toMutableList()
+            new.addAll(imageList)
+
+            _state.update {
+                it.copy(imagesState = ImageUIState.Success(new))
+            }
+        }
     }
 
     override fun onCleared() {

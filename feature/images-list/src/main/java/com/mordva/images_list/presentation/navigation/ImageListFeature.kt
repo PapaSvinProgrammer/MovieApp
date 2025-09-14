@@ -24,7 +24,7 @@ class ImageListFeatureImpl(private val dependency: ImageListDependency) : Featur
         modifier: Modifier
     ) {
         navGraphBuilder.navigation<ImageListGraph>(
-            startDestination = ImageListGraph.ImageListRoute(326)
+            startDestination = ImageListGraph.ImageListRoute(958722)
         ) {
             composable<ImageListGraph.ImageListRoute> {
                 val route = it.toRoute<ImageListGraph.ImageListRoute>()

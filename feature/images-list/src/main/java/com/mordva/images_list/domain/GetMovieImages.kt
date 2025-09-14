@@ -14,10 +14,10 @@ internal class GetMovieImages @Inject constructor(
 ) : UseCase<ImagesParams, Result<List<Poster>>>(Dispatchers.IO) {
     override suspend fun run(params: ImagesParams): Result<List<Poster>> {
         if (ImageType.ALL in params.types) {
-            return getWithTypes(params)
+            return getWithoutTypes(params)
         }
 
-        return getWithoutTypes(params)
+        return getWithTypes(params)
     }
 
     private suspend fun getWithoutTypes(params: ImagesParams): Result<List<Poster>> {
