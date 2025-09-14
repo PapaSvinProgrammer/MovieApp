@@ -19,13 +19,17 @@ import com.mordva.ui.widget.component.TitleRow
 import com.mordva.ui.widget.lazyComponent.DefaultLazyRow
 import com.mordva.ui.widget.listItems.LastItemCard
 
-internal fun LazyListScope.imagesItem(images: List<Poster>) {
+internal fun LazyListScope.imagesItem(
+    images: List<Poster>,
+    showAll: () -> Unit
+) {
     if (images.isEmpty()) return
 
     item {
-        TitleRow(title = stringResource(R.string.images)) {
-
-        }
+        TitleRow(
+            title = stringResource(R.string.images),
+            onClick = showAll
+        )
 
         DefaultLazyRow(
             list = images,

@@ -1,6 +1,5 @@
 package com.mordva.movieScreen.presentation.movie
 
-import android.util.Log
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -55,6 +54,7 @@ import com.mordva.movieScreen.utils.body
 import com.mordva.movieScreen.utils.handleSnackBarSate
 import com.mordva.movieScreen.utils.shareMovieIntent
 import com.mordva.movieScreen.utils.toScreenObject
+import com.mordva.navigation.ImageListGraph
 import com.mordva.ui.uiState.MovieUIState
 import com.mordva.ui.widget.bottomSheets.FactSheet
 import com.mordva.ui.widget.component.BasicLoadingBox
@@ -93,8 +93,6 @@ internal fun MovieScreen(
     }
 
     LaunchedEffect(state.movieState) {
-        Log.d("RRRR", "RECOMPOSITION")
-
         state.movieState.body().let {
             viewModel.save(it)
             viewModel.isRatedMovie()
@@ -191,7 +189,14 @@ internal fun MovieScreen(
 
                 commentsItem(state.comments)
 
-                imagesItem(state.images)
+                imagesItem(
+                    images = state.images,
+                    showAll = {
+                        navController.navigate(ImageListGraph.ImageListRoute(id)) {
+                            launchSingleTop = true
+                        }
+                    }
+                )
 
                 collectionsItem(
                     data = state.collections,
