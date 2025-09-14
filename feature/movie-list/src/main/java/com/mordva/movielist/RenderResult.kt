@@ -22,7 +22,7 @@ internal fun RenderResult(
     when (state) {
         MovieUIState.Loading -> ShimmerMovieDetailList(modifier)
         is MovieUIState.Success -> {
-            MainPersonContent(
+            MainMovieContent(
                 modifier = modifier,
                 list = state.data,
                 onClick = onClick,
@@ -34,7 +34,7 @@ internal fun RenderResult(
 }
 
 @Composable
-private fun MainPersonContent(
+private fun MainMovieContent(
     modifier: Modifier = Modifier,
     list: List<Movie>,
     onClick: (Movie) -> Unit,

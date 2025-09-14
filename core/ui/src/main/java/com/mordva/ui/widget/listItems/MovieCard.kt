@@ -5,9 +5,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -26,10 +28,58 @@ import com.mordva.ui.theme.Typography
 import com.mordva.ui.widget.chips.RatingChip
 
 @Composable
+fun MovieFillCard(
+    modifier: Modifier = Modifier,
+    name: String,
+    image: String,
+    rating: Float? = null,
+    top250: Int? = null,
+    onClick: () -> Unit = {}
+) {
+    BasicContent(
+        modifier = modifier,
+        textModifier = Modifier.fillMaxWidth(),
+        imageModifier = Modifier
+            .wrapContentHeight()
+            .fillMaxWidth(),
+        name = name,
+        image = image,
+        rating = rating,
+        top250 = top250,
+        onClick = onClick,
+    )
+}
+
+@Composable
 fun MovieCard(
     modifier: Modifier = Modifier,
     imageHeight: Dp = 190.dp,
     imageWidth: Dp = 140.dp,
+    name: String,
+    image: String,
+    rating: Float? = null,
+    top250: Int? = null,
+    onClick: () -> Unit = {}
+) {
+    BasicContent(
+        modifier = modifier,
+        textModifier = Modifier.width(imageWidth),
+        imageModifier = Modifier
+            .width(imageWidth)
+            .height(imageHeight),
+        name = name,
+        image = image,
+        rating = rating,
+        top250 = top250,
+        onClick = onClick,
+    )
+}
+
+@Composable
+private fun BasicContent(
+    modifier: Modifier = Modifier,
+    textModifier: Modifier = Modifier,
+    imageModifier: Modifier,
     name: String,
     image: String,
     rating: Float? = null,
@@ -50,10 +100,7 @@ fun MovieCard(
                 error = painterResource(R.drawable.ic_movie),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier
-                    .height(imageHeight)
-                    .width(imageWidth)
-                    .clip(RoundedCornerShape(10.dp))
+                modifier = imageModifier.clip(RoundedCornerShape(10.dp))
             )
 
             Text(
@@ -63,9 +110,7 @@ fun MovieCard(
                 overflow = TextOverflow.Ellipsis,
                 minLines = 2,
                 maxLines = 2,
-                modifier = Modifier
-                    .width(imageWidth)
-                    .padding(vertical = 10.dp)
+                modifier = textModifier.padding(vertical = 10.dp)
             )
         }
 
