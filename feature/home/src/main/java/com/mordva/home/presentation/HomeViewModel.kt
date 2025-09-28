@@ -118,7 +118,6 @@ internal class HomeViewModel @Inject constructor(
     }
 
     fun getCollections() = launchWithoutOld(GET_COLLECTIONS_JOB) {
-
         if (uiState.value.collectionState is CollectionUIState.Success) return@launchWithoutOld
 
         getCollectionAll.execute(1).onSuccess { collections ->

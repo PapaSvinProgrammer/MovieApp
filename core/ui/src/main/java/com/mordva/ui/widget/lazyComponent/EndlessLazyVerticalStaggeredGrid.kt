@@ -5,6 +5,7 @@ import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.lazy.staggeredgrid.LazyStaggeredGridState
 import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.lazy.staggeredgrid.rememberLazyStaggeredGridState
 import androidx.compose.runtime.Composable
@@ -26,6 +27,7 @@ fun <T> EndlessLazyVerticalStaggeredGrid(
     gridState: LazyStaggeredGridState = rememberLazyStaggeredGridState(),
     list: List<T>,
     key: ((item: T) -> Any)? = null,
+    span: ((item: T) -> StaggeredGridItemSpan)? = null,
     onLoadMore: () -> Unit,
     content: @Composable (T) -> Unit
 ) {
@@ -47,7 +49,8 @@ fun <T> EndlessLazyVerticalStaggeredGrid(
     ) {
         items(
             items = list,
-            key = key
+            key = key,
+            span = span
         ) { item ->
             content(item)
         }

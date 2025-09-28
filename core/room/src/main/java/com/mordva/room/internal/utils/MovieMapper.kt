@@ -116,6 +116,9 @@ internal fun Poster?.toEntity(movieId: Int, type: String) = this?.let {
     listOf(
         PosterEntity(
             movieId = movieId,
+            uid = id,
+            height = height,
+            width = width,
             type = type,
             url = it.url,
             previewUrl = it.previewUrl
@@ -251,13 +254,13 @@ internal fun MovieDetails.toMovie(): Movie {
             Budget(it.value, it.currency)
         },
         poster = posters.find { it.type == "poster" }?.let {
-            Poster(it.url, it.previewUrl)
+            Poster(it.uid, it.height, it.width, it.url, it.previewUrl)
         },
         backdrop = posters.find { it.type == "backdrop" }?.let {
-            Poster(it.url, it.previewUrl)
+            Poster(it.uid, it.height, it.width, it.url, it.previewUrl)
         },
         logo = posters.find { it.type == "logo" }?.let {
-            Poster(it.url, it.previewUrl)
+            Poster(it.uid, it.height, it.width, it.url, it.previewUrl)
         },
         facts = facts.map { Fact(it.value, it.type, it.spoiler) },
         genres = genres.map { ItemName(it.name, it.slug) },

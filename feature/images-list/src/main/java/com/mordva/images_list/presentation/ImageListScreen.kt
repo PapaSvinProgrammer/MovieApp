@@ -3,11 +3,12 @@ package com.mordva.images_list.presentation
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material3.CenterAlignedTopAppBar
@@ -22,6 +23,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.Lifecycle
@@ -29,8 +31,10 @@ import androidx.lifecycle.compose.LifecycleEventEffect
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.NavController
 import coil3.compose.AsyncImage
-import com.example.movieapp.images_list.R
+import com.example.movieapp.ui.R
 import com.mordva.images_list.util.imageTypeDropDownItems
+import com.mordva.images_list.util.isLongImage
+import com.mordva.images_list.util.toAspectRatio
 import com.mordva.images_list.util.toDropDownItem
 import com.mordva.images_list.util.toImageType
 import com.mordva.model.image.ImageType
@@ -87,7 +91,7 @@ internal fun ImageListScreen(
                 horizontalArrangement = Arrangement.SpaceBetween
             ) {
                 Text(
-                    text = "Выберете, что хотите найти",
+                    text = stringResource(R.string.filter_images_title),
                     fontSize = Typography.bodyMedium.fontSize
                 )
 
@@ -121,14 +125,25 @@ private fun RenderMainContent(
                 list = imageState.data,
                 columns = StaggeredGridCells.Fixed(2),
                 onLoadMore = onLoadMore,
+                key = { it.id.toString() },
+                span = { poster ->
+                    if (isLongImage(poster.height, poster.width)) {
+                        StaggeredGridItemSpan.FullLine
+                    } else {
+                        StaggeredGridItemSpan.SingleLane
+                    }
+                }
             ) { poster ->
+                val aspectRatio = toAspectRatio(poster.height, poster.width)
+
                 AsyncImage(
                     model = poster.url,
+                    placeholder = painterResource(R.drawable.ic_movie),
                     contentScale = ContentScale.Crop,
                     contentDescription = null,
                     modifier = Modifier
                         .fillMaxWidth()
-                        .wrapContentHeight()
+                        .aspectRatio(aspectRatio)
                 )
             }
         }

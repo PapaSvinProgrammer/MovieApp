@@ -17,7 +17,10 @@ internal fun CollectionDto.toDomain(): CollectionMovie {
 
 internal fun PosterDto.toDomain(): Poster {
     return Poster(
-        url = this.url,
-        previewUrl = this.previewUrl
+        id = id,
+        height = height,
+        width = width,
+        url = url,
+        previewUrl = previewUrl
     )
 }

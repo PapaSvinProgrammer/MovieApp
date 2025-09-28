@@ -22,7 +22,7 @@ internal class ImageListViewModel @Inject constructor(
 
     fun updateImageTypes(type: ImageType) {
         if (type == ImageType.ALL) {
-            _state.update { it.copy(imageTypes = setOf(ImageType.ALL)) }
+            setImageTypeAll()
             return
         }
 
@@ -36,8 +36,10 @@ internal class ImageListViewModel @Inject constructor(
             state.value.imageTypes.toMutableSet() + type
         }
 
-        _state.update {
-            it.copy(imageTypes = newValue)
+        if (newValue.isNotEmpty()) {
+            _state.update { it.copy(imageTypes = newValue) }
+        } else {
+            setImageTypeAll()
         }
     }
 
@@ -74,6 +76,10 @@ internal class ImageListViewModel @Inject constructor(
                 it.copy(imagesState = ImageUIState.Success(new))
             }
         }
+    }
+
+    private fun setImageTypeAll() {
+        _state.update { it.copy(imageTypes = setOf(ImageType.ALL)) }
     }
 
     override fun onCleared() {

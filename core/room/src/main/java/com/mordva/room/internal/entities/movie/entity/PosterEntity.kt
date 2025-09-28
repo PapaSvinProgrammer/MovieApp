@@ -23,6 +23,9 @@ internal data class PosterEntity(
     @ColumnInfo(name = "poster_id") val posterId: Long = 0,
 
     @ColumnInfo(name = "movie_id") val movieId: Int,
+    @ColumnInfo(name = "uid") val uid: String?,
+    @ColumnInfo(name = "height") val height: Int?,
+    @ColumnInfo(name = "width") val width: Int?,
     @ColumnInfo(name = "type") val type: String, // poster | backdrop | logo | watchability_logo
     @ColumnInfo(name = "url") val url: String?,
     @ColumnInfo(name = "preview_url") val previewUrl: String?

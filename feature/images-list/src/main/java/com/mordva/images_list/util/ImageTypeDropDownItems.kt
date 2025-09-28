@@ -1,7 +1,7 @@
 package com.mordva.images_list.util
 
 import android.content.Context
-import com.example.movieapp.images_list.R
+import com.example.movieapp.ui.R
 import com.mordva.ui.widget.component.customDropDownList.DropDownItem
 
 fun imageTypeDropDownItems(context: Context): List<DropDownItem> {
