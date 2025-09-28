@@ -6,7 +6,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import com.mordva.navigation.FeatureApi
 import com.mordva.navigation.ImageListGraph
-import com.mordva.navigation.MovieGraph
 import com.mordva.navigation.RootGraph
 import dev.chrisbanes.haze.HazeState
 
